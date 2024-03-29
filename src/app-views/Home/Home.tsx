@@ -9,7 +9,7 @@ function Home({ navigation }) {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <View>
             {/* <SvgXml xml={LeftArrowIcon()}  /> */}
-            <Text>Back</Text>
+            <Text>Back to Login</Text>
         </View>
       </TouchableOpacity>
     </View>
