@@ -1,8 +1,8 @@
-import { View, Text, ActivityIndicator, Image } from 'react-native';
 import React from 'react';
+import { View, Text, ActivityIndicator, Image } from 'react-native';
 // import {useSpring as MySpring} from 'react-spring';
 
-export default function SplashScreen() {
+export default function Splash() {
   return (
     <View
       style={{
