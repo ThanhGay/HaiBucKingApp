@@ -1,37 +1,80 @@
-import React from 'react';
-import { View, Text, ActivityIndicator, Image } from 'react-native';
-// import {useSpring as MySpring} from 'react-spring';
+import { View, ActivityIndicator, Image, Animated } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StatusBar, ImageBackground } from 'react-native';
+import FirstScreen from '../FirstScreen/FirstScreen';
 
-export default function Splash() {
+const fallDownAnimation = (position: Animated.ValueXY) => {
+  return Animated.timing(position, {
+    toValue: { x: 30, y: 400 }, // Vị trí cuối cùng
+    duration: 1000, // Thời gian animation
+    useNativeDriver: true, // Sử dụng driver gốc
+  });
+};
+
+const moveLeftAnimation = (position: Animated.ValueXY) => {
+  return Animated.timing(position, {
+    toValue: { x: 35, y: 400 }, // Vị trí cuối cùng
+    duration: 1000, // Thời gian animation
+    useNativeDriver: true, // Sử dụng driver gốc
+  });
+};
+
+const Animation = () => {
+  const [position1] = useState(new Animated.ValueXY({ x: 0, y: -300 })); // Vị trí ban đầu ảnh 1
+  const [position2] = useState(new Animated.ValueXY({ x: 500, y: 400 })); // Vị trí ban đầu ảnh 2
+  useEffect(() => {
+    fallDownAnimation(position1).start(); // Khởi tạo animation rơi xuống cho ảnh 1
+  }, []);
+
+  useEffect(() => {
+    moveLeftAnimation(position2).start(); // Khởi tạo animation di chuyển sang trái cho ảnh 2
+  }, []);
+
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        flexDirection: 'row',
       }}
     >
-      <Image
-        source={require('/Users/mac/Desktop/DoAnDNT/HaiBucKingApp/src/assets/images/movie-1.png')}
-      />
-      <ActivityIndicator style={{ paddingTop: 50 }} color={'green'} size={35} />
+      <Animated.View
+        style={{
+          transform: [{ translateX: position1.x }, { translateY: position1.y }],
+        }}
+      >
+        <Image source={require('@/assets/logo/Hai.png')} />
+      </Animated.View>
+      <Animated.View
+        style={{
+          transform: [{ translateX: position2.x }, { translateY: position2.y }],
+        }}
+      >
+        <Image source={require('@/assets/logo/BucKing.png')} />
+      </Animated.View>
     </View>
-    //   const {x, y, scale, rotate} = MySpring({
-    //     from: {x: 0, y: 0, scale: 0, rotate: 0},
-    //     to: {x: 0, y: 0, scale: 1, rotate: 360},
-    //     config: {duration: 1000},
-    //   });
+  );
+};
 
-    //   return (
-    //     <View>
-    //       <Image
-    //         style={{
-    //           transform: `translate(${x}, ${y}) scale(${scale}) rotate(${rotate}deg)`,
-    //         }}
-    //         source={require('../../Images/Logo/Logo-L.png')}
-    //         alt="Your logo"
-    //       />
-    // </View>
+export function SplashScreen(): JSX.Element {
+  const [isShowSplash, setIsShowSplash] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsShowSplash(false);
+    }, 2500);
+    return () => clearTimeout(timeout);
+  }, []);
+  return isShowSplash ? (
+    <ImageBackground
+      style={{
+        flex: 1,
+      }}
+      source={require('@/assets/images/movie-3.png')}
+    >
+      <Animation />
+      <StatusBar backgroundColor="black" barStyle="light-content" />
+    </ImageBackground>
+  ) : (
+    <FirstScreen></FirstScreen>
   );
 }

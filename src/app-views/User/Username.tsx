@@ -1,0 +1,19 @@
+import { styles } from '@/component/styles';
+import { Box, Button, Footer, Title } from '@/component/Component';
+import { Text, View } from 'react-native';
+export function Username() {
+  return (
+    <View style={styles.container}>
+      <Title title=""></Title>
+      <View style={styles.body}>
+        <Text style={{ fontSize: 30, color: '#FCC435' }}>Enter Username</Text>
+        <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
+          Latin characters, no emoji/symbols
+        </Text>
+        <Box link="" title="Username" />
+      </View>
+      <Button title="Done" />
+      <View style={{ paddingTop: 20 }} />
+    </View>
+  );
+}
