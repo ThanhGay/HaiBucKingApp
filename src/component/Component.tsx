@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '@/component/styles';
-
 export const Title = ({ title }: { title: string }) => {
   return (
     <View style={styles.header}>

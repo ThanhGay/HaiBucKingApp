@@ -6,7 +6,7 @@ import FirstScreen from '../FirstScreen/FirstScreen';
 const fallDownAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
     toValue: { x: 30, y: 400 }, // Vị trí cuối cùng
-    duration: 1000, // Thời gian animation
+    duration: 5000, // Thời gian animation
     useNativeDriver: true, // Sử dụng driver gốc
   });
 };
@@ -14,7 +14,7 @@ const fallDownAnimation = (position: Animated.ValueXY) => {
 const moveLeftAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
     toValue: { x: 35, y: 400 }, // Vị trí cuối cùng
-    duration: 1000, // Thời gian animation
+    duration: 5000, // Thời gian animation
     useNativeDriver: true, // Sử dụng driver gốc
   });
 };
@@ -61,7 +61,7 @@ export function SplashScreen(): JSX.Element {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsShowSplash(false);
-    }, 2500);
+    }, 25000);
     return () => clearTimeout(timeout);
   }, []);
   return isShowSplash ? (

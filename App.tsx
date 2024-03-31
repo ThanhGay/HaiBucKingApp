@@ -64,7 +64,8 @@ import { View, Text } from 'react-native';
 import React from 'react';
 import { SplashScreen } from '@/app-views/Splash/Splash';
 import FirstScreen from '@/app-views/FirstScreen/FirstScreen';
+import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 
 export default function App() {
-  return <SplashScreen />;
+  return <BottomTab />;
 }
