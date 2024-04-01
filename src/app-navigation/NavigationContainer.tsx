@@ -51,6 +51,10 @@ const NavigationContainer = () => {
           name="Home"
           component={require('@app-views/Home/Home').default}
         />
+        <MainStack.Screen
+          name="DetailTicket"
+          component={require('@app-views/DetailTicket/DetailTicket').default}
+        />
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );

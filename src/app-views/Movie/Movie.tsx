@@ -32,7 +32,6 @@ function Movie() {
     <View style={styles.container}>
       <View style={styles.navbar}>
         {Object.values(nav).map((item) => (
-          // <Button key={item.key} title={item.name} onPress={() => setActive(item.key)} />
           <TouchableOpacity key={item.key} onPress={() => setActive(item.key)}>
             <View
               style={{
@@ -77,6 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 46,
+    marginBottom: 16
   },
   text: {
     fontSize: 18,
