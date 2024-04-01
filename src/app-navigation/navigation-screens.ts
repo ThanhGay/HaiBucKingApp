@@ -1,11 +1,11 @@
 const LoginScreen = {
-  Login: {
-    name: 'Login',
-    component: require('@app-views/Login/Login').default,
+  Signin: {
+    name: 'Signin',
+    component: require('@app-views/Signin/Signin').default,
   },
-  Register: {
-    name: 'Register',
-    component: require('@app-views/Register/Register').default,
+  Signup: {
+    name: 'Signup',
+    component: require('@app-views/Signup/Signup').default,
   },
   ForgotPassword: {
     name: 'ForgetPassword',
@@ -15,6 +15,10 @@ const LoginScreen = {
     name: 'ResetPassword',
     component: require('@app-views/Password/ResetPassword').default,
   },
+  ConfirmOTP: {
+    name: 'ConfirmOTP',
+    component: require('@app-views/ConfirmOTP/ConfirmOTP').default,
+  }
 };
 
 const MainScreen = {
@@ -22,6 +26,18 @@ const MainScreen = {
     name: 'Home',
     component: require('@app-views/Home/Home').default,
   },
+  Ticket: {
+    name: 'Ticket',
+    component: require('@app-views/MyTicket/MyTicket').default,
+  },
+  Movie: {
+    name: 'Movie',
+    component: require('@app-views/Movie/Movie').default,
+  },
+  Profile: {
+    name: 'Profile',
+    component: require('@app-views/Profile/Profile').default,
+  }
 };
 
 const AppScreens: Record<any, any> = {
@@ -29,13 +45,13 @@ const AppScreens: Record<any, any> = {
     name: 'Splash',
     component: require('@app-views/Splash/Splash').default,
   },
-  MainApp: {
-    name: 'MainApp',
-    screens: MainScreen,
-  },
   LoginApp: {
     name: 'LoginApp',
     screens: LoginScreen,
+  },
+  MainApp: {
+    name: 'MainApp',
+    screens: MainScreen,
   },
 };
 
