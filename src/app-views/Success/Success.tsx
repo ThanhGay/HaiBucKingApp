@@ -1,5 +1,4 @@
-import DetailTicket from '@/app-componets/DetailTicket';
-import CanBackLayout from '@/layouts/CanBackLayout';
+import DetailTicket from '@/app-components/DetailTicket';
 import colors from '@/utils/colors';
 import { View, Text, StyleSheet } from 'react-native';
 
