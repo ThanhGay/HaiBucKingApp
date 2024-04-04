@@ -38,7 +38,7 @@ function DetailMovie() {
       >
         <View style={styles.backbar}>
           <TouchableOpacity onPress={navigation.goBack}>
-            <Text>Back</Text>
+            <Image source={require('@/assets/icons/back.png')}></Image>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -79,7 +79,10 @@ function DetailMovie() {
 
         <Actors />
 
-        <Button title="Booking" onPress={() => navigation.navigate('SelectSeat')} />
+        <Button
+          title="Booking"
+          onPress={() => navigation.navigate('SelectSeat')}
+        />
       </View>
     </ScrollView>
   );
@@ -91,9 +94,9 @@ const BubbleBox = () => {
       <View style={{ gap: 12 }}>
         <Text style={styles.name}>Avengers: Infinity War</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text>2h29m</Text>
+          <Text style={{ color: colors.whiteText }}>2h29m</Text>
           <View style={styles.dot} />
-          <Text>16.12.2022</Text>
+          <Text style={{ color: colors.whiteText }}>16.12.2022</Text>
         </View>
       </View>
 
@@ -135,7 +138,9 @@ const BubbleBox = () => {
             >
               4.8
             </Text>
-            <Text style={{ fontSize: 12 }}>(1222)</Text>
+            <Text style={{ fontSize: 12, color: colors.whiteText }}>
+              (1222)
+            </Text>
           </View>
 
           <View
@@ -192,7 +197,7 @@ const BubbleBox = () => {
                 alt="star"
                 style={{ width: 16, height: 16, marginRight: 4 }}
               />
-              <Text>Watch trailer</Text>
+              <Text style={{ color: colors.grayText }}>Watch trailer</Text>
             </View>
           </View>
         </View>

@@ -7,7 +7,7 @@ import { NavigationProp } from '@react-navigation/native';
 const fallDownAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
     toValue: { x: 30, y: 400 }, // Vị trí cuối cùng
-    duration: 5000, // Thời gian animation
+    duration: 1500, // Thời gian animation
     useNativeDriver: true, // Sử dụng driver gốc
   });
 };
@@ -15,7 +15,7 @@ const fallDownAnimation = (position: Animated.ValueXY) => {
 const moveLeftAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
     toValue: { x: 35, y: 400 }, // Vị trí cuối cùng
-    duration: 5000, // Thời gian animation
+    duration: 1500, // Thời gian animation
     useNativeDriver: true, // Sử dụng driver gốc
   });
 };
@@ -63,7 +63,7 @@ const Splash: React.FC<{ navigation: NavigationProp<any> }> = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsShowSplash(false);
-    }, 7000);
+    }, 2222);
     return () => clearTimeout(timeout);
   }, []);
   return isShowSplash ? (

@@ -2,16 +2,21 @@ import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
 import React, { useState } from 'react';
 import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
+import { useNavigation } from '@react-navigation/native';
 export function Forgotpassword() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Title title="Reset password"></Title>
+      <Title title="Reset password" onPress={() => navigation.goBack()}></Title>
       <View style={styles.body}>
         <Box link="" title="Phone number"></Box>
         <Box link="" title="New password"></Box>
         <Box link="" title="Confirm new password"></Box>
       </View>
-      <Button title="Continue" />
+      <Button
+        title="Continue"
+        onPress={() => navigation.navigate('ConfirmOTP')}
+      />
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={{ paddingTop: 20 }} />
     </View>

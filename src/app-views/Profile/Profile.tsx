@@ -10,6 +10,7 @@ import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import ModalLanguage from '@/app-modals/ModalLanguage';
+import { Switch } from '@rneui/base';
 
 export const BoxProfile = ({
   link,
@@ -39,7 +40,9 @@ export default function Profile() {
   const navigation = useNavigation();
   const Username = 'Đức Thành';
   const [showModal, setshowModal] = useState(false);
-
+  const handleSignOut = () => {
+    navigation.navigate('Splash');
+  };
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
@@ -53,7 +56,7 @@ export default function Profile() {
               {Username}
             </Text>
           </View>
-  
+
           <View style={{ alignItems: 'center' }}>
             <Image
               source={require('@/assets/icons/arrowright.png')}
@@ -71,11 +74,11 @@ export default function Profile() {
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
           title="Change password"
-          onPress={() => {}}
+          onPress={() => navigation.navigate('ChangePassword')}
         />
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
-          title="Change language"
+          title="Face ID/ Touch ID"
           onPress={() => {}}
         />
         <TouchableOpacity
@@ -87,7 +90,7 @@ export default function Profile() {
             height: 56,
             justifyContent: 'center',
           }}
-          onPress={() => navigation.navigate('Splash')}
+          onPress={handleSignOut}
         >
           <Text
             style={{

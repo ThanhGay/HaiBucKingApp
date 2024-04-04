@@ -101,14 +101,18 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
             </View>
           </View>
           <View
-            style={{ ...styles.row, alignItems: 'flex-start', marginBottom: 8 }}
+            style={{
+              ...styles.row,
+              alignItems: 'flex-start',
+              marginBottom: 8,
+            }}
           >
             <Image
               source={require('@assets/images/movie-2.png')}
               alt="calendar"
               style={styles.icon_M}
             />
-            <View>
+            <View style={{ width: '95%' }}>
               <Text style={{ ...styles.text, fontSize: 16, fontWeight: '700' }}>
                 CGV Vincom Ocean Park
               </Text>
@@ -125,8 +129,8 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
               alt="calendar"
               style={styles.icon_M}
             />
-            <View>
-              <Text numberOfLines={2} style={styles.text}>
+            <View style={{ width: '95%' }}>
+              <Text style={styles.text}>
                 Show this QR code to the ticket counter to receive your ticket
               </Text>
             </View>

@@ -12,8 +12,7 @@ import ModalLanguage from '@/app-modals/ModalLanguage';
 
 function FirstScreen() {
   const [showModal, setshowModal] = useState(false);
-  const [language, setLanguage] = useState('Vietnamese');
-  console.log(language);
+  const [language, setLanguage] = useState('Language');
   const navigation = useNavigation();
 
   const toSignin = () => {
@@ -104,7 +103,7 @@ function FirstScreen() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

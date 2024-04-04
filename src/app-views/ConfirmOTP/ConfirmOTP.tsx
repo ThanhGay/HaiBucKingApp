@@ -17,7 +17,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 export default function ConfirmOTP(): JSX.Element {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
 
@@ -61,7 +61,7 @@ export default function ConfirmOTP(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Title title=""></Title>
+      <Title title="" onPress={() => navigation.goBack()}></Title>
 
       <View style={styles.body}>
         <Text style={{ fontSize: 30, color: '#FCC435' }}>Confirm OTP code</Text>
@@ -109,7 +109,7 @@ export default function ConfirmOTP(): JSX.Element {
           ))}
         </View>
         <CountdownTimer
-          durationInSeconds={3}
+          durationInSeconds={5}
           onPress={handleReset}
         ></CountdownTimer>
       </View>

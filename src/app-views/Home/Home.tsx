@@ -1,6 +1,7 @@
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import { LeftArrowIcon } from '@/app-uikits/icon';
 import { styles } from '@/component/styles';
+import colors from '@/utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
@@ -13,7 +14,7 @@ function Home() {
       <View style={{ flex: 9 }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           {/* <SvgXml xml={LeftArrowIcon()}  /> */}
-          <Text>Back to Login</Text>
+          <Text style={{ color: colors.whiteText }}>Back to Login</Text>
         </TouchableOpacity>
       </View>
       <BottomTab />

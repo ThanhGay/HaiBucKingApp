@@ -8,7 +8,10 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { Button } from '@/component/Component';
+import { useNavigation } from '@react-navigation/native';
 export default function EditProfile() {
+  const navigation = useNavigation();
+
   const [edit, setEdit] = useState(false);
   return (
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
@@ -19,7 +22,10 @@ export default function EditProfile() {
           marginTop: 20,
         }}
       >
-        <TouchableOpacity style={{ flex: 1 }}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => navigation.goBack()}
+        >
           <Image
             style={{ height: 40, width: 40 }}
             source={require('@/assets/icons/back.png')}
@@ -34,7 +40,7 @@ export default function EditProfile() {
             textAlign: 'center',
           }}
         >
-          Profile
+          {edit ? 'Edit profile ' : 'Detail profile'}
         </Text>
         <View style={{ flex: 1 }}>
           {!edit && (

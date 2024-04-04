@@ -26,7 +26,9 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
               <Text style={{ color: 'white', fontSize: 16 }}>Remember me</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ForgotPassword')}
+          >
             <Text style={{ color: 'white', fontSize: 16 }}>
               Forgot Password?
             </Text>

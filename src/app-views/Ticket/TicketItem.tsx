@@ -2,7 +2,7 @@ import colors from '@/utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const TicketItem = ({ ticket  }: { ticket: any }) => {
+const TicketItem = ({ ticket }: { ticket: any }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -25,11 +25,11 @@ const TicketItem = ({ ticket  }: { ticket: any }) => {
               width={16}
               style={styles.icon}
             />
-            <Text>{ticket.time}</Text>
+            <Text style={{ color: colors.whiteText }}>{ticket.time}</Text>
 
             <View style={styles.dot} />
 
-            <Text>{ticket.date}</Text>
+            <Text style={{ color: colors.whiteText }}>{ticket.date}</Text>
           </View>
 
           <View style={styles.row}>
@@ -40,7 +40,7 @@ const TicketItem = ({ ticket  }: { ticket: any }) => {
               width={16}
               style={styles.icon}
             />
-            <Text>{ticket.location}</Text>
+            <Text style={{ color: colors.whiteText }}>{ticket.location}</Text>
           </View>
         </View>
       </View>

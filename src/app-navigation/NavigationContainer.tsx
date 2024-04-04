@@ -17,6 +17,8 @@ import {
   EnterUsername,
   EditProfile,
   Payment,
+  Forgotpassword,
+  ChangePassword,
 } from './types';
 
 const MainStack = createNativeStackNavigator();
@@ -66,6 +68,8 @@ const NavigationContainer = () => {
         <MainStack.Screen name="EnterUsername" component={EnterUsername} />
         <MainStack.Screen name="EditProfile" component={EditProfile} />
         <MainStack.Screen name="Payment" component={Payment} />
+        <MainStack.Screen name="ForgotPassword" component={Forgotpassword} />
+        <MainStack.Screen name="ChangePassword" component={ChangePassword} />
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );
