@@ -65,7 +65,8 @@ import React from 'react';
 import { SplashScreen } from '@/app-views/Splash/Splash';
 import FirstScreen from '@/app-views/FirstScreen/FirstScreen';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
+import ChoseLanguage from '@/app-views/ChoseLanguage/ChoseLanguag';
 
 export default function App() {
-  return <BottomTab />;
+  return <FirstScreen />;
 }
