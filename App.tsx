@@ -66,7 +66,10 @@ import { SplashScreen } from '@/app-views/Splash/Splash';
 import FirstScreen from '@/app-views/FirstScreen/FirstScreen';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import ChoseLanguage from '@/app-views/ChoseLanguage/ChoseLanguag';
+import Date111 from '@/app-views/Password/ResetPassword';
 
-export default function App() {
-  return <FirstScreen />;
-}
+const App = () => {
+  return <Date111 />;
+};
+
+export default App;
