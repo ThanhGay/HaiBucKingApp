@@ -12,6 +12,7 @@ import SelectSeat from '@app-views/SelectSeat/SelectSeat';
 import ConfirmOTP from '@app-views/ConfirmOTP/ConfirmOTP';
 import EnterUsername from '@app-views/User/Username';
 import EditProfile from '@app-views/Profile/EditProfile';
+import Payment from '@app-views/Payment/Payment';
 
 export {
   FirstScreen,
@@ -28,4 +29,5 @@ export {
   ConfirmOTP,
   EnterUsername,
   EditProfile,
+  Payment,
 };

@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import React, { useState } from 'react';
-import ChoseLanguage from '../ChoseLanguage/ChoseLanguag';
 import { useNavigation } from '@react-navigation/native';
+import ModalLanguage from '@/app-modals/ModalLanguage';
 
 export const BoxProfile = ({
   link,
@@ -103,7 +103,7 @@ export default function Profile() {
       </View>
       <View style={styles.footer}></View>
       <BottomTab />
-      <ChoseLanguage visible={showModal} onClose={() => setshowModal(false)} />
+      <ModalLanguage visible={showModal} onClose={() => setshowModal(false)} />
 
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
     </View>

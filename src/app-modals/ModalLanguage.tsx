@@ -9,19 +9,13 @@ import {
 } from 'react-native';
 
 interface MyModalProps {
-  onOpen?: () => void;
+  onClose: () => void;
+  visible: boolean;
 }
 
-const ModalLanguage: React.FC<MyModalProps> = ({ onOpen }) => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
+  // const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const modalRef = useRef<Modal>(null);
-  let handleOpenModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalVisible(false);
-  };
 
   const [selectEnglish, setColorEnglish] = useState(true);
   const [selectVietNam, setColorVietNam] = useState(!selectEnglish);
@@ -34,10 +28,15 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onOpen }) => {
     setColorEnglish(false);
     setColorVietNam(true);
   };
+  const handleSubmit = () => {
+    console.log(selectEnglish);
+
+    onClose();
+  };
 
   return (
     <View style={{ backgroundColor: 'black' }}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{
           borderRadius: 20,
           borderColor: 'white',
@@ -58,14 +57,14 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onOpen }) => {
         <Text style={{ fontSize: 16, fontWeight: '400', color: '#E6E6E6' }}>
           {selectEnglish ? 'English' : 'Việt Nam'}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <Modal
         ref={modalRef}
-        visible={isModalVisible}
+        visible={visible}
         transparent={true}
         animationType="slide"
-        onRequestClose={handleCloseModal}
+        onRequestClose={onClose}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -159,7 +158,7 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onOpen }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{ alignItems: 'center', marginTop: 80 }}
-              onPress={handleCloseModal}
+              onPress={handleSubmit}
             >
               <View
                 style={{

@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import ChoseLanguage from '../ChoseLanguage/ChoseLanguag';
 import { useNavigation } from '@react-navigation/native';
+import ModalLanguage from '@/app-modals/ModalLanguage';
 
 function FirstScreen() {
   const [showModal, setshowModal] = useState(false);
@@ -100,7 +100,7 @@ function FirstScreen() {
           Policy
         </Text>
       </View>
-      <ChoseLanguage visible={showModal} onClose={() => setshowModal(false)} />
+      <ModalLanguage visible={showModal} onClose={() => setshowModal(false)} />
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );
