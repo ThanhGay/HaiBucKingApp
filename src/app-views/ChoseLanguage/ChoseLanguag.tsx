@@ -1,125 +1,63 @@
-// import React, { useState, useRef } from 'react';
-// import {
-//   View,
-//   Text,
-//   Modal,
-//   Button,
-//   StyleSheet,
-//   TouchableOpacity,
-// } from 'react-native';
-
-// const MyComponent: React.FC = () => {
-//   const [isModalVisible, setIsModalVisible] = useState(false);
-
-//   const handleOpenModal = () => {
-//     setIsModalVisible(true);
-//     console.log(setIsModalVisible);
-//   };
-
-//   const handleCloseModal = () => {
-//     setIsModalVisible(false);
-//     console.log(setIsModalVisible);
-//   };
-
-//   const modalRef = useRef<Modal>(null);
-
-//   return (
-//     <View style={styles.container}>
-//       <TouchableOpacity onPress={handleOpenModal}>
-//         <Text> 1223</Text>
-//       </TouchableOpacity>
-
-//       <Modal
-//         ref={modalRef}
-//         visible={isModalVisible}
-//         transparent={true}
-//         animationType="slide"
-//       >
-//         <View style={styles.modalContainer}>
-//           <View style={styles.modalContent}>
-//             <Text>This is a modal content</Text>
-//             <TouchableOpacity onPress={handleCloseModal}>
-//               <Text>123</Text>
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//       </Modal>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   modalContainer: {
-//     flex: 1, // Occupy full height
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   modalContent: {
-//     backgroundColor: 'white',
-//     width: '100%',
-//     height: '50%', // Set modal height to half the screen
-//     borderRadius: 10, // Optional: Add rounded corners
-//   },
-//   screenContent: {
-//     position: 'absolute',
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//   },
-//   screenContentDimmed: {
-//     opacity: 0.5, // Dim the background content
-//     backgroundColor: 'black', // Optional: Set background color for dimming
-//   },
-// });
-
-// export default MyComponent;
-
 import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
   Modal,
-  Button,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 
 interface MyModalProps {
-  children: React.ReactNode;
-  onClose?: () => void;
-  onOpen?: () => void; // Thuộc tính tùy chọn để kích hoạt mở modal
-  onBackdropPress?: () => void;
+  onOpen?: () => void;
 }
 
-const MyModal: React.FC<MyModalProps> = ({
-  children,
-  onClose,
-  onOpen,
-  onBackdropPress,
-}) => {
+const ChoseLanguage: React.FC<MyModalProps> = ({ onOpen }) => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
   const modalRef = useRef<Modal>(null);
-  const handleOpenModal = () => {
+  let handleOpenModal = () => {
     setIsModalVisible(true);
   };
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
   };
+
+  const [selectEnglish, setColorEnglish] = useState(true);
+  const [selectVietNam, setColorVietNam] = useState(!selectEnglish);
+
+  const handelLanguageE = () => {
+    setColorEnglish(true);
+    setColorVietNam(false);
+  };
+  const handelLanguageV = () => {
+    setColorEnglish(false);
+    setColorVietNam(true);
+  };
+
   return (
-    <>
+    <View style={{ backgroundColor: 'black' }}>
       <TouchableOpacity
+        style={{
+          borderRadius: 20,
+          borderColor: 'white',
+          backgroundColor: 'black',
+          height: 35,
+          borderWidth: 1,
+          width: 100,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}
         onPress={onOpen?.bind(this) || handleOpenModal}
-        style={styles.openModalButton}
       >
-        <Text>Mở Modal</Text>
+        <Image
+          style={{ height: 20, width: 20 }}
+          source={require('@/assets/icons/translate.png')}
+        />
+        <Text style={{ fontSize: 16, fontWeight: '400', color: '#E6E6E6' }}>
+          {selectEnglish ? 'English' : 'Việt Nam'}
+        </Text>
       </TouchableOpacity>
 
       <Modal
@@ -131,32 +69,146 @@ const MyModal: React.FC<MyModalProps> = ({
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {children}
-            <TouchableOpacity onPress={handleCloseModal}>
-              <Text>Đóng Modal</Text>
+            <View>
+              <Text
+                style={{
+                  fontSize: 32,
+                  color: '#F2F2F2',
+                  fontWeight: '700',
+                  paddingTop: 32,
+                }}
+              >
+                Choose language
+              </Text>
+              <Text
+                style={{
+                  paddingTop: 20,
+                  color: '#F2F2F2',
+                  fontSize: 14,
+                  fontWeight: '400',
+                }}
+              >
+                Which language do you want to use?
+              </Text>
+            </View>
+            <TouchableOpacity
+              style={{
+                paddingTop: 32,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+              onPress={handelLanguageE}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '700',
+                  color: selectEnglish ? '#FCC434' : '#F2F2F2',
+                }}
+              >
+                English
+              </Text>
+              <Image
+                source={
+                  selectEnglish
+                    ? require('@/assets/icons/select.png')
+                    : require('@/assets/icons/noselect.png')
+                }
+                style={{
+                  tintColor: selectEnglish ? '#FCC434' : '#F2F2F2',
+                  height: 32,
+                  width: 32,
+                }}
+              ></Image>
+            </TouchableOpacity>
+            <View
+              style={{
+                height: 1,
+                backgroundColor: '#333333',
+                marginVertical: 20,
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+              onPress={handelLanguageV}
+            >
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: '700',
+                  color: selectVietNam ? '#FCC434' : '#F2F2F2',
+                }}
+              >
+                Vietnamese
+              </Text>
+              <Image
+                source={
+                  selectVietNam
+                    ? require('@/assets/icons/select.png')
+                    : require('@/assets/icons/noselect.png')
+                }
+                style={{
+                  tintColor: selectVietNam ? '#FCC434' : '#F2F2F2',
+                  height: 32,
+                  width: 32,
+                }}
+              ></Image>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ alignItems: 'center', marginTop: 80 }}
+              onPress={handleCloseModal}
+            >
+              <View
+                style={{
+                  height: 56,
+                  borderRadius: 64,
+                  backgroundColor: '#FCC434',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Text
+                  style={{ fontSize: 20, fontWeight: '600', color: '#000' }}
+                >
+                  Use {selectVietNam ? 'Vietnamese' : 'English'}
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   openModalButton: {
-    flex: 1,
+    flexDirection: 'row',
+    borderRadius: 71,
+    borderColor: '#E6E6E6',
+    borderWidth: 1,
+    height: 36,
+    width: 95,
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
+    paddingHorizontal: 16,
+    backgroundColor: '#191919',
     width: '100%',
     height: '50%',
-    borderRadius: 10, // Tùy chọn: Thêm bo tròn góc
+    borderRadius: 32, // Tùy chọn: Thêm bo tròn góc
+  },
+  language: {
+    fontSize: 20,
+    fontWeight: '700',
   },
 });
 
-export default MyModal;
+export default ChoseLanguage;

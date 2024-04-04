@@ -7,25 +7,14 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import ChoseLanguage from '../ChoseLanguage/ChoseLanguag';
 
 export default function FirstScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text
-          style={{ color: 'white', fontSize: 26, flex: 1, fontWeight: '700' }}
-        >
-          HaiBucKing
-        </Text>
-        <TouchableOpacity style={styles.border}>
-          <Image
-            source={require('@/assets/icons/translate.png')}
-            style={styles.trans}
-          />
-          <Text style={{ color: 'white', fontSize: 15, textAlign: 'center' }}>
-            English
-          </Text>
-        </TouchableOpacity>
+        <Image source={require('@/assets/logo/Logo-M.png')}></Image>
+        <ChoseLanguage />
       </View>
       <View style={styles.body}>
         <Image
@@ -91,6 +80,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginHorizontal: 16,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   border: {
     borderRadius: 20,
@@ -108,9 +99,9 @@ const styles = StyleSheet.create({
     width: 25,
   },
   body: {
-    marginTop: 45,
+    marginTop: 35,
     alignItems: 'center',
-    gap: 15,
+    gap: 10,
   },
   footer: {
     paddingTop: 30,
