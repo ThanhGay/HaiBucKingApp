@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationProp } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -9,7 +10,19 @@ import {
 } from 'react-native';
 import ChoseLanguage from '../ChoseLanguage/ChoseLanguag';
 
-export default function FirstScreen() {
+interface FirstScreenProps {}
+
+const FirstScreen: React.FC<
+  FirstScreenProps & { navigation: NavigationProp<any> }
+> = ({ navigation }) => {
+  const toSignin = () => {
+    navigation.navigate('Signin');
+  };
+
+  const toSignup = () => {
+    navigation.navigate('Signup');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -29,7 +42,7 @@ export default function FirstScreen() {
         </Text>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.signin}>
+        <TouchableOpacity style={styles.signin} onPress={toSignin}>
           <Text
             style={{
               textAlign: 'center',
@@ -41,7 +54,7 @@ export default function FirstScreen() {
             Sign in
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.signup}>
+        <TouchableOpacity style={styles.signup} onPress={toSignup}>
           <Text
             style={{
               textAlign: 'center',
@@ -69,7 +82,7 @@ export default function FirstScreen() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -124,3 +137,5 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
 });
+
+export default FirstScreen;

@@ -1,6 +1,22 @@
 import { NavigationContainer as ReactNavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppScreens } from './navigation-screens';
+import {
+  FirstScreen,
+  Home,
+  Movie,
+  Ticket,
+  Profile,
+  Signin,
+  Signup,
+  Splash,
+  DetailMovie,
+  DetailTicket,
+  SelectSeat,
+  ConfirmOTP,
+  EnterUsername,
+  EditProfile,
+} from './types';
 
 const MainStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,31 +46,24 @@ const StackContainer = (props: { route: any }) => {
 const NavigationContainer = () => {
   return (
     <ReactNavigationContainer>
-      <MainStack.Navigator screenOptions={{ headerShown: false }}>
-        {/* {(AppScreens).map((key: any) => {
-          const value = AppScreens[key];
-          return (
-            <MainStack.Screen
-              key={value.name}
-              name={value.name}
-              component={value.component ? value.component : StackContainer}
-              initialParams={{ keyScreen: key }}
-              options={value.options}
-            />
-          );
-        })} */}
-        <MainStack.Screen
-          name="Login"
-          component={require('@app-views/Login/Login').default}
-        />
-        <MainStack.Screen
-          name="Home"
-          component={require('@app-views/Home/Home').default}
-        />
-        <MainStack.Screen
-          name="DetailTicket"
-          component={require('@app-views/DetailTicket/DetailTicket').default}
-        />
+      <MainStack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{ headerShown: false }}
+      >
+        <MainStack.Screen name="First" component={FirstScreen} />
+        <MainStack.Screen name="Splash" component={Splash} />
+        <MainStack.Screen name="Home" component={Home} />
+        <MainStack.Screen name="Movie" component={Movie} />
+        <MainStack.Screen name="Ticket" component={Ticket} />
+        <MainStack.Screen name="Profile" component={Profile} />
+        <MainStack.Screen name="Signin" component={Signin} />
+        <MainStack.Screen name="Signup" component={Signup} />
+        <MainStack.Screen name="DetailMovie" component={DetailMovie} />
+        <MainStack.Screen name="DetailTicket" component={DetailTicket} />
+        <MainStack.Screen name="SelectSeat" component={SelectSeat} />
+        <MainStack.Screen name="ConfirmOTP" component={ConfirmOTP} />
+        <MainStack.Screen name="EnterUsername" component={EnterUsername} />
+        <MainStack.Screen name="EditProfile" component={EditProfile} />
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );

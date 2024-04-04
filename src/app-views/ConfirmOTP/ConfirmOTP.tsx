@@ -14,8 +14,10 @@ import {
   Footer,
   Title,
 } from '@/component/Component';
+import { useNavigation } from '@react-navigation/native';
 
-export function ConfirmOTP(): JSX.Element {
+export default function ConfirmOTP(): JSX.Element {
+  const navigation = useNavigation()
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
 
@@ -46,6 +48,7 @@ export function ConfirmOTP(): JSX.Element {
     const enteredOTP = otp.join('');
     if (enteredOTP.length === 6) {
       console.log('OTP:', enteredOTP);
+      navigation.navigate('EnterUsername');
     } else {
       console.log('Vui lòng nhập đủ 6 ký tự');
     }

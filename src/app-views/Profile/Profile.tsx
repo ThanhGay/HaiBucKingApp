@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export const BoxProfile = ({ link, title }: { link: any; title: string }) => {
   return (
@@ -27,27 +28,30 @@ export const BoxProfile = ({ link, title }: { link: any; title: string }) => {
 };
 
 export default function Profile() {
+  const navigation = useNavigation();
   const Username = 'Đức Thành';
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={{ gap: 24, flexDirection: 'row', alignItems: 'center' }}>
-          <Image
-            style={{ height: 90, width: 90, borderRadius: 90 }}
-            source={require('@/assets/icons/translate.png')}
-          />
-          <Text style={{ color: '#F2F2F2', fontSize: 32, fontWeight: '700' }}>
-            {Username}
-          </Text>
+      <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+        <View style={styles.header}>
+          <View style={{ gap: 24, flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              style={{ height: 90, width: 90, borderRadius: 90 }}
+              source={require('@/assets/icons/translate.png')}
+            />
+            <Text style={{ color: '#F2F2F2', fontSize: 32, fontWeight: '700' }}>
+              {Username}
+            </Text>
+          </View>
+  
+          <View style={{ alignItems: 'center' }}>
+            <Image
+              source={require('@/assets/icons/arrowright.png')}
+              style={{ width: 32, height: 32 }}
+            />
+          </View>
         </View>
-
-        <TouchableOpacity style={{ alignItems: 'center' }}>
-          <Image
-            source={require('@/assets/icons/arrowright.png')}
-            style={{ width: 32, height: 32 }}
-          />
-        </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
       <View style={styles.body}>
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
@@ -70,6 +74,7 @@ export default function Profile() {
             height: 56,
             justifyContent: 'center',
           }}
+          onPress={() => navigation.navigate('Splash')}
         >
           <Text
             style={{

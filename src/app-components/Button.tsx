@@ -6,7 +6,7 @@ const Button = ({
   onPress,
 }: {
   title: string;
-  onPress?: () => void;
+  onPress: () => void;
 }) => {
   return (
     <TouchableOpacity style={styles.box} onPress={onPress}>

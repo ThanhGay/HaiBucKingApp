@@ -1,6 +1,9 @@
 import colors from '@/utils/colors';
 import { StyleSheet, Text, View } from 'react-native';
 import TicketItem from './TicketItem';
+import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
+import { useNavigation } from '@react-navigation/native';
+import { Title } from '@/component/Component';
 
 const listTicket = [
   {
@@ -26,18 +29,18 @@ const listTicket = [
   },
 ];
 
-const MyTicket = () => {
+const Ticket = () => {
   return (
     <View style={styles.container}>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={styles.title}>My ticket</Text>
-      </View>
-
-      <View style={{gap: 16}}>
+        <Title title='My ticket' />
+    
+      <View style={{flex: 9, gap: 16}}>
         {listTicket.map((item) => (
           <TicketItem key={item.key} ticket={item} />
         ))}
       </View>
+
+      <BottomTab />
     </View>
   );
 };
@@ -45,7 +48,7 @@ const MyTicket = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 16,
     backgroundColor: colors.black,
   },
   title: {
@@ -56,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyTicket;
+export default Ticket;

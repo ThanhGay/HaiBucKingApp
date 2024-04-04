@@ -11,6 +11,7 @@ import {
 import colors from '@/utils/colors';
 import Avatar_Name from '@/app-components/Avatar_Name';
 import { Button } from '@/app-components';
+import { useNavigation } from '@react-navigation/native';
 
 function DetailMovie() {
   const infomationData = [
@@ -27,7 +28,7 @@ function DetailMovie() {
       value: 'English',
     },
   ];
-
+  const navigation = useNavigation();
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.black }}>
       {/* <View style={{  }}> */}
@@ -36,7 +37,9 @@ function DetailMovie() {
         style={{ width: '100%', height: 240 }}
       >
         <View style={styles.backbar}>
-          <Text>Back</Text>
+          <TouchableOpacity onPress={navigation.goBack}>
+            <Text>Back</Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
 
@@ -76,7 +79,7 @@ function DetailMovie() {
 
         <Actors />
 
-        <Button title="Booking" />
+        <Button title="Booking" onPress={() => navigation.navigate('SelectSeat')} />
       </View>
     </ScrollView>
   );

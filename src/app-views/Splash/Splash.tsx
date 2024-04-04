@@ -2,6 +2,7 @@ import { View, ActivityIndicator, Image, Animated } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { StatusBar, ImageBackground } from 'react-native';
 import FirstScreen from '../FirstScreen/FirstScreen';
+import { NavigationProp } from '@react-navigation/native';
 
 const fallDownAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
@@ -55,13 +56,14 @@ const Animation = () => {
     </View>
   );
 };
-
-export function SplashScreen(): JSX.Element {
+const Splash: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const [isShowSplash, setIsShowSplash] = useState(true);
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsShowSplash(false);
-    }, 25000);
+    }, 7000);
     return () => clearTimeout(timeout);
   }, []);
   return isShowSplash ? (
@@ -75,6 +77,8 @@ export function SplashScreen(): JSX.Element {
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </ImageBackground>
   ) : (
-    <FirstScreen></FirstScreen>
+    <FirstScreen navigation={navigation} />
   );
-}
+};
+
+export default Splash;

@@ -3,8 +3,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import colors from "@/utils/colors";
 import { convertTime } from "@/utils/hooks";
 import { CameraIcon, ClockIcon, StarIcon } from "@/app-uikits/icon";
+import { useNavigation } from "@react-navigation/native";
 
 const MovieItem = ({film} : {film ?: any}) => {
+  const navigation = useNavigation();
+  const seeDetail = () => {
+    navigation.navigate('DetailMovie');
+  }
     const basicInfo = [
       {
         key: 1,
@@ -25,12 +30,11 @@ const MovieItem = ({film} : {film ?: any}) => {
         value: film?.category,
       },
     ];
-
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={seeDetail}>
         <Image
           style={styles.image}
-          source={require('@assets/images/movie-1.png')}
+          source={film.poster}
         />
         <View>
           <Text style={styles.title}>{film?.name}</Text>

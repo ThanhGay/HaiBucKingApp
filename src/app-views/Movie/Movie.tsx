@@ -12,6 +12,7 @@ interface NavItem {
 }
 
 function Movie() {
+
   const [active, setActive] = useState(1);
   const nav: { [key: number]: NavItem } = useMemo(() => {
     return {
@@ -63,9 +64,10 @@ function Movie() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // paddingHorizontal: 16,
+    backgroundColor: colors.black,
   },
   navbar: {
-    backgroundColor: colors.black,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

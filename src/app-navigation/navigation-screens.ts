@@ -28,7 +28,7 @@ const MainScreen = {
   },
   Ticket: {
     name: 'Ticket',
-    component: require('@app-views/MyTicket/MyTicket').default,
+    component: require('@app-views/Ticket/Ticket').default,
   },
   Movie: {
     name: 'Movie',

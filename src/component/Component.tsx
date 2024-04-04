@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '@/component/styles';
-export const Title = ({ title }: { title: string }) => {
+export const Title = ({ title, onPress }: { title: string, onPress?: () => void }) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={{ flex: 1 }}>
+      <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
         <Text style={{ color: 'white', fontSize: 25 }}>---</Text>
       </TouchableOpacity>
       <Text

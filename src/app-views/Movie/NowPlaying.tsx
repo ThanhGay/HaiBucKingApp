@@ -6,67 +6,71 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const listMovie = [
   {
     key: 1,
-    name: 'Panda',
+    name: 'Avatar 2',
     star: 4,
     totalRate: 982,
     duration: '124',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-5.png'),
   },
   {
     key: 2,
-    name: 'Panda',
+    name: 'Guardians of the Galaxy',
     star: 4,
     totalRate: 982,
     duration: '351',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-4.png'),
   },
   {
     key: 3,
-    name: 'Panda',
+    name: 'Cat in Hindie',
     star: 4,
     totalRate: 1562,
     duration: '200',
     category: 'Action, Romance',
+    poster: require('@assets/images/movie-8.png'),
   },
   {
     key: 4,
-    name: 'Panda',
+    name: 'Avengers: Infinity Wars',
     star: 4.5,
     totalRate: 234,
     duration: '40',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-3.png'),
   },
   {
     key: 5,
-    name: 'Panda',
+    name: 'Batman vs Superman',
     star: 4,
     totalRate: 982,
     duration: '128',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-2.png'),
+  },
+  {
+    key: 6,
+    name: 'The flash',
+    star: 4,
+    totalRate: 982,
+    duration: '128',
+    category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-7.png'),
   },
 ];
 
 const NowPlaying = () => {
   return (
-    // <View style={styles.container}>
-    //   <FlatList
-    //     data={listMovie}
-    //     numColumns={2}
-    //     style={{ backgroundColor: 'black' }}
-    //     renderItem={(movie) => <MovieItem film={movie.item} />}
-    //   />
-    // </View>
-
-        <View>
-          <ScrollView>
-            <View style={styles.container}>
-              {listMovie.map((movie) => (
-                <MovieItem key={movie.key} film={movie} />
-              ))}
-            </View>
-          </ScrollView>
-          {/* <BottomTab /> */}
+    <View>
+      <ScrollView>
+        <View style={styles.container}>
+          {listMovie.map((movie) => (
+            <MovieItem key={movie.key} film={movie} />
+          ))}
         </View>
+      </ScrollView>
+    </View>
   );
 };
 

@@ -1,4 +1,5 @@
 import colors from '@/utils/colors';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -9,10 +10,11 @@ const CanBackLayout = ({
   title: string;
   children: React.ReactNode;
 }) => {
+  const navigation = useNavigation()
   return (
     <View style={{ flex: 1, backgroundColor: colors.black }}>
       <View style={styles.header}>
-        <TouchableOpacity style={{ width: 40, height: 40 }}>
+        <TouchableOpacity style={{ width: 40, height: 40 }} onPress={() => navigation.goBack()}>
           <Text>Back</Text>
         </TouchableOpacity>
         <Text style={styles.title}>{title}</Text>

@@ -1,10 +1,13 @@
 import colors from '@/utils/colors';
+import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const TicketItem = ({ ticket  }: { ticket: any }) => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       style={styles.container}
+      onPress={() => navigation.navigate('DetailTicket')}
     >
       <Image
         source={require('@assets/images/movie-4.png')}

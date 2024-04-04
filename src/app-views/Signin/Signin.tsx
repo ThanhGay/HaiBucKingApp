@@ -1,13 +1,16 @@
-import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
 import React, { useState } from 'react';
+import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
 
-export function Signin() {
+const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const [isRemember, set] = useState(true);
   return (
     <View style={styles.container}>
-      <Title title="Sign in"></Title>
+      <Title title="Sign in" onPress={() => navigation.goBack()}></Title>
       <View style={styles.body}>
         <Box link="" title="Phone number"></Box>
         <Box link="" title="Password"></Box>
@@ -29,12 +32,12 @@ export function Signin() {
             </Text>
           </TouchableOpacity>
         </View>
-        <Button title="Continue" />
+        <Button title="Continue" onPress={() => navigation.navigate('Home')} />
       </View>
       <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );
-}
+};
 
 export default Signin;

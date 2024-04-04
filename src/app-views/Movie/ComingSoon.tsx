@@ -9,6 +9,7 @@ const listMovie = [
     totalRate: 982,
     duration: '124',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-8.png'),
   },
   {
     key: 2,
@@ -17,6 +18,7 @@ const listMovie = [
     totalRate: 982,
     duration: '351',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-6.png'),
   },
   {
     key: 3,
@@ -25,6 +27,7 @@ const listMovie = [
     totalRate: 1562,
     duration: '200',
     category: 'Action, Romance',
+    poster: require('@assets/images/movie-5.png'),
   },
   {
     key: 4,
@@ -33,6 +36,7 @@ const listMovie = [
     totalRate: 234,
     duration: '40',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-2.png'),
   },
   {
     key: 5,
@@ -41,6 +45,7 @@ const listMovie = [
     totalRate: 982,
     duration: '128',
     category: 'Action, Sci-fi',
+    poster: require('@assets/images/movie-1.png'),
   },
 ];
 

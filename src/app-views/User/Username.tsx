@@ -1,10 +1,12 @@
 import { styles } from '@/component/styles';
 import { Box, Button, Footer, Title } from '@/component/Component';
 import { Text, View } from 'react-native';
-export function Username() {
+import { useNavigation } from '@react-navigation/native';
+export default function EnterUsername() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Title title=""></Title>
+      <Title title="" onPress={() => navigation.goBack()}></Title>
       <View style={styles.body}>
         <Text style={{ fontSize: 30, color: '#FCC435' }}>Enter Username</Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
@@ -12,7 +14,7 @@ export function Username() {
         </Text>
         <Box link="" title="Username" />
       </View>
-      <Button title="Done" />
+      <Button title="Done" onPress={() => navigation.navigate('Home')} />
       <View style={{ paddingTop: 20 }} />
     </View>
   );
