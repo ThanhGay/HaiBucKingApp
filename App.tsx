@@ -66,10 +66,15 @@ import { SplashScreen } from '@/app-views/Splash/Splash';
 import FirstScreen from '@/app-views/FirstScreen/FirstScreen';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import ChoseLanguage from '@/app-views/ChoseLanguage/ChoseLanguag';
-import Date111 from '@/app-views/Password/ResetPassword';
+import { Forgotpassword } from '@/app-views/Password/ForgotPassword';
+import Signin from '@/app-views/Signin/Signin';
+import { Signup } from '@/app-views/Signup/Signup';
+import Profile from '@/app-views/Profile/Profile';
+import ChangePassword from '@/app-views/Password/ChangePassword';
+import EditProfile from '@/app-views/Profile/EditProfile';
 
 const App = () => {
-  return <Date111 />;
+  return <EditProfile />;
 };
 
 export default App;

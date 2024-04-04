@@ -9,6 +9,7 @@ export function Signup() {
       <View style={styles.body}>
         <Box link="" title="Email"></Box>
         <Box link="" title="Phone number"></Box>
+        <Box link="" title="Your birthday" />
         <Box link="" title="Password"></Box>
         <Box link="" title="Confirm password"></Box>
         <Button title="Continue" />

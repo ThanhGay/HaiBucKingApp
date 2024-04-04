@@ -5,17 +5,25 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Modal,
 } from 'react-native';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
-import React from 'react';
+import React, { useState } from 'react';
+import ChoseLanguage from '../ChoseLanguage/ChoseLanguag';
 
-export const BoxProfile = ({ link, title }: { link: any; title: string }) => {
+export const BoxProfile = ({
+  link,
+  title,
+  onPress,
+}: {
+  link: any;
+  title: string;
+  onPress(): void;
+}) => {
   return (
     <View style={{ paddingTop: 24 }}>
       <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
         <Image style={{ height: 32, width: 32 }} source={link} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Text style={{ color: '#F2F2F2', fontSize: 16, fontWeight: '700' }}>
             {title}
           </Text>
@@ -28,6 +36,8 @@ export const BoxProfile = ({ link, title }: { link: any; title: string }) => {
 
 export default function Profile() {
   const Username = 'Đức Thành';
+  const [showModal, setshowModal] = useState(false);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -52,14 +62,17 @@ export default function Profile() {
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
           title="Change language"
+          onPress={() => setshowModal(true)}
         />
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
           title="Change password"
+          onPress={() => {}}
         />
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
           title="Change language"
+          onPress={() => {}}
         />
         <TouchableOpacity
           style={{
@@ -85,6 +98,8 @@ export default function Profile() {
       </View>
       <View style={styles.footer}></View>
       <BottomTab />
+      <ChoseLanguage visible={showModal} onClose={() => setshowModal(false)} />
+
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
     </View>
   );

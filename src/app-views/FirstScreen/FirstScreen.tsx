@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,11 +10,35 @@ import {
 import ChoseLanguage from '../ChoseLanguage/ChoseLanguag';
 
 export default function FirstScreen() {
+  const [showModal, setshowModal] = useState(false);
+  const [language, setLanguage] = useState('Vietnamese');
+  console.log(language);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image source={require('@/assets/logo/Logo-M.png')}></Image>
-        <ChoseLanguage />
+        <TouchableOpacity
+          style={{
+            borderRadius: 20,
+            borderColor: 'white',
+            backgroundColor: 'black',
+            height: 35,
+            borderWidth: 1,
+            paddingHorizontal: 8,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+          onPress={() => setshowModal(true)}
+        >
+          <Image
+            style={{ height: 20, width: 20 }}
+            source={require('@/assets/icons/translate.png')}
+          />
+          <Text style={{ fontSize: 16, fontWeight: '400', color: '#E6E6E6' }}>
+            {language}
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.body}>
         <Image
@@ -66,6 +90,7 @@ export default function FirstScreen() {
           Policy
         </Text>
       </View>
+      <ChoseLanguage visible={showModal} onClose={() => setshowModal(false)} />
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );
