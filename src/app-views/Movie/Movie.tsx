@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import colors from '@/utils/colors';
 import NowPlaying from './NowPlaying';
@@ -11,9 +11,11 @@ interface NavItem {
   dataContent: React.ReactNode;
 }
 
-function Movie() {
-
-  const [active, setActive] = useState(1);
+function Movie({route}) {
+  var key = 1;
+  route?.params ? key = 2 : key = 1;  
+  
+  const [active, setActive] = useState(key);
   const nav: { [key: number]: NavItem } = useMemo(() => {
     return {
       1: {
