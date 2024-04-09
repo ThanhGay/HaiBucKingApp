@@ -9,7 +9,7 @@ function Success() {
         <View style={{ width: 40, height: 40 }} />
         <Text style={styles.title}>Success</Text>
         <View style={{ width: 40, height: 40 }}>
-          <Text>V</Text>
+          <Text style={{ color: colors.whiteText }}>V</Text>
         </View>
       </View>
       <View style={{ flex: 1 }}>

@@ -7,7 +7,7 @@ const colors = {
     white: '#ffffff',
     grayText: '#b3b3b3',
     blackOpacity: '#1c1c1c',
-
+    
 }
 
 export default colors;
