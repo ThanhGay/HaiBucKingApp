@@ -223,7 +223,7 @@ function ButtonPayment({ link, Payment }: { link: any; Payment: string }) {
         </View>
         <Image
           style={{ height: 24, width: 24 }}
-          source={require('@assets/icons/arrowright.png')}
+          source={require('@assets/icons/right.png')}
         />
       </View>
     </TouchableOpacity>

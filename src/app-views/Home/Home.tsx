@@ -115,7 +115,7 @@ function Home() {
                 <ScrollView horizontal>
                   {listMovie.map((movie) => (
                     <View key={movie.key} style={{ paddingHorizontal: 8 }}>
-                      <MovieItem film={movie} />
+                      <MovieItem film={movie} direction='column' />
                     </View>
                   ))}
                 </ScrollView>
@@ -169,7 +169,7 @@ const ContentBox = ({
       >
         <Text style={{ color: colors.primary }}>See all</Text>
         <Image
-          source={require('@assets/icons/arrowright.png')}
+          source={require('@assets/icons/right.png')}
           style={styles.arrowIcon}
         />
       </TouchableOpacity>

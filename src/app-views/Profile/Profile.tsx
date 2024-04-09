@@ -50,7 +50,7 @@ export default function Profile() {
           <View style={{ gap: 24, flexDirection: 'row', alignItems: 'center' }}>
             <Image
               style={{ height: 90, width: 90, borderRadius: 90 }}
-              source={require('@/assets/icons/translate.png')}
+              source={require('@/assets/icons/user.png')}
             />
             <Text style={{ color: '#F2F2F2', fontSize: 32, fontWeight: '700' }}>
               {Username}
@@ -59,7 +59,7 @@ export default function Profile() {
 
           <View style={{ alignItems: 'center' }}>
             <Image
-              source={require('@/assets/icons/arrowright.png')}
+              source={require('@/assets/icons/right.png')}
               style={{ width: 32, height: 32 }}
             />
           </View>
@@ -72,12 +72,12 @@ export default function Profile() {
           onPress={() => setshowModal(true)}
         />
         <BoxProfile
-          link={require('@/assets/icons/translate.png')}
+          link={require('@/assets/icons/lock.png')}
           title="Change password"
           onPress={() => navigation.navigate('ChangePassword')}
         />
         <BoxProfile
-          link={require('@/assets/icons/translate.png')}
+          link={require('@/assets/icons/face-id.png')}
           title="Face ID/ Touch ID"
           onPress={() => {}}
         />

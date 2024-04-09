@@ -20,19 +20,19 @@ const MovieItem = ({
     {
       key: 1,
       name: 'rate',
-      icon: StarIcon(),
+      icon: require('@assets/icons/star.png'),
       value: `${film?.star} (${film?.totalRate})`,
     },
     {
       key: 2,
       name: 'duration',
-      icon: ClockIcon(),
+      icon: require('@assets/icons/clock-white.png'),
       value: convertTime(film?.duration),
     },
     {
       key: 3,
       name: 'category',
-      icon: CameraIcon(),
+      icon: require('@assets/icons/camera-white.png'),
       value: film?.category,
     },
   ];
@@ -76,7 +76,7 @@ const MovieItem = ({
               >
                 <Image
                   style={styles.icon}
-                  source={require('@assets/images/movie-2.png')}
+                  source={item.icon}
                   alt={item.name}
                 />
                 <Text style={styles.text}>{item.value}</Text>

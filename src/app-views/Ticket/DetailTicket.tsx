@@ -18,7 +18,7 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
             <View style={{ flexDirection: 'column', gap: 4 }}>
               <View style={styles.row}>
                 <Image
-                  source={require('@assets/images/movie-2.png')}
+                  source={require('@assets/icons/clock-black.png')}
                   alt="icon"
                   height={16}
                   width={16}
@@ -28,7 +28,7 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
               </View>
               <View style={styles.row}>
                 <Image
-                  source={require('@assets/images/movie-2.png')}
+                  source={require('@assets/icons/camera-black.png')}
                   alt="icon"
                   height={16}
                   width={16}
@@ -55,7 +55,7 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
         >
           <View style={{ flexDirection: 'row' }}>
             <Image
-              source={require('@assets/images/movie-2.png')}
+              source={require('@assets/icons/calendar-black.png')}
               alt="calendar"
               style={styles.icon_L}
             />
@@ -66,7 +66,7 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <Image
-              source={require('@assets/images/movie-2.png')}
+              source={require('@assets/icons/seat.png')}
               alt="calendar"
               style={styles.icon_L}
             />
@@ -90,8 +90,8 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
             style={{ ...styles.row, alignItems: 'flex-start', marginBottom: 8 }}
           >
             <Image
-              source={require('@assets/images/movie-2.png')}
-              alt="calendar"
+              source={require('@assets/icons/coin-black.png')}
+              alt="coin"
               style={styles.icon_M}
             />
             <View>
@@ -108,8 +108,8 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
             }}
           >
             <Image
-              source={require('@assets/images/movie-2.png')}
-              alt="calendar"
+              source={require('@assets/icons/marker-black.png')}
+              alt="location"
               style={styles.icon_M}
             />
             <View style={{ width: '95%' }}>
@@ -125,8 +125,8 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
             style={{ ...styles.row, alignItems: 'flex-start', marginBottom: 8 }}
           >
             <Image
-              source={require('@assets/images/movie-2.png')}
-              alt="calendar"
+              source={require('@assets/icons/note-black.png')}
+              alt="note"
               style={styles.icon_M}
             />
             <View style={{ width: '95%' }}>

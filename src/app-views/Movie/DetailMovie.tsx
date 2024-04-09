@@ -38,7 +38,10 @@ function DetailMovie() {
       >
         <View style={styles.backbar}>
           <TouchableOpacity onPress={navigation.goBack}>
-            <Image source={require('@/assets/icons/back.png')}></Image>
+            <Image
+              style={{ width: 40, height: 40 }}
+              source={require('@/assets/icons/back.png')}
+            />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -119,7 +122,7 @@ const BubbleBox = () => {
               Review
             </Text>
             <Image
-              source={require('@assets/images/movie-2.png')}
+              source={require('@assets/icons/star.png')}
               alt="star"
               style={{
                 width: 16,
@@ -187,13 +190,16 @@ const BubbleBox = () => {
                 paddingVertical: 8,
                 paddingHorizontal: 12,
                 borderWidth: 1,
-                borderRadius: 4,
+                borderRadius: 8,
                 borderColor: colors.grayText,
+                justifyContent: 'center',
+                alignItems: 'center',
                 flexDirection: 'row',
+                gap: 4,
               }}
             >
               <Image
-                source={require('@assets/images/movie-2.png')}
+                source={require('@assets/icons/play.png')}
                 alt="star"
                 style={{ width: 16, height: 16, marginRight: 4 }}
               />

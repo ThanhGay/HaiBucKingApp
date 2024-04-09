@@ -3,6 +3,7 @@ import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
+import colors from '@/utils/colors';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -17,8 +18,8 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Switch
-              thumbColor={'#FCC435'}
-              trackColor={{ false: 'white', true: '#FCC435' }}
+              thumbColor={colors.primary}
+              trackColor={{ false: 'white', true: colors.primary }}
               value={isRemember}
               onChange={() => set(!isRemember)}
             ></Switch>

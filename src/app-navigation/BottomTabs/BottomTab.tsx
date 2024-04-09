@@ -55,22 +55,22 @@ const BottomTab =() => {
       1: {
         key: 1,
         name: 'Home',
-        icon: require('@/assets/icons/translate.png'),
+        icon: require('@/assets/icons/home.png'),
       },
       2: {
         key: 2,
         name: 'Ticket',
-        icon: require('@/assets/icons/translate.png'),
+        icon: require('@/assets/icons/ticket.png'),
       },
       3: {
         key: 3,
         name: 'Movie',
-        icon: require('@/assets/icons/translate.png'),
+        icon: require('@/assets/icons/camera.png'),
       },
       4: {
         key: 4,
         name: 'Profile',
-        icon: require('@/assets/icons/translate.png'),
+        icon: require('@/assets/icons/user.png'),
       },
     };
   }, []);

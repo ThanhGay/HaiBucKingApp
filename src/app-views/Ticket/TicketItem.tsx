@@ -19,7 +19,7 @@ const TicketItem = ({ ticket }: { ticket: any }) => {
         <View style={{ flexDirection: 'column', gap: 12 }}>
           <View style={styles.row}>
             <Image
-              source={require('@assets/images/movie-2.png')}
+              source={require('@assets/icons/clock-white.png')}
               alt="icon"
               height={16}
               width={16}
@@ -34,7 +34,7 @@ const TicketItem = ({ ticket }: { ticket: any }) => {
 
           <View style={styles.row}>
             <Image
-              source={require('@assets/images/movie-2.png')}
+              source={require('@assets/icons/marker-white.png')}
               alt="icon"
               height={16}
               width={16}
