@@ -20,6 +20,7 @@ import {
   Forgotpassword,
   ChangePassword,
 } from './types';
+import Success from '@/app-views/Success/Success';
 
 const MainStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,6 +71,7 @@ const NavigationContainer = () => {
         <MainStack.Screen name="Payment" component={Payment} />
         <MainStack.Screen name="ForgotPassword" component={Forgotpassword} />
         <MainStack.Screen name="ChangePassword" component={ChangePassword} />
+        <MainStack.Screen name="Success" component={Success}></MainStack.Screen>
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );

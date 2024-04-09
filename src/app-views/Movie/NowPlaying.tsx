@@ -66,7 +66,7 @@ const NowPlaying = () => {
       <ScrollView>
         <View style={styles.container}>
           {listMovie.map((movie) => (
-            <MovieItem key={movie.key} film={movie} />
+            <MovieItem key={movie.key} film={movie} direction="column" />
           ))}
         </View>
       </ScrollView>
