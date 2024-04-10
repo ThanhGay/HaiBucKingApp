@@ -9,11 +9,21 @@ import {
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '@/component/styles';
-export const Title = ({ title, onPress }: { title: string, onPress?: () => void }) => {
+import { Image } from 'react-native';
+export const Title = ({
+  title,
+  onPress,
+}: {
+  title: string;
+  onPress?: () => void;
+}) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
-        <Text style={{ color: 'white', fontSize: 25 }}>---</Text>
+        <Image
+          source={require('@assets/icons/left-arrow.png')}
+          style={{ height: 40, width: 40 }}
+        />
       </TouchableOpacity>
       <Text
         style={{ flex: 6, textAlign: 'center', color: 'white', fontSize: 25 }}

@@ -1,15 +1,28 @@
 import DetailTicket from '@/app-components/DetailTicket';
 import colors from '@/utils/colors';
-import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 function Success() {
+  const navigation = useNavigation();
+
   return (
-    <View style={{ flex: 1, backgroundColor: colors.black }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: colors.black,
+      }}
+    >
       <View style={styles.header}>
         <View style={{ width: 40, height: 40 }} />
         <Text style={styles.title}>Success</Text>
         <View style={{ width: 40, height: 40 }}>
-          <Text style={{ color: colors.whiteText }}>V</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Ticket')}>
+            <Image
+              source={require('@/assets/icons/tick.png')}
+              style={{ height: 40, width: 40 }}
+            />
+          </TouchableOpacity>
         </View>
       </View>
       <View style={{ flex: 1 }}>
@@ -26,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 16,
   },
-  title: { fontSize: 20, fontWeight: '700', color: colors.white },
+  title: { fontSize: 28, fontWeight: '700', color: colors.white },
 });
 
 export default Success;

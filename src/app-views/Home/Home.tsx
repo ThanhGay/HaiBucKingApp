@@ -13,6 +13,7 @@ import colors from '@/utils/colors';
 import { Badge } from '@rneui/themed';
 import MovieItem from '../Movie/components/MovieItem';
 import NewsItem from './components/NewsItem';
+import { FlatList } from 'react-native';
 
 const listMovie = [
   {
@@ -77,65 +78,69 @@ const listNews = [
 
 function Home() {
   const navigation = useNavigation();
+  const UserName = 'Duc Thanh';
+
   return (
     <View style={styles.container}>
-      <View style={{ flex: 9 }}>
-        <View>
-          <View style={styles.header}>
-            <View style={{ flexDirection: 'column' }}>
-              <Text style={{ color: colors.whiteText, fontSize: 18 }}>
-                Hi, Duc Thanh
-              </Text>
-              <Text style={styles.boldTitle}>Welcome back</Text>
+      <ScrollView>
+        <View style={{ flex: 9 }}>
+          <View>
+            <View style={styles.header}>
+              <View style={{ flexDirection: 'column' }}>
+                <Text style={{ color: colors.whiteText, fontSize: 18 }}>
+                  Hi, {UserName}
+                </Text>
+                <Text style={styles.boldTitle}>Welcome back</Text>
+              </View>
+              <Image
+                source={require('@assets/icons/notification.png')}
+                style={{ width: 36, height: 36 }}
+              />
+              {/* <Badge /> */}
             </View>
-            <Image
-              source={require('@assets/icons/notification.png')}
-              style={{ width: 36, height: 36 }}
-            />
-            {/* <Badge /> */}
+            <SearchBox />
+            <ScrollView>
+              <View style={{ gap: 16 }}>
+                <View>
+                  <ContentBox
+                    title="Now playing"
+                    onPress={() => navigation.navigate('Movie')}
+                  />
+                  <View>{/* Image boxer */}</View>
+                </View>
+
+                <View>
+                  <ContentBox
+                    title="Coming soon"
+                    onPress={() => navigation.navigate('Movie', { key: 2 })}
+                  />
+                  <ScrollView horizontal>
+                    {listMovie.map((movie) => (
+                      <View key={movie.key} style={{ paddingHorizontal: 8 }}>
+                        <MovieItem film={movie} direction="column" />
+                      </View>
+                    ))}
+                  </ScrollView>
+                </View>
+
+                <View>
+                  <ContentBox title="Movie News" />
+                  <ScrollView horizontal>
+                    {listNews.map((item) => (
+                      <View
+                        key={item.key}
+                        style={{ paddingHorizontal: 8, marginVertical: 24 }}
+                      >
+                        <NewsItem post={item} />
+                      </View>
+                    ))}
+                  </ScrollView>
+                </View>
+              </View>
+            </ScrollView>
           </View>
-
-          <SearchBox />
-
-          <ScrollView>
-            <View style={{ gap: 16 }}>
-              <View>
-                <ContentBox
-                  title="Now playing"
-                  onPress={() => navigation.navigate('Movie')}
-                />
-                <View>{/* Image boxer */}</View>
-              </View>
-
-              <View>
-                <ContentBox
-                  title="Coming soon"
-                  onPress={() => navigation.navigate('Movie', { key: 2 })}
-                />
-                <ScrollView horizontal>
-                  {listMovie.map((movie) => (
-                    <View key={movie.key} style={{ paddingHorizontal: 8 }}>
-                      <MovieItem film={movie} direction='column' />
-                    </View>
-                  ))}
-                </ScrollView>
-              </View>
-
-              <View>
-                <ContentBox title="Movie News" />
-                <ScrollView horizontal>
-                  {listNews.map((item) => (
-                    <View key={item.key} style={{ paddingHorizontal: 8 }}>
-                      <NewsItem post={item} />
-                    </View>
-                  ))}
-                </ScrollView>
-              </View>
-            </View>
-          </ScrollView>
         </View>
-      </View>
-
+      </ScrollView>
       <BottomTab />
     </View>
   );

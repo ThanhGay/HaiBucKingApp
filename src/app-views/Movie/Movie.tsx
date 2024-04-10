@@ -11,10 +11,10 @@ interface NavItem {
   dataContent: React.ReactNode;
 }
 
-function Movie({route}) {
+function Movie({ route }: { route: any }) {
   var key = 1;
-  route?.params ? key = 2 : key = 1;  
-  
+  route?.params ? (key = 2) : (key = 1);
+
   const [active, setActive] = useState(key);
   const nav: { [key: number]: NavItem } = useMemo(() => {
     return {
@@ -58,7 +58,9 @@ function Movie({route}) {
       </View>
 
       <View style={{ marginLeft: 4, flex: 8 }}>{nav[active].dataContent}</View>
-      <BottomTab />
+      <View style={{ marginHorizontal: 16 }}>
+        <BottomTab />
+      </View>
     </View>
   );
 }
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 46,
-    marginBottom: 16
+    marginBottom: 16,
   },
   text: {
     fontSize: 18,

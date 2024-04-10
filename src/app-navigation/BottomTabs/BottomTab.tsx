@@ -47,7 +47,7 @@ const ButtonTab = ({
   );
 };
 
-const BottomTab =() => {
+const BottomTab = () => {
   const navigation = useNavigation();
   const [active, setActive] = useState<number>(0);
   const tabs: { [key: number]: ButtonTab } = useMemo(() => {

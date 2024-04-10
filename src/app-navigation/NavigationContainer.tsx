@@ -71,7 +71,7 @@ const NavigationContainer = () => {
         <MainStack.Screen name="Payment" component={Payment} />
         <MainStack.Screen name="ForgotPassword" component={Forgotpassword} />
         <MainStack.Screen name="ChangePassword" component={ChangePassword} />
-        <MainStack.Screen name="Success" component={Success}></MainStack.Screen>
+        <MainStack.Screen name="Success" component={Success} />
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );
