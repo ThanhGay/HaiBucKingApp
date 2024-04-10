@@ -12,7 +12,7 @@ export default function EnterUsername() {
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
           Latin characters, no emoji/symbols
         </Text>
-        <Box link="" title="Username" />
+        <Box icon={require('@assets/icons/user.png')} title="Username" />
       </View>
       <Button title="Done" onPress={() => navigation.navigate('Home')} />
       <View style={{ paddingTop: 20 }} />

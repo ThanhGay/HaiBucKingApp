@@ -12,9 +12,18 @@ export default function ChangePassword() {
     <View style={styles.container}>
       <Title title={'Change Password'} onPress={() => navigation.goBack()} />
       <View style={styles.body}>
-        <Box link={''} title={'Your password'} />
-        <Box link={''} title={'New password'} />
-        <Box link={''} title={'Confirm new password'} />
+        <Box
+          icon={require('@assets/icons/key-password.png')}
+          title={'Your password'}
+        />
+        <Box
+          icon={require('@assets/icons/key-password.png')}
+          title={'New password'}
+        />
+        <Box
+          icon={require('@assets/icons/key-password.png')}
+          title={'Confirm new password'}
+        />
       </View>
       <View style={styles.footer}>
         <Button title={'Save'} onPress={handleSubmit} />
