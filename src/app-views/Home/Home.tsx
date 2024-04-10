@@ -15,10 +15,12 @@ import MovieItem from '../Movie/components/MovieItem';
 import NewsItem from './components/NewsItem';
 import { FlatList } from 'react-native';
 
+import SlideShow from './components/SlideShow';
+
 const listMovie = [
   {
     key: 1,
-    name: 'Panda',
+    name: 'Panda1',
     star: 4,
     totalRate: 982,
     duration: '124',
@@ -27,7 +29,7 @@ const listMovie = [
   },
   {
     key: 2,
-    name: 'Panda',
+    name: 'Panda2',
     star: 4,
     totalRate: 982,
     duration: '351',
@@ -36,7 +38,7 @@ const listMovie = [
   },
   {
     key: 3,
-    name: 'Panda',
+    name: 'Panda3',
     star: 4,
     totalRate: 1562,
     duration: '200',
@@ -45,7 +47,7 @@ const listMovie = [
   },
   {
     key: 4,
-    name: 'Panda',
+    name: 'Panda4',
     star: 4.5,
     totalRate: 234,
     duration: '40',
@@ -54,7 +56,7 @@ const listMovie = [
   },
   {
     key: 5,
-    name: 'Panda',
+    name: 'Panda5',
     star: 4,
     totalRate: 982,
     duration: '128',
@@ -106,7 +108,11 @@ function Home() {
                     title="Now playing"
                     onPress={() => navigation.navigate('Movie')}
                   />
-                  <View>{/* Image boxer */}</View>
+                  <View>
+                    {/* Image boxer */}
+
+                    <SlideShow images={listMovie} />
+                  </View>
                 </View>
 
                 <View>
