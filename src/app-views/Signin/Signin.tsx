@@ -11,7 +11,11 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [isRemember, set] = useState(true);
   return (
     <View style={styles.container}>
-      <Title title="Sign in" onPress={() => navigation.goBack()}></Title>
+      <Title
+        leftIcon
+        title="Sign in"
+        onPressLeft={() => navigation.goBack()}
+      ></Title>
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/phone.png')}

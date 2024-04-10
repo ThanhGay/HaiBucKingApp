@@ -11,23 +11,31 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '@/component/styles';
 export const Title = ({
+  leftIcon,
   title,
-  onPress,
+  rightIcon,
+  onPressLeft,
+  onPressRight,
 }: {
+  leftIcon?: boolean;
   title: string;
-  onPress?: () => void;
+  rightIcon?: React.ReactNode;
+  onPressLeft?: () => void;
+  onPressRight?: () => void;
 }) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
-        <Image
-          source={require('@assets/icons/left-arrow.png')}
-          style={{ height: 40, width: 40 }}
-        />
+      <TouchableOpacity style={{ flex: 1 }} onPress={onPressLeft}>
+        {leftIcon && (
+          <Image
+            source={require('@assets/icons/left-arrow.png')}
+            style={{ height: 40, width: 40 }}
+          />
+        )}
       </TouchableOpacity>
       <Text
         style={{
-          flex: 6,
+          flex: 8,
           textAlign: 'center',
           color: 'white',
           fontSize: 28,
@@ -36,7 +44,9 @@ export const Title = ({
       >
         {title}
       </Text>
-      <View style={{ flex: 1 }}></View>
+      <TouchableOpacity style={{ flex: 1 }} onPress={onPressRight}>
+        {rightIcon}
+      </TouchableOpacity>
     </View>
   );
 };

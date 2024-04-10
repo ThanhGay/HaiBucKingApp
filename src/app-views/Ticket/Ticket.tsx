@@ -32,9 +32,9 @@ const listTicket = [
 const Ticket = () => {
   return (
     <View style={styles.container}>
-        <Title title='My ticket' />
-    
-      <View style={{flex: 9, gap: 16}}>
+      <Title title="My ticket" />
+
+      <View style={{ flex: 9, gap: 16 }}>
         {listTicket.map((item) => (
           <TicketItem key={item.key} ticket={item} />
         ))}

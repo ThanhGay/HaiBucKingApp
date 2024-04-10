@@ -10,7 +10,11 @@ export default function ChangePassword() {
   };
   return (
     <View style={styles.container}>
-      <Title title={'Change Password'} onPress={() => navigation.goBack()} />
+      <Title
+        leftIcon
+        title={'Change Password'}
+        onPressLeft={() => navigation.goBack()}
+      />
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/key-password.png')}

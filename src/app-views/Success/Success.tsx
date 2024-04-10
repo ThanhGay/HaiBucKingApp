@@ -1,4 +1,5 @@
 import DetailTicket from '@/app-components/DetailTicket';
+import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
@@ -14,16 +15,16 @@ function Success() {
       }}
     >
       <View style={styles.header}>
-        <View style={{ width: 40, height: 40 }} />
-        <Text style={styles.title}>Success</Text>
-        <View style={{ width: 40, height: 40 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('Ticket')}>
+        <Title
+          title="Success"
+          rightIcon={
             <Image
-              source={require('@/assets/icons/tick.png')}
-              style={{ height: 40, width: 40 }}
+              style={{ width: 40, height: 40 }}
+              source={require('@assets/icons/tick.png')}
             />
-          </TouchableOpacity>
-        </View>
+          }
+          onPressRight={() => navigation.navigate('Ticket')}
+        />
       </View>
       <View style={{ flex: 1 }}>
         <DetailTicket />

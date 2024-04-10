@@ -9,7 +9,7 @@ function SelectSeat() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Title title="Select Seat" onPress={navigation.goBack} />
+      <Title leftIcon title="Select Seat" onPressLeft={navigation.goBack} />
       <Button
         title="Buy Ticket"
         onPress={() => navigation.navigate('Payment')}

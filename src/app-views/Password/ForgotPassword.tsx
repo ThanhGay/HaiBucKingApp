@@ -7,7 +7,11 @@ export function Forgotpassword() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Title title="Reset password" onPress={() => navigation.goBack()}></Title>
+      <Title
+        leftIcon
+        title="Reset password"
+        onPressLeft={() => navigation.goBack()}
+      ></Title>
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/phone.png')}

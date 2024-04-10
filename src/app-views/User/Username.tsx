@@ -6,7 +6,7 @@ export default function EnterUsername() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <Title title="" onPress={() => navigation.goBack()}></Title>
+      <Title leftIcon title="" onPressLeft={() => navigation.goBack()}></Title>
       <View style={styles.body}>
         <Text style={{ fontSize: 30, color: '#FCC435' }}>Enter Username</Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>

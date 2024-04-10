@@ -7,7 +7,7 @@ import {
   StatusBar,
 } from 'react-native';
 import React, { useState } from 'react';
-import { Button } from '@/component/Component';
+import { Button, Title } from '@/component/Component';
 import { useNavigation } from '@react-navigation/native';
 export default function EditProfile() {
   const navigation = useNavigation();
@@ -15,44 +15,18 @@ export default function EditProfile() {
   const [edit, setEdit] = useState(false);
   return (
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          marginTop: 20,
-        }}
-      >
-        <TouchableOpacity
-          style={{ flex: 1 }}
-          onPress={() => navigation.goBack()}
-        >
+      <Title
+        leftIcon
+        title={edit ? 'Edit profile' : 'Detail profile'}
+        rightIcon={
           <Image
-            style={{ height: 40, width: 40 }}
-            source={require('@/assets/icons/back.png')}
+            style={{ height: 32, width: 32 }}
+            source={require('@assets/icons/edit.png')}
           />
-        </TouchableOpacity>
-        <Text
-          style={{
-            color: '#FFF',
-            fontSize: 28,
-            fontWeight: '700',
-            flex: 6,
-            textAlign: 'center',
-          }}
-        >
-          {edit ? 'Edit profile ' : 'Detail profile'}
-        </Text>
-        <View style={{ flex: 1 }}>
-          {!edit && (
-            <TouchableOpacity onPress={() => setEdit(true)}>
-              <Image
-                style={{ height: 32, width: 32, tintColor: 'white' }}
-                source={require('@/assets/icons/edit.png')}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-      </View>
+        }
+        onPressLeft={() => navigation.goBack()}
+        onPressRight={() => setEdit(true)}
+      />
       <View style={{ flex: 8 }}>
         <Image
           style={{

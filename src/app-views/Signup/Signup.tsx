@@ -8,7 +8,11 @@ const Signup = () => {
 
   return (
     <View style={styles.container}>
-      <Title title="Sign up" onPress={() => navigation.goBack()}></Title>
+      <Title
+        leftIcon
+        title="Sign up"
+        onPressLeft={() => navigation.goBack()}
+      ></Title>
       <View style={styles.body}>
         <Box icon={require('@assets/icons/email.png')} title="Email"></Box>
         <Box

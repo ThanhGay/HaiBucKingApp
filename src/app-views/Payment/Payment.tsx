@@ -31,8 +31,8 @@ const Payment = () => {
   const Total = '210.000';
   return (
     <View style={styles.container}>
-      <Title title="Payment" />
-      <View style={{ flex: 18 }}>
+      <Title leftIcon title="Payment" onPressLeft={() => navigation.goBack()} />
+      <View style={{ flex: 8 }}>
         <ScrollView>
           <View style={{}}>
             <MovieItem film={movie1} direction="row" />
@@ -107,6 +107,7 @@ const Payment = () => {
                 style={{
                   fontSize: 16,
                   fontWeight: '400',
+
                   color: colors.whiteText,
                 }}
               >
@@ -115,7 +116,7 @@ const Payment = () => {
               <Text
                 style={{
                   fontSize: 24,
-                  fontWeight: '400',
+                  fontWeight: '700',
                   color: colors.primary,
                 }}
               >
