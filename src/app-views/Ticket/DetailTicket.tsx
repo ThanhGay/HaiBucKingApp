@@ -1,10 +1,17 @@
-import CanBackLayout from '@/layouts/CanBackLayout';
+import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
+import { useNavigation } from '@react-navigation/native';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 const DetailTicket = ({ ticket }: { ticket?: any }) => {
+  const navigation = useNavigation();
   return (
-    <CanBackLayout title="My ticket">
+    <View style={{ paddingHorizontal: 16, backgroundColor: 'black', flex: 1 }}>
+      <Title
+        leftIcon
+        title="My ticket"
+        onPressLeft={() => navigation.goBack()}
+      />
       <View style={styles.container}>
         {/* Description Movie */}
         <View style={{ flexDirection: 'row' }}>
@@ -151,14 +158,14 @@ const DetailTicket = ({ ticket }: { ticket?: any }) => {
           <Text style={styles.text}>Oder ID: 78889377726 </Text>
         </View>
       </View>
-    </CanBackLayout>
+      <View style={{ flex: 1, marginTop: -10 }}></View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
-    marginHorizontal: 16,
+    flex: 10,
     padding: 16,
     borderRadius: 16,
     backgroundColor: colors.white,

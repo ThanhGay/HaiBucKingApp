@@ -6,42 +6,57 @@ import {
   TouchableOpacity,
   TextInput,
   Switch,
+  Image,
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '@/component/styles';
-import { Image } from 'react-native';
 export const Title = ({
+  leftIcon,
   title,
-  onPress,
+  rightIcon,
+  onPressLeft,
+  onPressRight,
 }: {
+  leftIcon?: boolean;
   title: string;
-  onPress?: () => void;
+  rightIcon?: React.ReactNode;
+  onPressLeft?: () => void;
+  onPressRight?: () => void;
 }) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={{ flex: 1 }} onPress={onPress}>
-        <Image
-          source={require('@assets/icons/left-arrow.png')}
-          style={{ height: 40, width: 40 }}
-        />
+      <TouchableOpacity style={{ flex: 1 }} onPress={onPressLeft}>
+        {leftIcon && (
+          <Image
+            source={require('@assets/icons/left-arrow.png')}
+            style={{ height: 40, width: 40 }}
+          />
+        )}
       </TouchableOpacity>
       <Text
-        style={{ flex: 6, textAlign: 'center', color: 'white', fontSize: 25 }}
+        style={{
+          flex: 8,
+          textAlign: 'center',
+          color: 'white',
+          fontSize: 28,
+          fontWeight: '700',
+        }}
       >
         {title}
       </Text>
-      <View style={{ flex: 1 }}></View>
+      <TouchableOpacity style={{ flex: 1 }} onPress={onPressRight}>
+        {rightIcon}
+      </TouchableOpacity>
     </View>
   );
 };
 
-export const Box = ({ link, title }: { link: string; title: string }) => {
+export const Box = ({ icon, title }: { icon: any; title: string }) => {
   const [text, setText] = useState('');
-
   return (
     <View>
       <View style={styles.border}>
-        <Text style={{ color: 'white', fontSize: 25 }}>C</Text>
+        <Image style={{ height: 32, width: 32 }} source={icon} />
         <TextInput
           placeholder={title}
           placeholderTextColor={'white'}
@@ -75,6 +90,7 @@ export const Button = ({
           alignSelf: 'center',
           fontSize: 20,
           color: '#000000',
+          fontWeight: '600',
         }}
       >
         {title}

@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   box: {
-    backgroundColor: '#FCC435',
+    backgroundColor: '#FCC434',
     borderRadius: 64,
     borderWidth: 1,
     height: 50,

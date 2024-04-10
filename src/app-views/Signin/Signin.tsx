@@ -11,10 +11,20 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [isRemember, set] = useState(true);
   return (
     <View style={styles.container}>
-      <Title title="Sign in" onPress={() => navigation.goBack()}></Title>
+      <Title
+        leftIcon
+        title="Sign in"
+        onPressLeft={() => navigation.goBack()}
+      ></Title>
       <View style={styles.body}>
-        <Box link="" title="Phone number"></Box>
-        <Box link="" title="Password"></Box>
+        <Box
+          icon={require('@assets/icons/phone.png')}
+          title="Phone number"
+        ></Box>
+        <Box
+          icon={require('@assets/icons/key-password.png')}
+          title="Password"
+        ></Box>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Switch
