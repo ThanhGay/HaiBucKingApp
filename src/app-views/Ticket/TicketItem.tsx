@@ -10,7 +10,7 @@ const TicketItem = ({ ticket }: { ticket: any }) => {
       onPress={() => navigation.navigate('DetailTicket')}
     >
       <Image
-        source={require('@assets/images/movie-4.png')}
+        source={ticket.poster}
         alt="poster"
         style={styles.poster}
       />

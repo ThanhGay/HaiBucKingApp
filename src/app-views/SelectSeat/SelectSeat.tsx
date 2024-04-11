@@ -35,7 +35,7 @@ function SelectSeat() {
   ];
   return (
     <View style={styles.container}>
-      <Title title="Select Seat" onPressLeft={navigation.goBack} />
+      <Title leftIcon title="Select Seat" onPressLeft={navigation.goBack} />
 
       <View style={{ flex: 8, alignItems: 'center', marginTop: -60 }}>
         <Image

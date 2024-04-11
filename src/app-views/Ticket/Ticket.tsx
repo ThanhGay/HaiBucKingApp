@@ -12,6 +12,7 @@ const listTicket = [
     time: "14h15'",
     date: '16/12/2022',
     location: 'CGV Vincom Ocean Park',
+    poster: require('@assets/images/movie-3.png'),
   },
   {
     key: 2,
@@ -19,6 +20,7 @@ const listTicket = [
     time: "15h30'",
     date: '22/12/2022',
     location: 'CGV Vincom Ocean Park',
+    poster: require('@assets/images/movie-2.png'),
   },
   {
     key: 3,
@@ -26,6 +28,7 @@ const listTicket = [
     time: "14h15'",
     date: '29/12/2022',
     location: 'CGV Vincom Ocean Park',
+    poster: require('@assets/images/movie-4.png'),
   },
 ];
 
