@@ -51,24 +51,60 @@ export const Title = ({
   );
 };
 
-export const Box = ({ icon, title }: { icon: any; title: string }) => {
+export const Box = ({
+  icon,
+  title,
+  onChangeText,
+  secureTextEntry,
+}: {
+  icon: any;
+  title: string;
+  onChangeText: (text: string) => void;
+  secureTextEntry?: boolean;
+}) => {
   const [text, setText] = useState('');
+  const handleTextChange = (text: any) => {
+    setText(text);
+    onChangeText(text);
+  };
+  const [hide, setHide] = useState(true);
+  const handleHide = () => {
+    setHide(!hide);
+  };
   return (
     <View>
-      <View style={styles.border}>
-        <Image style={{ height: 32, width: 32 }} source={icon} />
-        <TextInput
-          placeholder={title}
-          placeholderTextColor={'white'}
-          style={{
-            color: 'white',
-            fontSize: 25,
-            marginLeft: 20,
-            opacity: text ? 1 : 0.5,
-          }}
-          onChangeText={setText}
-          value={text}
-        />
+      <View style={{ ...styles.border, justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+          <Image style={{ height: 32, width: 32 }} source={icon} />
+          <TextInput
+            placeholder={title}
+            placeholderTextColor={'white'}
+            style={{
+              color: 'white',
+              fontSize: 25,
+              marginLeft: 20,
+              opacity: text ? 1 : 0.5,
+              flex: 1,
+            }}
+            onChangeText={handleTextChange}
+            value={text}
+            secureTextEntry={secureTextEntry && hide}
+          />
+        </View>
+        {secureTextEntry && (
+          <TouchableOpacity onPress={handleHide}>
+            {
+              <Image
+                style={{ height: 32, width: 32, tintColor: 'white' }}
+                source={
+                  hide
+                    ? require('@assets/icons/show.png')
+                    : require('@assets/icons/hide.png')
+                }
+              />
+            }
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.divider} />
     </View>
