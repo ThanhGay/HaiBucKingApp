@@ -1,5 +1,6 @@
 import { sendPostWithToken } from "@/utils";
 import axios from "axios";
+import { LOCALHOST, port } from "../../port";
 
 // ví dụ các api có dạng là
 //          "https://localhost:3107/api/Auth/login",
@@ -24,3 +25,12 @@ export const apiLogout = async (args: { url: string, token: string, data?: any }
 }
 
 // apiForgotPassword
+export const apiGetListProcedureRelative = async (): Promise<{
+    status: boolean;
+    data: Array<any>;
+}> => {
+    const url = `http://${LOCALHOST}:${port}/class/`;
+    console.log(url)
+    const { data } = await axios.get(url);
+    return data ?? {};
+};
