@@ -9,6 +9,18 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const [isRemember, set] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleContinue = () => {
+    console.log(
+      JSON.stringify({
+        'Phone number': parseInt(phoneNumber, 10),
+        Password: password,
+      }),
+    );
+    // navigation.navigate('Home');
+  };
   return (
     <View style={styles.container}>
       <Title
@@ -20,10 +32,17 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
         <Box
           icon={require('@assets/icons/phone.png')}
           title="Phone number"
+          onChangeText={(text: string) => {
+            setPhoneNumber(text);
+          }}
         ></Box>
         <Box
           icon={require('@assets/icons/key-password.png')}
           title="Password"
+          onChangeText={(text: string) => {
+            setPassword(text);
+          }}
+          secureTextEntry
         ></Box>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -45,7 +64,7 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
             </Text>
           </TouchableOpacity>
         </View>
-        <Button title="Continue" onPress={() => navigation.navigate('Home')} />
+        <Button title="Continue" onPress={handleContinue} />
       </View>
       <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
