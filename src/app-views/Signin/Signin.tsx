@@ -4,6 +4,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
+import { apiLogin } from '@/api/auth';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -12,14 +13,16 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleContinue = () => {
-    console.log(
-      JSON.stringify({
-        'Phone number': parseInt(phoneNumber, 10),
-        Password: password,
-      }),
-    );
-    // navigation.navigate('Home');
+  const handleLogin = async () => {
+    const dataRes = await apiLogin({ phoneNumber, password });
+
+    if (dataRes.status) {
+      console.log(dataRes.data);
+      navigation.navigate('Home');
+    } else {
+      console.log('err');
+    }
+
   };
   return (
     <View style={styles.container}>
@@ -64,7 +67,7 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
             </Text>
           </TouchableOpacity>
         </View>
-        <Button title="Continue" onPress={handleContinue} />
+        <Button title="Login" onPress={handleLogin} />
       </View>
       <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>
       <StatusBar backgroundColor="black" barStyle="light-content" />
