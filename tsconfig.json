@@ -3,8 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@": ["src"],
-      "@/*": ["src/*"],
       "@assets": ["src/assets"],
       "@assets/*": ["src/assets/*"],
       "@app-views": ["src/app-views"],
@@ -17,6 +15,10 @@
       "@app-components/*": ["src/app-components/*"],
       "@app-languages": ["src/app-languages"],
       "@app-languages/*": ["src/app-languages/*"],
+      "@app-modals": ["src/app-modals"],
+      "@app-modals/*": ["src/app-modals/*"],
+      "@": ["src"],
+      "@/*": ["src/*"],
     },
   }
 }
