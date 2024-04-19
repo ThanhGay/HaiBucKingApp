@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const sendPostWithToken = async (args: {
+export const postWithToken = async (args: {
   url: string;
   data?: { [key: string]: string | Blob };
   token: string;
@@ -11,6 +11,7 @@ export const sendPostWithToken = async (args: {
     const response = await axios.post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
 
@@ -36,6 +37,31 @@ export const getWithToken = async ({
       headers: {
         // Thêm Authorization header với token
         Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Xử lý kết quả trả về
+    return response.data;
+  } catch (error) {
+    // Xử lý lỗi nếu có
+    console.error('Error during API call:', error);
+    throw error;
+  }
+};
+
+export const putWithToken = async (args: {
+  url: string;
+  data?: any;
+  token: string;
+}) => {
+  const { url, data, token } = args;
+  try {
+    // Thực hiện gọi API
+    const response = await axios.put(url, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
       },
     });
 

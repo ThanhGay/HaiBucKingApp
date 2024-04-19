@@ -6,18 +6,14 @@ import { useEffect, useState } from 'react';
 
 const Signup = () => {
   const navigation = useNavigation();
+  
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const handleSubmit = () => {
-    console.log(
-      JSON.stringify(
-        `Email: ${email}, Phonenumber: ${phoneNumber}, Birth: ${birthday}, Password: ${password}, Confirm: ${confirm}`,
-      ),
-    );
-    navigation.navigate('ConfirmOTP');
+    navigation.navigate('ConfirmOTP', {email, phoneNumber, birthday, password, continue: 'EnterUsername'});
   };
 
   // bật tắt footer
@@ -64,7 +60,7 @@ const Signup = () => {
           onChangeText={(text: string) => {
             setPhoneNumber(text);
           }}
-        ></Box>
+        />
         <Box
           icon={require('@assets/icons/cake.png')}
           title="Your birthday"
@@ -72,6 +68,7 @@ const Signup = () => {
             setBirthday(text);
           }}
         />
+        
         <Box
           icon={require('@assets/icons/key-password.png')}
           title="Password"

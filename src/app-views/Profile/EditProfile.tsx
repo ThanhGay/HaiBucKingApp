@@ -9,10 +9,13 @@ import {
 import React, { useState } from 'react';
 import { Button, Title } from '@/component/Component';
 import { useNavigation } from '@react-navigation/native';
-export default function EditProfile() {
+
+export default function EditProfile({ route }: { route: any }) {
   const navigation = useNavigation();
+  const { user } = route.params;
 
   const [edit, setEdit] = useState(false);
+  
   return (
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
       <Title
@@ -39,25 +42,25 @@ export default function EditProfile() {
         />
         <BoxEditProfile
           link={require('@/assets/icons/avata.png')}
-          title="Đức Thành"
+          title={user.FullName}
           titleEdit="Your name"
           edit={edit}
         />
         <BoxEditProfile
           link={require('@/assets/icons/avata.png')}
-          title="034-898-2339"
+          title={user.PhoneNumber}
           titleEdit="Your phone number"
           edit={edit}
         />
         <BoxEditProfile
           link={require('@/assets/icons/avata.png')}
-          title="ducthanh@gmail.com"
+          title={user.Email}
           titleEdit="Your email"
           edit={edit}
         />
         <BoxEditProfile
           link={require('@/assets/icons/avata.png')}
-          title="23/09/2023"
+          title={user.DateOfBirth}
           titleEdit="Your birthday"
           edit={edit}
         />
@@ -96,6 +99,7 @@ const BoxEditProfile = ({
             fontWeight: '700',
             marginLeft: 10,
             color: 'white',
+            width: '100%',
           }}
           placeholder={titleEdit}
           placeholderTextColor={edit ? '#797979' : 'white'}

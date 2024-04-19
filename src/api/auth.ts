@@ -1,41 +1,107 @@
-import axios from "axios";
-import { sendPostWithToken } from "@/utils";
-import { LOCALHOST, PORT } from "../../port";
+import axios from 'axios';
+import { postWithToken, putWithToken } from '@/utils';
+import { LOCALHOST, PORT } from '../../port';
 
-export const apiLogin = async (args: { phoneNumber: string, password: string }): Promise<{
-    status: boolean;
-    data: Array<any>;
-    msg: string;
+const Account_URL = `http://${LOCALHOST}:${PORT}/Account`;
+
+export const apiSignIn = async (args: {
+  phoneNumber: string;
+  password: string;
+}): Promise<{
+  status: boolean;
+  data: Array<any>;
+  msg: string;
 }> => {
-    // const form = new FormData();
-    // form.append('email', args.email);
-    // form.append('password', args.password);
+  // const form = new FormData();
+  // form.append('email', args.email);
+  // form.append('password', args.password);
 
-    const form = JSON.stringify({
-        PhoneNumber: args.phoneNumber,
-        Password: args.password,
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+  });
+
+  const url = `${Account_URL}/SignIn`;
+
+  const data = await axios
+    .post(url, form, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    const url = `http://${LOCALHOST}:${PORT}/Account/SignIn`
+  return data ?? {};
+};
 
-    const data = await axios.post(url, form, {
-        headers: {
-            'Content-Type': 'application/json'
-        },
+export const apiSignUp = async (args: {
+  phoneNumber: string;
+  password: string;
+  fullname: string;
+  email: string;
+  dob: Date;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+    FullName: args.fullname,
+    Email: args.email,
+    DateOfBirth: args.dob,
+  });
+
+  console.log(form);
+  
+
+  const url = `${Account_URL}/SignUp`;
+
+  const data = await axios
+    .post(url, form, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-    return data ?? {}
-}
+  return data ?? {};
+};
 
-export const apiLogout = async (args: { url: string, token: string, data?: any }) => {
-    const { url = "https://localhost:3107/api/Auth/logout", token, data } = args
-    return sendPostWithToken({ url, token, data })
-}
+export const apiSignOut = async (): Promise<{
+  status: boolean;
+  data: Array<any>;
+  msg: string;
+}> => {
+  const url = `${Account_URL}/SignOut`;
+  const data = axios
+    .post(url)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return data ?? {};
+};
 
-// apiForgotPassword
+export const apiForgotPassword = async (args: {
+  phoneNumber: string;
+  password: string;
+  token: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const url = `${Account_URL}/ChangePassword`;
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+  });
+  const { token } = args;
+  return putWithToken({ url, data: form, token });
+};

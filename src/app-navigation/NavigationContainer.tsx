@@ -54,7 +54,7 @@ const NavigationContainer = () => {
         initialRouteName="Splash"
         screenOptions={{ headerShown: false }}
       >
-        <MainStack.Screen name="First" component={FirstScreen} />
+        <MainStack.Screen name="FirstScreen" component={FirstScreen} />
         <MainStack.Screen name="Splash" component={Splash} />
         <MainStack.Screen name="Home" component={Home} />
         <MainStack.Screen name="Movie" component={Movie} />

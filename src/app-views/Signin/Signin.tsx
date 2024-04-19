@@ -4,7 +4,9 @@ import { NavigationProp } from '@react-navigation/native';
 import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
-import { apiLogin } from '@/api/auth';
+import { apiSignIn } from '@/api/auth';
+import { useAppDispatch } from '@/redux/hooks';
+import { setDataUser, setToken } from '@/redux/feature/authSlice';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -13,17 +15,20 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useAppDispatch();
+
   const handleLogin = async () => {
-    const dataRes = await apiLogin({ phoneNumber, password });
+    const dataRes = await apiSignIn({ phoneNumber, password });
 
     if (dataRes.status) {
-      console.log(dataRes.data);
+      dispatch(setDataUser(dataRes?.data.data_user));
+      dispatch(setToken(dataRes?.data.accesToken));
       navigation.navigate('Home');
     } else {
       console.log('err');
     }
-
   };
+  
   return (
     <View style={styles.container}>
       <Title

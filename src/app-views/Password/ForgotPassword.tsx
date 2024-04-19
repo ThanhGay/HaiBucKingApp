@@ -9,12 +9,8 @@ export function Forgotpassword() {
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const handleSummit = () => {
-    console.log(
-      JSON.stringify(
-        `Phonenumber: ${phoneNumber}, Password: ${password}, confirm: ${confirm}`,
-      ),
-    );
-    navigation.navigate('ConfirmOTP');
+    
+    navigation.navigate('ConfirmOTP', {phoneNumber, password,continue: 'FirstScreen'});
   };
   return (
     <View style={styles.container}>

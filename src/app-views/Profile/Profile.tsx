@@ -11,6 +11,8 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import ModalLanguage from '@/app-modals/ModalLanguage';
 import { Switch } from '@rneui/base';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { authLogout } from '@/redux/feature/authSlice';
 
 export const BoxProfile = ({
   link,
@@ -36,16 +38,23 @@ export const BoxProfile = ({
   );
 };
 
-export default function Profile() {
+function Profile() {
   const navigation = useNavigation();
-  const Username = 'Đức Thành';
+  const { user } = useAppSelector((state) => state.authState);
+  const dispatch = useAppDispatch()
+
   const [showModal, setshowModal] = useState(false);
+
   const handleSignOut = () => {
+    dispatch(authLogout());
     navigation.navigate('Splash');
   };
+  
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('EditProfile')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('EditProfile', { user })}
+      >
         <View style={styles.header}>
           <View style={{ gap: 24, flexDirection: 'row', alignItems: 'center' }}>
             <Image
@@ -53,7 +62,7 @@ export default function Profile() {
               source={require('@/assets/icons/user.png')}
             />
             <Text style={{ color: '#F2F2F2', fontSize: 32, fontWeight: '700' }}>
-              {Username}
+              {user.FullName}
             </Text>
           </View>
 
@@ -112,6 +121,7 @@ export default function Profile() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -131,3 +141,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default Profile;

@@ -16,7 +16,7 @@ import {
 } from '@/component/Component';
 import { useNavigation } from '@react-navigation/native';
 
-export default function ConfirmOTP(): JSX.Element {
+export default function ConfirmOTP({route}: {route: any}): JSX.Element {
   const navigation = useNavigation();
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
@@ -32,7 +32,7 @@ export default function ConfirmOTP(): JSX.Element {
     }
   };
   const handleFocus = (index: number) => {
-    if (otp.every((character) => character === '')) {
+    if (otp.every((character) => !character )) {
       inputs.current[0]?.focus();
     }
   };
@@ -48,7 +48,7 @@ export default function ConfirmOTP(): JSX.Element {
     const enteredOTP = otp.join('');
     if (enteredOTP.length === 6) {
       console.log('OTP:', enteredOTP);
-      navigation.navigate('EnterUsername');
+      navigation.navigate(route.params.continue, route.params);
     } else {
       console.log('Vui lòng nhập đủ 6 ký tự');
     }
@@ -59,6 +59,9 @@ export default function ConfirmOTP(): JSX.Element {
     inputs.current[0].focus();
   };
 
+  console.log("Params: ", route);
+  
+
   return (
     <View style={styles.container}>
       <Title leftIcon title="" onPressLeft={() => navigation.goBack()}></Title>
@@ -67,7 +70,7 @@ export default function ConfirmOTP(): JSX.Element {
         <Text style={{ fontSize: 30, color: '#FCC435' }}>Confirm OTP code</Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
           You just need to enter the OTP sent to the registered phone number
-          (704) 555-0127.{' '}
+          {/* {route.params.Phonenumber} */}
         </Text>
         <View
           style={{

@@ -7,13 +7,14 @@ import {
   View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import { useAppSelector } from '@/redux/hooks';
+import colors from '@/utils/colors';
+
 import SearchBox from '@app-components/SearchBox';
 import BottomTab from '@app-navigation/BottomTabs/BottomTab';
-import colors from '@/utils/colors';
-import { Badge } from '@rneui/themed';
 import MovieItem from '../Movie/components/MovieItem';
 import NewsItem from './components/NewsItem';
-import { FlatList } from 'react-native';
 
 import SlideShow from './components/SlideShow';
 
@@ -80,7 +81,10 @@ const listNews = [
 
 function Home() {
   const navigation = useNavigation();
-  const UserName = 'Duc Thanh';
+  const { user, token } = useAppSelector((state) => state.authState);
+  console.log('Home: ', user);
+  console.log(token);
+  
 
   return (
     <View style={styles.container}>
@@ -90,7 +94,7 @@ function Home() {
             <View style={styles.header}>
               <View style={{ flexDirection: 'column' }}>
                 <Text style={{ color: colors.whiteText, fontSize: 18 }}>
-                  Hi, {UserName}
+                  Hi, {user.FullName}
                 </Text>
                 <Text style={styles.boldTitle}>Welcome back</Text>
               </View>
