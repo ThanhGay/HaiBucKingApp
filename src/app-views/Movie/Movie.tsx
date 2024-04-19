@@ -1,9 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import colors from '@/utils/colors';
+
 import NowPlaying from './NowPlaying';
 import ComingSoon from './ComingSoon';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
+import colors from '@/utils/colors';
+import { NavigationProp } from '@react-navigation/native';
+
+interface MovieProps {
+  route: any;
+}
 
 interface NavItem {
   key: number;
@@ -11,7 +17,10 @@ interface NavItem {
   dataContent: React.ReactNode;
 }
 
-function Movie({ route }: { route: any }) {
+const Movie: React.FC<MovieProps & { navigation: NavigationProp<any> }> = ({
+  route,
+  navigation,
+}) => {
   var key = 1;
   route?.params ? (key = 2) : (key = 1);
 
@@ -21,12 +30,12 @@ function Movie({ route }: { route: any }) {
       1: {
         key: 1,
         name: 'Now playing',
-        dataContent: <NowPlaying />,
+        dataContent: <NowPlaying navigation={navigation} />,
       },
       2: {
         key: 2,
         name: 'Coming soon',
-        dataContent: <ComingSoon />,
+        dataContent: <ComingSoon navigation={navigation} />,
       },
     };
   }, []);
@@ -63,7 +72,7 @@ function Movie({ route }: { route: any }) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

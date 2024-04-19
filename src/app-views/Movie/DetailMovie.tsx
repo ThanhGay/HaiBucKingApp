@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -8,12 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import colors from '@/utils/colors';
-import Avatar_Name from '@/app-components/Avatar_Name';
-import { Button } from '@/app-components';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 
-function DetailMovie() {
+import { Button, Avatar_Name } from '@app-components';
+import colors from '@/utils/colors';
+
+const DetailMovie: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const infomationData = [
     {
       name: 'Movie genre',
@@ -28,7 +30,6 @@ function DetailMovie() {
       value: 'English',
     },
   ];
-  const navigation = useNavigation();
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.black }}>
       {/* <View style={{  }}> */}
@@ -89,7 +90,7 @@ function DetailMovie() {
       </View>
     </ScrollView>
   );
-}
+};
 
 const BubbleBox = () => {
   return (
@@ -195,13 +196,13 @@ const BubbleBox = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'row',
-                gap: 4,
+                gap: 8,
               }}
             >
               <Image
                 source={require('@assets/icons/play.png')}
                 alt="star"
-                style={{ width: 16, height: 16, marginRight: 4 }}
+                style={{ width: 16, height: 16}}
               />
               <Text style={{ color: colors.grayText }}>Watch trailer</Text>
             </View>

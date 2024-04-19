@@ -1,19 +1,26 @@
+import React, { useEffect, useState } from 'react';
 import { StatusBar, View, Keyboard } from 'react-native';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
+
 import { Box, Button, Footer, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
-import { useEffect, useState } from 'react';
 
-const Signup = () => {
-  const navigation = useNavigation();
-  
+const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const handleSubmit = () => {
-    navigation.navigate('ConfirmOTP', {email, phoneNumber, birthday, password, continue: 'EnterUsername'});
+    navigation.navigate('ConfirmOTP', {
+      email,
+      phoneNumber,
+      birthday,
+      password,
+      continue: 'EnterUsername',
+    });
   };
 
   // bật tắt footer
@@ -68,7 +75,7 @@ const Signup = () => {
             setBirthday(text);
           }}
         />
-        
+
         <Box
           icon={require('@assets/icons/key-password.png')}
           title="Password"

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
+
 import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
+
 import { apiSignIn } from '@/api/auth';
 import { useAppDispatch } from '@/redux/hooks';
 import { setDataUser, setToken } from '@/redux/feature/authSlice';
@@ -28,7 +30,7 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
       console.log('err');
     }
   };
-  
+
   return (
     <View style={styles.container}>
       <Title

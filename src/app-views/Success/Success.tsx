@@ -1,12 +1,14 @@
-import DetailTicket from '@/app-components/DetailTicket';
+import React from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+
+import DetailTicket from '@app-components/DetailTicket';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
-import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-function Success() {
-  const navigation = useNavigation();
-
+const Success: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   return (
     <View
       style={{
@@ -31,7 +33,7 @@ function Success() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   header: {

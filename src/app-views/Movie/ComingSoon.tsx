@@ -1,4 +1,7 @@
+import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+
 import MovieItem from './components/MovieItem';
 
 const listMovie = [
@@ -49,13 +52,20 @@ const listMovie = [
   },
 ];
 
-const ComingSoon = () => {
+const ComingSoon: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   return (
     <View>
       <ScrollView>
         <View style={styles.container}>
           {listMovie.map((movie) => (
-            <MovieItem key={movie.key} film={movie} direction="column" />
+            <MovieItem
+              key={movie.key}
+              film={movie}
+              direction="column"
+              navigation={navigation}
+            />
           ))}
         </View>
       </ScrollView>

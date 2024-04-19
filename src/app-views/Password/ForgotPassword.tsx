@@ -1,16 +1,22 @@
-import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
 import React, { useState } from 'react';
-import { Title, Box, Button, Footer } from '@/component/Component';
+import { View, StatusBar } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+
+import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
-import { useNavigation } from '@react-navigation/native';
-export function Forgotpassword() {
-  const navigation = useNavigation();
+
+const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const handleSummit = () => {
-    
-    navigation.navigate('ConfirmOTP', {phoneNumber, password,continue: 'FirstScreen'});
+    navigation.navigate('ConfirmOTP', {
+      phoneNumber,
+      password,
+      continue: 'FirstScreen',
+    });
   };
   return (
     <View style={styles.container}>
@@ -18,7 +24,7 @@ export function Forgotpassword() {
         leftIcon
         title="Reset password"
         onPressLeft={() => navigation.goBack()}
-      ></Title>
+      />
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/phone.png')}
@@ -26,7 +32,7 @@ export function Forgotpassword() {
           onChangeText={(text: string) => {
             setPhoneNumber(text);
           }}
-        ></Box>
+        />
         <Box
           icon={require('@assets/icons/key-password.png')}
           title="New password"
@@ -34,7 +40,7 @@ export function Forgotpassword() {
             setPassword(text);
           }}
           secureTextEntry
-        ></Box>
+        />
         <Box
           icon={require('@assets/icons/key-password.png')}
           title="Confirm new password"
@@ -42,11 +48,13 @@ export function Forgotpassword() {
             setConfirm(text);
           }}
           secureTextEntry
-        ></Box>
+        />
       </View>
       <Button title="Continue" onPress={handleSummit} />
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={{ paddingTop: 20 }} />
     </View>
   );
-}
+};
+
+export default ForgotPassword;

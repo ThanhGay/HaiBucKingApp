@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,11 +7,11 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
+
+import BottomTab from '@app-navigation/BottomTabs/BottomTab';
 import ModalLanguage from '@/app-modals/ModalLanguage';
-import { Switch } from '@rneui/base';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { authLogout } from '@/redux/feature/authSlice';
 
@@ -38,10 +39,11 @@ export const BoxProfile = ({
   );
 };
 
-function Profile() {
-  const navigation = useNavigation();
+const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const { user } = useAppSelector((state) => state.authState);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const [showModal, setshowModal] = useState(false);
 
@@ -49,7 +51,7 @@ function Profile() {
     dispatch(authLogout());
     navigation.navigate('Splash');
   };
-  
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -120,7 +122,7 @@ function Profile() {
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

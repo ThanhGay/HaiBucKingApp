@@ -1,18 +1,18 @@
+import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-import colors from '@/utils/colors';
 import { convertTime } from '@/utils/hooks';
-import { CameraIcon, ClockIcon, StarIcon } from '@/app-uikits/icon';
-import { useNavigation } from '@react-navigation/native';
+import colors from '@/utils/colors';
 
-const MovieItem = ({
-  film,
-  direction,
-}: {
+interface MovieItemProps {
   film?: any;
   direction: 'column' | 'row';
-}) => {
-  const navigation = useNavigation();
+}
+
+const MovieItem: React.FC<
+  MovieItemProps & { navigation: NavigationProp<any> }
+> = ({ navigation, film, direction }) => {
   const seeDetail = () => {
     navigation.navigate('DetailMovie');
   };
@@ -74,11 +74,7 @@ const MovieItem = ({
                 key={item.key}
                 style={{ flexDirection: 'row', marginVertical: 2 }}
               >
-                <Image
-                  style={styles.icon}
-                  source={item.icon}
-                  alt={item.name}
-                />
+                <Image style={styles.icon} source={item.icon} alt={item.name} />
                 <Text style={styles.text}>{item.value}</Text>
               </View>
             ))}

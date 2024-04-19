@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Image,
   ScrollView,
@@ -6,17 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native';
 
 import { useAppSelector } from '@/redux/hooks';
-import colors from '@/utils/colors';
 
 import SearchBox from '@app-components/SearchBox';
 import BottomTab from '@app-navigation/BottomTabs/BottomTab';
 import MovieItem from '../Movie/components/MovieItem';
 import NewsItem from './components/NewsItem';
-
 import SlideShow from './components/SlideShow';
+import colors from '@/utils/colors';
 
 const listMovie = [
   {
@@ -79,12 +79,12 @@ const listNews = [
   },
 ];
 
-function Home() {
-  const navigation = useNavigation();
+const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const { user, token } = useAppSelector((state) => state.authState);
   console.log('Home: ', user);
   console.log(token);
-  
 
   return (
     <View style={styles.container}>
@@ -127,7 +127,11 @@ function Home() {
                   <ScrollView horizontal>
                     {listMovie.map((movie) => (
                       <View key={movie.key} style={{ paddingHorizontal: 8 }}>
-                        <MovieItem film={movie} direction="column" />
+                        <MovieItem
+                          film={movie}
+                          direction="column"
+                          navigation={navigation}
+                        />
                       </View>
                     ))}
                   </ScrollView>
@@ -154,7 +158,7 @@ function Home() {
       <BottomTab />
     </View>
   );
-}
+};
 
 const ContentBox = ({
   title,

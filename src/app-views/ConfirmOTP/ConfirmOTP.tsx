@@ -1,23 +1,17 @@
-import {
-  View,
-  Text,
-  StatusBar,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
-import { styles } from '@/component/styles';
-import {
-  Box,
-  Button,
-  CountdownTimer,
-  Footer,
-  Title,
-} from '@/component/Component';
-import { useNavigation } from '@react-navigation/native';
+import React, { useRef, useState } from 'react';
+import { View, Text, StatusBar, TextInput } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-export default function ConfirmOTP({route}: {route: any}): JSX.Element {
-  const navigation = useNavigation();
+import { Button, CountdownTimer, Title } from '@/component/Component';
+import { styles } from '@/component/styles';
+
+interface ConfirmOtpProps {
+  route: any;
+}
+
+const ConfirmOTP: React.FC<
+  ConfirmOtpProps & { navigation: NavigationProp<any> }
+> = ({ route, navigation }) => {
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
 
@@ -32,7 +26,7 @@ export default function ConfirmOTP({route}: {route: any}): JSX.Element {
     }
   };
   const handleFocus = (index: number) => {
-    if (otp.every((character) => !character )) {
+    if (otp.every((character) => !character)) {
       inputs.current[0]?.focus();
     }
   };
@@ -59,8 +53,6 @@ export default function ConfirmOTP({route}: {route: any}): JSX.Element {
     inputs.current[0].focus();
   };
 
-  console.log("Params: ", route);
-  
 
   return (
     <View style={styles.container}>
@@ -123,4 +115,6 @@ export default function ConfirmOTP({route}: {route: any}): JSX.Element {
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
     </View>
   );
-}
+};
+
+export default ConfirmOTP;

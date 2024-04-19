@@ -7,15 +7,17 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import ModalLanguage from '@/app-modals/ModalLanguage';
-import { useAppSelector } from '@/redux/hooks';
+import { NavigationProp } from '@react-navigation/native';
 
-function FirstScreen() {
+import { useAppSelector } from '@/redux/hooks';
+import ModalLanguage from '@/app-modals/ModalLanguage';
+
+const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const [showModal, setshowModal] = useState(false);
   const [language, setLanguage] = useState('Language');
 
-  const navigation = useNavigation();
   const { user } = useAppSelector((state) => state.authState);
   console.log('FirstScreen: ', user);
 
@@ -107,7 +109,7 @@ function FirstScreen() {
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

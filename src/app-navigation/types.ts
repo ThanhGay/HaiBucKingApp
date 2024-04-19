@@ -13,7 +13,7 @@ import ConfirmOTP from '@app-views/ConfirmOTP/ConfirmOTP';
 import EnterUsername from '@app-views/User/Username';
 import EditProfile from '@app-views/Profile/EditProfile';
 import Payment from '@app-views/Payment/Payment';
-import { Forgotpassword } from '@/app-views/Password/ForgotPassword';
+import Forgotpassword from '@/app-views/Password/ForgotPassword';
 import ChangePassword from '@/app-views/Password/ChangePassword';
 
 export {

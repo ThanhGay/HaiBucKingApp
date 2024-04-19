@@ -1,7 +1,8 @@
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+
 import MovieItem from './components/MovieItem';
-import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const listMovie = [
   {
@@ -60,13 +61,20 @@ const listMovie = [
   },
 ];
 
-const NowPlaying = () => {
+const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   return (
     <View>
       <ScrollView>
         <View style={styles.container}>
           {listMovie.map((movie) => (
-            <MovieItem key={movie.key} film={movie} direction="column" />
+            <MovieItem
+              key={movie.key}
+              film={movie}
+              direction="column"
+              navigation={navigation}
+            />
           ))}
         </View>
       </ScrollView>

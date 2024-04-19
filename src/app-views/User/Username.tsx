@@ -1,14 +1,21 @@
-import { styles } from '@/component/styles';
-import { Box, Button, Footer, Title } from '@/component/Component';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { NavigationProp } from '@react-navigation/native';
+
+import { styles } from '@/component/styles';
+import { Box, Button, Title } from '@/component/Component';
+
 import { apiSignUp } from '@/api/auth';
-import { setDataUser, setToken } from '@/redux/feature/authSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import axios from 'axios';
-export default function EnterUsername({ route }: { route: any }) {
-  const navigation = useNavigation();
+import { setDataUser, setToken } from '@/redux/feature/authSlice';
+
+interface EnterUsernameProps {
+  route: any;
+}
+
+const EnterUsername: React.FC<
+  EnterUsernameProps & { navigation: NavigationProp<any> }
+> = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
   const { birthday, email, password, phoneNumber } = route.params;
   const [username, setUsername] = useState('');
@@ -28,8 +35,6 @@ export default function EnterUsername({ route }: { route: any }) {
     } else {
       console.log('err sign up');
     }
-
-  const apiMovie = axios.post
   };
   return (
     <View style={styles.container}>
@@ -51,4 +56,5 @@ export default function EnterUsername({ route }: { route: any }) {
       <View style={{ paddingTop: 20 }} />
     </View>
   );
-}
+};
+export default EnterUsername;

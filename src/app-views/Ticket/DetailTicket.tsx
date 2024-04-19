@@ -1,7 +1,8 @@
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
-import { useNavigation } from '@react-navigation/native';
-import { Image, StyleSheet, Text, View } from 'react-native';
 
 const DetailTicket = ({ ticket }: { ticket?: any }) => {
   const navigation = useNavigation();

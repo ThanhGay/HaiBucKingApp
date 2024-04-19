@@ -1,21 +1,43 @@
+import { NavigationProp } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Button, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
-import {
-  View,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
-import Movie from '../Movie/Movie';
-import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import MovieItem from '../Movie/components/MovieItem';
-import { useNavigation } from '@react-navigation/native';
 
-const Payment = () => {
-  const navigation = useNavigation();
+const paymentMethod = [
+  {
+    key: 1,
+    link_img: require('@assets/Payment/Zalo.png'),
+    name: 'Zalo Pay',
+  },
+  {
+    key: 2,
+    link_img: require('@assets/Payment/Momo.png'),
+    name: 'MoMo',
+  },
+  {
+    key: 3,
+    link_img: require('@assets/Payment/Shopee.png'),
+    name: 'Shopee Pay',
+  },
+  {
+    key: 4,
+    link_img: require('@assets/Payment/ATM.png'),
+    name: 'ATM Card',
+  },
+  {
+    key: 5,
+    link_img: require('@assets/Payment/Visa.png'),
+    name: 'International payments',
+  },
+];
+
+const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
+  const [activeMethod, setActiveMethod] = useState<number>(0);
 
   const movie1 = {
     key: 1,
@@ -29,13 +51,14 @@ const Payment = () => {
   const OrderID = 78889377726;
   const Seat = 'H7, H8';
   const Total = '210.000';
+
   return (
     <View style={styles.container}>
       <Title leftIcon title="Payment" onPressLeft={() => navigation.goBack()} />
       <View style={{ flex: 8 }}>
         <ScrollView>
           <View style={{}}>
-            <MovieItem film={movie1} direction="row" />
+            <MovieItem film={movie1} direction="row" navigation={navigation} />
             {/* OrderID */}
             <View
               style={{
@@ -136,26 +159,24 @@ const Payment = () => {
             </Text>
             {/* Pay */}
             <View style={{ marginTop: 24 }}>
-              <ButtonPayment
-                link={require('@assets/Payment/Zalo.png')}
-                Payment="Zalo Pay"
-              />
-              <ButtonPayment
-                link={require('@assets/Payment/Momo.png')}
-                Payment="MoMo"
-              />
-              <ButtonPayment
-                link={require('@assets/Payment/Shopee.png')}
-                Payment="Shopee Pay"
-              />
-              <ButtonPayment
-                link={require('@assets/Payment/ATM.png')}
-                Payment="ATM Card"
-              />
-              <ButtonPayment
-                link={require('@assets/Payment/Visa.png')}
-                Payment="International payments"
-              />
+              {paymentMethod.map((item) => (
+                <ButtonPayment
+                  key={item.key}
+                  link_img={item.link_img}
+                  name={item.name}
+                  style={{
+                    borderColor:
+                      item.key === activeMethod
+                        ? colors.primary
+                        : colors.blackOpacity,
+                    backgroundColor:
+                      item.key === activeMethod
+                        ? '#261D08'
+                        : colors.blackOpacity,
+                  }}
+                  onPress={() => setActiveMethod(item.key)}
+                />
+              ))}
             </View>
           </View>
           <View
@@ -191,16 +212,27 @@ const Payment = () => {
   );
 };
 
-function ButtonPayment({ link, Payment }: { link: any; Payment: string }) {
+function ButtonPayment({
+  link_img,
+  name,
+  style,
+  onPress,
+}: {
+  link_img: any;
+  name: string;
+  style?: any;
+  onPress: () => void;
+}) {
   return (
     <TouchableOpacity
       style={{
-        // marginHorizontal: 16,
         borderRadius: 12,
-        backgroundColor: '#1C1C1C',
         padding: 16,
         marginBottom: 16,
+        borderWidth: 1,
+        ...style,
       }}
+      onPress={onPress}
     >
       <View
         style={{
@@ -210,7 +242,7 @@ function ButtonPayment({ link, Payment }: { link: any; Payment: string }) {
         }}
       >
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Image source={link} style={{ height: 48, width: 86 }} />
+          <Image source={link_img} style={{ height: 48, width: 86 }} />
           <Text
             style={{
               color: colors.whiteText,
@@ -219,7 +251,7 @@ function ButtonPayment({ link, Payment }: { link: any; Payment: string }) {
               fontSize: 16,
             }}
           >
-            {Payment}
+            {name}
           </Text>
         </View>
         <Image

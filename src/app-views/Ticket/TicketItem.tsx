@@ -1,19 +1,22 @@
-import colors from '@/utils/colors';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
 
-const TicketItem = ({ ticket }: { ticket: any }) => {
-  const navigation = useNavigation();
+import colors from '@/utils/colors';
+
+interface TicketItemProps {
+  ticket: any;
+}
+
+const TicketItem: React.FC<
+  TicketItemProps & { navigation: NavigationProp<any> }
+> = ({ ticket, navigation }) => {
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => navigation.navigate('DetailTicket')}
     >
-      <Image
-        source={ticket.poster}
-        alt="poster"
-        style={styles.poster}
-      />
+      <Image source={ticket.poster} alt="poster" style={styles.poster} />
       <View style={styles.rightContainer}>
         <Text style={styles.title}>{ticket.movie}</Text>
         <View style={{ flexDirection: 'column', gap: 12 }}>

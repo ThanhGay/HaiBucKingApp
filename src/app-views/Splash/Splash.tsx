@@ -1,9 +1,15 @@
-import { View, ActivityIndicator, Image, Animated } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { StatusBar, ImageBackground } from 'react-native';
-import FirstScreen from '../FirstScreen/FirstScreen';
+import {
+  View,
+  Image,
+  Animated,
+  StatusBar,
+  ImageBackground,
+} from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-import { useAppSelector } from '@/redux/hooks';
+
+import FirstScreen from '@app-views/FirstScreen/FirstScreen';
+
 
 const fallDownAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
@@ -32,8 +38,6 @@ const Animation = () => {
     moveLeftAnimation(position2).start(); // Khởi tạo animation di chuyển sang trái cho ảnh 2
   }, []);
 
-  
-  
   return (
     <View
       style={{
@@ -81,7 +85,7 @@ const Splash: React.FC<{ navigation: NavigationProp<any> }> = ({
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </ImageBackground>
   ) : (
-    <FirstScreen  />
+    <FirstScreen navigation={navigation} />
   );
 };
 

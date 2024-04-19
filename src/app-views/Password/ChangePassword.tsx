@@ -1,11 +1,13 @@
-import { View, Text, StatusBar } from 'react-native';
 import React, { useState } from 'react';
+import { View, StatusBar } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+
 import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
-import { useNavigation } from '@react-navigation/native';
-export default function ChangePassword() {
-  const navigation = useNavigation();
 
+const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [Confirm, setConfirm] = useState('');
@@ -57,4 +59,6 @@ export default function ChangePassword() {
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
     </View>
   );
-}
+};
+
+export default ChangePassword;

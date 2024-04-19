@@ -1,9 +1,11 @@
-import colors from '@/utils/colors';
-import { StyleSheet, Text, View } from 'react-native';
-import TicketItem from './TicketItem';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { NavigationProp } from '@react-navigation/native';
+
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
-import { useNavigation } from '@react-navigation/native';
+import TicketItem from './TicketItem';
 import { Title } from '@/component/Component';
+import colors from '@/utils/colors';
 
 const listTicket = [
   {
@@ -32,14 +34,16 @@ const listTicket = [
   },
 ];
 
-const Ticket = () => {
+const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
+  navigation,
+}) => {
   return (
     <View style={styles.container}>
       <Title title="My ticket" />
 
       <View style={{ flex: 9, gap: 16 }}>
         {listTicket.map((item) => (
-          <TicketItem key={item.key} ticket={item} />
+          <TicketItem key={item.key} ticket={item} navigation={navigation} />
         ))}
       </View>
 

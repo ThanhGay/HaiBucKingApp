@@ -1,21 +1,15 @@
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
 import React, { useState } from 'react';
-import { Button, Title } from '@/component/Component';
+import { View, Image, TextInput, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function EditProfile({ route }: { route: any }) {
+import { Button, Title } from '@/component/Component';
+
+const EditProfile = ({ route }: { route: any }) => {
   const navigation = useNavigation();
   const { user } = route.params;
 
   const [edit, setEdit] = useState(false);
-  
+
   return (
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
       <Title
@@ -75,7 +69,7 @@ export default function EditProfile({ route }: { route: any }) {
       </View>
     </View>
   );
-}
+};
 
 const BoxEditProfile = ({
   link,
@@ -113,3 +107,5 @@ const BoxEditProfile = ({
     </View>
   );
 };
+
+export default EditProfile;

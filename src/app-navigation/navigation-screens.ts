@@ -11,10 +11,6 @@ const LoginScreen = {
     name: 'ForgetPassword',
     component: require('@app-views/Password/ForgotPassword').default,
   },
-  ResetPassword: {
-    name: 'ResetPassword',
-    component: require('@app-views/Password/ResetPassword').default,
-  },
   ConfirmOTP: {
     name: 'ConfirmOTP',
     component: require('@app-views/ConfirmOTP/ConfirmOTP').default,
