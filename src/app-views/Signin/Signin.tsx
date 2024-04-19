@@ -19,7 +19,7 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
         Password: password,
       }),
     );
-    // navigation.navigate('Home');
+    navigation.navigate('Home');
   };
   return (
     <View style={styles.container}>

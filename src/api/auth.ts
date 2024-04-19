@@ -24,3 +24,11 @@ export const apiLogout = async (args: { url: string, token: string, data?: any }
 }
 
 // apiForgotPassword
+
+
+export const testAPI = async () => {
+    const url = `http://192.168.104.225:3000/classStudent/`
+    const {data} = await axios.get(url);
+    console.log(data);
+    return data ?? {}
+}
