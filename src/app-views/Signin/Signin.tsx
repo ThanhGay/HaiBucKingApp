@@ -16,15 +16,18 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [isRemember, set] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-
+  const [dataRes, setDataRes] = useState<any>(null);
   const dispatch = useAppDispatch();
 
   const handleLogin = async () => {
     const dataRes = await apiSignIn({ phoneNumber, password });
+    setDataRes(dataRes);
 
     if (dataRes.status) {
       dispatch(setDataUser(dataRes?.data.data_user));
       dispatch(setToken(dataRes?.data.accesToken));
+      console.log(dataRes.status);
+
       navigation.navigate('Home');
     } else {
       console.log('err');
@@ -74,6 +77,11 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
             </Text>
           </TouchableOpacity>
         </View>
+        {dataRes && !dataRes.status && (
+          <Text style={{ color: 'red' }}>
+            Vui lòng nhập lại tài khoản, mật khẩu
+          </Text>
+        )}
         <Button title="Login" onPress={handleLogin} />
       </View>
       <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>

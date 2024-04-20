@@ -9,20 +9,28 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+  const [Reserved, setReserved] = useState(true);
 
   const handleSeatSelection = (seatNumber: string) => {
     setSelectedSeats((prevSelectedSeats) => {
       if (prevSelectedSeats.includes(seatNumber)) {
         return prevSelectedSeats.filter((seat) => seat !== seatNumber);
       }
+      setReserved(true);
+
       // console.log(seatNumber);
 
       return [...prevSelectedSeats, seatNumber];
     });
   };
   const handleConfirmSelection = () => {
-    console.log('Selected seats:', selectedSeats);
-    navigation.navigate('Payment');
+    const sortedSelectedSeats = selectedSeats.sort();
+    setReserved(!!sortedSelectedSeats.length);
+    console.log('Selected seats:', sortedSelectedSeats);
+    if (!!sortedSelectedSeats.length) {
+      // Chọn ghế mới sang Payment
+      navigation.navigate('Payment');
+    }
   };
   return (
     <View style={styles.container}>
@@ -30,40 +38,135 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
       <View style={{ flex: 8 }}>
         <Image
           source={require('@assets/images/movie-screen.png')}
-          style={{ width: '105%' }}
+          style={{ width: '110%', marginTop: -30, alignSelf: 'center' }}
           resizeMode="contain"
         />
-        <Text style={styles.title}>Select your seats</Text>
+        <Text style={{ ...styles.title, textAlign: 'center' }}>
+          Select your seats
+        </Text>
         <View style={styles.seatContainer}>
-          {Array.from({ length: 24 }, (_, index) => index + 1).map(
-            (seatNumber) => (
-              <TouchableOpacity
-                key={seatNumber}
-                style={[
-                  styles.seat,
-                  selectedSeats.includes(String(seatNumber)) &&
-                    styles.selectedSeat,
-                ]}
-                onPress={() => handleSeatSelection(String(seatNumber))}
-              >
-                <Text
-                  style={[
-                    styles.seatNumber,
-                    selectedSeats.includes(String(seatNumber)) && {
-                      color: colors.black,
-                    },
-                  ]}
-                >
-                  {seatNumber}
-                </Text>
-              </TouchableOpacity>
-            ),
-          )}
+          {Array.from({ length: 4 }, (_, rowIndex) => {
+            const rowLetter = String.fromCharCode(65 + rowIndex);
+            return (
+              <View key={rowLetter} style={styles.rowContainer}>
+                {Array.from({ length: 6 }, (_, columnIndex) => {
+                  const seatNumber = `${rowLetter}${columnIndex + 1}`;
+                  let Reserved = false;
+                  const Reserveds = [
+                    'A1',
+                    'A2',
+                    'b3',
+                    'B5',
+                    'c4',
+                    'C6',
+                    'D1',
+                    'D3',
+                  ];
+                  const ReservedsUpper = Reserveds.map((seat) =>
+                    seat.toUpperCase(),
+                  );
+                  if (ReservedsUpper.includes(seatNumber)) {
+                    Reserved = true;
+                  }
+                  return (
+                    <TouchableOpacity
+                      key={seatNumber}
+                      style={[
+                        styles.seat,
+                        { backgroundColor: Reserved ? '#271D08' : '#1C1C1C' },
+
+                        selectedSeats.includes(seatNumber) &&
+                          styles.selectedSeat,
+                      ]}
+                      disabled={Reserved}
+                      onPress={() => handleSeatSelection(seatNumber)}
+                    >
+                      <Text
+                        style={[
+                          styles.seatNumber,
+                          {
+                            color: Reserved ? colors.primary : colors.whiteText,
+                          },
+                          selectedSeats.includes(seatNumber) && {
+                            color: colors.black,
+                          },
+                        ]}
+                      >
+                        {seatNumber}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            );
+          })}
+        </View>
+        {!Reserved && (
+          <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+            <Text style={{ color: 'red' }}>
+              Xin vui lòng chọn ghế mà bạn mong muốn
+            </Text>
+          </View>
+        )}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 20,
+          }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View
+              style={{
+                height: 40,
+                width: 40,
+                borderRadius: 12,
+                borderWidth: 1,
+                backgroundColor: '#1C1C1C',
+                borderColor: '#BFBFBF',
+                marginRight: 10,
+              }}
+            />
+            <Text style={{ color: colors.whiteText }}>Available</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View
+              style={{
+                height: 40,
+                width: 40,
+                borderRadius: 12,
+                borderWidth: 1,
+                backgroundColor: '#261D08',
+                borderColor: '#BFBFBF',
+                marginRight: 10,
+              }}
+            />
+            <Text style={{ color: colors.whiteText }}>Reserved</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View
+              style={{
+                height: 40,
+                width: 40,
+                borderRadius: 12,
+                borderWidth: 1,
+                backgroundColor: '#FCC434',
+                borderColor: '#BFBFBF',
+                marginRight: 10,
+              }}
+            />
+            <Text style={{ color: colors.whiteText }}>Selected</Text>
+          </View>
         </View>
       </View>
 
       <TouchableOpacity
-        style={{ ...styles.confirmButton, flex: 1 }}
+        style={{
+          ...styles.confirmButton,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
         onPress={handleConfirmSelection}
       >
         <Text style={styles.confirmButtonText}>Confirm Selection</Text>
@@ -100,25 +203,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 5,
     color: 'white',
-    backgroundColor: '#1C1C1C',
+    // backgroundColor: '#1C1C1C',
     borderRadius: 8,
   },
   selectedSeat: {
     backgroundColor: '#FCC434',
   },
   confirmButton: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    backgroundColor: colors.primary,
+    paddingVertical: 20,
+    marginHorizontal: 20,
+    borderRadius: 60,
+    marginBottom: 50,
   },
   confirmButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: colors.blackText,
+    fontSize: 20,
+    fontWeight: '700',
   },
   seatNumber: {
-    color: 'white', // Set default seat number color to white
+    color: 'white',
+    fontSize: 16,
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
