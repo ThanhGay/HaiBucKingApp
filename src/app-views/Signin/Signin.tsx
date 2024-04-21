@@ -26,11 +26,9 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
     if (dataRes.status) {
       dispatch(setDataUser(dataRes?.data.data_user));
       dispatch(setToken(dataRes?.data.accesToken));
-      console.log(dataRes.status);
-
       navigation.navigate('Home');
     } else {
-      console.log('err');
+      console.log('Tài khoản hoặc mật khẩu không chính xác');
     }
   };
 

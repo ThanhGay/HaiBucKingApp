@@ -83,8 +83,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { user, token } = useAppSelector((state) => state.authState);
-  console.log('Home: ', user);
-  console.log(token);
+  console.log('Home: ', user, '\nToken in Home: ', token);
 
   return (
     <View style={styles.container}>

@@ -18,8 +18,8 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [showModal, setshowModal] = useState(false);
   const [language, setLanguage] = useState('Language');
 
-  const { user } = useAppSelector((state) => state.authState);
-  console.log('FirstScreen: ', user);
+  const { user, token } = useAppSelector((state) => state.authState);
+  console.log('FirstScreen: ', user, '\nToken in First: ', token);
 
   const toSignin = () => {
     navigation.navigate('Signin');

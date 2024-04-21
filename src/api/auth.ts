@@ -95,12 +95,14 @@ export const apiSignOut = async (): Promise<{
 export const apiForgotPassword = async (args: {
   phoneNumber: string;
   password: string;
+  newPassword: string;
   token: string;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
   const url = `${Account_URL}/ChangePassword`;
   const form = JSON.stringify({
     PhoneNumber: args.phoneNumber,
     Password: args.password,
+    NewPassword: args.newPassword,
   });
   const { token } = args;
   return putWithToken({ url, data: form, token });

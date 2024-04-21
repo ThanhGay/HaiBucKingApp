@@ -78,39 +78,25 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      authLogin.fulfilled,
-      (state, action: PayloadAction<any>) => {
+    builder
+      .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = true;
         state.user = action.payload?.data_user;
         state.token = action.payload.accesToken;
         state.loading = false;
-      },
-    );
-    builder.addCase(
-      authRegister.fulfilled,
-      (state, action: PayloadAction<any>) => {
+      })
+      .addCase(authRegister.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = true;
         state.user = action.payload?.data_user;
         state.token = action.payload.accesToken;
         state.loading = false;
-      },
-    );
-    builder.addCase(
-      (authLogout.fulfilled),
-     
-      (state) => {
-        (state.loading = false), (state.user = null), (state.token = '');
-        console.log(state);
-        
-      },
-    );
-    builder.addCase(
-      (authLogout.rejected),
-      (state) => {
-        (state.loading = false), (state.user = null), (state.token = '');
-      },
-    );
+      })
+      .addMatcher(
+        isAnyOf(authLogout.fulfilled, authLogout.rejected),
+        (state) => {
+          (state.loading = false), (state.user = null), (state.token = '');
+        },
+      );
   },
 });
 
