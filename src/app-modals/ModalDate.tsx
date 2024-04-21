@@ -37,10 +37,8 @@ const ModalDate: React.FC<MyModalProps> = ({ onClose, visible }) => {
   };
   const today = new Date();
   today.setDate(today.getDate());
-  const minDate = getFormatedDate(today, 'YYYY/MM/DD');
-  today.setDate(today.getDate() + 6);
-
   const maxDate = getFormatedDate(today, 'YYYY/MM/DD');
+
   return (
     <View style={styles.container}>
       <Modal
@@ -60,7 +58,6 @@ const ModalDate: React.FC<MyModalProps> = ({ onClose, visible }) => {
         >
           <DatePicker
             mode="calendar"
-            minimumDate={minDate}
             maximumDate={maxDate}
             selected={date}
             onDateChange={handleChange}
