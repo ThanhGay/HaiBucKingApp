@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import StoreProvider from './StoreProvider';
+import LayoutState from '@/layouts/LayoutState';
 
 interface RootProps {
   children?: React.ReactNode;
@@ -8,9 +9,11 @@ interface RootProps {
 
 const RootComponent: React.FC<RootProps> = ({ children }) => {
   return (
-    <View style={styles.container}>
-      <StoreProvider>{children}</StoreProvider>
-    </View>
+    <StoreProvider>
+      <LayoutState>
+        <View style={styles.container}>{children}</View>
+      </LayoutState>
+    </StoreProvider>
   );
 };
 

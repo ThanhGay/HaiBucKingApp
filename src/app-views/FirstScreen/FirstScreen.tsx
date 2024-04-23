@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
-import { useAppSelector } from '@/redux/hooks';
 import ModalLanguage from '@/app-modals/ModalLanguage';
 
 const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
@@ -17,9 +16,6 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
 }) => {
   const [showModal, setshowModal] = useState(false);
   const [language, setLanguage] = useState('Language');
-
-  const { user, token } = useAppSelector((state) => state.authState);
-  console.log('FirstScreen: ', user, '\nToken in First: ', token);
 
   const toSignin = () => {
     navigation.navigate('Signin');

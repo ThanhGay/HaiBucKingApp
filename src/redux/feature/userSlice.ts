@@ -1,8 +1,11 @@
+import { apiGetComingSoon, apiGetNowPlaying } from '@/api/movie';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface UserState {
   listNotification: Array<any>;
   listTicket: Array<any>;
+  listNowPlaying: Array<any>;
+  listComingSoon: Array<any>;
 }
 
 export const getListNotification = createAsyncThunk(
@@ -25,9 +28,27 @@ export const getListTicket = createAsyncThunk(
   },
 );
 
+export const getListNowPlaying = createAsyncThunk(
+  'user/getListNowPlaying',
+  async () => {
+    const res = await apiGetNowPlaying();
+    if (res.status) return res.data;
+  },
+);
+
+export const getListComingSoon = createAsyncThunk(
+  'user/getListComingSoon',
+  async () => {
+    const res = await apiGetComingSoon();
+    if (res.status) return res.data;
+  },
+);
+
 const initialState: UserState = {
   listNotification: [],
   listTicket: [],
+  listNowPlaying: [],
+  listComingSoon: [],
 };
 
 export const userSlice = createSlice({
@@ -50,6 +71,18 @@ export const userSlice = createSlice({
         getListTicket.fulfilled,
         (state, action: PayloadAction<Array<any>>) => {
           state.listTicket = action.payload;
+        },
+      )
+      .addCase(
+        getListNowPlaying.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.listNowPlaying = action.payload;
+        },
+      )
+      .addCase(
+        getListComingSoon.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.listComingSoon = action.payload;
         },
       );
   },

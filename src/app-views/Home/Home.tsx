@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Image,
   ScrollView,
@@ -17,6 +17,7 @@ import MovieItem from '../Movie/components/MovieItem';
 import NewsItem from './components/NewsItem';
 import SlideShow from './components/SlideShow';
 import colors from '@/utils/colors';
+import { apiGetNowPlaying } from '@/api/movie';
 
 const listMovie = [
   {
@@ -82,9 +83,7 @@ const listNews = [
 const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
-  const { user, token } = useAppSelector((state) => state.authState);
-  console.log('Home: ', user, '\nToken in Home: ', token);
-
+  const { user } = useAppSelector((state) => state.authState);
   return (
     <View style={styles.container}>
       <ScrollView>
