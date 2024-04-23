@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { postWithToken, putWithToken } from '@/utils';
 import { LOCALHOST, PORT } from '../../port';
+import axiosClient from './axiosClient';
 
-const Account_URL = `http://${LOCALHOST}:${PORT}/Account`;
+const Account_URL = `http://${LOCALHOST}:${PORT}/account`;
 
+// sign in
 export const apiSignIn = async (args: {
   phoneNumber: string;
   password: string;
@@ -12,23 +13,15 @@ export const apiSignIn = async (args: {
   data: Array<any>;
   msg: string;
 }> => {
-  // const form = new FormData();
-  // form.append('email', args.email);
-  // form.append('password', args.password);
-
   const form = JSON.stringify({
     PhoneNumber: args.phoneNumber,
     Password: args.password,
   });
 
-  const url = `${Account_URL}/SignIn`;
+  const url = `${Account_URL}/sign-in`;
 
-  const data = await axios
-    .post(url, form, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+  const data = await axiosClient
+    .post(url, form)
     .then((response) => {
       return response.data;
     })
@@ -39,6 +32,7 @@ export const apiSignIn = async (args: {
   return data ?? {};
 };
 
+// đăng nhập
 export const apiSignUp = async (args: {
   phoneNumber: string;
   password: string;
@@ -54,17 +48,10 @@ export const apiSignUp = async (args: {
     DateOfBirth: args.dob,
   });
 
-  console.log(form);
-  
+  const url = `${Account_URL}/sign-up`;
 
-  const url = `${Account_URL}/SignUp`;
-
-  const data = await axios
-    .post(url, form, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+  const data = await axiosClient
+    .post(url, form)
     .then((response) => {
       return response.data;
     })
@@ -75,13 +62,14 @@ export const apiSignUp = async (args: {
   return data ?? {};
 };
 
+// đăng xuất
 export const apiSignOut = async (): Promise<{
   status: boolean;
   data: Array<any>;
   msg: string;
 }> => {
-  const url = `${Account_URL}/SignOut`;
-  const data = axios
+  const url = `${Account_URL}/sign-out`;
+  const data = axiosClient
     .post(url)
     .then((response) => {
       return response.data;
@@ -92,13 +80,14 @@ export const apiSignOut = async (): Promise<{
   return data ?? {};
 };
 
-export const apiForgotPassword = async (args: {
+// đổi mật khẩu
+export const apiChangePassword = async (args: {
   phoneNumber: string;
   password: string;
   newPassword: string;
   token: string;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-  const url = `${Account_URL}/ChangePassword`;
+  const url = `${Account_URL}/change-password`;
   const form = JSON.stringify({
     PhoneNumber: args.phoneNumber,
     Password: args.password,
@@ -106,4 +95,22 @@ export const apiForgotPassword = async (args: {
   });
   const { token } = args;
   return putWithToken({ url, data: form, token });
+};
+
+// đặt lại mật khẩu
+export const apiResetPassword = async (args: {
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
+}) => {
+  const url = `${Account_URL}/forgot-password`;
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+    ConfirmPassword: args.confirmPassword,
+  });
+
+  const data = axiosClient.put(url, form);
+
+  return data ?? {};
 };

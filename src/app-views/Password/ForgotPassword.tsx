@@ -15,6 +15,7 @@ const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
     navigation.navigate('ConfirmOTP', {
       phoneNumber,
       password,
+      confirmPassword: confirm,
       continue: 'FirstScreen',
     });
   };

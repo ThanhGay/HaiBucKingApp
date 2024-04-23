@@ -4,21 +4,32 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
+import { useAppSelector } from '@/redux/hooks';
+import { apiChangePassword } from '@/api/auth';
 
 const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { user, token } = useAppSelector((state) => state.authState);
+
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [Confirm, setConfirm] = useState('');
-  const handleSubmit = () => {
-    console.log(
-      JSON.stringify(
-        `Password: ${password}, New Password: ${newPassword}, Confirm: ${Confirm}`,
-      ),
-    );
-    navigation.goBack();
+  const [confirm, setConfirm] = useState('');
+
+  const handleSubmit = async () => {
+    const dataRes = await apiChangePassword({
+      phoneNumber: user.PhoneNumber,
+      password: password,
+      newPassword: newPassword,
+      token,
+    });
+    if (dataRes.msg === 'Success') {
+      navigation.goBack();
+    } else {
+      console.log('Fail to change password');
+    }
   };
+
   return (
     <View style={styles.container}>
       <Title

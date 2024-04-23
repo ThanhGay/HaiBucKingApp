@@ -4,6 +4,7 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { Button, CountdownTimer, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
+import { apiResetPassword } from '@/api/auth';
 
 interface ConfirmOtpProps {
   route: any;
@@ -42,7 +43,11 @@ const ConfirmOTP: React.FC<
     const enteredOTP = otp.join('');
     if (enteredOTP.length === 6) {
       console.log('OTP:', enteredOTP);
-      navigation.navigate(route.params.continue, route.params);
+      if (route.params.continue === 'FirstScreen') {
+        submit(route.params);
+      } else {
+        navigation.navigate(route.params.continue);
+      }
     } else {
       console.log('Vui lòng nhập đủ 6 ký tự');
     }
@@ -53,6 +58,15 @@ const ConfirmOTP: React.FC<
     inputs.current[0].focus();
   };
 
+  const submit = async (values: any) => {
+    const dataRes = await apiResetPassword(values);
+    if (dataRes.status) {
+      console.log('Success');
+      navigation.navigate(route.params.continue);
+    } else {
+      console.log('Failure');
+    }
+  };
 
   return (
     <View style={styles.container}>
