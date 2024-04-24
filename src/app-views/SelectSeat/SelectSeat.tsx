@@ -24,12 +24,13 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [showModal, setshowModal] = useState(false);
 
   // Date
-  const [active, setActive] = useState<string>('');
-  const [selectedDate, setSelectDate] = useState<any>(null);
+  const [active, setActive] = useState<string>('0');
+  const [selectedDate, setSelectDate] = useState<any>(getToday);
 
   const today = new Date();
 
   today.setDate(today.getDate());
+  // console.log(today.getTime());
 
   const dates = Array.from({ length: 7 }, (_, index) => {
     const date = new Date(today);
@@ -42,6 +43,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   const handleDateSelection = (key: string) => {
     setActive(key);
     const selectedDate = dates.find((date) => date.key === key);
+
     if (selectedDate) {
       setSelectDate(selectedDate.name);
 
@@ -57,7 +59,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
       }
       setReserved(true);
 
-      console.log(seatNumber);
+      // console.log(seatNumber);
 
       return [...prevSelectedSeats, seatNumber];
     });
@@ -144,13 +146,15 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
             );
           })}
         </View>
-        {!Reserved && (
-          <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+        <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
+          {
+            // <View>
             <Text style={{ color: 'red' }}>
-              Xin vui lòng chọn ghế mà bạn mong muốn
+              {!Reserved ? 'Xin vui lòng chọn ghế mà bạn mong muốn' : ''}
             </Text>
-          </View>
-        )}
+            // </View>
+          }
+        </View>
         <View
           style={{
             flexDirection: 'row',
@@ -164,7 +168,6 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
                 height: 40,
                 width: 40,
                 borderRadius: 12,
-                borderWidth: 1,
                 backgroundColor: '#1C1C1C',
                 borderColor: '#BFBFBF',
                 marginRight: 10,
@@ -179,7 +182,6 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
                 height: 40,
                 width: 40,
                 borderRadius: 12,
-                borderWidth: 1,
                 backgroundColor: '#261D08',
                 borderColor: '#BFBFBF',
                 marginRight: 10,
@@ -193,7 +195,6 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
                 height: 40,
                 width: 40,
                 borderRadius: 12,
-                borderWidth: 1,
                 backgroundColor: '#FCC434',
                 borderColor: '#BFBFBF',
                 marginRight: 10,
@@ -203,9 +204,20 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
           </View>
         </View>
       </View>
-
+      <View style={{ marginVertical: 16 }}>
+        <Text
+          style={{
+            color: colors.whiteText,
+            fontSize: 24,
+            fontWeight: '700',
+            textAlign: 'center',
+          }}
+        >
+          Select Date & Time
+        </Text>
+      </View>
       {/* Modal */}
-      <TouchableOpacity onPress={() => setshowModal(true)}>
+      {/* <TouchableOpacity onPress={() => setshowModal(true)}>
         <Text
           style={{
             color: colors.primary,
@@ -216,81 +228,93 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
         >
           Open
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {/* end Modal */}
       {/* DatePicker */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {dates.map((item) => {
-          // Tách chuỗi thành ngày, tháng và năm
-          const [year, month, day] = item.name.split('/');
-          const monthNames: { [key: string]: string } = {
-            '01': 'Jan',
-            '02': 'Feb',
-            '03': 'Mar',
-            '04': 'Apr',
-            '05': 'May',
-            '06': 'Jun',
-            '07': 'Jul',
-            '08': 'Aug',
-            '09': 'Sep',
-            '10': 'Oct',
-            '11': 'Nov',
-            '12': 'Dec',
-          };
-          return (
-            <TouchableOpacity
-              key={item.key}
-              onPress={() => handleDateSelection(item.key)}
-            >
-              <View
-                style={{
-                  backgroundColor:
-                    item.key === active ? colors.primary : colors.blackOpacity,
-                  borderRadius: 32,
-                  height: 100,
-                  width: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
+      <ScrollView horizontal>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            gap: 16,
+          }}
+        >
+          {dates.map((item) => {
+            // Tách chuỗi thành ngày, tháng và năm
+            const [year, month, day] = item.name.split('/');
+            const monthNames: { [key: string]: string } = {
+              '01': 'Jan',
+              '02': 'Feb',
+              '03': 'Mar',
+              '04': 'Apr',
+              '05': 'May',
+              '06': 'Jun',
+              '07': 'Jul',
+              '08': 'Aug',
+              '09': 'Sep',
+              '10': 'Oct',
+              '11': 'Nov',
+              '12': 'Dec',
+            };
+            return (
+              <TouchableOpacity
+                key={item.key}
+                onPress={() => handleDateSelection(item.key)}
               >
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontWeight: '500',
-                    color: item.key === active ? colors.black : '#F2F2F2',
-                    marginBottom: 12,
-                  }}
-                >
-                  {monthNames[month]}
-                </Text>
                 <View
                   style={{
-                    height: 40,
-                    width: 40,
-                    backgroundColor: '#2F2F2F',
-                    borderRadius: 40,
+                    backgroundColor:
+                      item.key === active
+                        ? colors.primary
+                        : colors.blackOpacity,
+                    opacity: item.key === active ? 1 : 0.68,
+
+                    borderRadius: 32,
+                    height: 100,
+                    width: 50,
                     justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <Text
                     style={{
-                      color:
-                        item.key === active
-                          ? colors.whiteText
-                          : colors.grayText,
                       fontSize: 16,
                       fontWeight: '500',
-                      textAlign: 'center',
+                      color: item.key === active ? colors.black : '#F2F2F2',
+                      marginBottom: 12,
                     }}
                   >
-                    {day}
+                    {monthNames[month]}
                   </Text>
+                  <View
+                    style={{
+                      height: 40,
+                      width: 40,
+                      backgroundColor: '#2F2F2F',
+                      borderRadius: 40,
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color:
+                          item.key === active
+                            ? colors.whiteText
+                            : colors.grayText,
+                        fontSize: 16,
+                        fontWeight: '500',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {day}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </ScrollView>
       {/* end Datepicker */}
       <TouchableOpacity
         style={{
@@ -302,7 +326,6 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
       >
         <Text style={styles.confirmButtonText}>Confirm Selection</Text>
       </TouchableOpacity>
-      {/* <ModalDate visible={showModal} onClose={() => setshowModal(false)} /> */}
     </View>
   );
 };
@@ -343,10 +366,10 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     backgroundColor: colors.primary,
-    paddingVertical: 20,
+    paddingVertical: 16,
     marginHorizontal: 20,
     borderRadius: 60,
-    marginBottom: 50,
+    // marginBottom: 50,
   },
   confirmButtonText: {
     color: colors.blackText,
