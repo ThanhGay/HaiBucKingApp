@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StatusBar, TouchableOpacity, Switch } from 'react-native';
+import {
+  View,
+  Text,
+  StatusBar,
+  TouchableOpacity,
+  Switch,
+  Alert,
+} from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Title, Box, Button, Footer } from '@/component/Component';
@@ -13,24 +20,29 @@ import { setDataUser, setToken } from '@/redux/feature/authSlice';
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
-  const [isRemember, set] = useState(true);
+  let msg = '';
+  const [isRemember, set] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [dataRes, setDataRes] = useState<any>(null);
   const dispatch = useAppDispatch();
 
   const handleLogin = async () => {
-    const dataRes = await apiSignIn({ phoneNumber, password });
-    setDataRes(dataRes);
+    const _dataRes = await apiSignIn({ phoneNumber, password });
+    setDataRes(_dataRes);
 
-    if (dataRes.status) {
-      dispatch(setDataUser(dataRes?.data.data_user));
-      dispatch(setToken(dataRes?.data.accesToken));
+    if (_dataRes.status) {
+      msg = _dataRes.msg;
+      dispatch(setDataUser(_dataRes?.data.data_user));
+      dispatch(setToken(_dataRes?.data.accesToken));
       navigation.navigate('Home');
     } else {
-      console.log('Tài khoản hoặc mật khẩu không chính xác');
+      msg = _dataRes.msg;
     }
+    showResult();
   };
+
+  const showResult = () => Alert.alert('Thông báo', msg);
 
   return (
     <View style={styles.container}>
@@ -55,7 +67,13 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
           }}
           secureTextEntry
         ></Box>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 6,
+          }}
+        >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Switch
               thumbColor={colors.primary}
@@ -70,16 +88,19 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
           <TouchableOpacity
             onPress={() => navigation.navigate('ForgotPassword')}
           >
-            <Text style={{ color: 'white', fontSize: 16 }}>
+            <Text
+              style={{
+                color: 'white',
+                fontSize: 16,
+                fontStyle: 'italic',
+                fontWeight: '500',
+              }}
+            >
               Forgot Password?
             </Text>
           </TouchableOpacity>
         </View>
-        {dataRes && !dataRes.status && (
-          <Text style={{ color: 'red' }}>
-            Vui lòng nhập lại tài khoản, mật khẩu
-          </Text>
-        )}
+
         <Button title="Login" onPress={handleLogin} />
       </View>
       <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>

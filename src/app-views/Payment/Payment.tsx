@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Button, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
-import MovieItem from '../Movie/components/MovieItem';
+import MovieItem from '../../app-components/Movie/MovieItem';
 
 const paymentMethod = [
   {

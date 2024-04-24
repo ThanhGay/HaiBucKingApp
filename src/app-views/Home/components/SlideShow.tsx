@@ -1,6 +1,6 @@
-import MovieItem from '@/app-views/Movie/components/MovieItem';
+import MovieItem from '@app-components/Movie/MovieItem';
 import colors from '@/utils/colors';
-import { convertTime1 } from '@/utils/hooks';
+import { convertTime } from '@/utils/hooks';
 import React, { useState, useRef } from 'react';
 import {
   View,
@@ -11,19 +11,19 @@ import {
   Text,
 } from 'react-native';
 
-const SlideShow = ({ images }: { images: any }) => {
+const SlideShow = ({ list }: { list: any }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const pan = useRef(new Animated.ValueXY()).current;
 
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
+      prevIndex === 0 ? list.length - 1 : prevIndex - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
+      prevIndex === list.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -65,7 +65,7 @@ const SlideShow = ({ images }: { images: any }) => {
           style={{ position: 'absolute', left: 0 }}
         >
           <Image
-            source={images[currentIndex - 1].poster}
+            source={list[currentIndex - 1].Poster}
             style={{ height: 345, width: 20, opacity: 0.75 }}
           />
         </TouchableOpacity>
@@ -77,18 +77,18 @@ const SlideShow = ({ images }: { images: any }) => {
         }}
       >
         <Image
-          source={images[currentIndex].poster}
+          source={{uri: list[currentIndex]?.Poster}}
           style={{ height: 440, width: 310 }}
         />
         <View style={{ alignItems: 'center' }}>
           <Text
             style={{ color: colors.whiteText, fontSize: 24, fontWeight: '700' }}
           >
-            {images[currentIndex].name}
+            {list[currentIndex]?.Movie_Name}
           </Text>
           <Text style={{ color: colors.grayText, fontSize: 16, marginTop: 6 }}>
-            {convertTime1(images[currentIndex].duration)} -{' '}
-            {images[currentIndex].category}
+            {convertTime(list[currentIndex]?.Duration)} -{' '}
+            {list[currentIndex]?.Categories}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
             <Image
@@ -103,22 +103,22 @@ const SlideShow = ({ images }: { images: any }) => {
               }}
             >
               {'  '}
-              {images[currentIndex].star}
+              {list[currentIndex]?.star}
             </Text>
             <Text style={{ color: colors.grayText, fontSize: 12 }}>
               {' '}
-              ({images[currentIndex].totalRate})
+              ({list[currentIndex]?.totalRate})
             </Text>
           </View>
         </View>
       </Animated.View>
-      {currentIndex < images.length - 1 && (
+      {currentIndex < list.length - 1 && (
         <TouchableOpacity
           onPress={handleNext}
           style={{ position: 'absolute', right: 0 }}
         >
           <Image
-            source={images[currentIndex + 1].poster}
+            source={{uri: list[currentIndex + 1].Poster}}
             style={{ height: 345, width: 20, opacity: 0.75 }}
           />
         </TouchableOpacity>

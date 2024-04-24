@@ -2,17 +2,15 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
-import { convertTime } from '@/utils/hooks';
 import colors from '@/utils/colors';
 
-interface MovieItemProps {
+interface ComingSoonItemProps {
   film?: any;
-  direction: 'column' | 'row';
 }
 
-const MovieItem: React.FC<
-  MovieItemProps & { navigation: NavigationProp<any> }
-> = ({ navigation, film, direction }) => {
+const ComingSoonItem: React.FC<
+  ComingSoonItemProps & { navigation: NavigationProp<any> }
+> = ({ navigation, film }) => {
   const seeDetail = () => {
     navigation.navigate('DetailMovie');
   };
@@ -20,55 +18,49 @@ const MovieItem: React.FC<
     {
       key: 1,
       name: 'rate',
-      icon: require('@assets/icons/star.png'),
-      value: `${film?.star} (${film?.totalRate})`,
+      icon: require('@assets/icons/calendar-white.png'),
+      value: film?.Release.slice(0,10),
     },
     {
       key: 2,
-      name: 'duration',
-      icon: require('@assets/icons/clock-white.png'),
-      value: convertTime(film?.duration),
-    },
-    {
-      key: 3,
       name: 'category',
       icon: require('@assets/icons/camera-white.png'),
-      value: film?.category,
+      value: film?.Categories,
     },
   ];
   return (
     <TouchableOpacity
       style={{
-        width: direction === 'column' ? 190 : '100%',
-        height: direction === 'column' ? 385 : 140,
-        flexDirection: direction,
-        gap: direction === 'column' ? 0 : 8,
-        backgroundColor:
-          direction === 'column' ? colors.black : colors.blackOpacity,
-        borderRadius: direction === 'column' ? 0 : 16,
+        width: 190,
+        height: 385,
+        flexDirection: 'column',
+        backgroundColor: colors.black,
       }}
-      onPress={direction === 'column' ? seeDetail : () => void {}}
+      onPress={seeDetail}
     >
       <Image
         style={{
           ...styles.image,
-          width: direction === 'column' ? 190 : 100,
-          height: direction === 'column' ? 265 : 140,
+          width: 190,
+          height: 265,
         }}
-        source={film.poster}
+        source={
+          film?.Poster
+            ? { uri: film?.Poster }
+            : require('@assets/images/movie-1.png')
+        }
       />
       <View style={{ justifyContent: 'center' }}>
         <Text
           style={{
             ...styles.title,
-            marginBottom: direction === 'column' ? 0 : 16,
-            fontSize: direction === 'column' ? 16 : 20,
+            fontSize: 16,
           }}
         >
-          {film?.name}
+          {film?.Movie_Name}
         </Text>
         <View>
-          <View style={{ gap: direction === 'column' ? 2 : 8 }}>
+          <View style={{ gap: 2 }}>
             {basicInfo.map((item) => (
               <View
                 key={item.key}
@@ -106,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MovieItem;
+export default ComingSoonItem;

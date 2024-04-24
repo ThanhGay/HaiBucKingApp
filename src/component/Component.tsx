@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { styles } from '@/component/styles';
+
 export const Title = ({
   leftIcon,
   title,

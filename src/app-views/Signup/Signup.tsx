@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, View, Keyboard } from 'react-native';
+import { StatusBar, View, Keyboard, TouchableOpacity } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Box, Button, Footer, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
+// import { ModalDate } from '@app-modals';
 
 const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -13,6 +14,7 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [birthday, setBirthday] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [showModal, setShowModal] = useState(false)
   const handleSubmit = () => {
     navigation.navigate('ConfirmOTP', {
       email,
@@ -68,6 +70,7 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
             setPhoneNumber(text);
           }}
         />
+        
         <Box
           icon={require('@assets/icons/cake.png')}
           title="Your birthday"

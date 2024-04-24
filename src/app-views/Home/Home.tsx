@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Image,
   ScrollView,
@@ -10,62 +10,13 @@ import {
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppSelector } from '@/redux/hooks';
+import { ComingSoonItem } from '@app-components/Movie';
 
 import SearchBox from '@app-components/SearchBox';
 import BottomTab from '@app-navigation/BottomTabs/BottomTab';
-import MovieItem from '../Movie/components/MovieItem';
 import NewsItem from './components/NewsItem';
 import SlideShow from './components/SlideShow';
 import colors from '@/utils/colors';
-import { apiGetNowPlaying } from '@/api/movie';
-
-const listMovie = [
-  {
-    key: 1,
-    name: 'Panda1',
-    star: 4,
-    totalRate: 982,
-    duration: '124',
-    category: 'Action, Sci-fi',
-    poster: require('@assets/images/movie-8.png'),
-  },
-  {
-    key: 2,
-    name: 'Panda2',
-    star: 4,
-    totalRate: 982,
-    duration: '351',
-    category: 'Action, Sci-fi',
-    poster: require('@assets/images/movie-6.png'),
-  },
-  {
-    key: 3,
-    name: 'Panda3',
-    star: 4,
-    totalRate: 1562,
-    duration: '200',
-    category: 'Action, Romance',
-    poster: require('@assets/images/movie-5.png'),
-  },
-  {
-    key: 4,
-    name: 'Panda4',
-    star: 4.5,
-    totalRate: 234,
-    duration: '40',
-    category: 'Action, Sci-fi',
-    poster: require('@assets/images/movie-2.png'),
-  },
-  {
-    key: 5,
-    name: 'Panda5',
-    star: 4,
-    totalRate: 982,
-    duration: '128',
-    category: 'Action, Sci-fi',
-    poster: require('@assets/images/movie-1.png'),
-  },
-];
 
 const listNews = [
   {
@@ -84,6 +35,10 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { user } = useAppSelector((state) => state.authState);
+  const { listNowPlaying, listComingSoon } = useAppSelector(
+    (state) => state.userState,
+  );
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -113,7 +68,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                   <View>
                     {/* Image boxer */}
 
-                    <SlideShow images={listMovie} />
+                    <SlideShow list={listNowPlaying} />
                   </View>
                 </View>
 
@@ -123,13 +78,12 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                     onPress={() => navigation.navigate('Movie', { key: 2 })}
                   />
                   <ScrollView horizontal>
-                    {listMovie.map((movie) => (
-                      <View key={movie.key} style={{ paddingHorizontal: 8 }}>
-                        <MovieItem
-                          film={movie}
-                          direction="column"
-                          navigation={navigation}
-                        />
+                    {listComingSoon.map((movie) => (
+                      <View
+                        key={movie.Movie_Id}
+                        style={{ paddingHorizontal: 8 }}
+                      >
+                        <ComingSoonItem film={movie} />
                       </View>
                     ))}
                   </ScrollView>

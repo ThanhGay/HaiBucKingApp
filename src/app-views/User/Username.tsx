@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { styles } from '@/component/styles';
@@ -17,6 +17,8 @@ const EnterUsername: React.FC<
   EnterUsernameProps & { navigation: NavigationProp<any> }
 > = ({ route, navigation }) => {
   const dispatch = useAppDispatch();
+
+  let msg = '';
   const { birthday, email, password, phoneNumber } = route.params;
   const [username, setUsername] = useState('');
 
@@ -28,14 +30,22 @@ const EnterUsername: React.FC<
       email: email,
       dob: birthday,
     });
+
     if (dataRes.status) {
+      msg = dataRes.msg;
       dispatch(setDataUser(dataRes?.data.data_user));
       dispatch(setToken(dataRes?.data.accesToken));
       navigation.navigate('Home');
     } else {
+      msg = dataRes.msg;
       console.log('err sign up');
     }
+
+    showResult();
   };
+
+  const showResult = () => Alert.alert('Thông báo', msg);
+
   return (
     <View style={styles.container}>
       <Title leftIcon title="" onPressLeft={() => navigation.goBack()} />

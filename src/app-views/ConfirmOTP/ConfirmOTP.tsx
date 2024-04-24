@@ -46,7 +46,7 @@ const ConfirmOTP: React.FC<
       if (route.params.continue === 'FirstScreen') {
         submit(route.params);
       } else {
-        navigation.navigate(route.params.continue);
+        navigation.navigate(route.params.continue, route.params);
       }
     } else {
       console.log('Vui lòng nhập đủ 6 ký tự');
@@ -75,8 +75,8 @@ const ConfirmOTP: React.FC<
       <View style={styles.body}>
         <Text style={{ fontSize: 30, color: '#FCC435' }}>Confirm OTP code</Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
-          You just need to enter the OTP sent to the registered phone number
-          {/* {route.params.Phonenumber} */}
+          You just need to enter the OTP sent to the registered phone number{' '}
+          {route.params.Phonenumber}
         </Text>
         <View
           style={{
