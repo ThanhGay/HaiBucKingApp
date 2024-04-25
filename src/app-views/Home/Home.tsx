@@ -83,7 +83,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                         key={movie.Movie_Id}
                         style={{ paddingHorizontal: 8 }}
                       >
-                        <ComingSoonItem film={movie} />
+                        <ComingSoonItem film={movie} navigation={navigation} />
                       </View>
                     ))}
                   </ScrollView>

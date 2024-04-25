@@ -14,14 +14,16 @@ const MovieItem: React.FC<
   MovieItemProps & { navigation: NavigationProp<any> }
 > = ({ navigation, film, direction }) => {
   const seeDetail = () => {
-    navigation.navigate('DetailMovie');
+    navigation.navigate('DetailMovie', { Movie_Id: film?.Movie_Id });
   };
   const basicInfo = [
     {
       key: 1,
       name: 'rate',
       icon: require('@assets/icons/star.png'),
-      value: `${film?.star ? film.star : 0} (${film?.totalRate ? film?.totalRate : 0})`,
+      value: `${film?.star ? film.star : 0} (${
+        film?.totalRate ? film?.totalRate : 0
+      })`,
     },
     {
       key: 2,
@@ -55,7 +57,11 @@ const MovieItem: React.FC<
           width: direction === 'column' ? 190 : 100,
           height: direction === 'column' ? 265 : 140,
         }}
-        source={ film?.Poster ? {uri: film?.Poster}: require('@assets/images/movie-1.png')}
+        source={
+          film?.Poster
+            ? { uri: film?.Poster }
+            : require('@assets/images/movie-1.png')
+        }
       />
       <View style={{ justifyContent: 'center' }}>
         <Text

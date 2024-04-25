@@ -65,7 +65,7 @@ const SlideShow = ({ list }: { list: any }) => {
           style={{ position: 'absolute', left: 0 }}
         >
           <Image
-            source={list[currentIndex - 1].Poster}
+            source={{ uri: list[currentIndex - 1]?.Poster }}
             style={{ height: 345, width: 20, opacity: 0.75 }}
           />
         </TouchableOpacity>
@@ -77,7 +77,7 @@ const SlideShow = ({ list }: { list: any }) => {
         }}
       >
         <Image
-          source={{uri: list[currentIndex]?.Poster}}
+          source={{ uri: list[currentIndex]?.Poster }}
           style={{ height: 440, width: 310 }}
         />
         <View style={{ alignItems: 'center' }}>
@@ -118,7 +118,7 @@ const SlideShow = ({ list }: { list: any }) => {
           style={{ position: 'absolute', right: 0 }}
         >
           <Image
-            source={{uri: list[currentIndex + 1].Poster}}
+            source={{ uri: list[currentIndex + 1].Poster }}
             style={{ height: 345, width: 20, opacity: 0.75 }}
           />
         </TouchableOpacity>
