@@ -39,10 +39,9 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
     } else {
       msg = _dataRes.msg;
     }
-    showResult();
-  };
 
-  const showResult = () => Alert.alert('Thông báo', msg);
+    (() => Alert.alert('Thông báo', msg))();
+  };
 
   return (
     <View style={styles.container}>

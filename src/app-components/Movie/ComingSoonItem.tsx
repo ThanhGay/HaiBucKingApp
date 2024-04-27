@@ -12,14 +12,14 @@ const ComingSoonItem: React.FC<
   ComingSoonItemProps & { navigation: NavigationProp<any> }
 > = ({ navigation, film }) => {
   const seeDetail = () => {
-    navigation.navigate('DetailMovie');
+    navigation.navigate('DetailMovie', { movieId: film.Movie_Id });
   };
   const basicInfo = [
     {
       key: 1,
       name: 'rate',
       icon: require('@assets/icons/calendar-white.png'),
-      value: film?.Release.slice(0,10),
+      value: film?.Release.slice(0, 10),
     },
     {
       key: 2,

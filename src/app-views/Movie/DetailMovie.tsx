@@ -10,12 +10,22 @@ import {
 } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
+import { useAppDispatch } from '@/redux/hooks';
+import { setMovieId } from '@/redux/feature/ticketSlice';
+
 import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
 
-const DetailMovie: React.FC<{ navigation: NavigationProp<any> }> = ({
-  navigation,
-}) => {
+interface DetailMovieProps {
+  route: any;
+}
+
+const DetailMovie: React.FC<
+  DetailMovieProps & { navigation: NavigationProp<any> }
+> = ({ navigation, route }) => {
+  const movieId = route.params.Movie_Id;
+  const dispatch = useAppDispatch();
+
   const infomationData = [
     {
       name: 'Movie genre',
@@ -30,6 +40,13 @@ const DetailMovie: React.FC<{ navigation: NavigationProp<any> }> = ({
       value: 'English',
     },
   ];
+
+  const handleBooking = () => {
+    dispatch(setMovieId(movieId));
+    console.log('You are booking the movie has ID: ', movieId);
+    navigation.navigate('SelectSeat');
+  };
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.black }}>
       {/* <View style={{  }}> */}
@@ -83,10 +100,7 @@ const DetailMovie: React.FC<{ navigation: NavigationProp<any> }> = ({
 
         <Actors />
 
-        <Button
-          title="Booking"
-          onPress={() => navigation.navigate('SelectSeat')}
-        />
+        <Button title="Booking" onPress={handleBooking} />
       </View>
     </ScrollView>
   );
@@ -202,7 +216,7 @@ const BubbleBox = () => {
               <Image
                 source={require('@assets/icons/play.png')}
                 alt="star"
-                style={{ width: 16, height: 16}}
+                style={{ width: 16, height: 16 }}
               />
               <Text style={{ color: colors.grayText }}>Watch trailer</Text>
             </View>

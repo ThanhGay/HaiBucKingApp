@@ -14,7 +14,7 @@ const MovieItem: React.FC<
   MovieItemProps & { navigation: NavigationProp<any> }
 > = ({ navigation, film, direction }) => {
   const seeDetail = () => {
-    navigation.navigate('DetailMovie', { Movie_Id: film?.Movie_Id });
+    navigation.navigate('DetailMovie', { movieId: film?.Movie_Id });
   };
   const basicInfo = [
     {

@@ -56,11 +56,13 @@ export const Box = ({
   icon,
   title,
   onChangeText,
+  onFocus,
   secureTextEntry,
 }: {
   icon: any;
   title: string;
   onChangeText: (text: string) => void;
+  onFocus?: () => void
   secureTextEntry?: boolean;
 }) => {
   const [text, setText] = useState('');
@@ -80,6 +82,7 @@ export const Box = ({
           <TextInput
             placeholder={title}
             placeholderTextColor={'white'}
+            onFocus={onFocus}
             style={{
               color: 'white',
               fontSize: 25,

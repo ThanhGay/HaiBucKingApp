@@ -10,6 +10,24 @@ const EditProfile = ({ route }: { route: any }) => {
 
   const [edit, setEdit] = useState(false);
 
+  const [username, setUsername] = useState(user.FullName)
+  const [phoneNumber, setPhoneNumber] = useState(user.PhoneNumber)
+  const [email, setEmail] = useState(user.Email)
+  const [dob, setDob] = useState(user.DateOfBirth.slice(0, 10))
+
+  const handleSubmit = () => {
+    const form = JSON.stringify({
+      Fullname: username,
+      PhoneNumber: phoneNumber, 
+      Email: email,
+      DateOfBirth: dob
+  })
+    
+  console.log(form);
+  
+  };
+  
+
   return (
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
       <Title
@@ -36,26 +54,30 @@ const EditProfile = ({ route }: { route: any }) => {
         />
         <BoxEditProfile
           link={require('@/assets/icons/avata.png')}
-          title={user.FullName}
-          titleEdit="Your name"
+          value={username}
+          onChangeText={(newValue) => setUsername(newValue)}
+          placeholder="Your name"
           edit={edit}
         />
         <BoxEditProfile
-          link={require('@/assets/icons/avata.png')}
-          title={user.PhoneNumber}
-          titleEdit="Your phone number"
+          link={require('@/assets/icons/phone.png')}
+          value={phoneNumber}
+          onChangeText={(newValue) => setPhoneNumber(newValue)}
+          placeholder="Your phone number"
           edit={edit}
         />
         <BoxEditProfile
-          link={require('@/assets/icons/avata.png')}
-          title={user.Email}
-          titleEdit="Your email"
+          link={require('@/assets/icons/email.png')}
+          value={email}
+          onChangeText={(newValue) => setEmail(newValue)}
+          placeholder="Your email"
           edit={edit}
         />
         <BoxEditProfile
-          link={require('@/assets/icons/avata.png')}
-          title={user.DateOfBirth}
-          titleEdit="Your birthday"
+          link={require('@/assets/icons/cake.png')}
+          value={dob}
+          onChangeText={(newValue) => setDob(newValue)}
+          placeholder="Your birthday"
           edit={edit}
         />
         {edit && (
@@ -73,21 +95,23 @@ const EditProfile = ({ route }: { route: any }) => {
 
 const BoxEditProfile = ({
   link,
-  title,
-  titleEdit,
+  value,
+  placeholder,
+  onChangeText,
   edit,
 }: {
   link: any;
-  title: string;
-  titleEdit: string;
+  value: string;
+  placeholder: string;
   edit: boolean;
+  onChangeText?: (str: string) => void
 }) => {
   return (
     <View style={{ marginTop: 15 }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image source={link} style={{ height: 32, width: 32 }} />
         <TextInput
-          defaultValue={title}
+          defaultValue={value}
           style={{
             fontSize: 24,
             fontWeight: '700',
@@ -95,8 +119,9 @@ const BoxEditProfile = ({
             color: 'white',
             width: '100%',
           }}
-          placeholder={titleEdit}
+          placeholder={placeholder}
           placeholderTextColor={edit ? '#797979' : 'white'}
+          onChangeText={onChangeText}
           editable={edit}
         />
       </View>

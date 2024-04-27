@@ -1,32 +1,45 @@
 import React, { useState } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Alert, Text } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { apiChangePassword } from '@/api/auth';
+import { setDataUser } from '@/redux/feature/authSlice';
 
 const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { user, token } = useAppSelector((state) => state.authState);
+  const dispatch = useAppDispatch();
 
+  const [errorMessage, setErrorMessage] = useState('');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirm, setConfirm] = useState('');
 
   const handleSubmit = async () => {
-    const dataRes = await apiChangePassword({
-      phoneNumber: user.PhoneNumber,
-      password: password,
-      newPassword: newPassword,
-      token,
-    });
-    if (dataRes.msg === 'Success') {
-      navigation.goBack();
+    if (newPassword.trim() === confirm.trim()) {
+      if (password.trim() === user.PassWord) {
+        const dataRes = await apiChangePassword({
+          password: password.trim(),
+          newPassword: newPassword.trim(),
+          token,
+        });
+
+        if (dataRes.status) {
+          (() => Alert.alert('Notice', 'Your password is updated!'))();
+          dispatch(setDataUser({ ...user, PassWord: newPassword }));
+          navigation.goBack();
+        } else {
+          setErrorMessage('The new password and current password match');
+        }
+      } else {
+        setErrorMessage('Your password is incorrect.');
+      }
     } else {
-      console.log('Fail to change password');
+      setErrorMessage('New password and confirm password is not match.');
     }
   };
 
@@ -43,7 +56,9 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
           title={'Your password'}
           onChangeText={(text: string) => {
             setPassword(text);
+            setErrorMessage('');
           }}
+          onFocus={() => setErrorMessage('')}
           secureTextEntry
         />
         <Box
@@ -51,7 +66,9 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
           title={'New password'}
           onChangeText={(text: string) => {
             setNewPassword(text);
+            setErrorMessage('');
           }}
+          onFocus={() => setErrorMessage('')}
           secureTextEntry
         />
         <Box
@@ -59,9 +76,17 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
           title={'Confirm new password'}
           onChangeText={(text: string) => {
             setConfirm(text);
+            setErrorMessage('');
           }}
+          onFocus={() => setErrorMessage('')}
           secureTextEntry
         />
+
+        {errorMessage && (
+          <View>
+            <Text style={{ color: 'red' }}>{errorMessage}</Text>
+          </View>
+        )}
       </View>
       <View style={styles.footer}>
         <Button title={'Save'} onPress={handleSubmit} />
