@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { apiCreateInvoice } from '@/api/ticket';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export interface TIcketState {
+export interface TicketState {
   ticketId: string;
   movieId: string;
   seats: Array<string>;
@@ -8,7 +9,7 @@ export interface TIcketState {
   showtime: any;
 }
 
-const initialState: TIcketState = {
+const initialState: TicketState = {
   ticketId: '',
   movieId: '',
   seats: [],
@@ -29,7 +30,9 @@ export const ticketSlice = createSlice({
 
     setSeats: (state, action: PayloadAction<Array<string>>) => {
       state.seats = action.payload;
-      state.amount = action.payload.length * 50000;
+    },
+    setAmount: (state, action: PayloadAction<number>) => {
+      state.amount = action.payload;
     },
     setShowtime: (state, action: PayloadAction<any>) => {
       state.showtime = action.payload;
@@ -37,7 +40,7 @@ export const ticketSlice = createSlice({
   },
 });
 
-export const { setTicketId, setMovieId, setSeats, setShowtime } =
+export const { setTicketId, setMovieId, setSeats, setAmount, setShowtime } =
   ticketSlice.actions;
 
 const ticketReducer = ticketSlice.reducer;

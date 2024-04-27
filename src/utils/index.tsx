@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const postWithToken = async (args: {
   url: string;
-  data?: { [key: string]: string | Blob };
+  data?: any;
   token: string;
 }) => {
   const { url, data, token } = args;

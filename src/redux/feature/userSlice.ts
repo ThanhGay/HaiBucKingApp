@@ -1,4 +1,6 @@
+// import { apiGetListNotification } from '@/api/auth';
 import { apiGetComingSoon, apiGetNowPlaying } from '@/api/movie';
+import { apiGetListTicket } from '@/api/ticket';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface UserState {
@@ -63,13 +65,13 @@ export const userSlice = createSlice({
     builder
       .addCase(
         getListNotification.fulfilled,
-        (state, action: PayloadAction<Array<any>>) => {
+        (state, action: PayloadAction<any>) => {
           state.listNotification = action.payload;
         },
       )
       .addCase(
         getListTicket.fulfilled,
-        (state, action: PayloadAction<Array<any>>) => {
+        (state, action: PayloadAction<any>) => {
           state.listTicket = action.payload;
         },
       )

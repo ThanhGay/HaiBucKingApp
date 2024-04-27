@@ -1,10 +1,10 @@
-import { postWithToken, putWithToken } from '@/utils';
+import axiosClient from '../utils/axiosClient';
+import { getWithToken, postWithToken, putWithToken } from '@/utils';
 import { LOCALHOST, PORT } from '../../port';
-import axiosClient from './axiosClient';
 
 const Account_URL = `http://${LOCALHOST}:${PORT}/account`;
 
-// sign in
+// đăng nhập
 export const apiSignIn = async (args: {
   phoneNumber: string;
   password: string;
@@ -32,7 +32,7 @@ export const apiSignIn = async (args: {
   return data ?? {};
 };
 
-// đăng nhập
+// đăng ký
 export const apiSignUp = async (args: {
   phoneNumber: string;
   password: string;
@@ -82,18 +82,16 @@ export const apiSignOut = async (): Promise<{
 
 // đổi mật khẩu
 export const apiChangePassword = async (args: {
-  phoneNumber: string;
   password: string;
   newPassword: string;
   token: string;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token } = args;
   const url = `${Account_URL}/change-password`;
   const form = JSON.stringify({
-    PhoneNumber: args.phoneNumber,
     Password: args.password,
     NewPassword: args.newPassword,
   });
-  const { token } = args;
   return putWithToken({ url, data: form, token });
 };
 
@@ -110,7 +108,44 @@ export const apiResetPassword = async (args: {
     ConfirmPassword: args.confirmPassword,
   });
 
-  const data = axiosClient.put(url, form);
+  const data = axiosClient
+    .put(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
   return data ?? {};
 };
+
+// xóa tài khoản
+
+// Chỉnh sửa thông tin tài khoản
+export const apiEditProfile = (args: {
+  token: string;
+  fullname: string;
+  dob: string;
+  newPhoneNumber: string;
+  email: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token } = args;
+  const url = `${Account_URL}/edit-profile`;
+  const form = JSON.stringify({
+    FullName: args.fullname,
+    DateOfBirth: args.dob,
+    NewPhoneNumber: args.newPhoneNumber,
+    Email: args.email,
+  });
+  return putWithToken({ url, data: form, token });
+};
+
+// Danh sách thông báo
+// export const apiGetListNotification = (args: {
+//   token: string;
+// }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+//   const { token } = args;
+//   const url = `${Account_URL}/notification`;
+//   return getWithToken({ url, token });
+// };

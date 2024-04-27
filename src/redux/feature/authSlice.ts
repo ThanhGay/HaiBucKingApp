@@ -100,7 +100,8 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setDataUser, setAuthLoading, setToken } = authSlice.actions;
+export const { setDataUser, setAuthLoading, setToken } =
+  authSlice.actions;
 
 const authReducer = authSlice.reducer;
 
