@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import colors from '@/utils/colors';
+import { formatDate } from '@/utils/hooks';
 
 interface TicketItemProps {
   ticket: any;
@@ -11,14 +12,21 @@ interface TicketItemProps {
 const TicketItem: React.FC<
   TicketItemProps & { navigation: NavigationProp<any> }
 > = ({ ticket, navigation }) => {
+  const splitIndex = ticket.StartTime.indexOf('T');
+  const mapTicket = {
+    ...ticket,
+    Date: ticket.StartTime.slice(0, splitIndex),
+    Time: ticket.StartTime.slice(splitIndex + 1, splitIndex + 6),
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('DetailTicket')}
+      onPress={() => navigation.navigate('DetailTicket', mapTicket)}
     >
       <Image source={ticket.poster} alt="poster" style={styles.poster} />
       <View style={styles.rightContainer}>
-        <Text style={styles.title}>{ticket.movie}</Text>
+        <Text style={styles.title}>{mapTicket.Movie_Name}</Text>
         <View style={{ flexDirection: 'column', gap: 12 }}>
           <View style={styles.row}>
             <Image
@@ -28,11 +36,13 @@ const TicketItem: React.FC<
               width={16}
               style={styles.icon}
             />
-            <Text style={{ color: colors.whiteText }}>{ticket.time}</Text>
+            <Text style={{ color: colors.whiteText }}>{mapTicket.Time}</Text>
 
             <View style={styles.dot} />
 
-            <Text style={{ color: colors.whiteText }}>{ticket.date}</Text>
+            <Text style={{ color: colors.whiteText }}>
+              {formatDate(mapTicket.Date)}
+            </Text>
           </View>
 
           <View style={styles.row}>
@@ -43,7 +53,9 @@ const TicketItem: React.FC<
               width={16}
               style={styles.icon}
             />
-            <Text style={{ color: colors.whiteText }}>{ticket.location}</Text>
+            <Text style={{ color: colors.whiteText }}>
+              Vincom Ocean Park CGV
+            </Text>
           </View>
         </View>
       </View>

@@ -6,8 +6,12 @@ import DetailTicket from '@app-components/DetailTicket';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
-const Success: React.FC<{ navigation: NavigationProp<any> }> = ({
-  navigation,
+interface SuccessProps {
+  route: any
+}
+
+const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
+  navigation, route,
 }) => {
   return (
     <View
@@ -29,7 +33,7 @@ const Success: React.FC<{ navigation: NavigationProp<any> }> = ({
         />
       </View>
       <View style={{ flex: 1 }}>
-        <DetailTicket />
+        <DetailTicket ticket={route.params} />
       </View>
     </View>
   );

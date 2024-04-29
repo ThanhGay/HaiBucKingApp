@@ -13,6 +13,7 @@ interface ConfirmOtpProps {
 const ConfirmOTP: React.FC<
   ConfirmOtpProps & { navigation: NavigationProp<any> }
 > = ({ route, navigation }) => {
+  const phoneNumber = route.params.phoneNumber;
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
 
@@ -76,7 +77,7 @@ const ConfirmOTP: React.FC<
         <Text style={{ fontSize: 30, color: '#FCC435' }}>Confirm OTP code</Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
           You just need to enter the OTP sent to the registered phone number{' '}
-          {route.params.Phonenumber}
+          {phoneNumber}
         </Text>
         <View
           style={{

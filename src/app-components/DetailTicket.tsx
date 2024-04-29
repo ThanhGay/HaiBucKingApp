@@ -1,7 +1,15 @@
-import colors from '@/utils/colors';
 import { View, Image, Text, StyleSheet } from 'react-native';
+import colors from '@/utils/colors';
+import React from 'react';
+import { useAppDispatch } from '@/redux/hooks';
 
-function DetailTicket() {
+interface DetailTicketProps {
+  ticket: any,
+}
+
+const DetailTicket: React.FC<DetailTicketProps> = ({ticket}) => {
+  console.log(ticket);
+  
   return (
     <View style={styles.container}>
       {/* Description Movie */}

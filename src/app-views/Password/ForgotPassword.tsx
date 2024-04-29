@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Text } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
+
+const passwordRegex = new RegExp(
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+  'gm',
+);
 
 const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -11,7 +16,25 @@ const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleSummit = () => {
+    if (!(phoneNumber.length === 10)) {
+      setErrorMessage('Your phone number must be 10 digit')
+      return 
+    }
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        'Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+      );
+      return;
+    }
+
+    if (password !== confirm) {
+      setErrorMessage('Your password and confirm password do not match');
+      return;
+    }
+    setErrorMessage('')
     navigation.navigate('ConfirmOTP', {
       phoneNumber,
       password,
@@ -19,6 +42,7 @@ const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
       continue: 'FirstScreen',
     });
   };
+
   return (
     <View style={styles.container}>
       <Title
@@ -50,6 +74,9 @@ const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
           }}
           secureTextEntry
         />
+        <View>
+          <Text style={{ color: 'red' }}>{errorMessage}</Text>
+        </View>
       </View>
       <Button title="Continue" onPress={handleSummit} />
       <StatusBar backgroundColor="black" barStyle="light-content" />

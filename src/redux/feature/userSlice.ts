@@ -57,7 +57,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setListTicket: (state, action: PayloadAction<Array<any>>) => {
+    setListTicket: (state, action: PayloadAction<any>) => {
       state.listTicket = action.payload;
     },
   },

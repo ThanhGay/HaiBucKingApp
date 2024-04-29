@@ -1,22 +1,17 @@
 import colors from '@/utils/colors';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-function Avatar_Name({
-  firstname,
-  lastname,
-}: {
-  firstname: string;
-  lastname: string;
-}) {
+function Avatar_Name({ name, image }: { name: string; image: string }) {
+  const _space = name.indexOf(' ');
   return (
     <View style={styles.container}>
       <Image
-        source={require('@assets/images/movie-3.png')}
+        source={image ? { uri: image } : require('@assets/images/movie-3.png')}
         style={styles.image}
       />
       <View style={{ flexDirection: 'column' }}>
-        <Text style={styles.text}>{firstname}</Text>
-        <Text style={styles.text}>{lastname}</Text>
+        <Text style={styles.text}>{name.slice(0, _space)}</Text>
+        <Text style={styles.text}>{name.slice(_space + 1)}</Text>
       </View>
     </View>
   );

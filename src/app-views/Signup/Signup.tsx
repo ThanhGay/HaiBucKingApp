@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, View, Keyboard, TouchableOpacity } from 'react-native';
+import {
+  StatusBar,
+  View,
+  Keyboard,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Box, Button, Footer, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
-// import { ModalDate } from '@app-modals';
+
+const emailRegex = new RegExp(
+  /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
+  'gm',
+);
+
+const dateRegex = new RegExp(
+  /(19|20)\d{2}(\/|-)(0[1-9]|1[0,1,2])(\/|-)(0[1-9]|[12][0-9]|3[01])/,
+  'g',
+);
+const passwordRegex = new RegExp(
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+  'gm',
+);
 
 const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -14,8 +33,37 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [birthday, setBirthday] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [showModal, setShowModal] = useState(false)
+
+  const [errMessage, setErrorMessage] = useState('');
+
   const handleSubmit = () => {
+    if (!emailRegex.test(email)) {
+      setErrorMessage('Your email is not in the correct format');
+      return;
+    }
+
+    if (phoneNumber.length !== 10) {
+      setErrorMessage('Your phone number must be 10 digits');
+      return;
+    }
+
+    if (!dateRegex.test(birthday)) {
+      setErrorMessage('Your birthday is not in the format YYYY/MM/DD');
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        'Your password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+      );
+      return;
+    }
+
+    if (password !== confirm) {
+      setErrorMessage('Your password and confirm password do not match');
+      return;
+    }
+
     navigation.navigate('ConfirmOTP', {
       email,
       phoneNumber,
@@ -50,11 +98,7 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   }, []);
   return (
     <View style={styles.container}>
-      <Title
-        leftIcon
-        title="Sign up"
-        onPressLeft={() => navigation.goBack()}
-      ></Title>
+      <Title leftIcon title="Sign up" onPressLeft={() => navigation.goBack()} />
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/email.png')}
@@ -62,18 +106,18 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
           onChangeText={(text: string) => {
             setEmail(text);
           }}
-        ></Box>
+        />
         <Box
           icon={require('@assets/icons/phone.png')}
-          title="Phone number"
+          title="Phone Number"
           onChangeText={(text: string) => {
             setPhoneNumber(text);
           }}
         />
-        
+
         <Box
           icon={require('@assets/icons/cake.png')}
-          title="Your birthday"
+          title="Your birthday (yyyy/mm/dd)"
           onChangeText={(text: string) => {
             setBirthday(text);
           }}
@@ -86,7 +130,7 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
             setPassword(text);
           }}
           secureTextEntry
-        ></Box>
+        />
         <Box
           icon={require('@assets/icons/key-password.png')}
           title="Confirm password"
@@ -94,7 +138,10 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
             setConfirm(text);
           }}
           secureTextEntry
-        ></Box>
+        />
+        <View>
+          <Text style={{ color: 'red' }}>{errMessage}</Text>
+        </View>
 
         <Button title="Continue" onPress={handleSubmit} />
       </View>

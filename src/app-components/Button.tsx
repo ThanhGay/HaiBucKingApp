@@ -15,6 +15,7 @@ const Button = ({
           textAlign: 'center',
           alignSelf: 'center',
           fontSize: 20,
+          fontWeight: '600',
           color: '#000000',
         }}
       >

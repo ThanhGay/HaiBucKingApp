@@ -24,12 +24,10 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [isRemember, set] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [dataRes, setDataRes] = useState<any>(null);
   const dispatch = useAppDispatch();
 
   const handleLogin = async () => {
     const _dataRes = await apiSignIn({ phoneNumber, password });
-    setDataRes(_dataRes);
 
     if (_dataRes.status) {
       msg = _dataRes.msg;
@@ -79,7 +77,7 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
               trackColor={{ false: 'white', true: colors.primary }}
               value={isRemember}
               onChange={() => set(!isRemember)}
-            ></Switch>
+            />
             <TouchableOpacity onPress={() => set(!isRemember)}>
               <Text style={{ color: 'white', fontSize: 16 }}>Remember me</Text>
             </TouchableOpacity>

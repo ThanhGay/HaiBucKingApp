@@ -8,6 +8,11 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { apiChangePassword } from '@/api/auth';
 import { setDataUser } from '@/redux/feature/authSlice';
 
+const passwordRegex = new RegExp(
+  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+  'gm',
+);
+
 const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
@@ -20,26 +25,34 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [confirm, setConfirm] = useState('');
 
   const handleSubmit = async () => {
-    if (newPassword.trim() === confirm.trim()) {
-      if (password.trim() === user.PassWord) {
-        const dataRes = await apiChangePassword({
-          password: password.trim(),
-          newPassword: newPassword.trim(),
-          token,
-        });
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage(
+        'Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+      );
+      return;
+    }
 
-        if (dataRes.status) {
-          (() => Alert.alert('Notice', 'Your password is updated!'))();
-          dispatch(setDataUser({ ...user, PassWord: newPassword }));
-          navigation.goBack();
-        } else {
-          setErrorMessage('The new password and current password match');
-        }
+    if (newPassword !== confirm) {
+      setErrorMessage('Your password and confirm password do not match');
+      return;
+    }
+
+    if (password === user.PassWord) {
+      const dataRes = await apiChangePassword({
+        password: password,
+        newPassword: newPassword,
+        token,
+      });
+
+      if (dataRes.status) {
+        (() => Alert.alert('Notice', 'Your password is updated!'))();
+        dispatch(setDataUser({ ...user, PassWord: newPassword }));
+        navigation.goBack();
       } else {
-        setErrorMessage('Your password is incorrect.');
+        setErrorMessage('The new password and current password match');
       }
     } else {
-      setErrorMessage('New password and confirm password is not match.');
+      setErrorMessage('Your password is incorrect.');
     }
   };
 
@@ -81,13 +94,11 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
           onFocus={() => setErrorMessage('')}
           secureTextEntry
         />
-
-        {errorMessage && (
-          <View>
-            <Text style={{ color: 'red' }}>{errorMessage}</Text>
-          </View>
-        )}
+        <View>
+          <Text style={{ color: 'red' }}>{errorMessage}</Text>
+        </View>
       </View>
+
       <View style={styles.footer}>
         <Button title={'Save'} onPress={handleSubmit} />
         <View style={{ paddingTop: 30 }} />

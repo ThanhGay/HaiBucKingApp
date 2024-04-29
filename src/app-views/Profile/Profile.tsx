@@ -28,7 +28,7 @@ export const BoxProfile = ({
     <View style={{ paddingTop: 24 }}>
       <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
         <Image style={{ height: 32, width: 32 }} source={link} />
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPress} style={{width: '100%'}}>
           <Text style={{ color: '#F2F2F2', fontSize: 16, fontWeight: '700' }}>
             {title}
           </Text>

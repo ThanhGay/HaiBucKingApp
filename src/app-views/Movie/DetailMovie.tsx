@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
-import { useAppDispatch } from '@/redux/hooks';
-import { setMovieId } from '@/redux/feature/ticketSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setInvoiceId, setMovieId } from '@/redux/feature/ticketSlice';
+import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
+import { convertTime, formatDate, transformDataMovie } from '@/utils/hooks';
+import { apiCreateInvoice } from '@/api/ticket';
 
 interface DetailMovieProps {
   route: any;
@@ -23,35 +26,56 @@ interface DetailMovieProps {
 const DetailMovie: React.FC<
   DetailMovieProps & { navigation: NavigationProp<any> }
 > = ({ navigation, route }) => {
-  const movieId = route.params.Movie_Id;
+  const movieId = route.params.movieId;
+  const { token } = useAppSelector((state) => state.authState);
   const dispatch = useAppDispatch();
+
+  const [dataMovieFormated, setDataMovieFormated] = useState<any>([]);
+
+  useEffect(() => {
+    (async () => {
+      const dataRes = await apiDetailMovie({ movieId: 'MV0002' });
+      if (dataRes.status) {
+        setDataMovieFormated(transformDataMovie(dataRes.data));
+      }
+    })();
+  }, [movieId]);
 
   const infomationData = [
     {
       name: 'Movie genre',
-      value: 'Action, Adventure, Sci-fi',
+      value: dataMovieFormated?.Categories,
     },
     {
       name: 'Censorship',
-      value: '13+',
+      value: `${dataMovieFormated?.Censorship}+`,
     },
     {
       name: 'Language',
-      value: 'English',
+      value: dataMovieFormated?.Language,
     },
   ];
 
-  const handleBooking = () => {
+  const handleBooking = async () => {
     dispatch(setMovieId(movieId));
+
+    const dataRes = await apiCreateInvoice({ token });
+    if (dataRes.status) {
+      dispatch(setInvoiceId(dataRes.data[0].NewInvoiceId));
+    }
+
     console.log('You are booking the movie has ID: ', movieId);
     navigation.navigate('SelectSeat');
   };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.black }}>
-      {/* <View style={{  }}> */}
       <ImageBackground
-        source={require('@assets/images/movie-6.png')}
+        source={
+          dataMovieFormated?.Poster
+            ? { uri: dataMovieFormated?.Poster }
+            : require('@assets/images/movie-6.png')
+        }
         style={{ width: '100%', height: 240 }}
       >
         <View style={styles.backbar}>
@@ -65,7 +89,11 @@ const DetailMovie: React.FC<
       </ImageBackground>
 
       <View style={styles.infomationBox}>
-        <BubbleBox />
+        <BubbleBox
+          name={dataMovieFormated?.Movie_Name}
+          duration={dataMovieFormated?.Duration}
+          release={dataMovieFormated?.Release}
+        />
         <View style={{ gap: 12 }}>
           {infomationData.map((item) => (
             <View
@@ -94,11 +122,17 @@ const DetailMovie: React.FC<
           ))}
         </View>
 
-        <Storyline />
+        <Storyline description={dataMovieFormated?.Description} />
 
-        <Directors />
+        <Directors
+          listDirector={dataMovieFormated?.Director}
+          listImg={dataMovieFormated?.imageDirector}
+        />
 
-        <Actors />
+        <Actors
+          listActor={dataMovieFormated?.Actor}
+          listImg={dataMovieFormated?.imageActor}
+        />
 
         <Button title="Booking" onPress={handleBooking} />
       </View>
@@ -106,15 +140,25 @@ const DetailMovie: React.FC<
   );
 };
 
-const BubbleBox = () => {
+const BubbleBox = ({
+  name,
+  duration,
+  release,
+}: {
+  name: any;
+  duration: any;
+  release: any;
+}) => {
   return (
     <View style={styles.box}>
       <View style={{ gap: 12 }}>
-        <Text style={styles.name}>Avengers: Infinity War</Text>
+        <Text style={styles.name}>{name}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ color: colors.whiteText }}>2h29m</Text>
+          <Text style={{ color: colors.whiteText }}>
+            {convertTime(duration as number)}
+          </Text>
           <View style={styles.dot} />
-          <Text style={{ color: colors.whiteText }}>16.12.2022</Text>
+          <Text style={{ color: colors.whiteText }}>{formatDate(release)}</Text>
         </View>
       </View>
 
@@ -171,30 +215,27 @@ const BubbleBox = () => {
           >
             <View style={{ gap: 12, flexDirection: 'row' }}>
               <Image
-                source={require('@assets/images/movie-2.png')}
-                alt="star"
-                style={{
-                  width: 24,
-                  height: 24,
-                }}
-              />
-              <Image
-                source={require('@assets/images/movie-2.png')}
+                source={require('@assets/icons/star.png')}
                 alt="star"
                 style={{ width: 24, height: 24 }}
               />
               <Image
-                source={require('@assets/images/movie-2.png')}
+                source={require('@assets/icons/star.png')}
                 alt="star"
                 style={{ width: 24, height: 24 }}
               />
               <Image
-                source={require('@assets/images/movie-2.png')}
+                source={require('@assets/icons/star.png')}
                 alt="star"
                 style={{ width: 24, height: 24 }}
               />
               <Image
-                source={require('@assets/images/movie-2.png')}
+                source={require('@assets/icons/star.png')}
+                alt="star"
+                style={{ width: 24, height: 24 }}
+              />
+              <Image
+                source={require('@assets/icons/star.png')}
                 alt="star"
                 style={{ width: 24, height: 24 }}
               />
@@ -227,7 +268,7 @@ const BubbleBox = () => {
   );
 };
 
-const Storyline = () => {
+const Storyline = ({ description }: { description: any }) => {
   const [seeAll, setSeeAll] = useState(false);
   return (
     <View>
@@ -236,85 +277,67 @@ const Storyline = () => {
         numberOfLines={seeAll ? 100 : 3}
         style={{ marginTop: 12, color: colors.whiteText }}
       >
-        As the Avengers and their allies have continued to protect the world
-        from threats too large for any one hero to handle, a new danger has
-        emerged from the cosmic shadows: Thanos
-        akjsdlfjaslkdf;lasdjflkasa;sldfj;alsdjfkas asdkjflascdknasd
-        asdjflkasdfknas;dasklf
+        {description}
       </Text>
-      {!seeAll && (
-        <TouchableOpacity onPress={() => setSeeAll(true)}>
-          <Text style={{ color: colors.primary, fontWeight: '700' }}>
-            See more
-          </Text>
-        </TouchableOpacity>
-      )}
+
+      <TouchableOpacity onPress={() => setSeeAll(!seeAll)}>
+        <Text style={{ color: colors.primary, fontWeight: '700' }}>
+          {!seeAll ? 'See more' : 'Hide less'}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
-const Directors = () => {
-  const data = [
-    {
-      key: 1,
-      image: '@assets/images/movie-3.png',
-      firstname: 'Althony',
-      lastname: 'Russop',
-    },
-    {
-      key: 2,
-      image: '@assets/images/movie-3.png',
-      firstname: 'Joe',
-      lastname: 'Russop',
-    },
-  ];
+const Directors = ({
+  listDirector,
+  listImg,
+}: {
+  listDirector: any;
+  listImg: any;
+}) => {
+  const data =
+    listDirector > 0
+      ? listDirector.map((item: any, idx: number) => {
+          return {
+            key: idx,
+            name: item,
+            image: listImg[idx],
+          };
+        })
+      : [];
 
   return (
     <View>
       <Text style={styles.title}>Director</Text>
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        {data.map((item) => (
-          <Avatar_Name
-            key={item.key}
-            firstname={item.firstname}
-            lastname={item.lastname}
-          />
+        {data.map((item: any) => (
+          <Avatar_Name key={item.key} name={item.name} image={item.image} />
         ))}
       </View>
     </View>
   );
 };
 
-const Actors = () => {
-  const data = [
-    {
-      key: 1,
-      firstname: 'Robert',
-      lastname: 'Downey Jr.',
-    },
-    {
-      key: 2,
-      firstname: 'Chris',
-      lastname: 'Hemsworth',
-    },
-    {
-      key: 3,
-      firstname: 'Chris',
-      lastname: 'Evan',
-    },
-  ];
+const Actors = ({ listActor, listImg }: { listActor: any; listImg: any }) => {
+  const data =
+    listActor > 0
+      ? listActor.map((item: any, idx: number) => {
+          return {
+            key: idx,
+            name: item,
+            image: listImg[idx],
+          };
+        })
+      : [];
 
   return (
     <View>
       <Text style={styles.title}>Actor</Text>
       <ScrollView horizontal>
         <View style={{ flexDirection: 'row', gap: 16 }}>
-          {data.map((item) => (
-            <Avatar_Name
-              key={item.key}
-              firstname={item.firstname}
-              lastname={item.lastname}
-            />
+          {data.map((item: any) => (
+            <Avatar_Name key={item.key} name={item.name} image={item.image} />
           ))}
         </View>
       </ScrollView>

@@ -125,20 +125,12 @@ export const apiResetPassword = async (args: {
 // Chỉnh sửa thông tin tài khoản
 export const apiEditProfile = (args: {
   token: string;
-  fullname: string;
-  dob: string;
-  newPhoneNumber: string;
-  email: string;
+  data: any
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-  const { token } = args;
+  const { token, data } = args;
   const url = `${Account_URL}/edit-profile`;
-  const form = JSON.stringify({
-    FullName: args.fullname,
-    DateOfBirth: args.dob,
-    NewPhoneNumber: args.newPhoneNumber,
-    Email: args.email,
-  });
-  return putWithToken({ url, data: form, token });
+  
+  return putWithToken({ url, data, token });
 };
 
 // Danh sách thông báo

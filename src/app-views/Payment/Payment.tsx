@@ -1,10 +1,24 @@
 import { NavigationProp } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { Button, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 import MovieItem from '../../app-components/Movie/MovieItem';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  apiCancelBooking,
+  apiGetInvoiceMoney,
+  apiSaveInvoice,
+} from '@/api/ticket';
+import { setListTicket } from '@/redux/feature/userSlice';
 
 const paymentMethod = [
   {
@@ -37,7 +51,25 @@ const paymentMethod = [
 const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
-  const [activeMethod, setActiveMethod] = useState<number>(0);
+  const { invoiceId, seats, showtime } = useAppSelector(
+    (state) => state.ticketState,
+  );
+  const { token } = useAppSelector((state) => state.authState);
+  const { listTicket } = useAppSelector((state) => state.userState);
+  const dispatch = useAppDispatch();
+
+  const [activeMethod, setActiveMethod] = useState<number>(-1);
+  const [total, setTotal] = useState(0);
+  const seat_Ids = seats.toString();
+
+  useEffect(() => {
+    (async () => {
+      const dataRes = await apiGetInvoiceMoney({ token, invoiceId });
+      if (dataRes.status) {
+        setTotal(dataRes.data[0].TotalAmount);
+      }
+    })();
+  }, [invoiceId]);
 
   const movie1 = {
     key: 1,
@@ -48,13 +80,40 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     category: 'Action, Sci-fi',
     poster: require('@assets/images/movie-8.png'),
   };
-  const OrderID = 78889377726;
-  const Seat = 'H7, H8';
-  const Total = '210.000';
+
+  const handleSubmit = async () => {
+    if (activeMethod > 0) {
+      const dataRes = await apiSaveInvoice({
+        token,
+        invoiceId,
+        movieName: 'Spirit Away',
+        duration: 120,
+        category: 'Action, Romance',
+        startTime: showtime,
+        price: total,
+        roomId: 'R01',
+        seatId: seat_Ids,
+      });
+      if (dataRes.status) {
+        const ticket = dataRes.data;
+        dispatch(setListTicket({ ticket, ...listTicket }));
+        navigation.navigate('Success');
+      }
+    } else {
+      (() => Alert.alert('Warning', 'Please choose your payment method'))();
+    }
+  };
+
+  const handleBack = async () => {
+    const dataRes = await apiCancelBooking({ token, invoiceId });
+    if (dataRes.status) {
+      navigation.goBack();
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Title leftIcon title="Payment" onPressLeft={() => navigation.goBack()} />
+      <Title leftIcon title="Payment" onPressLeft={handleBack} />
       <View style={{ flex: 8 }}>
         <ScrollView>
           <View style={{}}>
@@ -83,7 +142,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.whiteText,
                 }}
               >
-                {OrderID}
+                {invoiceId}
               </Text>
             </View>
             {/*  Seat */}
@@ -110,7 +169,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.whiteText,
                 }}
               >
-                {Seat}
+                {seat_Ids}
               </Text>
             </View>
             {/* Kẻ */}
@@ -143,7 +202,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.primary,
                 }}
               >
-                {Total} VND
+                {total} VND
               </Text>
             </View>
             {/* Payment Method */}
@@ -207,7 +266,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
         </ScrollView>
       </View>
 
-      <Button title="Continue" onPress={() => navigation.navigate('Success')} />
+      <Button title="Continue" onPress={handleSubmit} />
     </View>
   );
 };

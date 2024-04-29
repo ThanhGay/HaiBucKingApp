@@ -19,24 +19,24 @@ export const apiCreateInvoice = (args: {
 }): Promise<{ status: string; data: Array<any>; msg: string }> => {
   const { token } = args;
   const url = `${Ticket_URL}/create-invoice`;
-  return getWithToken({ url, token });
+  return postWithToken({ url, token });
 };
 
 // đặt vé
 export const apiBookTicket = (args: {
-  Invoice_Id: string;
-  StartTime: string;
-  Seat_Id: Array<string>;
-  Room_Id: string;
+  invoiceId: number;
+  startTime: string;
+  seats: Array<string>;
+  roomId: string;
   token: string;
 }) => {
   const { token } = args;
   const url = `${Ticket_URL}/book-tickets`;
   const form = JSON.stringify({
-    Invoice_Id: args.Invoice_Id,
-    StartTime: args.StartTime,
-    Seat_Id: args.Seat_Id,
-    Room_Id: args.Room_Id,
+    Invoice_Id: args.invoiceId,
+    StartTime: args.startTime,
+    Seat_Id: args.seats,
+    Room_Id: args.roomId,
   });
   return postWithToken({ url, data: form, token });
 };
@@ -44,7 +44,7 @@ export const apiBookTicket = (args: {
 // hủy đặt vé
 export const apiCancelBooking = (args: {
   token: string;
-  invoiceId: string;
+  invoiceId: number;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
   const { token, invoiceId } = args;
   const url = `${Ticket_URL}/delete-ticket=${invoiceId}`;
@@ -54,7 +54,7 @@ export const apiCancelBooking = (args: {
 // hủy hóa đơn
 export const apiCancelInvoice = (args: {
   token: string;
-  invoiceId: string;
+  invoiceId: number;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
   const { token, invoiceId } = args;
   const url = `${Ticket_URL}/delete-invoice=${invoiceId}`;
@@ -64,7 +64,7 @@ export const apiCancelInvoice = (args: {
 // lấy giá tiền của vé
 export const apiGetInvoiceMoney = (args: {
   token: string;
-  invoiceId: string;
+  invoiceId: number;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
   const { token, invoiceId } = args;
   const url = `${Ticket_URL}/detail-ticket=${invoiceId}`;
@@ -78,7 +78,7 @@ export const apiSaveInvoice = (args: {
   movieName: string;
   duration: number;
   category: string;
-  startTIme: string;
+  startTime: string;
   roomId: string;
   seatId: string;
   price: number;
@@ -89,11 +89,31 @@ export const apiSaveInvoice = (args: {
     Movie_Name: args.movieName,
     Duration: args.duration,
     CategoryList: args.category,
-    StartTime: args.startTIme,
+    StartTime: args.startTime,
     Room_Id: args.roomId,
     Seat_Id: args.seatId,
     Price: args.price,
   });
   const url = `${Ticket_URL}/save-invoice`;
   return postWithToken({ url, data: form, token });
+};
+
+// lấy danh sách ghế đã đặt theo thời gian lịch chiếu
+export const apiGetReservedSeat = async (args: {
+  startTime: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const url = `${Ticket_URL}/seats`;
+  const form = JSON.stringify({
+    StartTime: args.startTime,
+  });
+  const data = axiosClient
+    .post(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in fetch api get reserved seat', error);
+    });
+    
+  return data ?? {};
 };

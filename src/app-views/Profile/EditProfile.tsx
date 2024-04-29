@@ -1,32 +1,66 @@
 import React, { useState } from 'react';
-import { View, Image, TextInput, StatusBar } from 'react-native';
+import { View, Image, TextInput, StatusBar, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, Title } from '@/component/Component';
+import { apiEditProfile } from '@/api/auth';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setDataUser } from '@/redux/feature/authSlice';
 
-const EditProfile = ({ route }: { route: any }) => {
+const emailRegex = new RegExp(
+  /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
+  'gm',
+);
+  
+const EditProfile = () => {
   const navigation = useNavigation();
-  const { user } = route.params;
+  const { token, user } = useAppSelector((state) => state.authState);
+  const dispatch = useAppDispatch();
 
+  
   const [edit, setEdit] = useState(false);
 
-  const [username, setUsername] = useState(user.FullName)
-  const [phoneNumber, setPhoneNumber] = useState(user.PhoneNumber)
-  const [email, setEmail] = useState(user.Email)
-  const [dob, setDob] = useState(user.DateOfBirth.slice(0, 10))
+  const [username, setUsername] = useState(user.FullName);
+  const [phoneNumber, setPhoneNumber] = useState(user.PhoneNumber);
+  const [email, setEmail] = useState(user.Email);
+  const [dob, setDob] = useState(user.DateOfBirth.slice(0, 10));
 
-  const handleSubmit = () => {
-    const form = JSON.stringify({
-      Fullname: username,
-      PhoneNumber: phoneNumber, 
-      Email: email,
-      DateOfBirth: dob
-  })
-    
-  console.log(form);
+  const [errMes, setErrMes] = useState('');
   
+
+  const handleSubmit = async () => {
+    if (
+      emailRegex.test(email) &&
+      phoneNumber.length === 10
+    ) {
+      setEdit(false);
+      const form = JSON.stringify({
+        FullName: username.trim(),
+        NewPhoneNumber: phoneNumber.trim(),
+        Email: email.trim(),
+        DateOfBirth: dob.trim(),
+      });
+
+      const dataRes = await apiEditProfile({ token, data: form });
+      if (dataRes.status) {
+        (() => Alert.alert('Notice', 'Your information is updated!'))();
+        dispatch(
+          setDataUser({
+            ...user,
+            PhoneNumber: phoneNumber,
+            FullName: username,
+            Email: email,
+            DateOfBirth: dob,
+          }),
+        );
+      } else {
+        console.log('cancel fetch api edit profile');
+      }
+    } else {
+      setErrMes('Your data is not in the correct format.');
+      console.log('error data type');
+    }
   };
-  
 
   return (
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
@@ -77,16 +111,14 @@ const EditProfile = ({ route }: { route: any }) => {
           link={require('@/assets/icons/cake.png')}
           value={dob}
           onChangeText={(newValue) => setDob(newValue)}
-          placeholder="Your birthday"
+          placeholder="Your birthday (YYYY/MM/DD)"
           edit={edit}
         />
         {edit && (
-          <Button
-            title={'Save'}
-            onPress={() => {
-              setEdit(false);
-            }}
-          ></Button>
+          <View>
+            <Text style={{ color: 'red' }}>{errMes}</Text>
+            <Button title={'Save'} onPress={handleSubmit} />
+          </View>
         )}
       </View>
     </View>
@@ -104,7 +136,7 @@ const BoxEditProfile = ({
   value: string;
   placeholder: string;
   edit: boolean;
-  onChangeText?: (str: string) => void
+  onChangeText?: (str: string) => void;
 }) => {
   return (
     <View style={{ marginTop: 15 }}>
