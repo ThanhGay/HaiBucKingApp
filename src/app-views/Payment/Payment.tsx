@@ -19,6 +19,7 @@ import {
   apiSaveInvoice,
 } from '@/api/ticket';
 import { setListTicket } from '@/redux/feature/userSlice';
+import { setInvoiceDate } from '@/redux/feature/ticketSlice';
 
 const paymentMethod = [
   {
@@ -51,11 +52,19 @@ const paymentMethod = [
 const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
-  const { invoiceId, seats, showtime } = useAppSelector(
-    (state) => state.ticketState,
-  );
   const { token } = useAppSelector((state) => state.authState);
   const { listTicket } = useAppSelector((state) => state.userState);
+  const {
+    movieName,
+    duration,
+    poster,
+    categories,
+    room,
+    invoiceDate,
+    invoiceId,
+    seats,
+    showtime,
+  } = useAppSelector((state) => state.ticketState);
   const dispatch = useAppDispatch();
 
   const [activeMethod, setActiveMethod] = useState<number>(-1);
@@ -67,18 +76,18 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       const dataRes = await apiGetInvoiceMoney({ token, invoiceId });
       if (dataRes.status) {
         setTotal(dataRes.data[0].TotalAmount);
+        dispatch(setInvoiceDate(dataRes.data[0].InvoiceDate));
       }
     })();
   }, [invoiceId]);
 
-  const movie1 = {
-    key: 1,
-    name: 'Panda',
-    star: 4,
-    totalRate: 982,
-    duration: '124',
-    category: 'Action, Sci-fi',
-    poster: require('@assets/images/movie-8.png'),
+  const movie = {
+    Movie_Name: movieName,
+    star: 0,
+    totalRate: 0,
+    Duration: duration,
+    Categories: categories,
+    Poster: poster,
   };
 
   const handleSubmit = async () => {
@@ -86,18 +95,20 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       const dataRes = await apiSaveInvoice({
         token,
         invoiceId,
-        movieName: 'Spirit Away',
-        duration: 120,
-        category: 'Action, Romance',
+        invoiceDate: invoiceDate,
+        movieName,
+        duration,
+        category: categories,
+        poster: poster,
         startTime: showtime,
         price: total,
-        roomId: 'R01',
+        roomId: room,
         seatId: seat_Ids,
       });
       if (dataRes.status) {
         const ticket = dataRes.data;
-        dispatch(setListTicket({ ticket, ...listTicket }));
-        navigation.navigate('Success');
+        dispatch(setListTicket({ ...listTicket, ticket }));
+        navigation.navigate('Success', ticket);
       }
     } else {
       (() => Alert.alert('Warning', 'Please choose your payment method'))();
@@ -117,7 +128,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       <View style={{ flex: 8 }}>
         <ScrollView>
           <View style={{}}>
-            <MovieItem film={movie1} direction="row" navigation={navigation} />
+            <MovieItem film={movie} direction="row" navigation={navigation} />
             {/* OrderID */}
             <View
               style={{

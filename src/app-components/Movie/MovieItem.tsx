@@ -12,7 +12,7 @@ interface MovieItemProps {
 
 const MovieItem: React.FC<
   MovieItemProps & { navigation: NavigationProp<any> }
-> = ({ navigation, film, direction }) => {
+> = ({ navigation, film, direction }) => {  
   const seeDetail = () => {
     navigation.navigate('DetailMovie', { movieId: film?.Movie_Id });
   };

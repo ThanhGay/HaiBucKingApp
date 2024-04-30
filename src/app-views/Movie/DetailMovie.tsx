@@ -11,7 +11,7 @@ import {
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setInvoiceId, setMovieId } from '@/redux/feature/ticketSlice';
+import { setDuration, setInvoiceId, setMovieCategories, setMovieId, setMovieName, setMoviePoster } from '@/redux/feature/ticketSlice';
 import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';
@@ -34,7 +34,7 @@ const DetailMovie: React.FC<
 
   useEffect(() => {
     (async () => {
-      const dataRes = await apiDetailMovie({ movieId: 'MV0002' });
+      const dataRes = await apiDetailMovie({ movieId: movieId });
       if (dataRes.status) {
         setDataMovieFormated(transformDataMovie(dataRes.data));
       }
@@ -62,6 +62,10 @@ const DetailMovie: React.FC<
     const dataRes = await apiCreateInvoice({ token });
     if (dataRes.status) {
       dispatch(setInvoiceId(dataRes.data[0].NewInvoiceId));
+      dispatch(setMovieName(dataMovieFormated?.Movie_Name))
+      dispatch(setMovieCategories(dataMovieFormated?.Categories));
+      dispatch(setMoviePoster(dataMovieFormated?.Poster));
+      dispatch(setDuration(dataMovieFormated?.Duration));
     }
 
     console.log('You are booking the movie has ID: ', movieId);

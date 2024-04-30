@@ -22,7 +22,7 @@ import {
   apiCancelInvoice,
   apiGetReservedSeat,
 } from '@/api/ticket';
-import { setSeats, setShowtime } from '@/redux/feature/ticketSlice';
+import { setRoom, setSeats, setShowtime } from '@/redux/feature/ticketSlice';
 
 const typeSeat = [
   { key: 1, name: 'Available', bgColor: '#1C1C1C' },
@@ -34,14 +34,16 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { token } = useAppSelector((state) => state.authState);
-  const { movieId, invoiceId } = useAppSelector((state) => state.ticketState);
+  const { movieId, invoiceId, room } = useAppSelector(
+    (state) => state.ticketState,
+  );
   const dispatch = useAppDispatch();
 
   // Fetch showtime of movie
   const [showtimeMovie, setShowtimeMovie] = useState<Array<any>>([]);
   useEffect(() => {
     (async () => {
-      const dataRes = await apiGetShowTimesMovie({ movieId: 'MV0007' });
+      const dataRes = await apiGetShowTimesMovie({ movieId: movieId });
       if (dataRes.status) {
         const _ = dataRes.data.map((item: any) => {
           const startTime = new Date(item.StartTime);
@@ -57,8 +59,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [reserved, setReserved] = useState(true);
-  const [listReserveds, setListReserveds] = useState<Array<any>>([]);
-  const room_Id = 'R01';
+  const [listReserveds, setListReserveds] = useState<Array<string>>([]);
   // const listReserveds = ['A1', 'A2', 'b3', 'B5', 'c4', 'C6', 'D1', 'D3'];
 
   // Date
@@ -105,13 +106,16 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
 
     const dataRes = await apiGetReservedSeat({ startTime: chooseShow });
     if (dataRes.status) {
-      const _ = dataRes.data;
+      const rtnData = dataRes.data;
 
-      const list: any[] = [];
-      _.forEach((element) => {
-        list.push(element.Seat_Id);
-      });
-      setListReserveds(list);
+      // const list: any[] = [];
+      // _.forEach((element: any) => {
+      //   list.push(element.Seat_Id);
+      // });
+      // setListReserveds(list);
+
+      setListReserveds(rtnData[0].Reserved ? rtnData[0].Reserved : []);
+      dispatch(setRoom(rtnData[1].Room_Id));
     }
   };
 
@@ -141,7 +145,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
         invoiceId,
         startTime: chooseShow,
         seats: sortedSelectedSeats,
-        roomId: room_Id,
+        roomId: room,
         token,
       });
 
@@ -180,10 +184,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
                       const seatNumber = `${rowLetter}${columnIndex + 1}`;
                       let reserved = false;
 
-                      const ReservedsUpper = listReserveds.map((seat) =>
-                        seat.toUpperCase(),
-                      );
-                      if (ReservedsUpper.includes(seatNumber)) {
+                      if (listReserveds.includes(seatNumber)) {
                         reserved = true;
                       }
                       return (

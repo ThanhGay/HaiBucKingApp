@@ -75,9 +75,11 @@ export const apiGetInvoiceMoney = (args: {
 export const apiSaveInvoice = (args: {
   token: string;
   invoiceId: number;
+  invoiceDate: string;
   movieName: string;
   duration: number;
   category: string;
+  poster: string;
   startTime: string;
   roomId: string;
   seatId: string;
@@ -86,9 +88,11 @@ export const apiSaveInvoice = (args: {
   const { token } = args;
   const form = JSON.stringify({
     Invoice_Id: args.invoiceId,
+    InvoiceDate: args.invoiceDate,
     Movie_Name: args.movieName,
     Duration: args.duration,
     CategoryList: args.category,
+    Poster: args.poster, 
     StartTime: args.startTime,
     Room_Id: args.roomId,
     Seat_Id: args.seatId,

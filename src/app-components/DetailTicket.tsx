@@ -4,12 +4,10 @@ import React from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 
 interface DetailTicketProps {
-  ticket: any,
+  ticket: any;
 }
 
-const DetailTicket: React.FC<DetailTicketProps> = ({ticket}) => {
-  console.log(ticket);
-  
+const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
   return (
     <View style={styles.container}>
       {/* Description Movie */}
@@ -154,7 +152,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ticket}) => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

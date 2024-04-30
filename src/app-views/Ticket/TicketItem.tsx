@@ -24,7 +24,7 @@ const TicketItem: React.FC<
       style={styles.container}
       onPress={() => navigation.navigate('DetailTicket', mapTicket)}
     >
-      <Image source={ticket.poster} alt="poster" style={styles.poster} />
+      <Image source={{uri: ticket.Poster}} alt="poster" style={styles.poster} />
       <View style={styles.rightContainer}>
         <Text style={styles.title}>{mapTicket.Movie_Name}</Text>
         <View style={{ flexDirection: 'column', gap: 12 }}>

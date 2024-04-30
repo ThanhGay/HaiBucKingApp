@@ -13,6 +13,8 @@ interface SuccessProps {
 const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
   navigation, route,
 }) => {
+  console.log(route.params)
+
   return (
     <View
       style={{
