@@ -1,24 +1,36 @@
-import { View, Image, Text, StyleSheet } from 'react-native';
-import colors from '@/utils/colors';
 import React from 'react';
-import { useAppDispatch } from '@/redux/hooks';
+import { View, Image, Text, StyleSheet } from 'react-native';
+
+import colors from '@/utils/colors';
+import { convert_Time, formatDate } from '@/utils/hooks';
 
 interface DetailTicketProps {
   ticket: any;
 }
 
 const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
+  const splitIndex = ticket.StartTime.indexOf('T');
+  const mapTicket = {
+    ...ticket,
+    Date: ticket.StartTime.slice(0, splitIndex),
+    Time: ticket.StartTime.slice(splitIndex + 1, splitIndex + 6),
+  };
+
   return (
     <View style={styles.container}>
       {/* Description Movie */}
       <View style={{ flexDirection: 'row' }}>
         <Image
-          source={require('@assets/images/movie-4.png')}
+          source={
+            mapTicket?.Poster
+              ? { uri: mapTicket.Poster }
+              : require('@assets/images/movie-4.png')
+          }
           alt="poster"
           style={styles.poster}
         />
         <View style={styles.rightContainer}>
-          <Text style={styles.title}>Avengers: Inifinity war</Text>
+          <Text style={styles.title}>{mapTicket?.Movie_Name}</Text>
           <View style={{ flexDirection: 'column', gap: 4 }}>
             <View style={styles.row}>
               <Image
@@ -28,7 +40,9 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
                 width={16}
                 style={styles.icon_S}
               />
-              <Text style={styles.text}>2 hours 5 minutes</Text>
+              <Text style={styles.text}>
+                {convert_Time(mapTicket?.Duration)}
+              </Text>
             </View>
             <View style={styles.row}>
               <Image
@@ -38,7 +52,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
                 width={16}
                 style={styles.icon_S}
               />
-              <Text style={styles.text}>Action, Adventure, Sci-fi</Text>
+              <Text style={styles.text}>{mapTicket?.CategoryList}</Text>
             </View>
           </View>
         </View>
@@ -64,8 +78,10 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
             style={styles.icon_L}
           />
           <View>
-            <Text style={[styles.text, { marginBottom: 8 }]}>14h15'</Text>
-            <Text style={styles.text}>10.12.2022</Text>
+            <Text style={[styles.text, { marginBottom: 8 }]}>
+              {mapTicket?.Time}
+            </Text>
+            <Text style={styles.text}>{formatDate(mapTicket?.Date)}</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
@@ -75,8 +91,10 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
             style={styles.icon_L}
           />
           <View>
-            <Text style={[styles.text, { marginBottom: 8 }]}>Section 4</Text>
-            <Text style={styles.text}>Seat H7, H8</Text>
+            <Text style={[styles.text, { marginBottom: 8 }]}>
+              Section {mapTicket?.Room_Id}
+            </Text>
+            <Text style={styles.text}>Seat {mapTicket?.Seat_Id}</Text>
           </View>
         </View>
       </View>
@@ -100,7 +118,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
           />
           <View>
             <Text style={{ ...styles.text, fontSize: 16, fontWeight: '700' }}>
-              210.000d
+              {mapTicket?.Price}d
             </Text>
           </View>
         </View>
@@ -148,7 +166,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
             height: 100,
           }}
         />
-        <Text style={styles.text}>Oder ID: 78889377726 </Text>
+        <Text style={styles.text}>Oder ID: {mapTicket?.Invoice_Id}</Text>
       </View>
     </View>
   );
