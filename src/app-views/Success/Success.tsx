@@ -6,14 +6,25 @@ import DetailTicket from '@app-components/DetailTicket';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
+import { useAppDispatch } from '@/redux/hooks';
+import { addTicket } from '@/redux/feature/userSlice';
+
 interface SuccessProps {
-  route: any
+  route: any;
 }
 
 const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
-  navigation, route,
+  navigation,
+  route,
 }) => {
-  console.log(route.params)
+  const ticket = route.params;
+  const mapTicket = {
+    ...ticket,
+    StartTime: ticket.StartTime.replaceAll('/', '-').replaceAll(' ', 'T'),
+  };
+
+  const dispatch = useAppDispatch();
+  dispatch(addTicket(mapTicket));
 
   return (
     <View
@@ -35,7 +46,7 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
         />
       </View>
       <View style={{ flex: 1 }}>
-        <DetailTicket ticket={route.params} />
+        <DetailTicket ticket={mapTicket} />
       </View>
     </View>
   );

@@ -57,8 +57,8 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setListTicket: (state, action: PayloadAction<any>) => {
-      state.listTicket = action.payload;
+    addTicket: (state, action: PayloadAction<any>) => {
+      state.listTicket = [action.payload, ...state.listTicket ];
     },
   },
   extraReducers: (builder) => {
@@ -90,7 +90,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setListTicket } = userSlice.actions;
+export const { addTicket } = userSlice.actions;
 
 const userReducer = userSlice.reducer;
 

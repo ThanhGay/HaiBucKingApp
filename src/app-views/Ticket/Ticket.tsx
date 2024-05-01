@@ -6,6 +6,7 @@ import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
 import TicketItem from './TicketItem';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
+
 import { useAppSelector } from '@/redux/hooks';
 
 const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({

@@ -8,18 +8,19 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+
+import MovieItem from '../../app-components/Movie/MovieItem';
 import { Button, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
-import MovieItem from '../../app-components/Movie/MovieItem';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setInvoiceDate } from '@/redux/feature/ticketSlice';
 import {
   apiCancelBooking,
   apiGetInvoiceMoney,
   apiSaveInvoice,
 } from '@/api/ticket';
-import { setListTicket } from '@/redux/feature/userSlice';
-import { setInvoiceDate } from '@/redux/feature/ticketSlice';
 
 const paymentMethod = [
   {
@@ -53,7 +54,6 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { token } = useAppSelector((state) => state.authState);
-  const { listTicket } = useAppSelector((state) => state.userState);
   const {
     movieName,
     duration,
@@ -107,7 +107,6 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       });
       if (dataRes.status) {
         const ticket = dataRes.data;
-        dispatch(setListTicket({ ...listTicket, ticket }));
         navigation.navigate('Success', ticket);
       }
     } else {
