@@ -127,7 +127,7 @@ export const apiCreateTransaction = async (args: {
   startTime: string;
   seatId: Array<any>;
   roomId: string;
-}) => {
+}): Promise<{ status: boolean; data: any; msg: string }> => {
   const { startTime, seatId, roomId, token } = args;
   const url = `${Ticket_URL}/transaction-invoice`;
   const form = JSON.stringify({
@@ -138,9 +138,11 @@ export const apiCreateTransaction = async (args: {
   return postWithToken({ url, data: form, token });
 };
 
-// decision 
+// decision
 // 0 - rollback , 1 - commit
-export const apiActiveTransaction = async (args: { decision: number }) => {
+export const apiActiveTransaction = async (args: {
+  decision: number;
+}): Promise<{ status: boolean; data: string; msg: string }> => {
   const url = `${Ticket_URL}/active-transaction`;
   const form = JSON.stringify({
     decision: args.decision,

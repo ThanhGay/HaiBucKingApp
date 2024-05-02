@@ -15,11 +15,9 @@ import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setInvoiceDate } from '@/redux/feature/ticketSlice';
 import {
   apiActiveTransaction,
   apiCancelBooking,
-  apiGetInvoiceMoney,
   apiSaveInvoice,
 } from '@/api/ticket';
 
@@ -65,26 +63,14 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     invoiceId,
     seats,
     showtime,
-    amount: total
+    amount: total,
   } = useAppSelector((state) => state.ticketState);
   const dispatch = useAppDispatch();
 
   const [activeMethod, setActiveMethod] = useState<number>(-1);
-  // const [total, setTotal] = useState(0);
   const seat_Ids = seats.toString();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const dataRes = await apiGetInvoiceMoney({ token, invoiceId });
-  //     if (dataRes.status) {
-  //       setTotal(dataRes.data[0].TotalAmount);
-  //       dispatch(setInvoiceDate(dataRes.data[0].InvoiceDate));
-  //     }
-  //   })();
-  // }, [invoiceId]);
-
   console.log('Transaction in invoiceId', invoiceId);
-  
 
   const movie = {
     Movie_Name: movieName,
@@ -95,57 +81,22 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     Poster: poster,
   };
 
-  const handleSubmit = async () => {
+  const commitTransaction = async () => {
     if (activeMethod > 0) {
-      const dataRes = await apiSaveInvoice({
-        token,
-        invoiceId,
-        invoiceDate: invoiceDate,
-        movieName,
-        duration,
-        category: categories,
-        poster: poster,
-        startTime: showtime,
-        price: total,
-        roomId: room,
-        seatId: seat_Ids,
-      });
+      const dataRes = await apiActiveTransaction({ decision: 1 });
       if (dataRes.status) {
-        const ticket = dataRes.data;
-        navigation.navigate('Success', ticket);
+        console.log('commit success', invoiceId);
+        navigation.navigate('Success');
       }
     } else {
       (() => Alert.alert('Warning', 'Please choose your payment method'))();
     }
   };
 
-  const commitTransaction = async () => {
-    if (activeMethod > 0) {
-      const dataRes = await apiActiveTransaction({ decision: 1 });
-      if (dataRes.status) {
-        // const ticket = dataRes.data;
-        console.log('commit success', invoiceId);
-        
-        navigation.navigate('Success');
-      }
-    } else {
-      (() => Alert.alert('Warning', 'Please choose your payment method'))();
-    }
-  }
-
   const rollbackTransaction = async () => {
     const dataRes = await apiActiveTransaction({ decision: 0 });
     if (dataRes.status) {
-      // const ticket = dataRes.data;
-console.log('rollback success', invoiceId);
-
-      navigation.goBack();
-    }
-  }
-
-  const handleBack = async () => {
-    const dataRes = await apiCancelBooking({ token, invoiceId });
-    if (dataRes.status) {
+      console.log('rollback success', invoiceId);
       navigation.goBack();
     }
   };
