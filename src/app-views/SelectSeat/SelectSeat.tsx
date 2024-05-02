@@ -20,9 +20,10 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   apiBookTicket,
   apiCancelInvoice,
+  apiCreateTransaction,
   apiGetReservedSeat,
 } from '@/api/ticket';
-import { setRoom, setSeats, setShowtime } from '@/redux/feature/ticketSlice';
+import { setAmount, setInvoiceDate, setInvoiceId, setRoom, setSeats, setShowtime } from '@/redux/feature/ticketSlice';
 
 const typeSeat = [
   { key: 1, name: 'Available', bgColor: '#1C1C1C' },
@@ -154,6 +155,33 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
       }
     }
   };
+
+  const confirmWithTransaction = async () => {
+    const sortedSelectedSeats = selectedSeats.sort();
+    setReserved(!!sortedSelectedSeats.length);
+
+    if (!!sortedSelectedSeats.length) {
+      // Chọn ghế mới sang Payment
+      const chooseShow = selectedDate + ' ' + listTime[activeTime];
+      dispatch(setSeats(sortedSelectedSeats));
+      dispatch(setShowtime(chooseShow));
+
+      const dataRes = await apiCreateTransaction({
+        startTime: chooseShow,
+        seatId: sortedSelectedSeats,
+        roomId: room,
+        token,
+      })
+
+      if (dataRes.status) {
+        const returnData = (dataRes.data);
+        dispatch(setInvoiceDate(returnData.InvoiceDate));
+        dispatch(setInvoiceId(returnData.Invoice_Id));
+        dispatch(setAmount(returnData.TotalAmount));
+        navigation.navigate('Payment');
+      }
+    }
+  }
 
   const handleBack = async () => {
     const dataRes = await apiCancelInvoice({ token, invoiceId });
@@ -413,7 +441,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            onPress={handleConfirmSelection}
+            onPress={confirmWithTransaction}
           >
             <Text style={styles.confirmButtonText}>Confirm Selection</Text>
           </TouchableOpacity>

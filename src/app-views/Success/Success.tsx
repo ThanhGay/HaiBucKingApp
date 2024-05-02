@@ -6,7 +6,7 @@ import DetailTicket from '@app-components/DetailTicket';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addTicket } from '@/redux/feature/userSlice';
 
 interface SuccessProps {
@@ -17,7 +17,32 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
   navigation,
   route,
 }) => {
-  const ticket = route.params;
+  // const ticket = route.params;
+  const {
+    amount,
+    categories,
+    duration,
+    invoiceId,
+    movieId,
+    movieName,
+    poster,
+    room,
+    seats,
+    showtime,
+  } = useAppSelector((state) => state.ticketState);
+  const ticket = {
+    StartTime: showtime,
+    Movie_Name: movieName,
+    Movie_Id: movieId,
+    Poster: poster,
+    Duration: duration,
+    CategoryList: categories,
+    Room_Id: room,
+    Seat_Id: seats.toString(),
+    Price: amount,
+    Invoice_Id: invoiceId,
+  };
+
   const mapTicket = {
     ...ticket,
     StartTime: ticket.StartTime.replaceAll('/', '-').replaceAll(' ', 'T'),

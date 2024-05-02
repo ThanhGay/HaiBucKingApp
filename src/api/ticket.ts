@@ -92,7 +92,7 @@ export const apiSaveInvoice = (args: {
     Movie_Name: args.movieName,
     Duration: args.duration,
     CategoryList: args.category,
-    Poster: args.poster, 
+    Poster: args.poster,
     StartTime: args.startTime,
     Room_Id: args.roomId,
     Seat_Id: args.seatId,
@@ -118,6 +118,42 @@ export const apiGetReservedSeat = async (args: {
     .catch((error) => {
       console.log('error in fetch api get reserved seat', error);
     });
-    
+
+  return data ?? {};
+};
+
+export const apiCreateTransaction = async (args: {
+  token: string;
+  startTime: string;
+  seatId: Array<any>;
+  roomId: string;
+}) => {
+  const { startTime, seatId, roomId, token } = args;
+  const url = `${Ticket_URL}/transaction-invoice`;
+  const form = JSON.stringify({
+    StartTime: startTime,
+    Seat_Id: seatId,
+    Room_Id: roomId,
+  });
+  return postWithToken({ url, data: form, token });
+};
+
+// decision 
+// 0 - rollback , 1 - commit
+export const apiActiveTransaction = async (args: { decision: number }) => {
+  const url = `${Ticket_URL}/active-transaction`;
+  const form = JSON.stringify({
+    decision: args.decision,
+  });
+
+  const data = axiosClient
+    .post(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in fetch api active transaction', error);
+    });
+
   return data ?? {};
 };
