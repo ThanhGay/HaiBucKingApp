@@ -7,7 +7,7 @@ import {
   getListNotification,
   getListNowPlaying,
   getListTicket,
-} from '@/redux/feature/userSlice';
+} from '@/redux/features/userSlice';
 
 interface LayoutStateProps {
   children: React.ReactNode;

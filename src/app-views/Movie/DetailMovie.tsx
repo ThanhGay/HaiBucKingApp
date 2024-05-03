@@ -11,7 +11,7 @@ import {
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setDuration, setInvoiceId, setMovieCategories, setMovieId, setMovieName, setMoviePoster } from '@/redux/feature/ticketSlice';
+import { setDuration, setInvoiceId, setMovieCategories, setMovieId, setMovieName, setMoviePoster } from '@/redux/features/ticketSlice';
 import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';
@@ -301,7 +301,7 @@ const Directors = ({
   listImg: any;
 }) => {
   const data =
-    listDirector > 0
+    listDirector.length > 0
       ? listDirector.map((item: any, idx: number) => {
           return {
             key: idx,
@@ -325,7 +325,7 @@ const Directors = ({
 
 const Actors = ({ listActor, listImg }: { listActor: any; listImg: any }) => {
   const data =
-    listActor > 0
+    listActor.length > 0
       ? listActor.map((item: any, idx: number) => {
           return {
             key: idx,

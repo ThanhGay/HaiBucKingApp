@@ -57,6 +57,7 @@ export const ticketSlice = createSlice({
       state.seats = action.payload;
     },
     setRoom: (state, action: PayloadAction<string>) => {
+      
       state.room = action.payload;
     },
     setAmount: (state, action: PayloadAction<number>) => {

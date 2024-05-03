@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Title } from '@/component/Component';
 import { apiEditProfile } from '@/api/auth';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setDataUser } from '@/redux/feature/authSlice';
+import { setDataUser } from '@/redux/features/authSlice';
 
 const emailRegex = new RegExp(
   /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,

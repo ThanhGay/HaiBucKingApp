@@ -15,7 +15,7 @@ import colors from '@/utils/colors';
 
 import { apiSignIn } from '@/api/auth';
 import { useAppDispatch } from '@/redux/hooks';
-import { setDataUser, setToken } from '@/redux/feature/authSlice';
+import { authLogin, setDataUser, setToken } from '@/redux/features/authSlice';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -27,16 +27,16 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const dispatch = useAppDispatch();
 
   const handleLogin = async () => {
-    const _dataRes = await apiSignIn({ phoneNumber, password });
+    dispatch(authLogin({ phoneNumber, password }));
 
-    if (_dataRes.status) {
-      msg = _dataRes.msg;
-      dispatch(setDataUser(_dataRes?.data.data_user));
-      dispatch(setToken(_dataRes?.data.accesToken));
+    // if (_dataRes.status) {
+    //   msg = _dataRes.msg;
+    //   dispatch(setDataUser(_dataRes?.data.data_user));
+    //   dispatch(setToken(_dataRes?.data.accesToken));
       navigation.navigate('Home');
-    } else {
-      msg = _dataRes.msg;
-    }
+    // } else {
+    //   msg = _dataRes.msg;
+    // }
 
     (() => Alert.alert('Thông báo', msg))();
   };

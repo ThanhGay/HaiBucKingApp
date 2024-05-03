@@ -42,7 +42,7 @@ export const authRegister = createAsyncThunk(
 
     return dataRes.status
       ? {
-          ...dataRes,
+          ...dataRes.data,
           loginCode: 1,
         }
       : {
@@ -79,11 +79,20 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(authLogin.pending, (state, action: PayloadAction<any>) => {
         state.loading = true;
-        state.user = action.payload?.data_user;
-        state.token = action.payload.accesToken;
+      })
+      .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
+        state.loginCode = 1;
+        state.user = action.payload.data.data_user;
+        state.token = action.payload.data.accesToken;
         state.loading = false;
+      })
+      .addCase(authLogin.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.user = [];
+        state.token = '';
+        state.loginCode = 0;
       })
       .addCase(authRegister.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = true;
@@ -100,8 +109,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setDataUser, setAuthLoading, setToken } =
-  authSlice.actions;
+export const { setDataUser, setAuthLoading, setToken } = authSlice.actions;
 
 const authReducer = authSlice.reducer;
 

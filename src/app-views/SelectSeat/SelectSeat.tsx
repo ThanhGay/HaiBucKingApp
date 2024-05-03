@@ -27,7 +27,7 @@ import {
   setRoom,
   setSeats,
   setShowtime,
-} from '@/redux/feature/ticketSlice';
+} from '@/redux/features/ticketSlice';
 
 const typeSeat = [
   { key: 1, name: 'Available', bgColor: '#1C1C1C' },
