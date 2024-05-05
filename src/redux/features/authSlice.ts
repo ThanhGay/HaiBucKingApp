@@ -5,19 +5,21 @@ import {
   createSlice,
   isAnyOf,
 } from '@reduxjs/toolkit';
+import { useAppDispatch } from '../hooks';
 
 export interface AuthState {
   user: any;
   token: string;
   loading: boolean;
   loginCode: number | null; // 0 - failed, 1 - success
+  message: string;
 }
 
 export const authLogin = createAsyncThunk(
   'auth/login',
   async (args: { phoneNumber: string; password: string }) => {
     const dataRes = await apiSignIn(args);
-
+    
     return dataRes.status
       ? {
           ...dataRes,
@@ -61,6 +63,7 @@ const initialState: AuthState = {
   token: '',
   loading: false,
   loginCode: 0,
+  message: '',
 };
 
 export const authSlice = createSlice({
@@ -84,14 +87,18 @@ export const authSlice = createSlice({
       })
       .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
         state.loginCode = 1;
+        const dispatch = useAppDispatch()
+        dispatch(setDataUser(action.payload.data.data_user));
         state.user = action.payload.data.data_user;
         state.token = action.payload.data.accesToken;
+        state.message = action.payload.data.message;
         state.loading = false;
       })
       .addCase(authLogin.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.user = [];
         state.token = '';
+        state.message = action.payload.data.message;
         state.loginCode = 0;
       })
       .addCase(authRegister.fulfilled, (state, action: PayloadAction<any>) => {

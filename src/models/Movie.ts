@@ -10,7 +10,9 @@ class MovieModel {
   poster: string;
   categories: string;
   directors: Array<any>;
+  imageDirectors: Array<any>;
   actors: Array<any>;
+  imageActors: Array<any>;
 
   constructor(args: any) {
     this.id = args.id ?? null;
@@ -24,6 +26,8 @@ class MovieModel {
     this.poster = args.poster ?? '';
     this.categories = args.categories ?? '';
     this.directors = args.directors ?? [];
+    this.imageDirectors = args.imageDirectors ?? [];
     this.actors = args.actors ?? [];
+    this.imageActors = args.imageActors ?? [];
   }
 }
