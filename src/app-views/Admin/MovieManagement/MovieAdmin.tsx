@@ -8,17 +8,17 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
-import CreateCategory from './CreateCategory';
-import EditCategory from './EditCategory';
-import AddMovie from './AddMovie';
+import CreateCategory from '../CategoryManagement/CreateCategory';
+import EditCategory from '../CategoryManagement/EditCategory';
 import EditMovie from './EditMovie';
+import AddMovie from './AddMovie';
 
 function MovieAdmin() {
   const [touch, setTouch] = useState(false);
   const [show, setShow] = useState('Choose');
   const handleButton = () => {
     setTouch(!touch);
-    // console.log(touch);
+    console.log(touch);
   };
   const Render = () => {
     switch (show) {
