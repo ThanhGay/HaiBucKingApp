@@ -2,33 +2,30 @@ import {
   View,
   Text,
   StatusBar,
-  Touchable,
   TouchableOpacity,
-  Modal,
   Image,
+  ScrollView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import colors from '@/utils/colors';
-import { ScrollView } from 'react-native';
-import ByTime from './ByTime';
-import ByMovie from './ByMovie';
-import ByQuarter from './ByQuarter';
-function HomeAdmin() {
+import CreateCategory from './CreateCategory';
+import EditCategory from './EditCategory';
+import AddMovie from './AddMovie';
+import EditMovie from './EditMovie';
+
+function MovieAdmin() {
   const [touch, setTouch] = useState(false);
-  const [show, setShow] = useState('Choose Report');
+  const [show, setShow] = useState('Choose');
   const handleButton = () => {
     setTouch(!touch);
     // console.log(touch);
   };
-
   const Render = () => {
     switch (show) {
-      case 'By Time':
-        return <ByTime />;
-      case 'By Movie':
-        return <ByMovie />;
-      case 'By Quarter':
-        return <ByQuarter />;
+      case 'Add movie':
+        return <AddMovie />;
+      case 'Edit movie':
+        return <EditMovie />;
       default:
         return (
           <View style={{ alignItems: 'center' }}>
@@ -37,13 +34,15 @@ function HomeAdmin() {
               source={require('@assets/logo/Logo-L.png')}
             />
             <Text style={{ color: colors.whiteText, fontSize: 24 }}>
-              Please select report type!
+              Please choose to
+            </Text>
+            <Text style={{ color: colors.whiteText, fontSize: 24 }}>
+              Create, edit movies
             </Text>
           </View>
         );
     }
   };
-
   return (
     <View style={{ flex: 1, paddingHorizontal: 20, backgroundColor: 'black' }}>
       <View style={{ flex: 1 }}>
@@ -57,7 +56,7 @@ function HomeAdmin() {
           <Text
             style={{ fontSize: 32, fontWeight: '700', color: colors.whiteText }}
           >
-            Report
+            Movie
           </Text>
           <View style={{ gap: 4 }}>
             <TouchableOpacity
@@ -86,7 +85,7 @@ function HomeAdmin() {
                 horizontal={false}
                 style={{
                   alignSelf: 'flex-start',
-                  height: 60,
+                  height: 65,
                   //   borderColor: 'white',
                   borderWidth: 1,
                   marginTop: -4,
@@ -96,8 +95,8 @@ function HomeAdmin() {
                 <TouchableOpacity
                   onPress={() => {
                     setTouch(!touch);
-                    setShow('By Time');
-                    console.log('By Time');
+                    setShow('Add movie');
+                    console.log('Add movie');
                   }}
                 >
                   <Text
@@ -107,14 +106,14 @@ function HomeAdmin() {
                       paddingHorizontal: 8,
                     }}
                   >
-                    By Time
+                    Add Movie
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
                     setTouch(!touch);
-                    setShow('By Movie');
-                    console.log('By Movie');
+                    setShow('Edit movie');
+                    console.log('Edit movie');
                   }}
                 >
                   <Text
@@ -124,24 +123,7 @@ function HomeAdmin() {
                       paddingHorizontal: 8,
                     }}
                   >
-                    By Movie
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    setTouch(!touch);
-                    setShow('By Quarter');
-                    console.log('By Quarter');
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      color: colors.whiteText,
-                      paddingHorizontal: 8,
-                    }}
-                  >
-                    By Quarter
+                    Edit Movie
                   </Text>
                 </TouchableOpacity>
               </ScrollView>
@@ -159,7 +141,7 @@ function HomeAdmin() {
             alignSelf: 'flex-start',
           }}
         >
-          Report Infomation
+          {show}
         </Text>
         <Render></Render>
       </View>
@@ -171,4 +153,4 @@ function HomeAdmin() {
     </View>
   );
 }
-export default HomeAdmin;
+export default MovieAdmin;

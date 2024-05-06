@@ -12,7 +12,7 @@ import CreateCategory from './CreateCategory';
 import EditCategory from './EditCategory';
 import DeleteCategory from './DeleteCategory';
 
-function Category() {
+function CategoryAdmin() {
   const [touch, setTouch] = useState(false);
   const [show, setShow] = useState('Choose');
   const handleButton = () => {
@@ -171,4 +171,4 @@ function Category() {
     </View>
   );
 }
-export default Category;
+export default CategoryAdmin;

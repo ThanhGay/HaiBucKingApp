@@ -27,16 +27,17 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const dispatch = useAppDispatch();
 
   const handleLogin = async () => {
-    dispatch(authLogin({ phoneNumber, password }));
-
-    // if (_dataRes.status) {
-    //   msg = _dataRes.msg;
-    //   dispatch(setDataUser(_dataRes?.data.data_user));
-    //   dispatch(setToken(_dataRes?.data.accesToken));
+    // dispatch(authLogin({ phoneNumber, password }));
+    let msg;
+    const _dataRes = await apiSignIn({ phoneNumber, password });
+    if (_dataRes.status) {
+      msg = _dataRes.msg;
+      dispatch(setDataUser(_dataRes?.data.data_user));
+      dispatch(setToken(_dataRes?.data.accesToken));
       navigation.navigate('Home');
-    // } else {
-    //   msg = _dataRes.msg;
-    // }
+    } else {
+      msg = _dataRes.msg;
+    }
 
     (() => Alert.alert('Thông báo', msg))();
   };

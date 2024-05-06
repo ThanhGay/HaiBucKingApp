@@ -128,7 +128,7 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
     </View>
   );
 };
-function AddMovie() {
+function EditMovie() {
   const [release, setRelease] = useState('');
   const [openRelease, setOpenRelease] = useState(false);
 
@@ -434,4 +434,4 @@ function ModalDate({
   );
 }
 
-export default AddMovie;
+export default EditMovie;

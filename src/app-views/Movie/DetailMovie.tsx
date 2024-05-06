@@ -11,7 +11,14 @@ import {
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setDuration, setInvoiceId, setMovieCategories, setMovieId, setMovieName, setMoviePoster } from '@/redux/features/ticketSlice';
+import {
+  setDuration,
+  setInvoiceId,
+  setMovieCategories,
+  setMovieId,
+  setMovieName,
+  setMoviePoster,
+} from '@/redux/features/ticketSlice';
 import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';
@@ -62,7 +69,7 @@ const DetailMovie: React.FC<
     const dataRes = await apiCreateInvoice({ token });
     if (dataRes.status) {
       dispatch(setInvoiceId(dataRes.data[0].NewInvoiceId));
-      dispatch(setMovieName(dataMovieFormated?.Movie_Name))
+      dispatch(setMovieName(dataMovieFormated?.Movie_Name));
       dispatch(setMovieCategories(dataMovieFormated?.Categories));
       dispatch(setMoviePoster(dataMovieFormated?.Poster));
       dispatch(setDuration(dataMovieFormated?.Duration));
@@ -301,7 +308,7 @@ const Directors = ({
   listImg: any;
 }) => {
   const data =
-    listDirector.length > 0
+    listDirector > 0
       ? listDirector.map((item: any, idx: number) => {
           return {
             key: idx,
@@ -325,7 +332,7 @@ const Directors = ({
 
 const Actors = ({ listActor, listImg }: { listActor: any; listImg: any }) => {
   const data =
-    listActor.length > 0
+    listActor > 0
       ? listActor.map((item: any, idx: number) => {
           return {
             key: idx,
