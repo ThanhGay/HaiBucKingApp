@@ -5,10 +5,10 @@ import NavigationAdmin from '@app-navigation/NavigationAdmin';
 
 const App = () => {
   return (
-    // <RootComponent>
-    //   <NavigationContainer />
-    // </RootComponent>
-    <NavigationAdmin />
+    <RootComponent>
+      <NavigationContainer />
+    </RootComponent>
+    // <NavigationAdmin />
   );
 };
 

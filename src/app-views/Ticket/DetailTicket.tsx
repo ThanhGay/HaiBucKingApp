@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   title: {
+    flexWrap: 'wrap',
     fontSize: 20,
     fontWeight: '700',
     color: colors.blackText,

@@ -13,6 +13,7 @@ const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { listTicket } = useAppSelector((state) => state.userState);
+  
   return (
     <View style={styles.container}>
       <Title title="My ticket" />

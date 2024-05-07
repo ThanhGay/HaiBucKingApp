@@ -24,9 +24,7 @@ export const getListTicket = createAsyncThunk(
   'user/getListTicket',
   async (args: { token: string }) => {
     const res = await apiGetListTicket(args);
-    if (res.status) {
-      return res.data;
-    }
+    if (res.status) return res.data;
   },
 );
 
@@ -70,7 +68,20 @@ export const userSlice = createSlice({
         },
       )
       .addCase(getListTicket.fulfilled, (state, action: PayloadAction<any>) => {
-        state.listTicket = action.payload;
+        const formatListTicket: any[] = [];
+
+        const rtnData = action.payload;
+        rtnData.forEach((element: any) => {
+          const splitIndex = element.StartTime.indexOf('T');
+          const formatTicket = {
+            ...element,
+            Date: element.StartTime.slice(0, splitIndex),
+            Time: element.StartTime.slice(splitIndex + 1, splitIndex + 6),
+          };
+          formatListTicket.push(formatTicket);
+        });
+        
+        state.listTicket = formatListTicket;
       })
       .addCase(
         getListNowPlaying.fulfilled,
