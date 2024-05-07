@@ -8,17 +8,17 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
-import CreateCategory from '../CategoryManagement/CreateCategory';
-import EditCategory from '../CategoryManagement/EditCategory';
-import EditMovie from './EditMovie';
+
 import AddMovie from './AddMovie';
+import EditMovie from './EditMovie';
+import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 
 function MovieAdmin() {
   const [touch, setTouch] = useState(false);
   const [show, setShow] = useState('Choose');
   const handleButton = () => {
     setTouch(!touch);
-    console.log(touch);
+    // console.log(touch);
   };
   const Render = () => {
     switch (show) {
@@ -145,7 +145,7 @@ function MovieAdmin() {
         </Text>
         <Render></Render>
       </View>
-
+      <BottomTabAdmin />
       <StatusBar
         backgroundColor={'black'}
         barStyle={'light-content'}

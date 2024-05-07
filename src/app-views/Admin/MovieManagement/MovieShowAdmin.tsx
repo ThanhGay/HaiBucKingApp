@@ -9,8 +9,11 @@ import {
   StatusBar,
   ScrollView,
 } from 'react-native';
+import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 
 function MovieShowAdmin() {
+  const [first, setFirst] = useState(false);
+
   const [inputData, setInputData] = useState<
     { startTime: string; movieId: string; roomId: string; typeShow: string }[]
   >([]);
@@ -20,6 +23,7 @@ function MovieShowAdmin() {
       ...inputData,
       { startTime: '', movieId: '', roomId: '', typeShow: '' },
     ]);
+    setFirst(true);
   };
 
   const handleInputChange = (text: string, index: number, type: string) => {
@@ -40,6 +44,9 @@ function MovieShowAdmin() {
     const newInputs = [...inputData];
     newInputs.splice(index, 1);
     setInputData(newInputs);
+    if (newInputs.length == 0) {
+      setFirst(false);
+    }
   };
   const test = () => {
     const newInputs = [...inputData];
@@ -129,9 +136,12 @@ function MovieShowAdmin() {
       <ScrollView keyboardShouldPersistTaps="handled">
         {renderInputs()}
       </ScrollView>
-      <TouchableOpacity style={styles.handleSave} onPress={test}>
-        <Text style={styles.handleText}>Save</Text>
-      </TouchableOpacity>
+      {first && (
+        <TouchableOpacity style={styles.handleSave} onPress={test}>
+          <Text style={styles.handleText}>Save</Text>
+        </TouchableOpacity>
+      )}
+      <BottomTabAdmin />
       <StatusBar backgroundColor={colors.black} barStyle={'light-content'} />
     </View>
   );
