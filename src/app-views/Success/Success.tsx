@@ -7,7 +7,7 @@ import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { addTicket } from '@/redux/features/userSlice';
+import { addTicket } from '@/redux/features/user/userSlice';
 
 interface SuccessProps {
   route: any;

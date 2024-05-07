@@ -8,10 +8,10 @@ import AddMovie from '@app-views/Admin/MovieManagement/AddMovie';
 
 const App = () => {
   return (
-    // <RootComponent>
-    //   <NavigationContainer />
-    // </RootComponent>
-    <CategoryAdmin />
+    <RootComponent>
+      <NavigationContainer />
+    </RootComponent>
+    // <CategoryAdmin />
   );
 };
 

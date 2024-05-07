@@ -14,8 +14,8 @@ import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
 import { apiSignIn } from '@/api/auth';
-import { useAppDispatch } from '@/redux/hooks';
-import { authLogin, setDataUser, setToken } from '@/redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { authLogin, setDataUser, setToken } from '@/redux/features/auth/authSlice';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -24,10 +24,13 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [isRemember, set] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
+  const {isLoading, error, message, user, loginCode} = useAppSelector((state) => state.authState)
+
+  // call api 
   const handleLogin = async () => {
-    // dispatch(authLogin({ phoneNumber, password }));
+    
     let msg;
     const _dataRes = await apiSignIn({ phoneNumber, password });
     if (_dataRes.status) {
@@ -41,6 +44,24 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
 
     (() => Alert.alert('Thông báo', msg))();
   };
+
+  // use redux
+  // const handleLogin =  () => {
+  //    dispatch(authLogin({ phoneNumber, password }));
+  //   if (isLoading === true && error === false) {
+  //     console.log('isLoading api ...');
+      
+  //   } 
+  //    if (isLoading === false && error === false) {
+  //     console.log('Load api success');
+  //     console.log(loginCode, user)
+      
+  //   } 
+  //    if (isLoading === false && error === true) {
+  //     console.log('api rejected');
+      
+  //   }
+  // }
 
   return (
     <View style={styles.container}>

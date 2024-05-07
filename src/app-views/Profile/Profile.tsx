@@ -13,7 +13,7 @@ import BottomTab from '@app-navigation/BottomTabs/BottomTab';
 import ModalLanguage from '@/app-modals/ModalLanguage';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { authLogout } from '@/redux/features/authSlice';
+import { authLogout } from '@/redux/features/auth/authSlice';
 
 export const BoxProfile = ({
   link,

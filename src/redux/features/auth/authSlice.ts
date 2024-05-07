@@ -11,7 +11,7 @@ export interface AuthState {
   token: string;
   isLoading: boolean;
   error: boolean;
-  loginCode: number | null; // 0 - failed, 1 - success
+  loginCode: boolean | null; // 0 - failed, 1 - success
   message: string;
 }
 
@@ -48,7 +48,7 @@ const initialState: AuthState = {
   token: '',
   isLoading: false,
   error: false,
-  loginCode: 0,
+  loginCode: false,
   message: '',
 };
 
@@ -73,20 +73,18 @@ export const authSlice = createSlice({
         state.error = false;
       })
       .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
-        state.loginCode = 1;
-        state.user = action.payload.data_user;
-        state.token = action.payload.accesToken;
-        state.message = action.payload.message;
+        console.log('api success', action.payload)
         state.isLoading = false;
         state.error = false;
+        state.loginCode = action.payload.status;
+        state.user = action.payload.data.data_user;
+        state.token = action.payload.data.accesToken;
+        state.message = action.payload.message;
       })
       .addCase(authLogin.rejected, (state, action: PayloadAction<any>) => {
-        console.log('xx', action.payload);
-
-        state.loginCode = 0;
         state.isLoading = false;
         state.error = true;
-        state.message = action.payload.message;
+        state.loginCode = false;
       })
       .addCase(authRegister.fulfilled, (state, action: PayloadAction<any>) => {
         state.isLoading = true;
