@@ -13,7 +13,7 @@ import { getFormatedDate } from 'react-native-modern-datepicker';
 
 function ByTime() {
   // min
-
+  const [showMaxDate, setShowMaxDate] = useState(false);
   const [minDate, setMinDate] = useState('');
   const [openMinDate, setOpenMinDate] = useState(false);
 
@@ -29,6 +29,9 @@ function ByTime() {
   const handleConfirmMinDate = () => {
     setOpenMinDate(!openMinDate);
     console.log('Min Date: ', minDate);
+    if (!!minDate) {
+      setShowMaxDate(true);
+    }
   };
 
   // MaxDate
@@ -75,30 +78,32 @@ function ByTime() {
           handleChange={handleChangeMinDate}
           handleComfirn={handleConfirmMinDate}
         ></ModalDate>
-        <TouchableOpacity
-          style={{
-            //   flex: 1,
-            marginTop: 20,
-            borderRadius: 8,
-            height: 40,
-            width: 120,
-            borderColor: colors.primary,
-            borderWidth: 1,
-            justifyContent: 'center',
-          }}
-          onPress={() => setOpenMaxDate(!openMaxDate)}
-        >
-          <Text
+        {showMaxDate && (
+          <TouchableOpacity
             style={{
-              color: colors.whiteText,
-              textAlign: 'center',
-              fontWeight: '600',
-              fontSize: 16,
+              //   flex: 1,
+              marginTop: 20,
+              borderRadius: 8,
+              height: 40,
+              width: 120,
+              borderColor: colors.primary,
+              borderWidth: 1,
+              justifyContent: 'center',
             }}
+            onPress={() => setOpenMaxDate(!openMaxDate)}
           >
-            {!maxDate ? 'Choose Date' : maxDate}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: colors.whiteText,
+                textAlign: 'center',
+                fontWeight: '600',
+                fontSize: 16,
+              }}
+            >
+              {!maxDate ? 'Choose Date' : maxDate}
+            </Text>
+          </TouchableOpacity>
+        )}
         <ModalDate
           open={openMaxDate}
           handleChange={handleChangeMaxDate}

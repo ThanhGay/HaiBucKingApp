@@ -13,6 +13,7 @@ import { ScrollView } from 'react-native';
 import ByTime from './ByTime';
 import ByMovie from './ByMovie';
 import ByQuarter from './ByQuarter';
+import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 function ReportAdmin() {
   const [touch, setTouch] = useState(false);
   const [show, setShow] = useState('Choose Report');
@@ -163,7 +164,7 @@ function ReportAdmin() {
         </Text>
         <Render></Render>
       </View>
-
+      <BottomTabAdmin />
       <StatusBar
         backgroundColor={'black'}
         barStyle={'light-content'}

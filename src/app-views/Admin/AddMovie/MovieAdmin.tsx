@@ -12,6 +12,7 @@ import CreateCategory from './CreateCategory';
 import EditCategory from './EditCategory';
 import AddMovie from './AddMovie';
 import EditMovie from './EditMovie';
+import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 
 function MovieAdmin() {
   const [touch, setTouch] = useState(false);
@@ -131,7 +132,7 @@ function MovieAdmin() {
           </View>
         </View>
       </View>
-      <View style={{ flex: 8 }}>
+      <View style={{ flex: 11 }}>
         <Text
           style={{
             color: colors.primary,
@@ -145,6 +146,7 @@ function MovieAdmin() {
         </Text>
         <Render></Render>
       </View>
+      <BottomTabAdmin />
 
       <StatusBar
         backgroundColor={'black'}

@@ -5,13 +5,14 @@ import CategoryAdmin from '@app-views/Admin/AddMovie/CategoryAdmin';
 import AddMovie from '@app-views/Admin/AddMovie/AddMovie';
 import MovieAdmin from '@app-views/Admin/AddMovie/MovieAdmin';
 import MovieShowAdmin from '@app-views/Admin/AddMovie/MovieShowAdmin';
+import NavigationAdmin from '@app-navigation/NavigationAdmin';
 
 const App = () => {
   return (
     // <RootComponent>
     //   <NavigationContainer />
     // </RootComponent>
-    <MovieShowAdmin />
+    <NavigationAdmin />
   );
 };
 

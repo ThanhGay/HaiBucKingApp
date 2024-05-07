@@ -11,6 +11,7 @@ import colors from '@/utils/colors';
 import CreateCategory from './CreateCategory';
 import EditCategory from './EditCategory';
 import DeleteCategory from './DeleteCategory';
+import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 
 function CategoryAdmin() {
   const [touch, setTouch] = useState(false);
@@ -163,7 +164,7 @@ function CategoryAdmin() {
         </Text>
         <Render></Render>
       </View>
-
+      <BottomTabAdmin />
       <StatusBar
         backgroundColor={'black'}
         barStyle={'light-content'}

@@ -186,7 +186,7 @@ function AddMovie() {
   return (
     <View style={{ backgroundColor: colors.black, flex: 1 }}>
       {/* id, name */}
-      <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
+      <View style={{ flexDirection: 'row', gap: 20, marginTop: 10 }}>
         <View
           style={{
             height: 50,
@@ -344,7 +344,7 @@ function AddMovie() {
           placeholder="Description"
           placeholderTextColor={colors.grayText}
           multiline={true}
-          numberOfLines={8}
+          numberOfLines={6}
         ></TextInput>
       </View>
       {/* Flatlist */}
