@@ -35,7 +35,6 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { user, token } = useAppSelector((state) => state.authState);
-  console.log(user, token);
   
   const { listNowPlaying, listComingSoon } = useAppSelector(
     (state) => state.userState,

@@ -34,7 +34,7 @@ export const authRegister = createAsyncThunk(
   }) => {
     const response = await apiSignUp(args);
 
-    return response.data;
+    return response;
   },
 );
 
@@ -73,29 +73,44 @@ export const authSlice = createSlice({
         state.error = false;
       })
       .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log('api success', action.payload)
         state.isLoading = false;
         state.error = false;
         state.loginCode = action.payload.status;
         state.user = action.payload.data.data_user;
         state.token = action.payload.data.accesToken;
-        state.message = action.payload.message;
+        state.message = action.payload.msg;
       })
       .addCase(authLogin.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = true;
         state.loginCode = false;
       })
-      .addCase(authRegister.fulfilled, (state, action: PayloadAction<any>) => {
+      .addCase(authRegister.pending, (state, action: PayloadAction<any>) => {
         state.isLoading = true;
-        state.user = action.payload?.data_user;
-        state.token = action.payload.accesToken;
+        state.error = false;
+      })
+      .addCase(authRegister.fulfilled, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
+        state.error = false;
+        state.loginCode = action.payload.status;
+        state.user = action.payload.data.data_user;
+        state.token = action.payload.data.accesToken;
+        state.message = action.payload.msg;
+      })
+      .addCase(authRegister.rejected, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.error = true;
+        state.loginCode = false;
       })
       .addMatcher(
         isAnyOf(authLogout.fulfilled, authLogout.rejected),
         (state) => {
-          (state.isLoading = false), (state.user = null), (state.token = '');
+          state.isLoading = false;
+          state.user = null;
+          state.token = '';
+          state.error = false;
+          state.message = '';
+          state.loginCode = false;
         },
       );
   },

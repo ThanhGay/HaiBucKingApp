@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,11 @@ import colors from '@/utils/colors';
 
 import { apiSignIn } from '@/api/auth';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { authLogin, setDataUser, setToken } from '@/redux/features/auth/authSlice';
+import {
+  authLogin,
+  setDataUser,
+  setToken,
+} from '@/redux/features/auth/authSlice';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -26,42 +30,49 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [password, setPassword] = useState('');
 
   const dispatch = useAppDispatch();
-  const {isLoading, error, message, user, loginCode} = useAppSelector((state) => state.authState)
+  const { isLoading, error, message, user, loginCode } = useAppSelector(
+    (state) => state.authState,
+  );
 
-  // call api 
-  const handleLogin = async () => {
-    
-    let msg;
-    const _dataRes = await apiSignIn({ phoneNumber, password });
-    if (_dataRes.status) {
-      msg = _dataRes.msg;
-      dispatch(setDataUser(_dataRes?.data.data_user));
-      dispatch(setToken(_dataRes?.data.accesToken));
-      navigation.navigate('Home');
-    } else {
-      msg = _dataRes.msg;
-    }
+  // call api
+  // const handleLogin = async () => {
 
-    (() => Alert.alert('Thông báo', msg))();
-  };
+  //   let msg;
+  //   const _dataRes = await apiSignIn({ phoneNumber, password });
+  //   if (_dataRes.status) {
+  //     msg = _dataRes.msg;
+  //     dispatch(setDataUser(_dataRes?.data.data_user));
+  //     dispatch(setToken(_dataRes?.data.accesToken));
+  //     navigation.navigate('Home');
+  //   } else {
+  //     msg = _dataRes.msg;
+  //   }
+
+  //   (() => Alert.alert('Thông báo', msg))();
+  // };
 
   // use redux
-  // const handleLogin =  () => {
-  //    dispatch(authLogin({ phoneNumber, password }));
-  //   if (isLoading === true && error === false) {
-  //     console.log('isLoading api ...');
-      
-  //   } 
-  //    if (isLoading === false && error === false) {
-  //     console.log('Load api success');
-  //     console.log(loginCode, user)
-      
-  //   } 
-  //    if (isLoading === false && error === true) {
-  //     console.log('api rejected');
-      
-  //   }
-  // }
+  const handleLogin = () => {
+    dispatch(authLogin({ phoneNumber, password }));
+  };
+
+  useEffect(() => {
+    if (isLoading === true && error === false) {
+      console.log('isLoading api ...');
+    }
+    if (isLoading === false && error === false) {
+      console.log('Load api success');
+      if (loginCode === true) {
+        (() => Alert.alert('Thông báo', message))();
+        navigation.navigate('Home');
+      } else {
+        message ? (() => Alert.alert('Thông báo', message))() : null;
+      }
+    }
+    if (isLoading === false && error === true) {
+      console.log('api rejected');
+    }
+  }, [loginCode, isLoading]);
 
   return (
     <View style={styles.container}>
