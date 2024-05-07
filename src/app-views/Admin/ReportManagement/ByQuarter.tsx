@@ -1,6 +1,7 @@
 import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
+import { apiGetReportByQuarter } from '@/api/reportAdmin';
 
 const dataQuarter = [
   {
@@ -89,8 +90,24 @@ const ChartExample: React.FC<ChartProps> = ({ data }) => {
 };
 
 function ByQuarter() {
-  const [text, setText] = useState('');
+  const [year, setYear] = useState<string>();
   const [handle, setHandle] = useState(false);
+  const [listData, setListData] = useState<Array<any>>([]);
+  const handleSubmit = async () => {
+    setHandle(true);
+    const dataRes = await apiGetReportByQuarter({ year: Number(year) });
+    if (dataRes.status) {
+      const newData = dataRes.data.map(
+        (item: { Quarter: any; Revenue: any }) => ({
+          quarter: item.Quarter,
+          total: item.Revenue,
+        }),
+      );
+      setListData(newData);
+    } else {
+      console.error('API Error:', dataRes.msg);
+    }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -109,13 +126,13 @@ function ByQuarter() {
               color: colors.whiteText,
               fontSize: 20,
 
-              opacity: text ? 1 : 0.8,
+              opacity: year ? 1 : 0.8,
               marginVertical: -8,
             }}
-            onChangeText={setText}
-            value={text}
+            onChangeText={setYear}
+            value={year}
             keyboardType="numeric"
-            onSubmitEditing={() => setHandle(true)}
+            onSubmitEditing={handleSubmit}
           />
         </View>
       </View>
@@ -125,12 +142,12 @@ function ByQuarter() {
         <View>
           <View>
             <FlatList
-              data={dataQuarter}
+              data={listData}
               renderItem={({ item }) => <Item item={item} />}
             />
           </View>
 
-          <ChartExample data={dataQuarter} />
+          <ChartExample data={listData} />
         </View>
       )}
     </View>

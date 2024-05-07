@@ -1,7 +1,8 @@
 import { View, Text, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
 import { FlatList } from 'react-native';
+import { apiGetReportByMovie } from '@/api/reportAdmin';
 
 const Item = ({ title }: { title: any }) => {
   return (
@@ -92,7 +93,33 @@ const data = [
     Total: 100000,
   },
 ];
+
 function ByMovie() {
+  const [listMovie, setListMovie] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataRes = await apiGetReportByMovie();
+        if (dataRes.status) {
+          // Lấy dữ liệu từ dataRes và tạo mảng mới với cấu trúc tương tự như data mẫu
+          const newData = dataRes.data.map(
+            (item: { Movie_Name: any; Total: any }) => ({
+              Movie_Name: item.Movie_Name,
+              Total: item.Total,
+            }),
+          );
+          // Set listMovie với dữ liệu mới
+          setListMovie(newData);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <View
@@ -126,7 +153,10 @@ function ByMovie() {
           Total
         </Text>
       </View>
-      <FlatList data={data} renderItem={({ item }) => <Item title={item} />} />
+      <FlatList
+        data={listMovie}
+        renderItem={({ item }) => <Item title={item} />}
+      />
     </View>
   );
 }
