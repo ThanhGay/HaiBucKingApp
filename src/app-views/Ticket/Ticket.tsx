@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
@@ -19,9 +19,17 @@ const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
 
       <View style={{ flex: 9, gap: 16 }}>
         {listTicket.length > 0 ? (
-          listTicket.map((item, idx) => (
-            <TicketItem key={idx} ticket={item} navigation={navigation} />
-          ))
+          listTicket.length > 4 ? (
+            <ScrollView>
+              {listTicket.map((item, idx) => (
+                <TicketItem key={idx} ticket={item} navigation={navigation} />
+              ))}
+            </ScrollView>
+          ) : (
+            listTicket.map((item, idx) => (
+              <TicketItem key={idx} ticket={item} navigation={navigation} />
+            ))
+          )
         ) : (
           <Text style={{ color: colors.whiteText, textAlign: 'center' }}>
             Hiện chưa có vé nào được đặt
