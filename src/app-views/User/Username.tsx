@@ -7,7 +7,7 @@ import { Box, Button, Title } from '@/component/Component';
 
 import { apiSignUp } from '@/api/auth';
 import { useAppDispatch } from '@/redux/hooks';
-import { setDataUser, setToken } from '@/redux/features/authSlice';
+import { setDataUser, setToken } from '@/redux/features/auth/authSlice';
 
 interface EnterUsernameProps {
   route: any;

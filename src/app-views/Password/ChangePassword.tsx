@@ -6,7 +6,7 @@ import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { apiChangePassword } from '@/api/auth';
-import { setDataUser } from '@/redux/features/authSlice';
+import { setDataUser } from '@/redux/features/auth/authSlice';
 
 const passwordRegex = new RegExp(
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,

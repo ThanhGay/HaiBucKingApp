@@ -18,7 +18,7 @@ import {
   setMovieId,
   setMovieName,
   setMoviePoster,
-} from '@/redux/features/ticketSlice';
+} from '@/redux/features/ticket/ticketSlice';
 import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';

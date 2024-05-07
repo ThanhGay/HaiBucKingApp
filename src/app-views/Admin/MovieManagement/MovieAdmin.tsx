@@ -8,8 +8,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
-import CreateCategory from './CreateCategory';
-import EditCategory from './EditCategory';
+
 import AddMovie from './AddMovie';
 import EditMovie from './EditMovie';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
@@ -132,7 +131,7 @@ function MovieAdmin() {
           </View>
         </View>
       </View>
-      <View style={{ flex: 11 }}>
+      <View style={{ flex: 8 }}>
         <Text
           style={{
             color: colors.primary,
@@ -147,7 +146,6 @@ function MovieAdmin() {
         <Render></Render>
       </View>
       <BottomTabAdmin />
-
       <StatusBar
         backgroundColor={'black'}
         barStyle={'light-content'}
