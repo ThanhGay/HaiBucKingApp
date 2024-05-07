@@ -8,32 +8,31 @@ import MovieAdmin from '@app-views/Admin/MovieManagement/MovieAdmin';
 import ReportAdmin from '@app-views/Admin/ReportManagement/ReportAdmin';
 import CategoryAdmin from '@app-views/Admin/CategoryManagement/CategoryAdmin';
 
-const MainStack = createNativeStackNavigator();
-const Stack = createNativeStackNavigator();
+const AdminStack = createNativeStackNavigator();
 const NavigationAdmin = () => {
   return (
-    <ReactNavigationContainer>
-      <MainStack.Navigator
+    <ReactNavigationContainer independent={true}>
+      <AdminStack.Navigator
         initialRouteName="MovieAdmin"
         screenOptions={{ headerShown: false }}
       >
-        <MainStack.Screen
+        <AdminStack.Screen
           name="MovieAdmin"
           component={MovieAdmin}
-        ></MainStack.Screen>
-        <MainStack.Screen
+        ></AdminStack.Screen>
+        <AdminStack.Screen
           name="MovieShowAdmin"
           component={MovieShowAdmin}
-        ></MainStack.Screen>
-        <MainStack.Screen
+        ></AdminStack.Screen>
+        <AdminStack.Screen
           name="ReportAdmin"
           component={ReportAdmin}
-        ></MainStack.Screen>
-        <MainStack.Screen
+        ></AdminStack.Screen>
+        <AdminStack.Screen
           name="CategoryAdmin"
           component={CategoryAdmin}
-        ></MainStack.Screen>
-      </MainStack.Navigator>
+        ></AdminStack.Screen>
+      </AdminStack.Navigator>
     </ReactNavigationContainer>
   );
 };

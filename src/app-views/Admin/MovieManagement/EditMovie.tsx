@@ -8,93 +8,16 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
-
-const listCategory = [
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-];
+import {
+  setDuration,
+  setMovieId,
+  setMovieName,
+} from '@/redux/features/ticket/ticketSlice';
+import { apiGetCategory, apiPutEditMovie } from '@/api/movieAdmin';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
@@ -103,6 +26,7 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
     setChoose(!choose);
     onPress();
   };
+
   return (
     <View
       style={{
@@ -122,15 +46,47 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
             fontSize: 18,
           }}
         >
-          {data.category_Name}
+          {data.Category_Name}
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 function EditMovie() {
+  const [movieId, setMovieId] = useState('');
+  const [movieName, setMovieName] = useState('');
+  const [duration, setDuration] = useState<number>(0);
+  const [censorship, setCensorship] = useState<number>(0);
+  const [language, setLanguage] = useState('');
+  const [poster, setPoster] = useState('');
+  const [description, setDescription] = useState('');
   const [release, setRelease] = useState('');
   const [openRelease, setOpenRelease] = useState(false);
+
+  //List category
+  const [listCategory, setListCategory] = useState<Array<any>>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataRes = await apiGetCategory();
+        if (dataRes.status) {
+          const newData = dataRes.data.map(
+            (item: { Category_Id: any; Category_Name: any }) => ({
+              Category_Id: item.Category_Id,
+              Category_Name: item.Category_Name,
+            }),
+          );
+          // Set listMovie với dữ liệu mới
+
+          setListCategory(newData);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // maxx
 
@@ -160,26 +116,49 @@ function EditMovie() {
   const [selectedCategories, setSelectedCategories] = useState<any[]>([]);
   const handleCategoryPress = (category: any) => {
     const isSelected = selectedCategories.some(
-      (item) => item.category_Id === category.category_Id,
+      (item) => item.Category_Id === category.Category_Id,
     );
     if (isSelected) {
       setSelectedCategories(
         selectedCategories.filter(
-          (item) => item.category_Id !== category.category_Id,
+          (item) => item.Category_Id !== category.Category_Id,
         ),
       );
     } else {
       setSelectedCategories([...selectedCategories, category]);
     }
   };
-  const handleSubmit = () => {
+  let Category_Id: any[] = [];
+  const handleSubmit = async () => {
     if (selectedCategories.length > 0) {
       const sortedSelectedCategories = selectedCategories.sort(
-        (a, b) => a.category_Id - b.category_Id,
+        (a, b) => a.Category_Id - b.Category_Id,
       );
-      console.log('Selected Categories:', sortedSelectedCategories);
+      Category_Id = sortedSelectedCategories.map(
+        (category) => category.Category_Id,
+      );
+      console.log('Selected Categories:', Category_Id);
     } else {
       console.log('Selected Categories: []');
+    }
+    const dataRes = await apiPutEditMovie({
+      movieId: movieId,
+      movieName: movieName,
+      duration: duration,
+      censorship: censorship,
+      language: language,
+      release: release,
+      expiration: expiration,
+      poster: poster,
+      description: description,
+      categoryId: Category_Id,
+    });
+    console.log(dataRes);
+
+    if (dataRes.status) {
+      console.log('1', dataRes.msg);
+    } else {
+      console.log('0', dataRes.error);
     }
   };
 
@@ -199,6 +178,9 @@ function EditMovie() {
             style={{ fontSize: 18, color: colors.whiteText }}
             placeholder="Movie Id"
             placeholderTextColor={colors.grayText}
+            onChangeText={(text: string) => {
+              setMovieId(text);
+            }}
           />
         </View>
         <View
@@ -213,6 +195,9 @@ function EditMovie() {
             style={{ fontSize: 18, color: colors.whiteText }}
             placeholder="Movie Name"
             placeholderTextColor={colors.grayText}
+            onChangeText={(text: string) => {
+              setMovieName(text);
+            }}
           />
         </View>
       </View>
@@ -231,6 +216,9 @@ function EditMovie() {
             placeholder="Duration"
             placeholderTextColor={colors.grayText}
             keyboardType="phone-pad"
+            onChangeText={(text: string) => {
+              setDuration(Number(text));
+            }}
           />
         </View>
         <View style={{ flexDirection: 'row', flex: 5, gap: 20 }}>
@@ -247,6 +235,9 @@ function EditMovie() {
               placeholder="Censorship"
               placeholderTextColor={colors.grayText}
               keyboardType="phone-pad"
+              onChangeText={(text: string) => {
+                setCensorship(Number(text));
+              }}
             />
           </View>
           <View
@@ -261,6 +252,9 @@ function EditMovie() {
               style={{ color: colors.whiteText, fontSize: 18 }}
               placeholder="Language"
               placeholderTextColor={colors.grayText}
+              onChangeText={(text: string) => {
+                setLanguage(text);
+              }}
             />
           </View>
         </View>
@@ -330,6 +324,9 @@ function EditMovie() {
           style={{ color: colors.whiteText, fontSize: 18 }}
           placeholder="Poster"
           placeholderTextColor={colors.grayText}
+          onChangeText={(text: string) => {
+            setPoster(text);
+          }}
         ></TextInput>
       </View>
       <View
@@ -345,6 +342,9 @@ function EditMovie() {
           placeholderTextColor={colors.grayText}
           multiline={true}
           numberOfLines={6}
+          onChangeText={(text: string) => {
+            setDescription(text);
+          }}
         ></TextInput>
       </View>
       {/* Flatlist */}
