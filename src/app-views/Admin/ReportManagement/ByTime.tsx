@@ -10,8 +10,11 @@ import React, { useState } from 'react';
 import colors from '@/utils/colors';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
+import { apiGetReportByTime } from '@/api/reportAdmin';
 
 function ByTime() {
+  const [revenue, setRevenue] = useState('');
+
   // min
   const [showMaxDate, setShowMaxDate] = useState(false);
   const [minDate, setMinDate] = useState('');
@@ -25,12 +28,15 @@ function ByTime() {
   // Min date
   const handleChangeMinDate = (newDate: any) => {
     setMinDate(newDate);
+    setMaxDate('');
+    setShowMaxDate(false);
   };
   const handleConfirmMinDate = () => {
     setOpenMinDate(!openMinDate);
     console.log('Min Date: ', minDate);
     if (!!minDate) {
       setShowMaxDate(true);
+      setRevenue('');
     }
   };
 
@@ -39,9 +45,14 @@ function ByTime() {
   const handleChangeMaxDate = (newDate: any) => {
     setMaxDate(newDate);
   };
-  const handleConfirmMaxDate = () => {
+  const handleConfirmMaxDate = async () => {
     setOpenMaxDate(!openMaxDate);
-    console.log('Max Date: ', maxDate);
+    if (!!minDate && !!maxDate) {
+      const dataRes = await apiGetReportByTime({ minDate, maxDate });
+      if (dataRes.status) {
+        setRevenue(dataRes.data[0]?.Total ?? 0);
+      }
+    }
   };
 
   return (
@@ -110,7 +121,7 @@ function ByTime() {
           handleComfirn={handleConfirmMaxDate}
         ></ModalDate>
       </View>
-      {!!minDate.length && !!maxDate.length && (
+      {!!minDate.length && !!maxDate.length && !!revenue && (
         <View
           style={{
             flexDirection: 'row',
@@ -131,7 +142,7 @@ function ByTime() {
           <Text
             style={{ color: colors.primary, fontSize: 24, fontWeight: '700' }}
           >
-            500.000đ
+            {revenue}
           </Text>
         </View>
       )}
