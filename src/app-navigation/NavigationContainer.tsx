@@ -21,6 +21,7 @@ import {
   ChangePassword,
 } from './types';
 import Success from '@/app-views/Success/Success';
+import NavigationAdmin from './NavigationAdmin';
 
 const MainStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -72,6 +73,7 @@ const NavigationContainer = () => {
         <MainStack.Screen name="ForgotPassword" component={Forgotpassword} />
         <MainStack.Screen name="ChangePassword" component={ChangePassword} />
         <MainStack.Screen name="Success" component={Success} />
+        <MainStack.Screen name="NavigationAdmin" component={NavigationAdmin} />
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );

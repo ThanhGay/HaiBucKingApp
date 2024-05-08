@@ -8,93 +8,11 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
-
-const listCategory = [
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-];
+import { apiGetCategory, apiPostMovie } from '@/api/movieAdmin';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
@@ -122,13 +40,22 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
             fontSize: 18,
           }}
         >
-          {data.category_Name}
+          {data.Category_Name}
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 function AddMovie() {
+  // put
+  const [movieId, setMovieId] = useState('');
+  const [movieName, setMovieName] = useState('');
+  const [duration, setDuration] = useState<number>(0);
+  const [censorship, setCensorship] = useState<number>(0);
+  const [language, setLanguage] = useState('');
+  const [poster, setPoster] = useState('');
+  const [description, setDescription] = useState('');
+
   const [release, setRelease] = useState('');
   const [openRelease, setOpenRelease] = useState(false);
 
@@ -172,16 +99,64 @@ function AddMovie() {
       setSelectedCategories([...selectedCategories, category]);
     }
   };
-  const handleSubmit = () => {
+  let Category_Id: any[] = [];
+
+  const handleSubmit = async () => {
     if (selectedCategories.length > 0) {
       const sortedSelectedCategories = selectedCategories.sort(
         (a, b) => a.category_Id - b.category_Id,
       );
-      console.log('Selected Categories:', sortedSelectedCategories);
+      Category_Id = sortedSelectedCategories.map(
+        (category) => category.Category_Id,
+      );
     } else {
       console.log('Selected Categories: []');
     }
+    const dataRes = await apiPostMovie({
+      movieId: movieId,
+      movieName: movieName,
+      duration: duration,
+      censorship: censorship,
+      language: language,
+      release: release,
+      expiration: expiration,
+      poster: poster,
+      description: description,
+      categoryId: Category_Id,
+    });
+    console.log(dataRes);
+
+    if (dataRes.status) {
+      console.log('1', dataRes.msg);
+    } else {
+      console.log('0', dataRes.error);
+    }
   };
+
+  // List category
+  const [listCategory, setListCategory] = useState<Array<any>>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataRes = await apiGetCategory();
+        if (dataRes.status) {
+          const newData = dataRes.data.map(
+            (item: { Category_Id: any; Category_Name: any }) => ({
+              Category_Id: item.Category_Id,
+              Category_Name: item.Category_Name,
+            }),
+          );
+          // Set listMovie với dữ liệu mới
+
+          setListCategory(newData);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <View style={{ backgroundColor: colors.black, flex: 1 }}>
@@ -199,6 +174,9 @@ function AddMovie() {
             style={{ fontSize: 18, color: colors.whiteText }}
             placeholder="Movie Id"
             placeholderTextColor={colors.grayText}
+            onChangeText={(text) => {
+              setMovieId(text);
+            }}
           />
         </View>
         <View
@@ -213,6 +191,9 @@ function AddMovie() {
             style={{ fontSize: 18, color: colors.whiteText }}
             placeholder="Movie Name"
             placeholderTextColor={colors.grayText}
+            onChangeText={(text) => {
+              setMovieName(text);
+            }}
           />
         </View>
       </View>
@@ -231,6 +212,9 @@ function AddMovie() {
             placeholder="Duration"
             placeholderTextColor={colors.grayText}
             keyboardType="phone-pad"
+            onChangeText={(text) => {
+              setDuration(Number(text));
+            }}
           />
         </View>
         <View style={{ flexDirection: 'row', flex: 5, gap: 20 }}>
@@ -247,6 +231,9 @@ function AddMovie() {
               placeholder="Censorship"
               placeholderTextColor={colors.grayText}
               keyboardType="phone-pad"
+              onChangeText={(text) => {
+                setCensorship(Number(text));
+              }}
             />
           </View>
           <View
@@ -261,6 +248,9 @@ function AddMovie() {
               style={{ color: colors.whiteText, fontSize: 18 }}
               placeholder="Language"
               placeholderTextColor={colors.grayText}
+              onChangeText={(text) => {
+                setLanguage(text);
+              }}
             />
           </View>
         </View>
@@ -330,6 +320,9 @@ function AddMovie() {
           style={{ color: colors.whiteText, fontSize: 18 }}
           placeholder="Poster"
           placeholderTextColor={colors.grayText}
+          onChangeText={(text) => {
+            setPoster(text);
+          }}
         ></TextInput>
       </View>
       <View
@@ -345,6 +338,9 @@ function AddMovie() {
           placeholderTextColor={colors.grayText}
           multiline={true}
           numberOfLines={6}
+          onChangeText={(text) => {
+            setDescription(text);
+          }}
         ></TextInput>
       </View>
       {/* Flatlist */}
