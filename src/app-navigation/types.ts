@@ -16,6 +16,12 @@ import Payment from '@app-views/Payment/Payment';
 import Forgotpassword from '@/app-views/Password/ForgotPassword';
 import ChangePassword from '@/app-views/Password/ChangePassword';
 
+// Admin
+import MovieShowAdmin from '@app-views/Admin/MovieManagement/MovieShowAdmin';
+import MovieAdmin from '@app-views/Admin/MovieManagement/MovieAdmin';
+import ReportAdmin from '@app-views/Admin/ReportManagement/ReportAdmin';
+import CategoryAdmin from '@app-views/Admin/CategoryManagement/CategoryAdmin';
+
 export {
   FirstScreen,
   Splash,
@@ -34,4 +40,8 @@ export {
   Payment,
   Forgotpassword,
   ChangePassword,
+  MovieShowAdmin,
+  MovieAdmin,
+  CategoryAdmin,
+  ReportAdmin,
 };

@@ -89,11 +89,13 @@ const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
           title="Change password"
           onPress={() => navigation.navigate('ChangePassword')}
         />
-        <BoxProfile
-          link={require('@/assets/icons/face-id.png')}
-          title="Face ID/ Touch ID"
-          onPress={onPressNavigateToAdminStack}
-        />
+        {user.Role_Id && (
+          <BoxProfile
+            link={require('@/assets/icons/admin-settings.png')}
+            title="To Admin Management"
+            onPress={onPressNavigateToAdminStack}
+          />
+        )}
         <TouchableOpacity
           style={{
             borderRadius: 64,

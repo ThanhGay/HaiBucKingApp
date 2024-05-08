@@ -56,6 +56,25 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
     }
   };
 
+  // use redux
+  // const handleSubmit = () => {
+  //   setErrorMessage('');
+
+  //   if (passwordRegex.test(newPassword)) {
+  //     setErrorMessage(
+  //       'Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+  //     );
+  //     return;
+  //   }
+
+  //   if (newPassword !== confirm) {
+  //     setErrorMessage('Your password and confirm password do not match');
+  //     return;
+  //   }
+
+  //   dispatch(authChangePassword({ password, newPassword, token }));
+  // };
+
   return (
     <View style={styles.container}>
       <Title

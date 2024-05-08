@@ -1,4 +1,10 @@
-import { apiSignIn, apiSignOut, apiSignUp } from '@/api/auth';
+import {
+  apiChangePassword,
+  apiSignIn,
+  apiSignOut,
+  apiSignUp,
+} from '@/api/auth';
+import { useAppSelector } from '@/redux/hooks';
 import {
   PayloadAction,
   createAsyncThunk,
@@ -42,6 +48,18 @@ export const authLogout = createAsyncThunk('auth/logout', async () => {
   const response = await apiSignOut();
   return response;
 });
+
+export const authChangePassword = createAsyncThunk(
+  'auth/change-password',
+  async (args: { password: string; newPassword: string; token: string }) => {
+    const { user } = useAppSelector((state) => state.authState);
+
+    if (args.password.trim().localeCompare(user.Password) === 0) {
+      const response = await apiChangePassword(args);
+      return [response, args.newPassword];
+    } else return false;
+  },
+);
 
 const initialState: AuthState = {
   user: null,
@@ -101,6 +119,12 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.error = true;
         state.loginCode = false;
+      })
+      .addCase(authChangePassword.fulfilled, (state, action) => {
+        console.log('api change password', action.payload);
+      })
+      .addCase(authChangePassword.rejected, (state, action) => {
+        console.log('rejected API', action.payload);
       })
       .addMatcher(
         isAnyOf(authLogout.fulfilled, authLogout.rejected),
