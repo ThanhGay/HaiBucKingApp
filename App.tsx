@@ -7,10 +7,10 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    // <RootComponent>
-    //   <NavigationContainer />
-    // </RootComponent>
-    <NavigationAdmin />
+    <RootComponent>
+      <NavigationContainer />
+    </RootComponent>
+    // <NavigationAdmin />
   );
 };
 

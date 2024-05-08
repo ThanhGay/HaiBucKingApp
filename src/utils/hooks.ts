@@ -32,6 +32,11 @@ interface MovieData {
   Person_Name: string;
   character: string;
   image: string | null;
+  Actor:any;
+  Director: any;
+
+
+
 }
 
 interface FormattedMovieData {
@@ -44,9 +49,9 @@ interface FormattedMovieData {
   Censorship: number;
   Release: string;
   Description: string;
-  Director: string[];
+  Director: any;
   imageDirector: (string | null)[];
-  Actor: string[];
+  Actor:any;
   imageActor: (string | null)[];
 }
 
@@ -61,9 +66,9 @@ export function transformDataMovie(data: MovieData[]): FormattedMovieData {
     Censorship: data[0].Censorship,
     Release: data[0].Release,
     Description: data[0].Description,
-    Director: [],
+    Director: data[0].Director,
     imageDirector: [],
-    Actor: [],
+    Actor: data[0].Actor,
     imageActor: [],
   };
 

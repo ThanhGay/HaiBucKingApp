@@ -38,12 +38,17 @@ const DetailMovie: React.FC<
   const dispatch = useAppDispatch();
 
   const [dataMovieFormated, setDataMovieFormated] = useState<any>([]);
+  const [actor, setActor] = useState<Array<any>>([]);
+  const [director, setDirector] = useState<Array<any>>([]);
 
   useEffect(() => {
     (async () => {
       const dataRes = await apiDetailMovie({ movieId: movieId });
+
       if (dataRes.status) {
         setDataMovieFormated(transformDataMovie(dataRes.data));
+        setActor(JSON.parse(dataRes.data[0].Actor));
+        setDirector(JSON.parse(dataRes.data[0].Director));
       }
     })();
   }, [movieId]);
@@ -135,15 +140,9 @@ const DetailMovie: React.FC<
 
         <Storyline description={dataMovieFormated?.Description} />
 
-        <Directors
-          listDirector={dataMovieFormated?.Director}
-          listImg={dataMovieFormated?.imageDirector}
-        />
+        <Directors listDirector={director} />
 
-        <Actors
-          listActor={dataMovieFormated?.Actor}
-          listImg={dataMovieFormated?.imageActor}
-        />
+        <Actors listActor={actor} />
 
         <Button title="Booking" onPress={handleBooking} />
       </View>
@@ -300,20 +299,13 @@ const Storyline = ({ description }: { description: any }) => {
   );
 };
 
-const Directors = ({
-  listDirector,
-  listImg,
-}: {
-  listDirector: any;
-  listImg: any;
-}) => {
+const Directors = ({ listDirector }: { listDirector: any }) => {
   const data =
-    listDirector > 0
+    listDirector.length > 0
       ? listDirector.map((item: any, idx: number) => {
           return {
             key: idx,
             name: item,
-            image: listImg[idx],
           };
         })
       : [];
@@ -330,14 +322,13 @@ const Directors = ({
   );
 };
 
-const Actors = ({ listActor, listImg }: { listActor: any; listImg: any }) => {
+const Actors = ({ listActor }: { listActor: any }) => {
   const data =
-    listActor > 0
+    listActor.length > 0
       ? listActor.map((item: any, idx: number) => {
           return {
             key: idx,
             name: item,
-            image: listImg[idx],
           };
         })
       : [];

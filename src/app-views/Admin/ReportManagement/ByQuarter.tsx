@@ -2,6 +2,7 @@ import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
 import { apiGetReportByQuarter } from '@/api/reportAdmin';
+import { useAppSelector } from '@/redux/hooks';
 
 const dataQuarter = [
   {
@@ -93,9 +94,10 @@ function ByQuarter() {
   const [year, setYear] = useState<string>();
   const [handle, setHandle] = useState(false);
   const [listData, setListData] = useState<Array<any>>([]);
+  const { token } = useAppSelector((state) => state.authState);
   const handleSubmit = async () => {
     setHandle(true);
-    const dataRes = await apiGetReportByQuarter({ year: Number(year) });
+    const dataRes = await apiGetReportByQuarter({ year: Number(year), token });
     if (dataRes.status) {
       const newData = dataRes.data.map(
         (item: { Quarter: any; Revenue: any }) => ({

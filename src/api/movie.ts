@@ -49,7 +49,7 @@ export const apiDetailMovie = (args: {
   data: Array<any>;
   msg: string;
 }> => {
-  const url = `${Movie_URL}/${args.movieId}`;
+  const url = `${Movie_URL}/detail-movie/${args.movieId}`;
   const data = axiosClient
     .get(url)
     .then((response) => {
