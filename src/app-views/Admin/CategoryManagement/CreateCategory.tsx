@@ -1,13 +1,19 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
+import { apiPostAddCategory } from '@/api/movieAdmin';
 
 export default function CreateCategory() {
   const [category_Id, setCategory_Id] = useState('');
   const [category_Name, setCategory_Name] = useState('');
 
-  const handle = () => {
+  const handle = async () => {
     console.log(category_Id, category_Name);
+    const dataRes = await apiPostAddCategory({
+      categoryId: category_Id,
+      categoryName: category_Name,
+    });
+    console.log(dataRes);
   };
   return (
     <View style={{ flex: 1, gap: 30 }}>

@@ -88,3 +88,24 @@ export const apiPutEditMovie = async (args: {
     })
     return data ?? {}
 }
+
+
+// create category
+export const apiPostAddCategory = async(args: {
+    categoryId : string,
+    categoryName : string
+}): Promise<{ status: string; data: any; msg: string }> => {
+    const url = `${MovieAdmin_URL}/add-category`
+    const form = JSON.stringify({
+        Category_Id: args.categoryId,
+        Category_Name: args.categoryName
+    })
+    const data = axiosClient.post(url, form).then((response) => {
+        return response.data
+    }).catch((error) => {
+        console.log(error);
+        
+    })
+    return data ?? {}
+
+}
