@@ -5,6 +5,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { useAppSelector } from '@/redux/hooks';
 import { ComingSoonItem } from '@app-components/Movie';
 import colors from '@/utils/colors';
+import SearchBox from '@app-components/SearchBox';
 
 const ComingSoon: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -12,6 +13,7 @@ const ComingSoon: React.FC<{ navigation: NavigationProp<any> }> = ({
   const { listComingSoon } = useAppSelector((state) => state.userState);
   return (
     <View>
+      {listComingSoon.length > 0 && <SearchBox type="category" />}
       <ScrollView>
         <View style={styles.container}>
           {listComingSoon.length > 0 ? (

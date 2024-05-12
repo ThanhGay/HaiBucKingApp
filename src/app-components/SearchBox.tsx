@@ -1,11 +1,17 @@
 import colors from '@/utils/colors';
 import { useState } from 'react';
-import { Image, StyleSheet, TextInput, View } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-function SearchBox() {
+function SearchBox({ type }: { type: 'category' | 'movie' | 'all' }) {
   const [textValue, setTextValue] = useState<string>('');
 
-  const onFinish = () => {
+  const onSubmit = () => {
     // Call API search global in here
 
     console.log(textValue);
@@ -13,23 +19,30 @@ function SearchBox() {
 
   return (
     <View style={styles.searchbox}>
-      <Image source={require('@assets/icons/search.png')} style={styles.icon} />
       <TextInput
         autoComplete="off"
-        placeholder="Search"
+        placeholder="Search..."
         placeholderTextColor="#8C8C8C"
         defaultValue={textValue}
         style={styles.textInput}
         onChangeText={(newText) => setTextValue(newText)}
-        onSubmitEditing={onFinish}
+        onSubmitEditing={onSubmit}
       />
+      <TouchableOpacity onPress={onSubmit}>
+        <Image
+          source={require('@assets/icons/search.png')}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   searchbox: {
+    width: '100%',
     gap: 12,
+    marginVertical: 12,
     paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',
@@ -41,7 +54,7 @@ const styles = StyleSheet.create({
     height: 24,
   },
   textInput: {
-    width: '100%',
+    width: '85%',
     color: colors.whiteText,
   },
 });

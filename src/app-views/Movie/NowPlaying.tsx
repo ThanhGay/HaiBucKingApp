@@ -5,6 +5,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { useAppSelector } from '@/redux/hooks';
 import { MovieItem } from '@app-components/Movie';
 import colors from '@/utils/colors';
+import SearchBox from '@app-components/SearchBox';
 
 const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
@@ -12,6 +13,7 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   const { listNowPlaying } = useAppSelector((state) => state.userState);
   return (
     <View>
+      {listNowPlaying.length > 0 && <SearchBox type="movie" />}
       <ScrollView>
         <View style={styles.container}>
           {listNowPlaying.length > 0 ? (

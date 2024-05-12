@@ -58,7 +58,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
               />
               {/* <Badge /> */}
             </View>
-            <SearchBox />
+            <SearchBox type='all' />
             <ScrollView>
               <View style={{ gap: 16 }}>
                 <View>

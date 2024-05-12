@@ -67,9 +67,9 @@ const Movie: React.FC<MovieProps & { navigation: NavigationProp<any> }> = ({
       </View>
 
       <View style={{ marginLeft: 4, flex: 8 }}>{nav[active].dataContent}</View>
-      <View style={{ marginHorizontal: 16 }}>
-        <BottomTab />
-      </View>
+      {/* <View style={{ paddingHorizontal: 16 }}> */}
+      <BottomTab />
+      {/* </View> */}
     </View>
   );
 };
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 46,
-    marginBottom: 16,
+    // marginBottom: 16,
   },
   text: {
     fontSize: 18,
