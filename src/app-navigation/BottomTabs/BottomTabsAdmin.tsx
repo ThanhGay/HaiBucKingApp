@@ -80,6 +80,12 @@ const BottomTabAdmin = () => {
 
         icon: require('@/assets/icons/user.png'),
       },
+      5: {
+        key: 5,
+        name: 'Back user',
+        navi: 'Home',
+        icon: require('@assets/icons/logout-white.png'),
+      },
     };
   }, []);
 

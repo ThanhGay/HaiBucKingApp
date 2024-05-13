@@ -50,13 +50,13 @@ const StackContainer = (props: { route: any }) => {
 
 const NavigationContainer = () => {
   return (
-    <ReactNavigationContainer>
+    <ReactNavigationContainer independent={true}>
       <MainStack.Navigator
-        initialRouteName="Splash"
+        // initialRouteName="Splash"
         screenOptions={{ headerShown: false }}
       >
-        <MainStack.Screen name="FirstScreen" component={FirstScreen} />
         <MainStack.Screen name="Splash" component={Splash} />
+        <MainStack.Screen name="FirstScreen" component={FirstScreen} />
         <MainStack.Screen name="Home" component={Home} />
         <MainStack.Screen name="Movie" component={Movie} />
         <MainStack.Screen name="Ticket" component={Ticket} />

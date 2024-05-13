@@ -3,10 +3,12 @@ import { NavigationContainer as ReactNavigationContainer } from '@react-navigati
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   CategoryAdmin,
+  Home,
   MovieAdmin,
   MovieShowAdmin,
   ReportAdmin,
 } from './types';
+import NavigationContainer from './NavigationContainer';
 
 const AdminStack = createNativeStackNavigator();
 const NavigationAdmin = () => {
@@ -20,6 +22,8 @@ const NavigationAdmin = () => {
         <AdminStack.Screen name="MovieShowAdmin" component={MovieShowAdmin} />
         <AdminStack.Screen name="ReportAdmin" component={ReportAdmin} />
         <AdminStack.Screen name="CategoryAdmin" component={CategoryAdmin} />
+        <AdminStack.Screen name="Home" component={Home} />
+        {/* <AdminStack.Screen name='NavigationContainer' component={NavigationContainer} /> */}
       </AdminStack.Navigator>
     </ReactNavigationContainer>
   );
