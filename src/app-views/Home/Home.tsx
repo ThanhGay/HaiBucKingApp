@@ -35,7 +35,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { user, token } = useAppSelector((state) => state.authState);
-  
+
   const { listNowPlaying, listComingSoon } = useAppSelector(
     (state) => state.userState,
   );
@@ -58,7 +58,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
               />
               {/* <Badge /> */}
             </View>
-            <SearchBox type='all' />
+            <SearchBox type="all" />
             <ScrollView>
               <View style={{ gap: 16 }}>
                 <View>
