@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
-  import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
+import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
 
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
@@ -158,18 +158,14 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
         dispatch(setInvoiceDate(returnData.InvoiceDate));
         dispatch(setInvoiceId(returnData.Invoice_Id));
         dispatch(setAmount(returnData.TotalAmount));
+        
         navigation.navigate('Payment');
       }
     }
   };
 
   const handleBack = async () => {
-    const dataRes = await apiCancelInvoice({ token, invoiceId });
-
-    if (dataRes.status) {
-      console.log('You deleted the invoice has ID: ', invoiceId);
-      navigation.goBack();
-    }
+    navigation.goBack();
   };
 
   return (

@@ -25,6 +25,7 @@ import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
 import { convertTime, formatDate, transformDataMovie } from '@/utils/hooks';
 import { apiCreateInvoice } from '@/api/ticket';
+import { getDetailMovie } from '@/redux/features/movie/movieSlice';
 
 interface DetailMovieProps {
   route: any;
@@ -35,6 +36,7 @@ const DetailMovie: React.FC<
 > = ({ navigation, route }) => {
   const movieId = route.params.movieId;
   const { token } = useAppSelector((state) => state.authState);
+  const { id, name, duration } = useAppSelector((state) => state.movieState);
   const dispatch = useAppDispatch();
 
   const [dataMovieFormated, setDataMovieFormated] = useState<any>([]);
@@ -43,7 +45,11 @@ const DetailMovie: React.FC<
 
   useEffect(() => {
     (async () => {
+      dispatch(getDetailMovie(movieId));
+      console.log('jhdl', id, name, duration);
+
       const dataRes = await apiDetailMovie({ movieId: movieId });
+      // console.log('dataRes2',dataRes);
 
       if (dataRes.status) {
         setDataMovieFormated(transformDataMovie(dataRes.data));
@@ -70,15 +76,10 @@ const DetailMovie: React.FC<
 
   const handleBooking = async () => {
     dispatch(setMovieId(movieId));
-
-    const dataRes = await apiCreateInvoice({ token });
-    if (dataRes.status) {
-      dispatch(setInvoiceId(dataRes.data[0].NewInvoiceId));
-      dispatch(setMovieName(dataMovieFormated?.Movie_Name));
-      dispatch(setMovieCategories(dataMovieFormated?.Categories));
-      dispatch(setMoviePoster(dataMovieFormated?.Poster));
-      dispatch(setDuration(dataMovieFormated?.Duration));
-    }
+    dispatch(setMovieName(dataMovieFormated?.Movie_Name));
+    dispatch(setMovieCategories(dataMovieFormated?.Categories));
+    dispatch(setMoviePoster(dataMovieFormated?.Poster));
+    dispatch(setDuration(dataMovieFormated?.Duration));
 
     console.log('You are booking the movie has ID: ', movieId);
     navigation.navigate('SelectSeat');
