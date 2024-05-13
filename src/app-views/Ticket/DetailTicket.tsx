@@ -4,6 +4,22 @@ import { useNavigation } from '@react-navigation/native';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 import { convert_Time, formatDate } from '@/utils/hooks';
+import QRCode from 'react-native-qrcode-svg';
+
+// test qr
+const BarcodeComponent = (orderId: any) => {
+  // Dữ liệu để tạo mã vạch
+  const barcodeData = orderId;
+
+  return (
+    <View style={{ alignItems: 'center' }}>
+      <QRCode
+        value={barcodeData}
+        size={200} // Kích thước của mã vạch
+      />
+    </View>
+  );
+};
 
 const DetailTicket = ({ route }: { route?: any }) => {
   const ticket = route.params;
@@ -169,6 +185,7 @@ const DetailTicket = ({ route }: { route?: any }) => {
               height: 100,
             }}
           />
+          {/* <BarcodeComponent orderId={ticket?.Invoice_Id} /> */}
           <Text style={styles.text}>Oder ID: {ticket?.Invoice_Id}</Text>
         </View>
       </View>

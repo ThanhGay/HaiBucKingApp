@@ -5,9 +5,11 @@ import { styles } from '@/component/styles';
 const CountdownTimer = ({
   durationInSeconds,
   onPress,
+  colorText,
 }: {
   durationInSeconds: number;
   onPress?: () => void;
+  colorText?: string;
 }) => {
   const [timeLeft, setTimeLeft] = useState(durationInSeconds);
   const [showResend, setShowResend] = useState(false);
@@ -39,7 +41,14 @@ const CountdownTimer = ({
   return (
     <View style={{ alignItems: 'flex-end', paddingRight: 10 }}>
       {!showResend ? (
-        <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
+        <Text
+          style={{
+            ...styles.timerText,
+            color: !!colorText?.length ? colorText : '#F2F2F2',
+          }}
+        >
+          {formatTime(timeLeft)}
+        </Text>
       ) : (
         <TouchableOpacity onPress={handleResendOTP} onPressOut={onPress}>
           <Text style={styles.timerText}>Gửi lại mã OTP mới?</Text>
