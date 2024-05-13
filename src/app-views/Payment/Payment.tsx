@@ -20,6 +20,7 @@ import {
   apiCancelBooking,
   apiSaveInvoice,
 } from '@/api/ticket';
+import { CountdownTimer } from '@app-components';
 
 const paymentMethod = [
   {
@@ -247,11 +248,11 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
             >
               Complete your payment in
             </Text>
-            <Text
-              style={{ color: colors.primary, fontSize: 16, fontWeight: '700' }}
-            >
-              15:00
-            </Text>
+
+            <CountdownTimer
+              durationInSeconds={15 * 60}
+              colorText={colors.primary}
+            />
           </View>
         </ScrollView>
       </View>
@@ -313,3 +314,25 @@ function ButtonPayment({
 }
 
 export default Payment;
+
+// useEffect(() => {
+//   const handleAppStateChange = (nextAppState: any) => {
+//     if (nextAppState === 'background') {
+//       // Thực hiện hành động khi ứng dụng thoát
+//       gọi api và trả về 0
+//       navigation.goBack();
+
+//     }
+//   };
+
+//   // Đăng ký bắt sự kiện thay đổi trạng thái ứng dụng
+//   const appStateSubscription = AppState.addEventListener(
+//     'change',
+//     handleAppStateChange,
+//   );
+
+//   // Xóa sự kiện khi component bị hủy
+//   return () => {
+//     appStateSubscription.remove();
+//   };
+// }, []);
