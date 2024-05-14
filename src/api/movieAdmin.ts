@@ -48,6 +48,19 @@ export const apiEditCategory = async (args: {
   return putWithToken({ url, data: form, token });
 };
 
+export const apiDeleteCategory = async (args: {
+  token: string;
+  cateId: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token } = args;
+  const url = `${MovieAdmin_URL}/delete-category`;
+  const form = JSON.stringify({
+    Category_Id: args.cateId,
+  });
+
+  return postWithToken({ url, data: form, token });
+};
+
 // add Movie
 export const apiPostMovie = async (args: {
   token: string;

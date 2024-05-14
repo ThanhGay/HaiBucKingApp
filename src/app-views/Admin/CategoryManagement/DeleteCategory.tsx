@@ -4,11 +4,13 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
-import { apiGetCategory } from '@/api/movieAdmin';
-import { useAppSelector } from '@/redux/hooks';
+import { apiDeleteCategory, apiGetCategory } from '@/api/movieAdmin';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { getListCategory } from '@/redux/features/admin/adminSlice';
 
 const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
@@ -18,7 +20,7 @@ const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
     onPress();
   };
   return (
-    <View
+    <TouchableOpacity
       style={{
         padding: 2,
         alignItems: 'center',
@@ -30,23 +32,24 @@ const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
         margin: 4,
         borderRadius: 18,
       }}
+      onPress={handleSubmit}
     >
-      <TouchableOpacity onPress={handleSubmit}>
-        <Text
-          style={{
-            color: choose ? colors.black : colors.whiteText,
-            textAlign: 'center',
-            fontSize: 18,
-          }}
-        >
-          {data.Category_Name}
-        </Text>
-      </TouchableOpacity>
-    </View>
+      <Text
+        style={{
+          color: choose ? colors.black : colors.whiteText,
+          textAlign: 'center',
+          fontSize: 18,
+        }}
+      >
+        {data.Category_Name}
+      </Text>
+    </TouchableOpacity>
   );
 };
 export default function DeleteCategory() {
-  const listCategory = useAppSelector((state) => state.adminState.listCategory);
+  const dispatch = useAppDispatch()
+  const { token } = useAppSelector((state) => state.authState);
+  const { listCategory } = useAppSelector((state) => state.adminState);
 
   const [selectedCategories, setSelectedCategories] = useState<Array<any>>([]);
   const handleCategoryPress = (category: any) => {
@@ -68,6 +71,24 @@ export default function DeleteCategory() {
       const sortedSelectedCategories = selectedCategories.sort(
         (a, b) => a.Category_Id - b.Category_Id,
       );
+
+      sortedSelectedCategories.forEach((item: any) => {
+        (async () => {
+          const dataRes = await apiDeleteCategory({
+            token,
+            cateId: item.Category_Id,
+          });
+
+          if (dataRes.status) {
+            Alert.alert('Notice', dataRes.msg);
+          } else {
+            Alert.alert('Notice', dataRes.msg);
+          }
+
+        })();
+      });
+      
+      dispatch(getListCategory());
       console.log('Selected Categories:', sortedSelectedCategories);
     } else {
       console.log('Selected Categories: []');
