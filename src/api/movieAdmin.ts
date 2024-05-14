@@ -3,12 +3,49 @@ import { LOCALHOST, PORT } from '../../port';
 import { getWithToken, postWithToken, putWithToken } from '@/utils';
 const MovieAdmin_URL = `http://${LOCALHOST}:${PORT}/movie`;
 
-// see category
-export const apiGetCategory = async (args: { token: string }) => {
-  const token = args.token;
+// get all category
+export const apiGetCategory = async () => {
   const url = `${MovieAdmin_URL}/category`;
+  const data = axiosClient
+    .get(url)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in fetch api get category', error);
+    });
 
-  return getWithToken({ url, token });
+  return data ?? {};
+};
+
+// create category
+export const apiPostAddCategory = async (args: {
+  token: string;
+  categoryId: string;
+  categoryName: string;
+}): Promise<{ status: string; data: any; msg: string }> => {
+  const token = args.token;
+  const url = `${MovieAdmin_URL}/add-category`;
+  const form = JSON.stringify({
+    Category_Id: args.categoryId,
+    Category_Name: args.categoryName,
+  });
+  return postWithToken({ url, data: form, token });
+};
+
+export const apiEditCategory = async (args: {
+  token: string;
+  cateId: string;
+  cateName: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const token = args.token;
+  const url = `${MovieAdmin_URL}/edit-category`;
+  const form = JSON.stringify({
+    Category_Id: args.cateId,
+    Category_Name: args.cateName,
+  });
+
+  return putWithToken({ url, data: form, token });
 };
 
 // add Movie
@@ -42,6 +79,7 @@ export const apiPostMovie = async (args: {
   });
   return postWithToken({ url, data: form, token });
 };
+
 // edit Movie
 export const apiPutEditMovie = async (args: {
   token: string;
@@ -73,17 +111,4 @@ export const apiPutEditMovie = async (args: {
   return putWithToken({ url, data: form, token });
 };
 
-// create category
-export const apiPostAddCategory = async (args: {
-  token: string;
-  categoryId: string;
-  categoryName: string;
-}): Promise<{ status: string; data: any; msg: string }> => {
-  const token = args.token;
-  const url = `${MovieAdmin_URL}/add-category`;
-  const form = JSON.stringify({
-    Category_Id: args.categoryId,
-    Category_Name: args.categoryName,
-  });
-  return postWithToken({ url, data: form, token });
-};
+
