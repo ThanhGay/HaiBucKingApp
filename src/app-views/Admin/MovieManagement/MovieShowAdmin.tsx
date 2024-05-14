@@ -10,8 +10,11 @@ import {
   ScrollView,
 } from 'react-native';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
+import { apiAddMovieshow } from '@/api/movieAdmin';
+import { useAppSelector } from '@/redux/hooks';
 
 function MovieShowAdmin() {
+  const { token } = useAppSelector((state) => state.authState);
   const [first, setFirst] = useState(false);
 
   const [inputData, setInputData] = useState<
@@ -50,8 +53,22 @@ function MovieShowAdmin() {
   };
   const test = () => {
     const newInputs = [...inputData];
+    newInputs.forEach((item, idx) => {
+      (async () => {
+        const dataRes = await apiAddMovieshow({
+          token,
+          startTime: item.startTime,
+          movieId: item.movieId,
+          roomId: item.roomId,
+          typeshow: item.typeShow,
+        });
+        if (dataRes.status) {
+          console.log(dataRes.msg);
+        }
+      })();
+    });
 
-    console.log(newInputs);
+    setInputData([]);
   };
 
   const renderInputs = () => {

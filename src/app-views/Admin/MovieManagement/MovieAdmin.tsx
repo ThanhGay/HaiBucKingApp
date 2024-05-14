@@ -6,14 +6,22 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
 
 import AddMovie from './AddMovie';
 import EditMovie from './EditMovie';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 
+import { useAppDispatch } from '@/redux/hooks';
+import { getListCategory } from '@/redux/features/admin/adminSlice';
+
 function MovieAdmin() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getListCategory());
+  }, []);
+
   const [touch, setTouch] = useState(false);
   const [show, setShow] = useState('Choose');
   const handleButton = () => {
