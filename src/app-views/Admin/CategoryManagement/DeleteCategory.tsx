@@ -5,311 +5,11 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
+import { apiGetCategory } from '@/api/movieAdmin';
+import { useAppSelector } from '@/redux/hooks';
 
-const listCategory = [
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-];
 const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
 
@@ -320,11 +20,14 @@ const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
   return (
     <View
       style={{
+        padding: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
         borderColor: choose ? colors.primary : colors.whiteText,
         backgroundColor: choose ? colors.primary : '#1C1C1C',
         borderWidth: 1,
         flex: 1,
-        margin: 5,
+        margin: 4,
         borderRadius: 18,
       }}
     >
@@ -336,27 +39,24 @@ const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
             fontSize: 18,
           }}
         >
-          {data.category_Name}
+          {data.Category_Name}
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 export default function DeleteCategory() {
-  const [category_Id, setCategory_Id] = useState('');
+  const listCategory = useAppSelector((state) => state.adminState.listCategory);
 
-  const handle = () => {
-    console.log(category_Id);
-  };
-  const [selectedCategories, setSelectedCategories] = useState<any[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<Array<any>>([]);
   const handleCategoryPress = (category: any) => {
     const isSelected = selectedCategories.some(
-      (item) => item.category_Id === category.category_Id,
+      (item) => item.Category_Id === category.Category_Id,
     );
     if (isSelected) {
       setSelectedCategories(
         selectedCategories.filter(
-          (item) => item.category_Id !== category.category_Id,
+          (item) => item.Category_Id !== category.Category_Id,
         ),
       );
     } else {
@@ -366,7 +66,7 @@ export default function DeleteCategory() {
   const handleSubmit = () => {
     if (selectedCategories.length > 0) {
       const sortedSelectedCategories = selectedCategories.sort(
-        (a, b) => a.category_Id - b.category_Id,
+        (a, b) => a.Category_Id - b.Category_Id,
       );
       console.log('Selected Categories:', sortedSelectedCategories);
     } else {
@@ -384,7 +84,7 @@ export default function DeleteCategory() {
         )}
         keyExtractor={(item, index) => index.toString()}
         numColumns={3}
-      ></FlatList>
+      />
 
       <View
         style={{

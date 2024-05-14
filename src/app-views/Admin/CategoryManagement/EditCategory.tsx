@@ -4,163 +4,102 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  StyleSheet,
+  Alert,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
+import { apiEditCategory, apiGetCategory } from '@/api/movieAdmin';
+import { useAppSelector } from '@/redux/hooks';
 
-const listCategory = [
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-  {
-    category_Id: 1,
-    category_Name: 'hai huoc',
-  },
-  {
-    category_Id: 2,
-    category_Name: 'kinh di',
-  },
-  {
-    category_Id: 3,
-    category_Name: 'hoc duong',
-  },
-  {
-    category_Id: 4,
-    category_Name: 'hanh dong',
-  },
-  {
-    category_Id: 5,
-    category_Name: 'huyen ao',
-  },
-];
+interface CategoryItemProps {
+  data: any;
+  onClick: () => void;
+}
 
-const Category = ({ data }: { data: any }) => {
+const CategoryItem: React.FC<CategoryItemProps> = ({ data, onClick }) => {
   return (
-    <View
-      style={{
-        // flexDirection: 'row',
-        flex: 1,
-        borderColor: colors.whiteText,
-        borderWidth: 1,
-        borderRadius: 18,
-        backgroundColor: colors.primary,
-        justifyContent: 'center',
-        margin: 4,
-        padding: 4,
-      }}
-    >
-      <Text
-        style={{
-          color: colors.blackText,
-          fontSize: 16,
-          textAlign: 'left',
-          marginLeft: 6,
-        }}
-        numberOfLines={1}
-      >
-        Id: {data.category_Id} Name: {data.category_Name}
-      </Text>
-    </View>
+    <TouchableOpacity style={styles.categoryBox} onPress={onClick}>
+      <Text style={styles.text}>Id: {data.Category_Id}</Text>
+      <Text style={styles.text}> Name: {data.Category_Name}</Text>
+    </TouchableOpacity>
   );
 };
-export default function EditCategory() {
+function EditCategory() {
+  const { token } = useAppSelector((state) => state.authState);
+  const [listCategory, setListCategory] = useState<Array<any>>([]);
+  useEffect(() => {
+    (async () => {
+      const dataRes = await apiGetCategory();
+      if (dataRes.status) {
+        setListCategory(dataRes.data);
+      }
+    })();
+  }, [listCategory]);
+
   const [category_Id, setCategory_Id] = useState('');
   const [category_Name, setCategory_Name] = useState('');
 
-  const handle = () => {
-    console.log(category_Id, category_Name);
+  const handleSubmit = async () => {
+    const dataRes = await apiEditCategory({
+      token,
+      cateId: category_Id,
+      cateName: category_Name,
+    });
+    const index = listCategory.findIndex((c) => c.Category_Id === category_Id);
+
+    if (dataRes.status) {
+      Alert.alert('Notice', dataRes.msg);
+      setListCategory([...listCategory, (listCategory[index] = dataRes.data)]);
+      setCategory_Id('');
+      setCategory_Name('');
+    }
   };
   return (
     <View style={{ flex: 1, gap: 30 }}>
       <FlatList
         data={listCategory}
-        renderItem={({ item }) => <Category data={item}></Category>}
+        renderItem={({ item, index }) => (
+          <CategoryItem
+            key={index}
+            data={item}
+            onClick={() => {
+              setCategory_Id(item.Category_Id);
+              setCategory_Name(item.Category_Name);
+            }}
+          />
+        )}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
       />
       <View style={{ borderColor: colors.whiteText, borderWidth: 1 }}>
         <TextInput
           placeholder="Category Id"
+          value={category_Id}
           placeholderTextColor={colors.grayText}
           style={{ color: colors.whiteText, fontSize: 24 }}
           onChangeText={(text) => setCategory_Id(text)}
-        ></TextInput>
+        />
       </View>
       <View style={{ borderColor: colors.whiteText, borderWidth: 1 }}>
         <TextInput
           placeholder="Category Name"
+          value={category_Name}
           placeholderTextColor={colors.grayText}
           style={{ color: colors.whiteText, fontSize: 24 }}
           onChangeText={(text) => setCategory_Name(text)}
-        ></TextInput>
+        />
       </View>
       <View
         style={{
-          //   flex: 1,
+          // flex: 1,
           justifyContent: 'center',
           backgroundColor: colors.primary,
           borderRadius: 64,
           height: 50,
         }}
       >
-        <TouchableOpacity onPress={handle}>
+        <TouchableOpacity onPress={handleSubmit}>
           <Text
             style={{
               color: colors.black,
@@ -176,3 +115,25 @@ export default function EditCategory() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  categoryBox: {
+    flex: 1,
+    borderColor: colors.whiteText,
+    borderWidth: 1,
+    borderRadius: 18,
+    backgroundColor: colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 6,
+    padding: 4,
+  },
+  text: {
+    color: colors.blackText,
+    fontSize: 16,
+    textAlign: 'left',
+    marginLeft: 6,
+  },
+});
+
+export default EditCategory;
