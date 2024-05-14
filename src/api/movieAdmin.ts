@@ -114,19 +114,10 @@ export const apiPutEditMovie = async (args: {
 // add movieshow
 export const apiAddMovieshow = (args: {
   token: string;
-  startTime: string;
-  movieId: string;
-  roomId: string;
-  typeshow: string;
+  data: Array<any>;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-  const token = args.token;
+  const { token, data } = args;
   const url = `${MovieAdmin_URL}/add-movieshow`;
-  const form = JSON.stringify({
-    StartTime: args.startTime,
-    Movie_Id: args.movieId,
-    Room_Id: args.roomId,
-    TypeShow: args.typeshow,
-  });
 
-  return postWithToken({ url, data: form, token });
+  return postWithToken({ url, data, token });
 };

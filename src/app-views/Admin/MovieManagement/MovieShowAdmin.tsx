@@ -8,6 +8,7 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  Alert,
 } from 'react-native';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 import { apiAddMovieshow } from '@/api/movieAdmin';
@@ -34,11 +35,11 @@ function MovieShowAdmin() {
     if (type === 'StartTime') {
       newInputs[index].StartTime = text;
     } else if (type === 'Movie_Id') {
-      newInputs[index].Movie_Id = text;
+      newInputs[index].Movie_Id = text.toUpperCase();
     } else if (type === 'Room_Id') {
-      newInputs[index].Room_Id = text;
-    } else if (type === 'typeShow') {
-      newInputs[index].TypeShow = text;
+      newInputs[index].Room_Id = text.toUpperCase();
+    } else if (type === 'TypeShow') {
+      newInputs[index].TypeShow = text.toUpperCase();
     }
     setInputData(newInputs);
   };
@@ -51,24 +52,15 @@ function MovieShowAdmin() {
       setFirst(false);
     }
   };
-  const test = () => {
+  const handleAdd = async () => {
     const newInputs = [...inputData];
-    // newInputs.forEach((item, idx) => {
-    //   (async () => {
-    //     const dataRes = await apiAddMovieshow({
-    //       token,
-    //       startTime: item.startTime,
-    //       movieId: item.movieId,
-    //       roomId: item.roomId,
-    //       typeshow: item.typeShow,
-    //     });
-    //     if (dataRes.status) {
-    //       console.log(dataRes.msg);
-    //     }
-    // })();
-    // });
-    console.log(newInputs);
-
+    const dataRes = await apiAddMovieshow({ token, data: newInputs });
+    if (dataRes.status) {
+      console.log(newInputs);
+      Alert.alert('Notice', dataRes.msg);
+    } else {
+      Alert.alert('Notice', dataRes.msg);
+    }
     setInputData([]);
   };
 
@@ -100,10 +92,10 @@ function MovieShowAdmin() {
             <View style={styles.inputContainer} key={index}>
               <TextInput
                 style={{ ...styles.textInput, flex: 1 }}
-                placeholder={'Romm Id'}
+                placeholder={'Room Id'}
                 placeholderTextColor={colors.grayText}
                 onChangeText={(text) =>
-                  handleInputChange(text, index, 'roomId')
+                  handleInputChange(text, index, 'Room_Id')
                 }
                 value={item.Room_Id}
               />
@@ -112,7 +104,7 @@ function MovieShowAdmin() {
                 placeholder={'Type Show'}
                 placeholderTextColor={colors.grayText}
                 onChangeText={(text) =>
-                  handleInputChange(text, index, 'typeShow')
+                  handleInputChange(text, index, 'TypeShow')
                 }
                 value={item.TypeShow}
               />
@@ -155,7 +147,7 @@ function MovieShowAdmin() {
         {renderInputs()}
       </ScrollView>
       {first && (
-        <TouchableOpacity style={styles.handleSave} onPress={test}>
+        <TouchableOpacity style={styles.handleSave} onPress={handleAdd}>
           <Text style={styles.handleText}>Save</Text>
         </TouchableOpacity>
       )}
