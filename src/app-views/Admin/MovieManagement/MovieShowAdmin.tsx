@@ -15,27 +15,27 @@ function MovieShowAdmin() {
   const [first, setFirst] = useState(false);
 
   const [inputData, setInputData] = useState<
-    { startTime: string; movieId: string; roomId: string; typeShow: string }[]
+    { StartTime: string; Movie_Id: string; Room_Id: string; TypeShow: string }[]
   >([]);
 
   const handleAddInput = () => {
     setInputData([
       ...inputData,
-      { startTime: '', movieId: '', roomId: '', typeShow: '' },
+      { StartTime: '', Movie_Id: '', Room_Id: '', TypeShow: '' },
     ]);
     setFirst(true);
   };
 
   const handleInputChange = (text: string, index: number, type: string) => {
     const newInputs = [...inputData];
-    if (type === 'startTime') {
-      newInputs[index].startTime = text;
-    } else if (type === 'movieId') {
-      newInputs[index].movieId = text;
-    } else if (type === 'roomId') {
-      newInputs[index].roomId = text;
+    if (type === 'StartTime') {
+      newInputs[index].StartTime = text;
+    } else if (type === 'Movie_Id') {
+      newInputs[index].Movie_Id = text;
+    } else if (type === 'Room_Id') {
+      newInputs[index].Room_Id = text;
     } else if (type === 'typeShow') {
-      newInputs[index].typeShow = text;
+      newInputs[index].TypeShow = text;
     }
     setInputData(newInputs);
   };
@@ -65,18 +65,18 @@ function MovieShowAdmin() {
                 placeholder={'Start Time'}
                 placeholderTextColor={colors.grayText}
                 onChangeText={(text) =>
-                  handleInputChange(text, index, 'startTime')
+                  handleInputChange(text, index, 'StartTime')
                 }
-                value={item.startTime}
+                value={item.StartTime}
               />
               <TextInput
                 style={{ ...styles.textInput, flex: 3 }}
                 placeholder={'Movie Id'}
                 placeholderTextColor={colors.grayText}
                 onChangeText={(text) =>
-                  handleInputChange(text, index, 'movieId')
+                  handleInputChange(text, index, 'Movie_Id')
                 }
-                value={item.movieId}
+                value={item.Movie_Id}
               />
             </View>
             <View style={styles.inputContainer} key={index}>
@@ -87,7 +87,7 @@ function MovieShowAdmin() {
                 onChangeText={(text) =>
                   handleInputChange(text, index, 'roomId')
                 }
-                value={item.roomId}
+                value={item.Room_Id}
               />
               <TextInput
                 style={{ ...styles.textInput, flex: 1 }}
@@ -96,7 +96,7 @@ function MovieShowAdmin() {
                 onChangeText={(text) =>
                   handleInputChange(text, index, 'typeShow')
                 }
-                value={item.typeShow}
+                value={item.TypeShow}
               />
             </View>
           </View>
