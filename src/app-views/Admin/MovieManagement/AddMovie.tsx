@@ -13,6 +13,7 @@ import colors from '@/utils/colors';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
 import { apiGetCategory, apiPostMovie } from '@/api/movieAdmin';
+import { useAppSelector } from '@/redux/hooks';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
@@ -47,6 +48,7 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   );
 };
 function AddMovie() {
+  const {token} = useAppSelector((state) => state.authState)
   // put
   const [movieId, setMovieId] = useState('');
   const [movieName, setMovieName] = useState('');
@@ -113,6 +115,7 @@ function AddMovie() {
       console.log('Selected Categories: []');
     }
     const dataRes = await apiPostMovie({
+      token,
       movieId: movieId,
       movieName: movieName,
       duration: duration,
@@ -146,8 +149,7 @@ function AddMovie() {
               Category_Name: item.Category_Name,
             }),
           );
-          // Set listMovie với dữ liệu mới
-
+          
           setListCategory(newData);
         }
       } catch (error) {

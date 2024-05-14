@@ -1,19 +1,27 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import colors from '@/utils/colors';
 import { apiPostAddCategory } from '@/api/movieAdmin';
+import { useAppSelector } from '@/redux/hooks';
 
 export default function CreateCategory() {
+  const { token } = useAppSelector((state) => state.authState);
   const [category_Id, setCategory_Id] = useState('');
   const [category_Name, setCategory_Name] = useState('');
 
   const handle = async () => {
-    console.log(category_Id, category_Name);
     const dataRes = await apiPostAddCategory({
+      token,
       categoryId: category_Id,
       categoryName: category_Name,
     });
-    console.log(dataRes);
+    if (dataRes.status) {
+      Alert.alert('Notice', dataRes.msg);
+      setCategory_Id('');
+      setCategory_Name('');
+    } else {
+       Alert.alert('Notice', dataRes.msg);
+    }
   };
   return (
     <View style={{ flex: 1, gap: 30 }}>

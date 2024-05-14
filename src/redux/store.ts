@@ -3,6 +3,7 @@ import authReducer from './features/auth/authSlice';
 import userReducer from './features/user/userSlice';
 import ticketReducer from './features/ticket/ticketSlice';
 import movieReducer from './features/movie/movieSlice';
+import adminReducer from './features/admin/adminSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     userState: userReducer,
     ticketState: ticketReducer,
     movieState: movieReducer,
+    adminState: adminReducer,
   },
 });
 
