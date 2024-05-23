@@ -1,8 +1,8 @@
-import { View, Text, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import { apiGetReportByMovie } from '@/api/admin';
+import { useAppSelector } from '@/redux/hooks';
 import colors from '@/utils/colors';
-import { FlatList } from 'react-native';
-import { apiGetReportByMovie } from '@/api/reportAdmin';
 
 const Item = ({ title }: { title: any }) => {
   return (
@@ -31,76 +31,15 @@ const Item = ({ title }: { title: any }) => {
     </View>
   );
 };
-const data = [
-  {
-    Movie_Name: 'Bi mat noi goc toi',
-    Total: 30000,
-  },
-  {
-    Movie_Name: 'Luu ly my nhan sat',
-    Total: 50000,
-  },
-  {
-    Movie_Name: 'Date a live',
-    Total: 100000,
-  },
-  {
-    Movie_Name: 'Bi mat noi goc toi',
-    Total: 30000,
-  },
-  {
-    Movie_Name: 'Luu ly my nhan sat',
-    Total: 50000,
-  },
-  {
-    Movie_Name: 'Date a live',
-    Total: 100000,
-  },
-  {
-    Movie_Name: 'Bi mat noi goc toi',
-    Total: 30000,
-  },
-  {
-    Movie_Name: 'Luu ly my nhan sat',
-    Total: 50000,
-  },
-  {
-    Movie_Name: 'Date a live',
-    Total: 100000,
-  },
-  {
-    Movie_Name: 'Bi mat noi goc toi',
-    Total: 30000,
-  },
-  {
-    Movie_Name: 'Luu ly my nhan sat',
-    Total: 50000,
-  },
-  {
-    Movie_Name: 'Date a live',
-    Total: 100000,
-  },
-  {
-    Movie_Name: 'Bi mat noi goc toi',
-    Total: 30000,
-  },
-  {
-    Movie_Name: 'Luu ly my nhan sat',
-    Total: 50000,
-  },
-  {
-    Movie_Name: 'Date a live',
-    Total: 100000,
-  },
-];
 
 function ByMovie() {
+  const { token } = useAppSelector((state) => state.authState);
   const [listMovie, setListMovie] = useState<Array<any>>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dataRes = await apiGetReportByMovie();
+        const dataRes = await apiGetReportByMovie({ token });
         if (dataRes.status) {
           // Lấy dữ liệu từ dataRes và tạo mảng mới với cấu trúc tương tự như data mẫu
           const newData = dataRes.data.map(

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,14 +7,13 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
-  ScrollView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import colors from '@/utils/colors';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
-import { apiGetCategory, apiPostMovie } from '@/api/movieAdmin';
+import colors from '@/utils/colors';
+
 import { useAppSelector } from '@/redux/hooks';
+import { apiGetCategory, apiPostMovie } from '@/api/admin';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);

@@ -1,18 +1,13 @@
-import {
-  View,
-  Text,
-  StatusBar,
-  Touchable,
-  TouchableOpacity,
-  Modal,
-} from 'react-native';
 import React, { useState } from 'react';
-import colors from '@/utils/colors';
+import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
-import { apiGetReportByTime } from '@/api/reportAdmin';
+import { apiGetReportByRangeTime } from '@/api/admin';
+import { useAppSelector } from '@/redux/hooks';
+import colors from '@/utils/colors';
 
 function ByTime() {
+  const { token } = useAppSelector((state) => state.authState);
   const [revenue, setRevenue] = useState('');
 
   // min
@@ -48,7 +43,11 @@ function ByTime() {
   const handleConfirmMaxDate = async () => {
     setOpenMaxDate(!openMaxDate);
     if (!!minDate && !!maxDate) {
-      const dataRes = await apiGetReportByTime({ minDate, maxDate });
+      const dataRes = await apiGetReportByRangeTime({
+        token,
+        minDate,
+        maxDate,
+      });
       if (dataRes.status) {
         setRevenue(dataRes.data[0]?.Total ?? 0);
       }

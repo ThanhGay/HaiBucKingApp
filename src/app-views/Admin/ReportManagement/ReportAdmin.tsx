@@ -1,19 +1,19 @@
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StatusBar,
-  Touchable,
   TouchableOpacity,
-  Modal,
   Image,
+  ScrollView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import colors from '@/utils/colors';
-import { ScrollView } from 'react-native';
+
 import ByTime from './ByTime';
 import ByMovie from './ByMovie';
 import ByQuarter from './ByQuarter';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
+import colors from '@/utils/colors';
+
 function ReportAdmin() {
   const [touch, setTouch] = useState(false);
   const [show, setShow] = useState('Choose Report');
@@ -165,10 +165,7 @@ function ReportAdmin() {
         <Render></Render>
       </View>
       <BottomTabAdmin />
-      <StatusBar
-        backgroundColor={'black'}
-        barStyle={'light-content'}
-      ></StatusBar>
+      <StatusBar backgroundColor={'black'} barStyle={'light-content'} />
     </View>
   );
 }

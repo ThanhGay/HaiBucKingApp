@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,18 +7,12 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
-  ScrollView,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import colors from '@/utils/colors';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
-import {
-  setDuration,
-  setMovieId,
-  setMovieName,
-} from '@/redux/features/ticketSlice';
-import { apiGetCategory, apiPutEditMovie } from '@/api/movieAdmin';
+import colors from '@/utils/colors';
+import { apiGetCategory, apiPutEditMovie } from '@/api/admin';
+import { useAppSelector } from '@/redux/hooks';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
@@ -53,6 +48,7 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   );
 };
 function EditMovie() {
+  const { token } = useAppSelector((state) => state.authState);
   const [movieId, setMovieId] = useState('');
   const [movieName, setMovieName] = useState('');
   const [duration, setDuration] = useState<number>(0);
@@ -152,6 +148,7 @@ function EditMovie() {
       poster: poster,
       description: description,
       categoryId: Category_Id,
+      token,
     });
     console.log(dataRes);
 

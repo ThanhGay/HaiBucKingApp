@@ -82,3 +82,18 @@ export const apiGetShowTimesMovie = async (args: {
   return data ?? {};
 };
 
+// tìm kiếm phim theo tên
+export const searchByMovieName = async (args: { name: string }) => {
+  const { name } = args;
+  const url = `${Movie_URL}/search-movie/${name}`;
+  const data = axiosClient
+    .get(url)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in fetch data in search by movie name:', error);
+    });
+
+  return data ?? {};
+};

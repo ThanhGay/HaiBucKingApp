@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,9 +8,9 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
-import { apiEditCategory, apiGetCategory } from '@/api/movieAdmin';
+
+import { apiEditCategory, apiGetCategory } from '@/api/admin';
 import { useAppSelector } from '@/redux/hooks';
 
 interface CategoryItemProps {

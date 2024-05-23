@@ -1,7 +1,8 @@
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import colors from '@/utils/colors';
-import { apiPostAddCategory } from '@/api/movieAdmin';
+
+import { apiPostAddCategory } from '@/api/admin';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setListCategory } from '@/redux/features/adminSlice';
 

@@ -1,14 +1,14 @@
+import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   FlatList,
   Alert,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
-import { apiDeleteCategory, apiGetCategory } from '@/api/movieAdmin';
+
+import { apiDeleteCategory } from '@/api/admin';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getListCategory } from '@/redux/features/adminSlice';
 

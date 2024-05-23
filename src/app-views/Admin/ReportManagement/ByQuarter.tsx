@@ -1,27 +1,9 @@
-import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import colors from '@/utils/colors';
-import { apiGetReportByQuarter } from '@/api/reportAdmin';
+import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native';
+import { apiGetReportByQuarter } from '@/api/admin';
 import { useAppSelector } from '@/redux/hooks';
+import colors from '@/utils/colors';
 
-const dataQuarter = [
-  {
-    quarter: 'Q1',
-    total: 100000,
-  },
-  {
-    quarter: 'Q2',
-    total: 200000,
-  },
-  {
-    quarter: 'Q3',
-    total: 300000,
-  },
-  {
-    quarter: 'Q4',
-    total: 400000,
-  },
-];
 const Item = ({ item }: { item: any }) => {
   return (
     <View

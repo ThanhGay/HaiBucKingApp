@@ -1,4 +1,3 @@
-import colors from '@/utils/colors';
 import React, { useState } from 'react';
 import {
   View,
@@ -11,8 +10,10 @@ import {
   Alert,
 } from 'react-native';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
-import { apiAddMovieshow } from '@/api/movieAdmin';
+
+import colors from '@/utils/colors';
 import { useAppSelector } from '@/redux/hooks';
+import { apiAddMovieshow } from '@/api/admin';
 
 function MovieShowAdmin() {
   const { token } = useAppSelector((state) => state.authState);

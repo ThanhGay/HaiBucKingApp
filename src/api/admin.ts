@@ -1,9 +1,71 @@
 import axiosClient from '../utils/axiosClient';
 import { LOCALHOST, PORT } from '../../port';
 import { getWithToken, postWithToken, putWithToken } from '@/utils';
-const MovieAdmin_URL = `http://${LOCALHOST}:${PORT}/movie`;
 
-// get all category
+const MovieAdmin_URL = `http://${LOCALHOST}:${PORT}/movie`;
+const ReportAdmin_URL = `http://${LOCALHOST}:${PORT}/report`;
+
+
+
+
+// --------------------------------- REPORT ---------------------------------
+
+// báo cáo theo khoảng thời gian
+export const apiGetReportByRangeTime = async (args: {
+  token: string;
+  minDate: any;
+  maxDate: any;
+}) => {
+  const token = args.token;
+  const url = `${ReportAdmin_URL}/report-by-time`;
+  const form = JSON.stringify({
+    minDate: args.minDate,
+    maxDate: args.maxDate,
+  });
+  return postWithToken({ url, data: form, token });
+};
+
+// báo cáo theo phim
+export const apiGetReportByMovie = async (args: { token: string }) => {
+  const token = args.token;
+  const url = `${ReportAdmin_URL}/report-by-movie`;
+  return getWithToken({ url, token });
+};
+
+// báo cáo theo quý (3 tháng)
+export const apiGetReportByQuarter = async (args: {
+  token: string;
+  year: number;
+}) => {
+  const url = `${ReportAdmin_URL}/report-by-quarter`;
+  const form = JSON.stringify({
+    year: args.year,
+  });
+  const { token } = args;
+  return postWithToken({ url, data: form, token });
+};
+
+// báo cáo theo khách hàng
+export const apiGetReportByCustomer = async (args: {
+  token: string;
+  minDate: any;
+  maxDate: any;
+}) => {
+  const url = `${ReportAdmin_URL}/report-by-customer`;
+  const { token } = args;
+  const form = JSON.stringify({
+    minDate: args.minDate,
+    maxDate: args.maxDate,
+  });
+  return postWithToken({ url, data: form, token });
+};
+
+
+
+
+// --------------------------------- CATEGORY ---------------------------------
+
+// lấy tất cả thể loại phim
 export const apiGetCategory = async () => {
   const url = `${MovieAdmin_URL}/category`;
   const data = axiosClient
@@ -18,7 +80,7 @@ export const apiGetCategory = async () => {
   return data ?? {};
 };
 
-// create category
+// tạo thể loại phim
 export const apiPostAddCategory = async (args: {
   token: string;
   categoryId: string;
@@ -33,6 +95,7 @@ export const apiPostAddCategory = async (args: {
   return postWithToken({ url, data: form, token });
 };
 
+// sửa thể loại phim
 export const apiEditCategory = async (args: {
   token: string;
   cateId: string;
@@ -48,6 +111,7 @@ export const apiEditCategory = async (args: {
   return putWithToken({ url, data: form, token });
 };
 
+// xóa thể loại phim
 export const apiDeleteCategory = async (args: {
   token: string;
   cateId: string;
@@ -61,7 +125,12 @@ export const apiDeleteCategory = async (args: {
   return postWithToken({ url, data: form, token });
 };
 
-// add Movie
+
+
+
+// --------------------------------- MOVIE ---------------------------------
+
+// thêm phim
 export const apiPostMovie = async (args: {
   token: string;
   movieId: string;
@@ -93,7 +162,7 @@ export const apiPostMovie = async (args: {
   return postWithToken({ url, data: form, token });
 };
 
-// edit Movie
+// sửa thông tin phim
 export const apiPutEditMovie = async (args: {
   token: string;
   movieId: string;
@@ -124,7 +193,7 @@ export const apiPutEditMovie = async (args: {
   return putWithToken({ url, data: form, token });
 };
 
-// add movieshow
+// thêm lịch chiếu (suất chiếu)
 export const apiAddMovieshow = (args: {
   token: string;
   data: Array<any>;

@@ -1,4 +1,4 @@
-import { apiGetCategory } from '@/api/movieAdmin';
+import { apiGetCategory } from '@/api/admin';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AdminState {
