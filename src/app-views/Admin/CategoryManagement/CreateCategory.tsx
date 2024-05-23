@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import colors from '@/utils/colors';
 import { apiPostAddCategory } from '@/api/movieAdmin';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setListCategory } from '@/redux/features/admin/adminSlice';
+import { setListCategory } from '@/redux/features/adminSlice';
 
 export default function CreateCategory() {
   const { token } = useAppSelector((state) => state.authState);

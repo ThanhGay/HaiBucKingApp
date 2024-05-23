@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './features/auth/authSlice';
+import authReducer from './features/authSlice';
 import userReducer from './features/user/userSlice';
-import ticketReducer from './features/ticket/ticketSlice';
-import movieReducer from './features/movie/movieSlice';
-import adminReducer from './features/admin/adminSlice';
+import ticketReducer from './features/ticketSlice';
+import movieReducer from './features/movieSlice';
+import adminReducer from './features/adminSlice';
 
 export const store = configureStore({
   reducer: {

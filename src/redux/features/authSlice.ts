@@ -11,10 +11,12 @@ import {
   createSlice,
   isAnyOf,
 } from '@reduxjs/toolkit';
+import { getToken, setToken, deleteToken } from '@/security/token';
+import { deleteUser, getUser, setUser } from '@/security/user';
 
 export interface AuthState {
   user: any;
-  token: string;
+  token: any;
   isLoading: boolean;
   error: boolean;
   loginCode: boolean | null; // 0 - failed, 1 - success
@@ -23,9 +25,13 @@ export interface AuthState {
 
 export const authLogin = createAsyncThunk(
   'auth/login',
-  async (args: { phoneNumber: string; password: string }) => {
+  async (args: {
+    phoneNumber: string;
+    password: string;
+    isRemember: boolean;
+  }) => {
     const response = await apiSignIn(args);
-    return response;
+    return [response, args.isRemember];
   },
 );
 
@@ -61,6 +67,22 @@ export const authChangePassword = createAsyncThunk(
   },
 );
 
+export const getTokenInStorage = createAsyncThunk(
+  'auth/getTokenInStorage',
+  async () => {
+    const res = await getToken();
+    return res;
+  },
+);
+
+export const getUserInStorage = createAsyncThunk(
+  'auth/getUserInStorage',
+  async () => {
+    const res = await getUser();
+    return res;
+  },
+);
+
 const initialState: AuthState = {
   user: null,
   token: '',
@@ -80,9 +102,6 @@ export const authSlice = createSlice({
     setAuthLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
-    setToken: (state, action) => {
-      state.token = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -93,10 +112,16 @@ export const authSlice = createSlice({
       .addCase(authLogin.fulfilled, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = false;
-        state.loginCode = action.payload.status;
-        state.user = action.payload.data.data_user;
-        state.token = action.payload.data.accesToken;
-        state.message = action.payload.msg;
+        state.loginCode = action.payload[0].status;
+        state.user = action.payload[0].data.data_user;
+        state.token = action.payload[0].data.accesToken;
+        state.message = action.payload[0].msg;
+
+        // save to encrypt storage
+        if (action.payload[1] === true) {
+          setToken(action.payload[0].data.accesToken);
+          setUser(action.payload[0].data.data_user);
+        }
       })
       .addCase(authLogin.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
@@ -114,11 +139,21 @@ export const authSlice = createSlice({
         state.user = action.payload.data.data_user;
         state.token = action.payload.data.accesToken;
         state.message = action.payload.msg;
+
+        // save to encrypt storage
+        setToken(action.payload.data.accesToken);
+        setUser(action.payload.data.data_user);
       })
       .addCase(authRegister.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
         state.error = true;
         state.loginCode = false;
+      })
+      .addCase(getUserInStorage.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(getTokenInStorage.fulfilled, (state, action) => {
+        state.token = action.payload;
       })
       .addCase(authChangePassword.fulfilled, (state, action) => {
         console.log('api change password', action.payload);
@@ -135,12 +170,14 @@ export const authSlice = createSlice({
           state.error = false;
           state.message = '';
           state.loginCode = false;
+          deleteToken();
+          deleteUser();
         },
       );
   },
 });
 
-export const { setDataUser, setAuthLoading, setToken } = authSlice.actions;
+export const { setDataUser, setAuthLoading } = authSlice.actions;
 
 const authReducer = authSlice.reducer;
 

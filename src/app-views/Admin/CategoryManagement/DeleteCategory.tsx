@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import colors from '@/utils/colors';
 import { apiDeleteCategory, apiGetCategory } from '@/api/movieAdmin';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getListCategory } from '@/redux/features/admin/adminSlice';
+import { getListCategory } from '@/redux/features/adminSlice';
 
 const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);

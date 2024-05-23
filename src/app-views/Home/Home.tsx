@@ -35,7 +35,6 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { user, token } = useAppSelector((state) => state.authState);
-
   const { listNowPlaying, listComingSoon } = useAppSelector(
     (state) => state.userState,
   );
@@ -48,7 +47,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
             <View style={styles.header}>
               <View style={{ flexDirection: 'column' }}>
                 <Text style={{ color: colors.whiteText, fontSize: 18 }}>
-                  Hi, {user.FullName}
+                  Hi, {user?.FullName}
                 </Text>
                 <Text style={styles.boldTitle}>Welcome back</Text>
               </View>

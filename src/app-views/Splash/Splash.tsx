@@ -9,7 +9,8 @@ import {
 import { NavigationProp } from '@react-navigation/native';
 
 import FirstScreen from '@app-views/FirstScreen/FirstScreen';
-
+import Home from '@app-views/Home/Home';
+import getToken from '@/security/token/GetToken';
 
 const fallDownAnimation = (position: Animated.ValueXY) => {
   return Animated.timing(position, {
@@ -68,12 +69,21 @@ const Splash: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const [isShowSplash, setIsShowSplash] = useState(true);
+  const [hasToken, setHasToken] = useState('');
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsShowSplash(false);
     }, 2222);
+
+    (async () => {
+      const _hasToken = await getToken();
+      if (_hasToken) setHasToken(_hasToken);
+    })();
+
     return () => clearTimeout(timeout);
   }, []);
+
   return isShowSplash ? (
     <ImageBackground
       style={{
@@ -84,6 +94,8 @@ const Splash: React.FC<{ navigation: NavigationProp<any> }> = ({
       <Animation />
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </ImageBackground>
+  ) : !!hasToken ? (
+    <Home navigation={navigation} />
   ) : (
     <FirstScreen navigation={navigation} />
   );

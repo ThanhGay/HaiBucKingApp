@@ -13,19 +13,14 @@ import { Title, Box, Button, Footer } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
-import { apiSignIn } from '@/api/auth';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  authLogin,
-  setDataUser,
-  setToken,
-} from '@/redux/features/auth/authSlice';
+import { authLogin } from '@/redux/features/authSlice';
 
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   let msg = '';
-  const [isRemember, set] = useState(false);
+  const [isRemember, setIsRemember] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,26 +29,8 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
     (state) => state.authState,
   );
 
-  // call api
-  // const handleLogin = async () => {
-
-  //   let msg;
-  //   const _dataRes = await apiSignIn({ phoneNumber, password });
-  //   if (_dataRes.status) {
-  //     msg = _dataRes.msg;
-  //     dispatch(setDataUser(_dataRes?.data.data_user));
-  //     dispatch(setToken(_dataRes?.data.accesToken));
-  //     navigation.navigate('Home');
-  //   } else {
-  //     msg = _dataRes.msg;
-  //   }
-
-  //   (() => Alert.alert('Thông báo', msg))();
-  // };
-
-  // use redux
   const handleLogin = () => {
-    dispatch(authLogin({ phoneNumber, password }));
+    dispatch(authLogin({ phoneNumber, password, isRemember }));
   };
 
   useEffect(() => {
@@ -109,9 +86,9 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
               thumbColor={colors.primary}
               trackColor={{ false: 'white', true: colors.primary }}
               value={isRemember}
-              onChange={() => set(!isRemember)}
+              onChange={() => setIsRemember(!isRemember)}
             />
-            <TouchableOpacity onPress={() => set(!isRemember)}>
+            <TouchableOpacity onPress={() => setIsRemember(!isRemember)}>
               <Text style={{ color: 'white', fontSize: 16 }}>Remember me</Text>
             </TouchableOpacity>
           </View>

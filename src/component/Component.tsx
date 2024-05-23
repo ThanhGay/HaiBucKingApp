@@ -58,12 +58,16 @@ export const Box = ({
   onChangeText,
   onFocus,
   secureTextEntry,
+  valid,
+  errText,
 }: {
   icon: any;
   title: string;
   onChangeText: (text: string) => void;
-  onFocus?: () => void
+  onFocus?: () => void;
   secureTextEntry?: boolean;
+  valid?: boolean;
+  errText?: string;
 }) => {
   const [text, setText] = useState('');
   const handleTextChange = (text: any) => {
@@ -111,6 +115,7 @@ export const Box = ({
         )}
       </View>
       <View style={styles.divider} />
+      {!valid && <Text style={{ color: 'red' }}>{errText}</Text>}
     </View>
   );
 };

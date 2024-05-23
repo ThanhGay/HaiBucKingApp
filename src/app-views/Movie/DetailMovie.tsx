@@ -18,14 +18,14 @@ import {
   setMovieId,
   setMovieName,
   setMoviePoster,
-} from '@/redux/features/ticket/ticketSlice';
+} from '@/redux/features/ticketSlice';
 import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
 import { convertTime, formatDate, transformDataMovie } from '@/utils/hooks';
 import { apiCreateInvoice } from '@/api/ticket';
-import { getDetailMovie } from '@/redux/features/movie/movieSlice';
+import { getDetailMovie } from '@/redux/features/movieSlice';
 
 interface DetailMovieProps {
   route: any;

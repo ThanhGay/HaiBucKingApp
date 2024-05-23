@@ -14,7 +14,7 @@ import EditMovie from './EditMovie';
 import BottomTabAdmin from '@app-navigation/BottomTabs/BottomTabsAdmin';
 
 import { useAppDispatch } from '@/redux/hooks';
-import { getListCategory } from '@/redux/features/admin/adminSlice';
+import { getListCategory } from '@/redux/features/adminSlice';
 
 function MovieAdmin() {
   const dispatch = useAppDispatch();

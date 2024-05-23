@@ -16,7 +16,7 @@ import {
   setDuration,
   setMovieId,
   setMovieName,
-} from '@/redux/features/ticket/ticketSlice';
+} from '@/redux/features/ticketSlice';
 import { apiGetCategory, apiPutEditMovie } from '@/api/movieAdmin';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {

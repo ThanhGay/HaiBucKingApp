@@ -5,13 +5,8 @@ import { NavigationProp } from '@react-navigation/native';
 import { styles } from '@/component/styles';
 import { Box, Button, Title } from '@/component/Component';
 
-import { apiSignUp } from '@/api/auth';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  authRegister,
-  setDataUser,
-  setToken,
-} from '@/redux/features/auth/authSlice';
+import { authRegister } from '@/redux/features/authSlice';
 
 interface EnterUsernameProps {
   route: any;
@@ -24,35 +19,9 @@ const EnterUsername: React.FC<
   const { isLoading, error, message, loginCode } = useAppSelector(
     (state) => state.authState,
   );
-
-  let msg = '';
   const { birthday, email, password, phoneNumber } = route.params;
   const [username, setUsername] = useState('');
 
-  // call API
-  // const handleSubmit = async () => {
-  //   const dataRes = await apiSignUp({
-  //     phoneNumber: phoneNumber,
-  //     password: password,
-  //     fullname: username,
-  //     email: email,
-  //     dob: birthday,
-  //   });
-
-  //   if (dataRes.status) {
-  //     msg = dataRes.msg;
-  //     dispatch(setDataUser(dataRes?.data.data_user));
-  //     dispatch(setToken(dataRes?.data.accesToken));
-  //     navigation.navigate('Home');
-  //   } else {
-  //     msg = dataRes.msg;
-  //     console.log('err sign up');
-  //   }
-
-  //   (() => Alert.alert('Thông báo', msg))();
-  // };
-
-  // use redux
   const handleSubmit = async () => {
     dispatch(
       authRegister({

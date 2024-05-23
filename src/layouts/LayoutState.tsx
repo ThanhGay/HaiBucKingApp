@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -8,6 +8,10 @@ import {
   getListNowPlaying,
   getListTicket,
 } from '@/redux/features/user/userSlice';
+import {
+  getTokenInStorage,
+  getUserInStorage,
+} from '@/redux/features/authSlice';
 
 interface LayoutStateProps {
   children: React.ReactNode;
@@ -23,6 +27,9 @@ const LayoutState: React.FC<LayoutStateProps> = ({ children }) => {
       dispatch(getListComingSoon());
       dispatch(getListNotification({ token }));
       dispatch(getListTicket({ token }));
+    } else {
+      dispatch(getUserInStorage());
+      dispatch(getTokenInStorage());
     }
   }, [token]);
 
