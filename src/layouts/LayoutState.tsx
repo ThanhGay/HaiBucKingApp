@@ -7,7 +7,7 @@ import {
   getListNotification,
   getListNowPlaying,
   getListTicket,
-} from '@/redux/features/user/userSlice';
+} from '@/redux/features/userSlice';
 import {
   getTokenInStorage,
   getUserInStorage,

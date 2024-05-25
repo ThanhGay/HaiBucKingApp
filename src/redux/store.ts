@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './features/authSlice';
-import userReducer from './features/user/userSlice';
+import userReducer from './features/userSlice';
 import ticketReducer from './features/ticketSlice';
 import movieReducer from './features/movieSlice';
 import adminReducer from './features/adminSlice';
