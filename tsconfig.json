@@ -17,6 +17,8 @@
       "@app-languages/*": ["src/app-languages/*"],
       "@app-modals": ["src/app-modals"],
       "@app-modals/*": ["src/app-modals/*"],
+      "@i18n": ["localization/translations"],
+      "@i18n/*": ["localization/translations/*"],
       "@": ["src"],
       "@/*": ["src/*"],
     },

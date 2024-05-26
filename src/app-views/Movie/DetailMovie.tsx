@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   setDuration,
-  setInvoiceId,
   setMovieCategories,
   setMovieId,
   setMovieName,
@@ -24,7 +24,6 @@ import { apiDetailMovie } from '@/api/movie';
 import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
 import { convertTime, formatDate, transformDataMovie } from '@/utils/hooks';
-import { apiCreateInvoice } from '@/api/ticket';
 import { getDetailMovie } from '@/redux/features/movieSlice';
 
 interface DetailMovieProps {
@@ -34,6 +33,7 @@ interface DetailMovieProps {
 const DetailMovie: React.FC<
   DetailMovieProps & { navigation: NavigationProp<any> }
 > = ({ navigation, route }) => {
+  const { t } = useTranslation();
   const movieId = route.params.movieId;
   const { token } = useAppSelector((state) => state.authState);
   const { id, name, duration } = useAppSelector((state) => state.movieState);
@@ -61,15 +61,15 @@ const DetailMovie: React.FC<
 
   const infomationData = [
     {
-      name: 'Movie genre',
+      name: t('movie.detail.genre', 'Movie genre'),
       value: dataMovieFormated?.Categories,
     },
     {
-      name: 'Censorship',
+      name: t('movie.detail.censorship', 'Censorship'),
       value: `${dataMovieFormated?.Censorship}+`,
     },
     {
-      name: 'Language',
+      name: t('movie.detail.language', 'Language'),
       value: dataMovieFormated?.Language,
     },
   ];
@@ -145,7 +145,10 @@ const DetailMovie: React.FC<
 
         <Actors listActor={actor} />
 
-        <Button title="Booking" onPress={handleBooking} />
+        <Button
+          title={t('movie.detail.submit-btn', 'Booking')}
+          onPress={handleBooking}
+        />
       </View>
     </ScrollView>
   );
@@ -160,6 +163,7 @@ const BubbleBox = ({
   duration: any;
   release: any;
 }) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.box}>
       <View style={{ gap: 12 }}>
@@ -189,7 +193,7 @@ const BubbleBox = ({
                 fontSize: 16,
               }}
             >
-              Review
+              {t('movie.detail.review', 'Review')}
             </Text>
             <Image
               source={require('@assets/icons/star.png')}
@@ -270,7 +274,9 @@ const BubbleBox = ({
                 alt="star"
                 style={{ width: 16, height: 16 }}
               />
-              <Text style={{ color: colors.grayText }}>Watch trailer</Text>
+              <Text style={{ color: colors.grayText }}>
+                {t('movie.detail.watch-traler', 'Watch trailer')}
+              </Text>
             </View>
           </View>
         </View>
@@ -280,10 +286,13 @@ const BubbleBox = ({
 };
 
 const Storyline = ({ description }: { description: any }) => {
+  const { t } = useTranslation();
   const [seeAll, setSeeAll] = useState(false);
   return (
     <View>
-      <Text style={styles.title}>Storyline</Text>
+      <Text style={styles.title}>
+        {t('movie.detail.storyline', 'Storyline')}
+      </Text>
       <Text
         numberOfLines={seeAll ? 100 : 3}
         style={{ marginTop: 12, color: colors.whiteText }}
@@ -293,7 +302,9 @@ const Storyline = ({ description }: { description: any }) => {
 
       <TouchableOpacity onPress={() => setSeeAll(!seeAll)}>
         <Text style={{ color: colors.primary, fontWeight: '700' }}>
-          {!seeAll ? 'See more' : 'Hide less'}
+          {!seeAll
+            ? t('movie.detail.see', 'See more')
+            : t('movie.detail.hide', 'Hide less')}
         </Text>
       </TouchableOpacity>
     </View>
@@ -301,6 +312,7 @@ const Storyline = ({ description }: { description: any }) => {
 };
 
 const Directors = ({ listDirector }: { listDirector: any }) => {
+  const { t } = useTranslation();
   const data =
     listDirector.length > 0
       ? listDirector.map((item: any, idx: number) => {
@@ -313,7 +325,7 @@ const Directors = ({ listDirector }: { listDirector: any }) => {
 
   return (
     <View>
-      <Text style={styles.title}>Director</Text>
+      <Text style={styles.title}>{t('movie.detail.director', 'Director')}</Text>
       <View style={{ flexDirection: 'row', gap: 16 }}>
         {data.map((item: any) => (
           <Avatar_Name key={item.key} name={item.name} image={item.image} />
@@ -324,6 +336,7 @@ const Directors = ({ listDirector }: { listDirector: any }) => {
 };
 
 const Actors = ({ listActor }: { listActor: any }) => {
+  const { t } = useTranslation();
   const data =
     listActor.length > 0
       ? listActor.map((item: any, idx: number) => {
@@ -336,7 +349,7 @@ const Actors = ({ listActor }: { listActor: any }) => {
 
   return (
     <View>
-      <Text style={styles.title}>Actor</Text>
+      <Text style={styles.title}>{t('movie.detail.actor', 'Actor')}</Text>
       <ScrollView horizontal>
         <View style={{ flexDirection: 'row', gap: 16 }}>
           {data.map((item: any) => (

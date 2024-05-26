@@ -7,6 +7,7 @@ import {
   Switch,
   Alert,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Title, Box, Button, Footer } from '@/component/Component';
@@ -19,6 +20,7 @@ import { authLogin } from '@/redux/features/authSlice';
 const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   let msg = '';
   const [isRemember, setIsRemember] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -40,10 +42,12 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
     if (isLoading === false && error === false) {
       console.log('Load api success');
       if (loginCode === true) {
-        (() => Alert.alert('Thông báo', message))();
+        (() => Alert.alert(t('notice.notice', 'Notice'), message))();
         navigation.navigate('Home');
       } else {
-        message ? (() => Alert.alert('Thông báo', message))() : null;
+        message
+          ? (() => Alert.alert(t('notice.notice', 'Notice'), message))()
+          : null;
       }
     }
     if (isLoading === false && error === true) {
@@ -55,20 +59,20 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
     <View style={styles.container}>
       <Title
         leftIcon
-        title="Sign in"
+        title={t('sign-in.title', 'Sign in')}
         onPressLeft={() => navigation.goBack()}
       ></Title>
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/phone.png')}
-          title="Phone number"
+          title={t('sign-in.phone', 'Phone number')}
           onChangeText={(text: string) => {
             setPhoneNumber(text);
           }}
         ></Box>
         <Box
           icon={require('@assets/icons/key-password.png')}
-          title="Password"
+          title={t('sign-in.password', 'Password')}
           onChangeText={(text: string) => {
             setPassword(text);
           }}
@@ -89,7 +93,9 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
               onChange={() => setIsRemember(!isRemember)}
             />
             <TouchableOpacity onPress={() => setIsRemember(!isRemember)}>
-              <Text style={{ color: 'white', fontSize: 16 }}>Remember me</Text>
+              <Text style={{ color: 'white', fontSize: 16 }}>
+                {t('sign-in.remember', 'Remember me')}
+              </Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -103,14 +109,19 @@ const Signin: React.FC<{ navigation: NavigationProp<any> }> = ({
                 fontWeight: '500',
               }}
             >
-              Forgot Password?
+              {t('sign-in.forgot', 'Forgot Password?')}
             </Text>
           </TouchableOpacity>
         </View>
 
-        <Button title="Login" onPress={handleLogin} />
+        <Button title={t('buttons.login', 'Login')} onPress={handleLogin} />
       </View>
-      <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>
+      <Footer
+        title={t(
+          'rule',
+          'By sign in or sign up, you argee to our Terms of Service and Privacy Policy',
+        )}
+      />
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );

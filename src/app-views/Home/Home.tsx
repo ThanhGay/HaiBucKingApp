@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppSelector } from '@/redux/hooks';
@@ -34,6 +35,7 @@ const listNews = [
 const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { user, token } = useAppSelector((state) => state.authState);
   const { listNowPlaying, listComingSoon } = useAppSelector(
     (state) => state.userState,
@@ -47,9 +49,11 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
             <View style={styles.header}>
               <View style={{ flexDirection: 'column' }}>
                 <Text style={{ color: colors.whiteText, fontSize: 18 }}>
-                  Hi, {user?.FullName}
+                  {t('home.hi', 'Hi')}, {user?.FullName}
                 </Text>
-                <Text style={styles.boldTitle}>Welcome back</Text>
+                <Text style={styles.boldTitle}>
+                  {t('home.welcome', 'Welcome back')}
+                </Text>
               </View>
               <Image
                 source={require('@assets/icons/notification.png')}
@@ -62,7 +66,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
               <View style={{ gap: 16 }}>
                 <View>
                   <ContentBox
-                    title="Now playing"
+                    title={t('home.title.part-1', 'Now playing')}
                     onPress={() => navigation.navigate('Movie')}
                   />
                   <View>
@@ -74,7 +78,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
 
                 <View>
                   <ContentBox
-                    title="Coming soon"
+                    title={t('home.title.part-2', 'Coming soon')}
                     onPress={() => navigation.navigate('Movie', { key: 2 })}
                   />
                   <ScrollView horizontal>
@@ -90,7 +94,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                 </View>
 
                 <View>
-                  <ContentBox title="Movie News" />
+                  <ContentBox title={t('home.title.part-3', 'Movie News')} />
                   <ScrollView horizontal>
                     {listNews.map((item) => (
                       <View
@@ -119,6 +123,7 @@ const ContentBox = ({
   title: string;
   onPress?: () => void;
 }) => {
+  const { t } = useTranslation();
   return (
     <View
       style={{
@@ -138,7 +143,7 @@ const ContentBox = ({
         }}
         onPress={onPress}
       >
-        <Text style={{ color: colors.primary }}>See all</Text>
+        <Text style={{ color: colors.primary }}>{t('see-all', 'See all')}</Text>
         <Image
           source={require('@assets/icons/right.png')}
           style={styles.arrowIcon}

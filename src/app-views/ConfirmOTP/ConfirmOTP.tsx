@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, StatusBar, TextInput } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Button, CountdownTimer, Title } from '@/component/Component';
@@ -13,6 +14,7 @@ interface ConfirmOtpProps {
 const ConfirmOTP: React.FC<
   ConfirmOtpProps & { navigation: NavigationProp<any> }
 > = ({ route, navigation }) => {
+  const { t } = useTranslation();
   const phoneNumber = route.params.phoneNumber;
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
@@ -71,12 +73,17 @@ const ConfirmOTP: React.FC<
 
   return (
     <View style={styles.container}>
-      <Title leftIcon title="" onPressLeft={() => navigation.goBack()}></Title>
+      <Title leftIcon title="" onPressLeft={() => navigation.goBack()} />
 
       <View style={styles.body}>
-        <Text style={{ fontSize: 30, color: '#FCC435' }}>Confirm OTP code</Text>
+        <Text style={{ fontSize: 30, color: '#FCC435' }}>
+          {t('comfirm-otp.title', 'Confirm OTP code')}
+        </Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
-          You just need to enter the OTP sent to the registered phone number{' '}
+          {t(
+            'confirm-otp.message',
+            'You just need to enter the OTP sent to the registered phone number ',
+          )}
           {phoneNumber}
         </Text>
         <View
@@ -118,13 +125,13 @@ const ConfirmOTP: React.FC<
             />
           ))}
         </View>
-        <CountdownTimer
-          durationInSeconds={5}
-          onPress={handleReset}
-        ></CountdownTimer>
+        <CountdownTimer durationInSeconds={5} onPress={handleReset} />
       </View>
       <View>
-        <Button title="Continue" onPress={handleSubmit}></Button>
+        <Button
+          title={t('buttons.continue', 'Continue')}
+          onPress={handleSubmit}
+        />
         <View style={{ marginTop: 16 }} />
       </View>
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />

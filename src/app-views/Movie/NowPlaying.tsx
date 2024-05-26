@@ -1,15 +1,17 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { useAppSelector } from '@/redux/hooks';
 import { MovieItem } from '@app-components/Movie';
-import colors from '@/utils/colors';
 import SearchBox from '@app-components/SearchBox';
+import colors from '@/utils/colors';
 
 const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { listNowPlaying } = useAppSelector((state) => state.userState);
   return (
     <View>
@@ -27,7 +29,7 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
             ))
           ) : (
             <Text style={{ color: colors.whiteText }}>
-              Hiện không có phim nào đang chiếu
+              {t('movie.no-movie', 'Hiện không có phim nào đang chiếu')}
             </Text>
           )}
         </View>

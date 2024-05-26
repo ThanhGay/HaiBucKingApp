@@ -8,12 +8,14 @@ import {
   StyleSheet,
 } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import ModalLanguage from '@/app-modals/ModalLanguage';
 
 const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const [showModal, setshowModal] = useState(false);
   const [language, setLanguage] = useState('Language');
 
@@ -27,7 +29,7 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('@/assets/logo/Logo-M.png')}></Image>
+        <Image source={require('@/assets/logo/Logo-M.png')} />
         <TouchableOpacity
           style={{
             borderRadius: 20,
@@ -57,10 +59,10 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
           style={{ height: 420, borderRadius: 32 }}
         />
         <Text style={{ color: 'white', fontSize: 30, textAlign: 'center' }}>
-          HaiBucKing hello!
+          {t('first.hello', 'HaiBucKing hello!')}
         </Text>
         <Text style={{ color: 'white', fontSize: 15, textAlign: 'center' }}>
-          Enjoy your favorite movies
+          {t('first.hi', 'Enjoy your favorite movies')}
         </Text>
       </View>
       <View style={styles.footer}>
@@ -73,7 +75,7 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
               color: '#000000',
             }}
           >
-            Sign in
+            {t('first.signin', 'Sign in')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.signup} onPress={toSignup}>
@@ -85,7 +87,7 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
               color: '#FFFFFF',
             }}
           >
-            Sign up
+            {t('first.signup', 'Sign up')}
           </Text>
         </TouchableOpacity>
         <Text
@@ -97,8 +99,10 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
             marginHorizontal: 40,
           }}
         >
-          By sign in or sign up, you argee to our Terms of Service and Privacy
-          Policy
+          {t(
+            'rule',
+            'By sign in or sign up, you argee to our Terms of Service and Privacy Policy',
+          )}
         </Text>
       </View>
       <ModalLanguage visible={showModal} onClose={() => setshowModal(false)} />

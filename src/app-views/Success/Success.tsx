@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import DetailTicket from '@app-components/DetailTicket';
@@ -17,6 +18,7 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
   navigation,
   route,
 }) => {
+  const { t } = useTranslation();
   // const ticket = route.params;
   const {
     amount,
@@ -60,7 +62,7 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
     >
       <View style={styles.header}>
         <Title
-          title="Success"
+          title={t('success.title', 'Success')}
           rightIcon={
             <Image
               style={{ width: 40, height: 40 }}

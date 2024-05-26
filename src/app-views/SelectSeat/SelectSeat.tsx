@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
 
@@ -14,11 +15,7 @@ import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
 import { apiGetShowTimesMovie } from '@/api/movie';
-import {
-  apiCancelInvoice,
-  apiCreateTransaction,
-  apiGetReservedSeat,
-} from '@/api/ticket';
+import { apiCreateTransaction, apiGetReservedSeat } from '@/api/ticket';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   setAmount,
@@ -38,6 +35,7 @@ const typeSeat = [
 const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { token } = useAppSelector((state) => state.authState);
   const { movieId, invoiceId, room } = useAppSelector(
     (state) => state.ticketState,
@@ -158,7 +156,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
         dispatch(setInvoiceDate(returnData.InvoiceDate));
         dispatch(setInvoiceId(returnData.Invoice_Id));
         dispatch(setAmount(returnData.TotalAmount));
-        
+
         navigation.navigate('Payment');
       }
     }
@@ -170,7 +168,11 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   return (
     <View style={styles.container}>
-      <Title leftIcon title="Select Seat" onPressLeft={handleBack} />
+      <Title
+        leftIcon
+        title={t('select-seat.title', 'Select Seat')}
+        onPressLeft={handleBack}
+      />
       <View style={{ flex: 8 }}>
         <Image
           source={require('@assets/images/movie-screen.png')}
@@ -231,7 +233,12 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
             <View style={{ paddingHorizontal: 20, marginBottom: 10 }}>
               {
                 <Text style={{ color: 'red' }}>
-                  {!reserved ? 'Xin vui lòng chọn ghế mà bạn mong muốn' : ''}
+                  {!reserved
+                    ? t(
+                        'messages.error.not-choose-seat',
+                        'Xin vui lòng chọn ghế mà bạn mong muốn',
+                      )
+                    : ''}
                 </Text>
               }
             </View>
@@ -264,7 +271,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
           </>
         ) : (
           <Text style={{ color: colors.whiteText, textAlign: 'center' }}>
-            Tạm không có suất chiếu của phim này
+            {t('movie.no-show', 'Tạm không có suất chiếu của phim này')}
           </Text>
         )}
       </View>
@@ -279,7 +286,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
                 textAlign: 'center',
               }}
             >
-              Select Date & Time
+              {t('select-seat.choose-date', 'Select Date & Time')}
             </Text>
           </View>
           <ScrollView horizontal>
@@ -419,7 +426,9 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
             }}
             onPress={confirmWithTransaction}
           >
-            <Text style={styles.confirmButtonText}>Confirm Selection</Text>
+            <Text style={styles.confirmButtonText}>
+              {t('buttons.confirm-selection', 'Confirm Selection')}
+            </Text>
           </TouchableOpacity>
         </>
       ) : null}

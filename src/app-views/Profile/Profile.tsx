@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import BottomTab from '@app-navigation/BottomTabs/BottomTab';
@@ -42,6 +43,7 @@ export const BoxProfile = ({
 const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.authState);
   const dispatch = useAppDispatch();
 
@@ -81,18 +83,18 @@ const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
       <View style={styles.body}>
         <BoxProfile
           link={require('@/assets/icons/translate.png')}
-          title="Change language"
+          title={t('profile.change-language', 'Change language')}
           onPress={() => setshowModal(true)}
         />
         <BoxProfile
           link={require('@/assets/icons/lock.png')}
-          title="Change password"
+          title={t('profile.change-password', 'Change password')}
           onPress={() => navigation.navigate('ChangePassword')}
         />
         {user.Role_Id && (
           <BoxProfile
             link={require('@/assets/icons/admin-settings.png')}
-            title="To Admin Management"
+            title={t('profile.to-admin', 'To Admin Management')}
             onPress={onPressNavigateToAdminStack}
           />
         )}
@@ -115,7 +117,7 @@ const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
               textAlign: 'center',
             }}
           >
-            Sign out
+            {t('profile.sign-out', 'Sign out')}
           </Text>
         </TouchableOpacity>
       </View>
