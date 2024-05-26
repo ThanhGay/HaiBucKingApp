@@ -13,6 +13,7 @@ class MovieModel {
   imageDirectors: Array<any>;
   actors: Array<any>;
   imageActors: Array<any>;
+  isLoading: boolean;
 
   constructor(args: any) {
     this.id = args.id ?? null;
@@ -29,5 +30,6 @@ class MovieModel {
     this.imageDirectors = args.imageDirectors ?? [];
     this.actors = args.actors ?? [];
     this.imageActors = args.imageActors ?? [];
+    this.isLoading = args.imageActors ?? true;
   }
 }
