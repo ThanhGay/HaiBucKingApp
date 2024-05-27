@@ -302,7 +302,6 @@ function EditMovie() {
         )}
         <ModalDate
           open={openRelease}
-          min={getFormatedDate(new Date(), 'YYYY/MM/DD')}
           handleChange={handleChangeRelease}
           handleComfirn={handleConfirmRelease}
         ></ModalDate>
