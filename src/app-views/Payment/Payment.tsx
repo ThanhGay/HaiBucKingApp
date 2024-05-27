@@ -7,6 +7,8 @@ import {
   Image,
   ScrollView,
   Alert,
+  AppState,
+  BackHandler,
 } from 'react-native';
 
 import MovieItem from '../../app-components/Movie/MovieItem';
@@ -21,6 +23,7 @@ import {
   apiSaveInvoice,
 } from '@/api/ticket';
 import { CountdownTimer } from '@app-components';
+import { current } from '@reduxjs/toolkit';
 
 const paymentMethod = [
   {
@@ -101,6 +104,38 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       navigation.goBack();
     }
   };
+
+  useEffect(() => {
+    const appStateSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, []);
+  const handleAppStateChange = async (nextAppState: any) => {
+    if (nextAppState === 'background' || nextAppState === 'inactive') {
+      await rollbackTransaction();
+    }
+  };
+  useEffect(() => {
+    const backAction = () => {
+      (async () => {
+        await rollbackTransaction();
+        navigation.goBack();
+      })();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -314,25 +349,3 @@ function ButtonPayment({
 }
 
 export default Payment;
-
-// useEffect(() => {
-//   const handleAppStateChange = (nextAppState: any) => {
-//     if (nextAppState === 'background') {
-//       // Thực hiện hành động khi ứng dụng thoát
-//       gọi api và trả về 0
-//       navigation.goBack();
-
-//     }
-//   };
-
-//   // Đăng ký bắt sự kiện thay đổi trạng thái ứng dụng
-//   const appStateSubscription = AppState.addEventListener(
-//     'change',
-//     handleAppStateChange,
-//   );
-
-//   // Xóa sự kiện khi component bị hủy
-//   return () => {
-//     appStateSubscription.remove();
-//   };
-// }, []);
