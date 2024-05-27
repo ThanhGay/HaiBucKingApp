@@ -42,7 +42,7 @@ export const apiGetNowPlaying = async (): Promise<{
 };
 
 // lấy thông tin chi tiết phim
-export const apiDetailMovie = (args: {
+export const apiDetailMovie = async (args: {
   movieId: string;
 }): Promise<{
   status: boolean;
@@ -50,16 +50,15 @@ export const apiDetailMovie = (args: {
   msg: string;
 }> => {
   const url = `${Movie_URL}/detail-movie/${args.movieId}`;
-  const data = axiosClient
+  const data = await axiosClient
     .get(url)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
       console.log('error in fetch data detail movie: :', error);
-    });
-
-  return data ?? {};
+    });    
+  return data;
 };
 
 // lấy danh sách lịch chiếu theo phim

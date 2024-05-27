@@ -3,11 +3,13 @@ import { View } from 'react-native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
-  getListComingSoon,
   getListNotification,
-  getListNowPlaying,
   getListTicket,
 } from '@/redux/features/userSlice';
+import {
+  getComingSoon,
+  getNowPlaying,
+} from '@/redux/features/movieSlice';
 import {
   getTokenInStorage,
   getUserInStorage,
@@ -23,8 +25,8 @@ const LayoutState: React.FC<LayoutStateProps> = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      dispatch(getListNowPlaying());
-      dispatch(getListComingSoon());
+      dispatch(getNowPlaying());
+      dispatch(getComingSoon());
       dispatch(getListNotification({ token }));
       dispatch(getListTicket({ token }));
     } else {

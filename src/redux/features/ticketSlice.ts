@@ -1,12 +1,13 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiCreateTransaction, apiGetListTicket, apiGetReservedSeat } from '@/api/ticket';
+import { apiActiveTransaction, apiCreateTransaction, apiGetListTicket, apiGetReservedSeat } from '@/api/ticket';
 
 export interface TicketState {
-    bookingTicket: TicketModel | any;
-    listTicket: Array<any> | Array<null>;
-    listReservedSeat: Array<any> | Array<null>;
-    detailTransaction: any;
-    isLoading: boolean;
+  bookingTicket: TicketModel | any;
+  listTicket: Array<any> | Array<null>;
+  listReservedSeat: Array<any>;
+  detailTransaction: any;
+  statusTransaction: boolean
+  isLoading: boolean;
 }
 
 const initialState: TicketState = {
@@ -14,6 +15,7 @@ const initialState: TicketState = {
     listTicket: [],
     listReservedSeat: [],
     detailTransaction: {},
+    statusTransaction: false,
     isLoading: true,
 };
 
@@ -31,6 +33,14 @@ export const createTransaction = createAsyncThunk('ticker/createTransaction', as
     const res = await apiCreateTransaction(args);
     return res.data;
 });
+
+export const activeTransaction = createAsyncThunk(
+  'ticker/activeTransaction',
+  async (args: { decision: number }) => {
+    const res = await apiActiveTransaction(args);
+    return res.data;
+  },
+);
 
 export const ticketSlice = createSlice({
     name: 'ticket',
@@ -87,7 +97,8 @@ export const ticketSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(getReservedSeat.fulfilled, (state, action: PayloadAction<any>) => {
-                state.listReservedSeat = action.payload;
+                state.listReservedSeat = action.payload[0].Reserved;
+                state.bookingTicket.room = action.payload[1].Room_Id;
                 state.isLoading = false;
             })
             .addCase(getReservedSeat.rejected, (state, action: PayloadAction<any>) => {
@@ -98,10 +109,24 @@ export const ticketSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(createTransaction.fulfilled, (state, action: PayloadAction<any>) => {
+                state.bookingTicket.invoiceId = action.payload.Invoice_Id;
+                state.bookingTicket.invoiceDate = action.payload.InvoiceDate;
+                state.bookingTicket.amount = action.payload.TotalAmount;
                 state.detailTransaction = action.payload;
                 state.isLoading = false;
             })
             .addCase(createTransaction.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false;
+            })
+
+            .addCase(activeTransaction.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true;
+            })
+            .addCase(activeTransaction.fulfilled, (state, action: PayloadAction<any>) => {
+                state.statusTransaction = action.payload
+                state.isLoading = false;
+            })
+            .addCase(activeTransaction.rejected, (state, action: PayloadAction<any>) => {
                 state.isLoading = false;
             });
     },

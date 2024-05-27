@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Image,
   ScrollView,
   StyleSheet,
@@ -37,11 +38,19 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
 }) => {
   const { t } = useTranslation();
   const { user, token } = useAppSelector((state) => state.authState);
-  const { listNowPlaying, listComingSoon } = useAppSelector(
-    (state) => state.userState,
+  const { listNowPlaying, listComingSoon, isLoading } = useAppSelector(
+    (state) => state.movieState,
   );
 
   return (
+    <>
+    {isLoading ?
+      <ActivityIndicator
+          style={{ height: '100%' }}
+          size={'large'}
+          color={'black'}
+        />
+        :
     <View style={styles.container}>
       <ScrollView>
         <View style={{ flex: 9 }}>
@@ -113,6 +122,9 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
       </ScrollView>
       <BottomTab />
     </View>
+
+    }
+    </>
   );
 };
 

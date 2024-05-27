@@ -13,13 +13,13 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { MovieItem } from '@app-components/Movie';
 import SearchBox from '@app-components/SearchBox';
 import colors from '@/utils/colors';
-import { getListNowPlaying } from '@/redux/features/userSlice';
+import { getNowPlaying } from '@/redux/features/movieSlice';
 
 const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { listNowPlaying } = useAppSelector((state) => state.userState);
+  const { listNowPlaying } = useAppSelector((state) => state.movieState);
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -30,7 +30,7 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
       setRefreshing(false);
     }, 2000);
 
-    dispatch(getListNowPlaying());
+    dispatch(getNowPlaying());
     // console.log(getListNowPlaying());
   }, []);
 
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     backgroundColor: 'black',
+    paddingBottom: 75,
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -19,12 +19,11 @@ import {
   setMovieName,
   setMoviePoster,
 } from '@/redux/features/ticketSlice';
-import { apiDetailMovie } from '@/api/movie';
 
 import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
-import { convertTime, formatDate, transformDataMovie } from '@/utils/hooks';
-import { getDetailMovie } from '@/redux/features/movieSlice';
+import { convertTime } from '@/utils/hooks';
+import { ActivityIndicator } from 'react-native';
 
 interface DetailMovieProps {
   route: any;
@@ -35,122 +34,112 @@ const DetailMovie: React.FC<
 > = ({ navigation, route }) => {
   const { t } = useTranslation();
   const movieId = route.params.movieId;
-  const { token } = useAppSelector((state) => state.authState);
-  const { id, name, duration } = useAppSelector((state) => state.movieState);
+  const { detailMovie, isLoading } = useAppSelector(
+    (state) => state.movieState,
+  );
   const dispatch = useAppDispatch();
-
-  const [dataMovieFormated, setDataMovieFormated] = useState<any>([]);
-  const [actor, setActor] = useState<Array<any>>([]);
-  const [director, setDirector] = useState<Array<any>>([]);
-
-  useEffect(() => {
-    (async () => {
-      dispatch(getDetailMovie(movieId));
-      console.log('jhdl', id, name, duration);
-
-      const dataRes = await apiDetailMovie({ movieId: movieId });
-      // console.log('dataRes2',dataRes);
-
-      if (dataRes.status) {
-        setDataMovieFormated(transformDataMovie(dataRes.data));
-        setActor(JSON.parse(dataRes.data[0].Actor));
-        setDirector(JSON.parse(dataRes.data[0].Director));
-      }
-    })();
-  }, [movieId]);
 
   const infomationData = [
     {
       name: t('movie.detail.genre', 'Movie genre'),
-      value: dataMovieFormated?.Categories,
+      value: detailMovie?.Categories,
     },
     {
       name: t('movie.detail.censorship', 'Censorship'),
-      value: `${dataMovieFormated?.Censorship}+`,
+      value: `${detailMovie?.Censorship}+`,
     },
     {
       name: t('movie.detail.language', 'Language'),
-      value: dataMovieFormated?.Language,
+      value: detailMovie?.Language,
     },
   ];
 
   const handleBooking = async () => {
-    dispatch(setMovieId(movieId));
-    dispatch(setMovieName(dataMovieFormated?.Movie_Name));
-    dispatch(setMovieCategories(dataMovieFormated?.Categories));
-    dispatch(setMoviePoster(dataMovieFormated?.Poster));
-    dispatch(setDuration(dataMovieFormated?.Duration));
+    dispatch(setMovieId(detailMovie?.Movie_Id));
+    dispatch(setMovieName(detailMovie?.Movie_Name));
+    dispatch(setMovieCategories(detailMovie?.Categories));
+    dispatch(setMoviePoster(detailMovie?.Poster));
+    dispatch(setDuration(detailMovie?.Duration));
 
     console.log('You are booking the movie has ID: ', movieId);
     navigation.navigate('SelectSeat');
   };
-
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: colors.black }}>
-      <ImageBackground
-        source={
-          dataMovieFormated?.Poster
-            ? { uri: dataMovieFormated?.Poster }
-            : require('@assets/images/movie-6.png')
-        }
-        style={{ width: '100%', height: 240 }}
-      >
-        <View style={styles.backbar}>
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Image
-              style={{ width: 40, height: 40 }}
-              source={require('@/assets/icons/back.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
-
-      <View style={styles.infomationBox}>
-        <BubbleBox
-          name={dataMovieFormated?.Movie_Name}
-          duration={dataMovieFormated?.Duration}
-          release={dataMovieFormated?.Release}
+    <>
+      {isLoading ? (
+        <ActivityIndicator
+          style={{ height: '100%' }}
+          size={'large'}
+          color={'black'}
         />
-        <View style={{ gap: 12 }}>
-          {infomationData.map((item) => (
-            <View
-              key={item.name}
-              style={{ alignItems: 'center', flexDirection: 'row' }}
-            >
-              <Text
-                style={{
-                  color: colors.grayText,
-                  fontSize: 16,
-                  width: '40%',
-                }}
-              >
-                {item.name}:
-              </Text>
-              <Text
-                style={{
-                  color: colors.whiteText,
-                  fontSize: 16,
-                  fontWeight: '700',
-                }}
-              >
-                {item.value}
-              </Text>
+      ) : (
+        <ScrollView style={{ flex: 1, backgroundColor: colors.black}}>
+          <ImageBackground
+            source={
+              detailMovie?.Poster
+                ? { uri: detailMovie?.Poster }
+                : require('@assets/images/movie-6.png')
+            }
+            style={{ width: '100%', height: 240 }}
+          >
+            <View style={styles.backbar}>
+              <TouchableOpacity onPress={navigation.goBack}>
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  source={require('@/assets/icons/back.png')}
+                />
+              </TouchableOpacity>
             </View>
-          ))}
-        </View>
+          </ImageBackground>
 
-        <Storyline description={dataMovieFormated?.Description} />
+          <View style={styles.infomationBox}>
+            <BubbleBox
+              name={detailMovie?.Movie_Name}
+              duration={detailMovie?.Duration}
+              release={detailMovie?.Release}
+            />
+            <View style={{ gap: 12 }}>
+              {infomationData.map((item) => (
+                <View
+                  key={item.name}
+                  style={{ alignItems: 'center', flexDirection: 'row' }}
+                >
+                  <Text
+                    style={{
+                      color: colors.grayText,
+                      fontSize: 16,
+                      width: '40%',
+                    }}
+                  >
+                    {item.name}:
+                  </Text>
+                  <Text
+                    style={{
+                      color: colors.whiteText,
+                      fontSize: 16,
+                      fontWeight: '700',
+                    }}
+                  >
+                    {item.value}
+                  </Text>
+                </View>
+              ))}
+            </View>
 
-        <Directors listDirector={director} />
+            <Storyline description={detailMovie?.Description} />
 
-        <Actors listActor={actor} />
+            <Directors listDirector={detailMovie.directors} />
+            <Actors listActor={detailMovie.actors} />
 
-        <Button
-          title={t('movie.detail.submit-btn', 'Booking')}
-          onPress={handleBooking}
-        />
-      </View>
-    </ScrollView>
+            <Button
+              title={t('movie.detail.submit-btn', 'Booking')}
+              onPress={handleBooking}
+              disabled = {false}
+            />
+          </View>
+        </ScrollView>
+      )}
+    </>
   );
 };
 
@@ -173,7 +162,7 @@ const BubbleBox = ({
             {convertTime(duration as number)}
           </Text>
           <View style={styles.dot} />
-          <Text style={{ color: colors.whiteText }}>{formatDate(release)}</Text>
+          <Text style={{ color: colors.whiteText }}>{release}</Text>
         </View>
       </View>
 

@@ -54,6 +54,8 @@ export const authRegister = createAsyncThunk(
 
 export const authLogout = createAsyncThunk('auth/logout', async () => {
     const response = await apiSignOut();
+    await deleteToken();
+    await deleteUser();
     return response;
 });
 
@@ -193,8 +195,7 @@ export const authSlice = createSlice({
                     state.error = false;
                     state.message = '';
                     state.loginCode = false;
-                    deleteToken();
-                    deleteUser();
+                    
                 },
             );
     },
