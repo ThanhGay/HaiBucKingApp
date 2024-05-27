@@ -1,5 +1,5 @@
 import { NavigationProp } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,16 +7,18 @@ import {
   Image,
   ScrollView,
   Alert,
+  AppState,
+  BackHandler,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import MovieItem from '../../app-components/Movie/MovieItem';
+import { CountdownTimer } from '@app-components';
+import MovieItem from '@app-components/Movie/MovieItem';
 import { Button, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { CountdownTimer } from '@app-components';
 import { activeTransaction } from '@/redux/features/ticketSlice';
 
 const paymentMethod = [
@@ -88,12 +90,44 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   };
 
   const rollbackTransaction = async () => {
-      dispatch(activeTransaction({ decision: 0 }));
+    dispatch(activeTransaction({ decision: 0 }));
     if (statusTransaction) {
       console.log('rollback success', bookingTicket.invoiceId);
       navigation.goBack();
     }
   };
+
+  useEffect(() => {
+    const appStateSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange,
+    );
+
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, []);
+  const handleAppStateChange = async (nextAppState: any) => {
+    if (nextAppState === 'background' || nextAppState === 'inactive') {
+      await rollbackTransaction();
+    }
+  };
+  useEffect(() => {
+    const backAction = () => {
+      (async () => {
+        await rollbackTransaction();
+        navigation.goBack();
+      })();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -254,10 +288,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
         </ScrollView>
       </View>
 
-      <Button
-        title={t('buttons.continue')}
-        onPress={commitTransaction}
-      />
+      <Button title={t('buttons.continue')} onPress={commitTransaction} />
     </View>
   );
 };
@@ -314,25 +345,3 @@ function ButtonPayment({
 }
 
 export default Payment;
-
-// useEffect(() => {
-//   const handleAppStateChange = (nextAppState: any) => {
-//     if (nextAppState === 'background') {
-//       // Thực hiện hành động khi ứng dụng thoát
-//       gọi api và trả về 0
-//       navigation.goBack();
-
-//     }
-//   };
-
-//   // Đăng ký bắt sự kiện thay đổi trạng thái ứng dụng
-//   const appStateSubscription = AppState.addEventListener(
-//     'change',
-//     handleAppStateChange,
-//   );
-
-//   // Xóa sự kiện khi component bị hủy
-//   return () => {
-//     appStateSubscription.remove();
-//   };
-// }, []);

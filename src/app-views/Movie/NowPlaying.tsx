@@ -1,22 +1,52 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { MovieItem } from '@app-components/Movie';
 import SearchBox from '@app-components/SearchBox';
 import colors from '@/utils/colors';
+import { getNowPlaying } from '@/redux/features/movieSlice';
 
 const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
   const { listNowPlaying } = useAppSelector((state) => state.movieState);
+  const [refreshing, setRefreshing] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Perform any action you want to refresh the data
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+
+    dispatch(getNowPlaying());
+    // console.log(getListNowPlaying());
+  }, []);
+
   return (
     <View>
-      {listNowPlaying.length > 0 && <SearchBox type="movie" />}
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {listNowPlaying.length > 0 && <SearchBox type="movie" />}
         <View style={styles.container}>
           {listNowPlaying.length > 0 ? (
             listNowPlaying.map((movie) => (
@@ -45,7 +75,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     backgroundColor: 'black',
-    paddingBottom:75
+    paddingBottom: 75,
   },
 });
 
