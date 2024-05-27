@@ -14,17 +14,14 @@ import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
-import { apiGetShowTimesMovie } from '@/api/movie';
-import { apiCreateTransaction, apiGetReservedSeat } from '@/api/ticket';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
-  setAmount,
-  setInvoiceDate,
-  setInvoiceId,
-  setRoom,
+  createTransaction,
+  getReservedSeat,
   setSeats,
   setShowtime,
 } from '@/redux/features/ticketSlice';
+import { getShowTimesMovie } from '@/redux/features/movieSlice';
 
 const typeSeat = [
   { key: 1, name: 'Available', bgColor: '#1C1C1C' },
@@ -37,32 +34,23 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
 }) => {
   const { t } = useTranslation();
   const { token } = useAppSelector((state) => state.authState);
-  const { movieId, invoiceId, room } = useAppSelector(
+  const { bookingTicket, isLoading, listReservedSeat } = useAppSelector(
     (state) => state.ticketState,
   );
+  const { listShowTimesMovie } = useAppSelector((state) => state.movieState);
   const dispatch = useAppDispatch();
 
   // Fetch showtime of movie
-  const [showtimeMovie, setShowtimeMovie] = useState<Array<any>>([]);
   useEffect(() => {
-    (async () => {
-      const dataRes = await apiGetShowTimesMovie({ movieId: movieId });
-      if (dataRes.status) {
-        const _ = dataRes.data.map((item: any) => {
-          const startTime = new Date(item.StartTime);
-          const date = startTime.toISOString().split('T')[0];
-          const time = startTime.toISOString().split('T')[1].substring(0, 5);
-          return { date, time };
-        });
-
-        setShowtimeMovie(_);
-      }
-    })();
-  }, [movieId]);
+    dispatch(
+      getShowTimesMovie({
+        movieId: bookingTicket.movieId,
+      }),
+    );
+  }, [bookingTicket.movieId]);
 
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [reserved, setReserved] = useState(true);
-  const [listReserveds, setListReserveds] = useState<Array<string>>([]);
   // const listReserveds = ['A1', 'A2', 'b3', 'B5', 'c4', 'C6', 'D1', 'D3'];
 
   // Date
@@ -71,7 +59,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   const [selectedDate, setSelectDate] = useState<string>(getToday);
 
   const listTime: any[] = [];
-  showtimeMovie.forEach((element) => {
+  listShowTimesMovie.forEach((element) => {
     if (element.date.replaceAll('-', '/') === selectedDate) {
       listTime.push(element.time);
     }
@@ -93,7 +81,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
   const handleDateSelection = (key: string) => {
     setActiveDate(key);
     setActiveTime(-1);
-    setListReserveds([]);
+
     setSelectedSeats([]);
     const selectedDate = dates.find((date) => date.key === key);
 
@@ -107,19 +95,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
     setSelectedSeats([]);
     const chooseShow = selectedDate.replaceAll('/', '-') + ' ' + listTime[key];
 
-    const dataRes = await apiGetReservedSeat({ startTime: chooseShow });
-    if (dataRes.status) {
-      const rtnData = dataRes.data;
-
-      // const list: any[] = [];
-      // _.forEach((element: any) => {
-      //   list.push(element.Seat_Id);
-      // });
-      // setListReserveds(list);
-
-      setListReserveds(rtnData[0].Reserved ? rtnData[0].Reserved : []);
-      dispatch(setRoom(rtnData[1].Room_Id));
-    }
+    dispatch(getReservedSeat({ startTime: chooseShow }));
   };
 
   //end
@@ -144,19 +120,15 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
       dispatch(setSeats(sortedSelectedSeats));
       dispatch(setShowtime(chooseShow));
 
-      const dataRes = await apiCreateTransaction({
-        startTime: chooseShow,
-        seatId: sortedSelectedSeats,
-        roomId: room,
-        token,
-      });
-
-      if (dataRes.status) {
-        const returnData = dataRes.data;
-        dispatch(setInvoiceDate(returnData.InvoiceDate));
-        dispatch(setInvoiceId(returnData.Invoice_Id));
-        dispatch(setAmount(returnData.TotalAmount));
-
+      dispatch(
+        createTransaction({
+          startTime: chooseShow,
+          seatId: sortedSelectedSeats,
+          roomId: bookingTicket.room,
+          token,
+        }),
+      );
+      if (!isLoading) {
         navigation.navigate('Payment');
       }
     }
@@ -179,7 +151,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
           style={{ width: '110%', marginTop: -30, alignSelf: 'center' }}
           resizeMode="contain"
         />
-        {showtimeMovie.length > 0 ? (
+        {listShowTimesMovie.length > 0 ? (
           <>
             <View style={styles.seatContainer}>
               {Array.from({ length: 4 }, (_, rowIndex) => {
@@ -190,7 +162,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
                       const seatNumber = `${rowLetter}${columnIndex + 1}`;
                       let reserved = false;
 
-                      if (listReserveds.includes(seatNumber)) {
+                      if (listReservedSeat.includes(seatNumber)) {
                         reserved = true;
                       }
                       return (
@@ -275,7 +247,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
           </Text>
         )}
       </View>
-      {showtimeMovie.length > 0 ? (
+      {listShowTimesMovie.length > 0 ? (
         <>
           <View style={{ marginVertical: 16 }}>
             <Text

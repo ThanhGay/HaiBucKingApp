@@ -10,15 +10,15 @@ export interface UserState {
     listComingSoon: Array<any>;
 }
 
-// export const getListNotification = createAsyncThunk(
-//     'user/getListNotification',
-//     async (args: { token: string }) => {
-//         const res = await apiGetListNotification(args);
-//         if (res.status) {
-//             return res.data;
-//         }
-//     },
-// );
+export const getListNotification = createAsyncThunk(
+    'user/getListNotification',
+    async (args: { token: string }) => {
+        const res = await apiGetListNotification(args);
+        if (res.status) {
+            return res.data;
+        }
+    },
+);
 
 export const getListTicket = createAsyncThunk('user/getListTicket', async (args: { token: string }) => {
     const res = await apiGetListTicket(args);

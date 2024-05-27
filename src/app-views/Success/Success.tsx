@@ -21,28 +21,19 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
   const { t } = useTranslation();
   // const ticket = route.params;
   const {
-    amount,
-    categories,
-    duration,
-    invoiceId,
-    movieId,
-    movieName,
-    poster,
-    room,
-    seats,
-    showtime,
+    bookingTicket
   } = useAppSelector((state) => state.ticketState);
   const ticket = {
-    StartTime: showtime,
-    Movie_Name: movieName,
-    Movie_Id: movieId,
-    Poster: poster,
-    Duration: duration,
-    CategoryList: categories,
-    Room_Id: room,
-    Seat_Id: seats.toString(),
-    Price: amount,
-    Invoice_Id: invoiceId,
+    StartTime: bookingTicket.showtime,
+    Movie_Name: bookingTicket.movieName,
+    Movie_Id: bookingTicket.movieId,
+    Poster: bookingTicket.poster,
+    Duration: bookingTicket.duration,
+    CategoryList: bookingTicket.categories,
+    Room_Id: bookingTicket.room,
+    Seat_Id: bookingTicket.seats.toString(),
+    Price: bookingTicket.amount,
+    Invoice_Id: bookingTicket.invoiceId,
   };
 
   const mapTicket = {

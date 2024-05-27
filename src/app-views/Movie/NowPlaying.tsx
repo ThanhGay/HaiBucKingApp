@@ -12,7 +12,7 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { listNowPlaying } = useAppSelector((state) => state.userState);
+  const { listNowPlaying } = useAppSelector((state) => state.movieState);
   return (
     <View>
       {listNowPlaying.length > 0 && <SearchBox type="movie" />}
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     backgroundColor: 'black',
+    paddingBottom:75
   },
 });
 

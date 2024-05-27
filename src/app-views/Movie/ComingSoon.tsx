@@ -12,7 +12,7 @@ const ComingSoon: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { listComingSoon } = useAppSelector((state) => state.userState);
+  const { listComingSoon } = useAppSelector((state) => state.movieState);
   return (
     <View>
       {listComingSoon.length > 0 && <SearchBox type="category" />}

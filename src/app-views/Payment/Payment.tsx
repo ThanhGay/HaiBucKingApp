@@ -16,8 +16,8 @@ import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { apiActiveTransaction } from '@/api/ticket';
 import { CountdownTimer } from '@app-components';
+import { activeTransaction } from '@/redux/features/ticketSlice';
 
 const paymentMethod = [
   {
@@ -52,39 +52,30 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
 }) => {
   const { t } = useTranslation();
   const { token } = useAppSelector((state) => state.authState);
-  const {
-    movieName,
-    duration,
-    poster,
-    categories,
-    room,
-    invoiceDate,
-    invoiceId,
-    seats,
-    showtime,
-    amount: total,
-  } = useAppSelector((state) => state.ticketState);
+  const { bookingTicket, statusTransaction } = useAppSelector(
+    (state) => state.ticketState,
+  );
   const dispatch = useAppDispatch();
 
   const [activeMethod, setActiveMethod] = useState<number>(-1);
-  const seat_Ids = seats.toString();
+  const seat_Ids = bookingTicket.seats.toString();
 
-  console.log('Transaction in invoiceId', invoiceId);
+  console.log('Transaction in invoiceId', bookingTicket.invoiceId);
 
   const movie = {
-    Movie_Name: movieName,
+    Movie_Name: bookingTicket.movieName,
     star: 0,
     totalRate: 0,
-    Duration: duration,
-    Categories: categories,
-    Poster: poster,
+    Duration: bookingTicket.duration,
+    Categories: bookingTicket.categories,
+    Poster: bookingTicket.poster,
   };
 
   const commitTransaction = async () => {
     if (activeMethod > 0) {
-      const dataRes = await apiActiveTransaction({ decision: 1 });
-      if (dataRes.status) {
-        console.log('commit success', invoiceId);
+      dispatch(activeTransaction({ decision: 1 }));
+      if (statusTransaction) {
+        console.log('commit success', bookingTicket.invoiceId);
         navigation.navigate('Success');
       }
     } else {
@@ -97,9 +88,9 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   };
 
   const rollbackTransaction = async () => {
-    const dataRes = await apiActiveTransaction({ decision: 0 });
-    if (dataRes.status) {
-      console.log('rollback success', invoiceId);
+      dispatch(activeTransaction({ decision: 0 }));
+    if (statusTransaction) {
+      console.log('rollback success', bookingTicket.invoiceId);
       navigation.goBack();
     }
   };
@@ -139,7 +130,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.whiteText,
                 }}
               >
-                {invoiceId}
+                {bookingTicket.invoiceId}
               </Text>
             </View>
             {/*  Seat */}
@@ -199,7 +190,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.primary,
                 }}
               >
-                {total} VND
+                {bookingTicket.amount} VND
               </Text>
             </View>
             {/* Payment Method */}

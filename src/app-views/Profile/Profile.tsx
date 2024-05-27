@@ -49,7 +49,7 @@ const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   const [showModal, setshowModal] = useState(false);
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     dispatch(authLogout());
     navigation.navigate('Splash');
   };
