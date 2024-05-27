@@ -121,6 +121,26 @@ export const movieSlice = createSlice({
             })
             .addCase(getComingSoon.rejected, (state, action: PayloadAction<any>) => {
                 state.isLoading = false
+            })
+
+            .addCase(getNowPlaying.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(getNowPlaying.fulfilled,(state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(getNowPlaying.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(getShowTimesMovie.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(getShowTimesMovie.fulfilled,(state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(getShowTimesMovie.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
             });
 
     },

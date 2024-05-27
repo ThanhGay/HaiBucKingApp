@@ -182,15 +182,106 @@ export const ticketSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(getListTicket.pending, (state, action: PayloadAction<any>) => {
-            state.isLoading = true
-        })
-        .addCase(getListTicket.fulfilled, (state, action: PayloadAction<any>) => {
-            state.isLoading = false
-        })
-        .addCase(getListTicket.rejected, (state, action: PayloadAction<any>) => {
-            state.isLoading = false
-        })
+        builder
+            .addCase(getListTicket.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(getListTicket.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(getListTicket.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(createInvoice.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(createInvoice.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(createInvoice.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(bookTicket.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(bookTicket.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(bookTicket.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(cancelBooking.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(cancelBooking.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(cancelBooking.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(cancelInvoice.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(cancelInvoice.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(cancelInvoice.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(getInvoiceMoney.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(getInvoiceMoney.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(getInvoiceMoney.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(saveInvoice.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(saveInvoice.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(saveInvoice.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(getReservedSeat.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(getReservedSeat.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(getReservedSeat.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(createTransaction.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(createTransaction.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(createTransaction.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+
+            .addCase(activeTransaction.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = true
+            })
+            .addCase(activeTransaction.fulfilled, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
+            .addCase(activeTransaction.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false
+            })
     }
 
 });
