@@ -10,39 +10,30 @@ export interface UserState {
     listComingSoon: Array<any>;
 }
 
-export const getListNotification = createAsyncThunk(
-    'user/getListNotification',
-    async (args: { token: string }) => {
-        const res = await apiGetListNotification(args);
-        if (res.status) {
-            return res.data;
-        }
-    },
-);
+// export const getListNotification = createAsyncThunk(
+//     'user/getListNotification',
+//     async (args: { token: string }) => {
+//         const res = await apiGetListNotification(args);
+//         if (res.status) {
+//             return res.data;
+//         }
+//     },
+// );
 
-export const getListTicket = createAsyncThunk(
-    'user/getListTicket',
-    async (args: { token: string }) => {
-        const res = await apiGetListTicket(args);
-        if (res.status) return res.data;
-    },
-);
+export const getListTicket = createAsyncThunk('user/getListTicket', async (args: { token: string }) => {
+    const res = await apiGetListTicket(args);
+    if (res.status) return res.data;
+});
 
-export const getListNowPlaying = createAsyncThunk(
-    'user/getListNowPlaying',
-    async () => {
-        const res = await apiGetNowPlaying();
-        if (res.status) return res.data;
-    },
-);
+export const getListNowPlaying = createAsyncThunk('user/getListNowPlaying', async () => {
+    const res = await apiGetNowPlaying();
+    if (res.status) return res.data;
+});
 
-export const getListComingSoon = createAsyncThunk(
-    'user/getListComingSoon',
-    async () => {
-        const res = await apiGetComingSoon();
-        if (res.status) return res.data;
-    },
-);
+export const getListComingSoon = createAsyncThunk('user/getListComingSoon', async () => {
+    const res = await apiGetComingSoon();
+    if (res.status) return res.data;
+});
 
 const initialState: UserState = {
     listNotification: [],
@@ -61,12 +52,12 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(
-                getListNotification.fulfilled,
-                (state, action: PayloadAction<any>) => {
-                    state.listNotification = action.payload;
-                },
-            )
+            // .addCase(
+            //     getListNotification.fulfilled,
+            //     (state, action: PayloadAction<any>) => {
+            //         state.listNotification = action.payload;
+            //     },
+            // )
             .addCase(getListTicket.fulfilled, (state, action: PayloadAction<any>) => {
                 const formatListTicket: any[] = [];
 
@@ -83,18 +74,12 @@ export const userSlice = createSlice({
 
                 state.listTicket = formatListTicket;
             })
-            .addCase(
-                getListNowPlaying.fulfilled,
-                (state, action: PayloadAction<any>) => {
-                    state.listNowPlaying = action.payload;
-                },
-            )
-            .addCase(
-                getListComingSoon.fulfilled,
-                (state, action: PayloadAction<any>) => {
-                    state.listComingSoon = action.payload;
-                },
-            );
+            .addCase(getListNowPlaying.fulfilled, (state, action: PayloadAction<any>) => {
+                state.listNowPlaying = action.payload;
+            })
+            .addCase(getListComingSoon.fulfilled, (state, action: PayloadAction<any>) => {
+                state.listComingSoon = action.payload;
+            });
     },
 });
 

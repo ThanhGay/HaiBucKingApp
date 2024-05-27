@@ -3,150 +3,100 @@ import { formatDate, transformDataMovie } from '@/utils/hooks';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface MovieState {
-    id: string;
-    name: string;
-    duration: number;
-    censorship: number;
-    language: string;
-    release: string;
-    expiration: string;
-    description: string;
-    poster: string;
-    categories: string;
-    directors: Array<string> | null;
-    imageDirectors: Array<string> | Array<null>;
-    actors: Array<string> | null;
-    imageActors: Array<string> | Array<null>;
-    // movie: any;
+    detailMovie: MovieModel | any;
+    listComingSoon: Array<any> | Array<null>;
+    listNowPlaying: Array<any> | Array<null>;
+    listShowTimesMovie: Array<any> | Array<null>;
     isLoading: boolean;
 }
 
-
-const initialState: MovieModel = {
-    id: '',
-    name: '',
-    duration: 0,
-    censorship: 0,
-    language: '',
-    release: '',
-    expiration: '',
-    description: '',
-    poster: '',
-    categories: '',
-    directors: [],
-    imageDirectors: [],
-    actors: [],
-    imageActors: [],
-    // movie: null,
-    isLoading: true
+const initialState: MovieState = {
+    detailMovie: {},
+    listComingSoon: [],
+    listNowPlaying: [],
+    listShowTimesMovie: [],
+    isLoading: true,
 };
 
-export const getDetailMovie = createAsyncThunk(
-    'movie/getDetail',
-    async (args: { movieId: string }) => {
-        const res = await apiDetailMovie(args);
-        console.log(args, 'dataRes1:', res);
-        if (res.status) {
-            const formatMovie = transformDataMovie(res.data);
-            const _movie = {
-                ...formatMovie,
-                Release: formatDate(formatMovie.Release),
-            };
-            return _movie;
-        }
-    },
-);
-export const getComingSoon = createAsyncThunk(
-    'movie/getComingSoon',
-    async () => {
-        const res = await apiGetComingSoon();
-        return res.data;
-    },
-);
-export const getNowPlaying = createAsyncThunk(
-    'movie/getListTicket',
-    async () => {
-        const res = await apiGetNowPlaying();
-        return res.data;
-    },
-);
-export const getShowTimesMovie = createAsyncThunk(
-    'movie/getShowTimesMovie',
-    async (args: {
-        movieId: string;
-    }) => {
-        const res = await apiGetShowTimesMovie(args);
-        return res.data;
-    },
-);
+export const getDetailMovie = createAsyncThunk('movie/getDetail', async (args: { movieId: string }) => {
+    const res = await apiDetailMovie(args);
+    return res.data;
+});
+export const getComingSoon = createAsyncThunk('movie/getComingSoon', async () => {
+    const res = await apiGetComingSoon();
+    return res.data;
+});
+export const getNowPlaying = createAsyncThunk('movie/getListTicket', async () => {
+    const res = await apiGetNowPlaying();
+    return res.data;
+});
+export const getShowTimesMovie = createAsyncThunk('movie/getShowTimesMovie', async (args: { movieId: string }) => {
+    const res = await apiGetShowTimesMovie(args);
+    return res.data;
+});
 
 export const movieSlice = createSlice({
     name: 'movie',
     initialState,
-    reducers: {},
+    reducers: {
+        setInvoiceId: (state, action: PayloadAction<number>) => {
+            state.detailMovie.id = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
-            .addCase(getDetailMovie.pending, () => {
-                console.log('pending');
+            .addCase(getDetailMovie.pending, (state, action: PayloadAction<any>) => {
+                state.isLoading = false;
             })
-            .addCase(
-                getDetailMovie.fulfilled,
-                (state, action: PayloadAction<any>) => {
-                    console.log('success', action.payload);
-
-                    state.id = action.payload.Movie_Id;
-                    state.name = action.payload.Movie_Name;
-                    state.duration = action.payload.Duration;
-                    state.censorship = action.payload.Censorship;
-                    state.language = action.payload.Language;
-                    state.release = action.payload.Release;
-                    state.description = action.payload.Description;
-                    state.poster = action.payload.Poster;
-                    state.categories = action.payload.Categories;
-                    state.directors = action.payload.Director;
-                    state.imageDirectors = action.payload.imageDirector;
-                    state.actors = action.payload.Actor;
-                    state.imageActors = action.payload.imageActor;
-                },
-            )
-            .addCase(getDetailMovie.rejected, () => {
-                console.log('rejected');
+            .addCase(getDetailMovie.fulfilled, (state, action: PayloadAction<any>) => {
+                const formatMovie = transformDataMovie(action.payload);
+                const _movie = {
+                    ...formatMovie,
+                    Release: formatDate(formatMovie.Release),
+                };
+                state.detailMovie = _movie;
+                state.isLoading = false;
+            })
+            .addCase(getDetailMovie.rejected, (state, action: PayloadAction<any>) => {
+                state.isLoading = false;
             })
 
             .addCase(getComingSoon.pending, (state, action: PayloadAction<any>) => {
-                state.isLoading = true
+                state.isLoading = true;
             })
-            .addCase(getComingSoon.fulfilled,(state, action: PayloadAction<any>) => {
-                state.isLoading = false
+            .addCase(getComingSoon.fulfilled, (state, action: PayloadAction<any>) => {
+                state.listComingSoon = action.payload;
+                state.isLoading = false;
             })
             .addCase(getComingSoon.rejected, (state, action: PayloadAction<any>) => {
-                state.isLoading = false
+                state.isLoading = false;
             })
 
             .addCase(getNowPlaying.pending, (state, action: PayloadAction<any>) => {
-                state.isLoading = true
+                state.isLoading = true;
             })
-            .addCase(getNowPlaying.fulfilled,(state, action: PayloadAction<any>) => {
-                state.isLoading = false
+            .addCase(getNowPlaying.fulfilled, (state, action: PayloadAction<any>) => {
+                state.listNowPlaying = action.payload;
+                state.isLoading = false;
             })
             .addCase(getNowPlaying.rejected, (state, action: PayloadAction<any>) => {
-                state.isLoading = false
+                state.isLoading = false;
             })
 
             .addCase(getShowTimesMovie.pending, (state, action: PayloadAction<any>) => {
-                state.isLoading = true
+                state.isLoading = true;
             })
-            .addCase(getShowTimesMovie.fulfilled,(state, action: PayloadAction<any>) => {
-                state.isLoading = false
+            .addCase(getShowTimesMovie.fulfilled, (state, action: PayloadAction<any>) => {
+                state.listShowTimesMovie = action.payload;
+                state.isLoading = false;
             })
             .addCase(getShowTimesMovie.rejected, (state, action: PayloadAction<any>) => {
-                state.isLoading = false
+                state.isLoading = false;
             });
-
     },
 });
 
-export const { } = movieSlice.actions;
+export const {} = movieSlice.actions;
 
 const movieReducer = movieSlice.reducer;
 
