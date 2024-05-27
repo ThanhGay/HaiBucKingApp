@@ -264,7 +264,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       </View>
 
       <Button
-        title={t('buttons.continue', 'Continue')}
+        title={t('buttons.continue')}
         onPress={commitTransaction}
       />
     </View>

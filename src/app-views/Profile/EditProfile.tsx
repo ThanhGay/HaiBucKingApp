@@ -128,7 +128,7 @@ const EditProfile = () => {
         {edit && (
           <View>
             <Text style={{ color: 'red' }}>{errMes}</Text>
-            <Button title={t('buttons.save', 'Save')} onPress={handleSubmit} />
+            <Button title={t('buttons.save')} onPress={handleSubmit} />
           </View>
         )}
       </View>

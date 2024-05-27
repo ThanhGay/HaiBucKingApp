@@ -29,7 +29,7 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
             ))
           ) : (
             <Text style={{ color: colors.whiteText }}>
-              {t('movie.no-movie', 'Hiện không có phim nào đang chiếu')}
+              {t('movie.no-movie')}
             </Text>
           )}
         </View>

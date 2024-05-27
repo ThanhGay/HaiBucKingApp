@@ -18,7 +18,7 @@ const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   return (
     <View style={styles.container}>
-      <Title title={t('ticket.title', 'My ticket')} />
+      <Title title={t('ticket.title')} />
 
       <View style={{ flex: 9, gap: 16 }}>
         {listTicket.length > 0 ? (

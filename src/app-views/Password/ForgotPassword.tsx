@@ -89,7 +89,7 @@ const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
         </View>
       </View>
       <Button
-        title={t('buttons.continue', 'Continue')}
+        title={t('buttons.continue')}
         onPress={handleSummit}
       />
       <StatusBar backgroundColor="black" barStyle="light-content" />

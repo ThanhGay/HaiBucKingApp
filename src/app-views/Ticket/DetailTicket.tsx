@@ -31,7 +31,7 @@ const DetailTicket = ({ route }: { route?: any }) => {
     <View style={{ paddingHorizontal: 16, backgroundColor: 'black', flex: 1 }}>
       <Title
         leftIcon
-        title={t('ticket.title')}
+        title={t('ticket.title', 'My ticket')}
         onPressLeft={() => navigation.goBack()}
       />
       <View style={styles.container}>

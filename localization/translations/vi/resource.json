@@ -1,123 +1,121 @@
 {
-  "comfirm-otp": {
-    "title": "Confirm OTP code"
-  },
   "confirm-otp": {
-    "message": "You just need to enter the OTP sent to the registered phone number "
+    "title": "Xác nhận OTP",
+    "message": "Bạn phải nhập mã OTP được gửi đến số điện thoại đã đăng ký "
   },
   "buttons": {
-    "continue": "Continue",
-    "save": "Save",
-    "confirm-selection": "Confirm Selection",
-    "login": "Login",
-    "done": "Done"
+    "continue": "Tiếp tục",
+    "save": "Lưu",
+    "confirm-selection": "Xác nhận đặt",
+    "login": "Đăng nhập",
+    "done": "Hoàn tất"
   },
-  "comfirm-otp.title": "Confirm OTP code",
-  "confirm-otp.message": "You just need to enter the OTP sent to the registered phone number ",
-  "buttons.continue": "Continue",
+  "confirm-otp.title": "Xác nhận OTP",
+  "confirm-otp.message": "Bạn phải nhập mã OTP được gửi đến số điện thoại đã đăng ký ",
+  "buttons.continue": "Tiếp tục",
   "first": {
-    "hello": "HaiBucKing hello!",
-    "hi": "Enjoy your favorite movies",
-    "signin": "Sign in",
-    "signup": "Sign up"
+    "hello": "HaiBucKing xin chào!",
+    "hi": "Tận hưởng bộ phim ưa thích của bạn",
+    "signin": "Đăng nhập",
+    "signup": "Đăng ký"
   },
-  "rule": "By sign in or sign up, you argee to our Terms of Service and Privacy Policy",
-  "first.hello": "HaiBucKing hello!",
-  "first.hi": "Enjoy your favorite movies",
-  "first.signin": "Sign in",
-  "first.signup": "Sign up",
+  "rule": "Bằng việc đăng nhập hoặc đăng ký, bạn đã chấp nhận các Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
+  "first.hello": "HaiBucKing xin chào!",
+  "first.hi": "Tận hưởng bộ phim ưa thích của bạn",
+  "first.signin": "Đăng nhập",
+  "first.signup": "Đăng ký",
   "home": {
-    "hi": "Hi",
-    "welcome": "Welcome back",
+    "hi": "Xin chào",
+    "welcome": "Chào mừng quay lại",
     "title": {
-      "part-1": "Now playing",
-      "part-2": "Coming soon",
-      "part-3": "Movie News"
+      "part-1": "Đang công chiếu",
+      "part-2": "Sắp công chiếu",
+      "part-3": "Tin tức"
     }
   },
-  "see-all": "See all",
-  "home.hi": "Hi",
-  "home.welcome": "Welcome back",
-  "home.title.part-1": "Now playing",
-  "home.title.part-2": "Coming soon",
-  "home.title.part-3": "Movie News",
+  "see-all": "Xem tất cả",
+  "home.hi": "Xin chào",
+  "home.welcome": "Chào mừng quay lại",
+  "home.title.part-1": "Đang công chiếu",
+  "home.title.part-2": "Sắp công chiếu",
+  "home.title.part-3": "Tin tức",
   "movie": {
     "no-movie": "Hiện không có phim nào sắp chiếu",
     "detail": {
-      "genre": "Movie genre",
-      "censorship": "Censorship",
-      "language": "Language",
-      "submit-btn": "Booking",
-      "review": "Review",
-      "watch-traler": "Watch trailer",
-      "storyline": "Storyline",
-      "see": "See more",
-      "hide": "Hide less",
-      "director": "Director",
-      "actor": "Actor"
+      "genre": "Thể loại phim",
+      "censorship": "Độ tuổi",
+      "language": "Ngôn ngữ",
+      "submit-btn": "Đặt vé",
+      "review": "Đánh giá",
+      "watch-traler": "Xem trailer",
+      "storyline": "Cốt truyện",
+      "see": "Xem thêm",
+      "hide": "Ẩn bớt",
+      "director": "Đạo diễn",
+      "actor": "Diễn viên"
     },
-    "now-playing": "Now playing",
-    "coming-soon": "Coming soon",
+    "now-playing": "Đang công chiếu",
+    "coming-soon": "Sắp công chiếu",
     "no-show": "Tạm không có suất chiếu của phim này"
   },
   "movie.no-movie": "Hiện không có phim nào sắp chiếu",
-  "movie.detail.genre": "Movie genre",
-  "movie.detail.censorship": "Censorship",
-  "movie.detail.language": "Language",
-  "movie.detail.submit-btn": "Booking",
-  "movie.detail.review": "Review",
-  "movie.detail.watch-traler": "Watch trailer",
-  "movie.detail.storyline": "Storyline",
-  "movie.detail.see": "See more",
-  "movie.detail.hide": "Hide less",
-  "movie.detail.director": "Director",
-  "movie.detail.actor": "Actor",
-  "movie.now-playing": "Now playing",
-  "movie.coming-soon": "Coming soon",
+  "movie.detail.genre": "Thể loại phim",
+  "movie.detail.censorship": "Độ tuổi",
+  "movie.detail.language": "Ngôn ngữ",
+  "movie.detail.submit-btn": "Đặt vé",
+  "movie.detail.review": "Đánh giá",
+  "movie.detail.watch-traler": "Xem trailer",
+  "movie.detail.storyline": "Cốt truyện",
+  "movie.detail.see": "Xem thêm",
+  "movie.detail.hide": "Ẩn bớt",
+  "movie.detail.director": "Đạo diễn",
+  "movie.detail.actor": "Diễn viên",
+  "movie.now-playing": "Đang công chiếu",
+  "movie.coming-soon": "Sắp công chiếu",
   "messages": {
     "error": {
-      "password": "Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number",
-      "confirm-password": "Your password and confirm password do not match",
-      "duplicate-password": "The new password and current password match",
-      "wrong-password": "Your password is incorrect",
+      "password": "Mật khẩu mới bắt buộc dài 6 ký tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự số",
+      "confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
+      "duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
+      "wrong-password": "Sai mật khẩu",
       "not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
-      "email": "Your email is not in the correct format",
-      "phone": "Your phone number must be 10 digits",
-      "birthday": "Your birthday is not in the format YYYY/MM/DD"
+      "email": "Email không đúng định dạng",
+      "phone": "Số điện thoại phải có 10 chữ số",
+      "birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD"
     },
     "success": {
       "update": {
-        "password": "Your password is updated!",
-        "information": "Your information is updated!"
+        "password": "Mật khẩu của bạn đã được cập nhật!",
+        "information": "Thông tin của bạn đã được cập nhật!"
       }
     }
   },
   "change-password": {
-    "title": "Change Password",
-    "your-password": "Your password",
-    "new-password": "New password",
-    "confirm-password": "Confirm new password"
+    "title": "Đổi mật khẩu",
+    "your-password": "Mật khẩu hiện tại",
+    "new-password": "Mật khẩu mới",
+    "confirm-password": "Xác nhận mật khẩu"
   },
-  "messages.error.password": "Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number",
-  "messages.error.confirm-password": "Your password and confirm password do not match",
-  "messages.success.update.password": "Your password is updated!",
-  "messages.error.duplicate-password": "The new password and current password match",
-  "messages.error.wrong-password": "Your password is incorrect",
-  "change-password.title": "Change Password",
-  "change-password.your-password": "Your password",
-  "change-password.new-password": "New password",
-  "change-password.confirm-password": "Confirm new password",
-  "buttons.save": "Save",
+  "messages.error.password": "Mật khẩu mới bắt buộc dài 6 ký tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự số",
+  "messages.error.confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
+  "messages.success.update.password": "Mật khẩu của bạn đã được cập nhật!",
+  "messages.error.duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
+  "messages.error.wrong-password": "Sai mật khẩu",
+  "change-password.title": "Đổi mật khẩu",
+  "change-password.your-password": "Mật khẩu hiện tại",
+  "change-password.new-password": "Mật khẩu mới",
+  "change-password.confirm-password": "Xác nhận mật khẩu",
+  "buttons.save": "Lưu",
   "reset-password": {
-    "title": "Reset password",
-    "phone": "Phone number",
-    "new-password": "New password",
-    "confirm-password": "Confirm new password"
+    "title": "Đặt lại mật khẩu",
+    "phone": "Số điện thoại",
+    "new-password": "Mật khẩu mới",
+    "confirm-password": "Xác nhận mật khẩu"
   },
-  "reset-password.title": "Reset password",
-  "reset-password.phone": "Phone number",
-  "reset-password.new-password": "New password",
-  "reset-password.confirm-password": "Confirm new password",
+  "reset-password.title": "Đặt lại mật khẩu",
+  "reset-password.phone": "Số điện thoại",
+  "reset-password.new-password": "Mật khẩu mới",
+  "reset-password.confirm-password": "Xác nhận mật khẩu",
   "notice": {
     "warning": "Warning",
     "choose-payment": "Please choose your payment method",
@@ -156,7 +154,7 @@
     "sign-out": "Sign out"
   },
   "notice.notice": "Notice",
-  "messages.success.update.information": "Your information is updated!",
+  "messages.success.update.information": "Thông tin của bạn đã được cập nhật!",
   "profile.edit.title.edit": "Edit profile",
   "profile.edit.title.detail": "Detail profile",
   "profile.edit.input.name": "Your name",
@@ -175,39 +173,39 @@
   "messages.error.not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
   "movie.no-show": "Tạm không có suất chiếu của phim này",
   "select-seat.choose-date": "Select Date & Time",
-  "buttons.confirm-selection": "Confirm Selection",
+  "buttons.confirm-selection": "Xác nhận đặt",
   "sign-in": {
-    "title": "Sign in",
-    "phone": "Phone number",
+    "title": "Đăng nhập",
+    "phone": "Số điện thoại",
     "password": "Password",
     "remember": "Remember me",
     "forgot": "Forgot Password?"
   },
-  "sign-in.title": "Sign in",
-  "sign-in.phone": "Phone number",
+  "sign-in.title": "Đăng nhập",
+  "sign-in.phone": "Số điện thoại",
   "sign-in.password": "Password",
   "sign-in.remember": "Remember me",
   "sign-in.forgot": "Forgot Password?",
-  "buttons.login": "Login",
+  "buttons.login": "Đăng nhập",
   "sign-up": {
-    "title": "Sign up"
+    "title": "Đăng ký"
   },
-  "messages.error.email": "Your email is not in the correct format",
-  "messages.error.phone": "Your phone number must be 10 digits",
-  "messages.error.birthday": "Your birthday is not in the format YYYY/MM/DD",
-  "sign-up.title": "Sign up",
+  "messages.error.email": "Email không đúng định dạng",
+  "messages.error.phone": "Số điện thoại phải có 10 chữ số",
+  "messages.error.birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD",
+  "sign-up.title": "Đăng ký",
   "success": {
     "title": "Success"
   },
   "success.title": "Success",
   "ticket": {
-    "title": "__STRING_NOT_TRANSLATED__",
+    "title": "My ticket",
     "detail": {
       "show-note": "Show this QR code to the ticket counter to receive your ticket"
     },
     "no-ticket": "Hiện chưa có vé nào được đặt"
   },
-  "ticket.title": "__STRING_NOT_TRANSLATED__",
+  "ticket.title": "My ticket",
   "ticket.detail.show-note": "Show this QR code to the ticket counter to receive your ticket",
   "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
   "enter-username": {
@@ -216,5 +214,18 @@
   },
   "enter-username.title": "Enter Username",
   "enter-username.note": "Latin characters, no emoji/symbols",
-  "buttons.done": "Done"
+  "buttons.done": "Hoàn tất",
+  "language": {
+    "en": "English",
+    "vi": "Vietnamese"
+  },
+  "modal-language": {
+    "title": "Choose language",
+    "subtitle": "Which language do you want to use?"
+  },
+  "use": "Use",
+  "language.en": "English",
+  "language.vi": "Vietnamese",
+  "modal-language.title": "Choose language",
+  "modal-language.subtitle": "Which language do you want to use?"
 }

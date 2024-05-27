@@ -77,7 +77,7 @@ const ConfirmOTP: React.FC<
 
       <View style={styles.body}>
         <Text style={{ fontSize: 30, color: '#FCC435' }}>
-          {t('comfirm-otp.title', 'Confirm OTP code')}
+          {t('confirm-otp.title', 'Confirm OTP code')}
         </Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
           {t(
