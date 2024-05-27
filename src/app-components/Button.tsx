@@ -1,5 +1,5 @@
-import { TouchableOpacity, Text } from "react-native";
-import { styles } from "@/component/styles";
+import { TouchableOpacity, Text } from 'react-native';
+import { styles } from '@/component/styles';
 
 const Button = ({
   title,
@@ -8,10 +8,14 @@ const Button = ({
 }: {
   title: string;
   onPress: () => void;
-  disabled ?: boolean
+  disabled?: boolean;
 }) => {
   return (
-    <TouchableOpacity style={{...styles.box, opacity: disabled ? 0.5 : 1}} onPress={onPress} disabled={disabled}>
+    <TouchableOpacity
+      style={{ ...styles.box, opacity: disabled ? 0.5 : 1 }}
+      onPress={onPress}
+      disabled={disabled}
+    >
       <Text
         style={{
           textAlign: 'center',

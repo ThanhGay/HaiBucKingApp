@@ -21,4 +21,4 @@ export default () => `
         stroke-dasharray="5.83 5.83"
       />
     </svg>
-`
+`;

@@ -21,7 +21,7 @@
       "@i18n": ["localization/translations"],
       "@i18n/*": ["localization/translations/*"],
       "@": ["src"],
-      "@/*": ["src/*"],
-    },
+      "@/*": ["src/*"]
+    }
   }
 }

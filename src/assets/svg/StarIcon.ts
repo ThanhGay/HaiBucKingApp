@@ -10,4 +10,4 @@ export default () => `
         fill="#FCC434"
       />
     </svg>
-`
+`;

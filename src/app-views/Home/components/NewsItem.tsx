@@ -6,11 +6,7 @@ function NewsItem({ post }: { post: any }) {
     <View style={styles.container}>
       <TouchableOpacity>
         <View>
-          <Image
-            source={post.image}
-            alt="img post"
-            style={styles.image}
-          />
+          <Image source={post.image} alt="img post" style={styles.image} />
           <Text style={styles.title}>{post.title}</Text>
         </View>
       </TouchableOpacity>

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { View, Text, TextInput } from "react-native";
-import { styles } from "@/component/styles";
+import { useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
+import { styles } from '@/component/styles';
 
 const FormInput = ({ link, title }: { link: string; title: string }) => {
   const [text, setText] = useState('');

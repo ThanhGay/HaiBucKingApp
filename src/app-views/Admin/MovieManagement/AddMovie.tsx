@@ -48,7 +48,7 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   );
 };
 function AddMovie() {
-  const {token} = useAppSelector((state) => state.authState)
+  const { token } = useAppSelector((state) => state.authState);
   // put
   const [movieId, setMovieId] = useState('');
   const [movieName, setMovieName] = useState('');
@@ -149,7 +149,7 @@ function AddMovie() {
               Category_Name: item.Category_Name,
             }),
           );
-          
+
           setListCategory(newData);
         }
       } catch (error) {

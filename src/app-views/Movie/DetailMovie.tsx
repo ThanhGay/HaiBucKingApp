@@ -73,7 +73,7 @@ const DetailMovie: React.FC<
           color={'black'}
         />
       ) : (
-        <ScrollView style={{ flex: 1, backgroundColor: colors.black}}>
+        <ScrollView style={{ flex: 1, backgroundColor: colors.black }}>
           <ImageBackground
             source={
               detailMovie?.Poster
@@ -134,7 +134,7 @@ const DetailMovie: React.FC<
             <Button
               title={t('movie.detail.submit-btn', 'Booking')}
               onPress={handleBooking}
-              disabled = {false}
+              disabled={false}
             />
           </View>
         </ScrollView>

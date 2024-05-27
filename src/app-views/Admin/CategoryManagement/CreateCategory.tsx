@@ -8,8 +8,8 @@ import { setListCategory } from '@/redux/features/adminSlice';
 
 export default function CreateCategory() {
   const { token } = useAppSelector((state) => state.authState);
-  const {listCategory} = useAppSelector((state) => state.adminState)
-  const dispatch = useAppDispatch()
+  const { listCategory } = useAppSelector((state) => state.adminState);
+  const dispatch = useAppDispatch();
 
   const [category_Id, setCategory_Id] = useState('');
   const [category_Name, setCategory_Name] = useState('');

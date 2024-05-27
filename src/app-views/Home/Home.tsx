@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +17,7 @@ import SearchBox from '@app-components/SearchBox';
 import BottomTab from '@app-navigation/BottomTabs/BottomTab';
 import NewsItem from './components/NewsItem';
 import SlideShow from './components/SlideShow';
+import ContentBox from './components/ContentBox';
 import colors from '@/utils/colors';
 
 const listNews = [
@@ -44,124 +44,101 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   return (
     <>
-    {isLoading ?
-      <ActivityIndicator
+      {isLoading ? (
+        <ActivityIndicator
           style={{ height: '100%' }}
           size={'large'}
           color={'black'}
         />
-        :
-    <View style={styles.container}>
-      <ScrollView>
-        <View style={{ flex: 9 }}>
-          <View>
-            <View style={styles.header}>
-              <View style={{ flexDirection: 'column' }}>
-                <Text style={{ color: colors.whiteText, fontSize: 18 }}>
-                  {t('home.hi', 'Hi')}, {user?.FullName}
-                </Text>
-                <Text style={styles.boldTitle}>
-                  {t('home.welcome', 'Welcome back')}
-                </Text>
-              </View>
-              <Image
-                source={require('@assets/icons/notification.png')}
-                style={{ width: 36, height: 36 }}
-              />
-              {/* <Badge /> */}
-            </View>
-            <SearchBox type="all" />
-            <ScrollView>
-              <View style={{ gap: 16 }}>
-                <View>
-                  <ContentBox
-                    title={t('home.title.part-1', 'Now playing')}
-                    onPress={() => navigation.navigate('Movie')}
-                  />
-                  <View>
-                    {/* Image boxer */}
-
-                    <SlideShow list={listNowPlaying} />
+      ) : (
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={{ flex: 9 }}>
+              <View>
+                <View style={styles.header}>
+                  <View style={{ flexDirection: 'column' }}>
+                    <Text
+                      style={{
+                        color: colors.whiteText,
+                        fontSize: 18,
+                      }}
+                    >
+                      {t('home.hi', 'Hi')}, {user?.FullName}
+                    </Text>
+                    <Text style={styles.boldTitle}>
+                      {t('home.welcome', 'Welcome back')}
+                    </Text>
                   </View>
-                </View>
-
-                <View>
-                  <ContentBox
-                    title={t('home.title.part-2', 'Coming soon')}
-                    onPress={() => navigation.navigate('Movie', { key: 2 })}
+                  <Image
+                    source={require('@assets/icons/notification.png')}
+                    style={{ width: 36, height: 36 }}
                   />
-                  <ScrollView horizontal>
-                    {listComingSoon.map((movie) => (
-                      <View
-                        key={movie.Movie_Id}
-                        style={{ paddingHorizontal: 8 }}
-                      >
-                        <ComingSoonItem film={movie} navigation={navigation} />
-                      </View>
-                    ))}
-                  </ScrollView>
+                  {/* <Badge /> */}
                 </View>
+                <SearchBox type="all" />
+                <ScrollView>
+                  <View style={{ gap: 16 }}>
+                    <View>
+                      <ContentBox
+                        title={t('home.title.part-1', 'Now playing')}
+                        onPress={() => navigation.navigate('Movie')}
+                      />
+                      <View>
+                        {/* Image boxer */}
 
-                <View>
-                  <ContentBox title={t('home.title.part-3', 'Movie News')} />
-                  <ScrollView horizontal>
-                    {listNews.map((item) => (
-                      <View
-                        key={item.key}
-                        style={{ paddingHorizontal: 8, marginVertical: 24 }}
-                      >
-                        <NewsItem post={item} />
+                        <SlideShow list={listNowPlaying} />
                       </View>
-                    ))}
-                  </ScrollView>
-                </View>
+                    </View>
+
+                    <View>
+                      <ContentBox
+                        title={t('home.title.part-2', 'Coming soon')}
+                        onPress={() => navigation.navigate('Movie', { key: 2 })}
+                      />
+                      <ScrollView horizontal>
+                        {listComingSoon.map((movie) => (
+                          <View
+                            key={movie.Movie_Id}
+                            style={{
+                              paddingHorizontal: 8,
+                            }}
+                          >
+                            <ComingSoonItem
+                              film={movie}
+                              navigation={navigation}
+                            />
+                          </View>
+                        ))}
+                      </ScrollView>
+                    </View>
+
+                    <View>
+                      <ContentBox
+                        title={t('home.title.part-3', 'Movie News')}
+                      />
+                      <ScrollView horizontal>
+                        {listNews.map((item) => (
+                          <View
+                            key={item.key}
+                            style={{
+                              paddingHorizontal: 8,
+                              marginVertical: 24,
+                            }}
+                          >
+                            <NewsItem post={item} />
+                          </View>
+                        ))}
+                      </ScrollView>
+                    </View>
+                  </View>
+                </ScrollView>
               </View>
-            </ScrollView>
-          </View>
+            </View>
+          </ScrollView>
+          <BottomTab />
         </View>
-      </ScrollView>
-      <BottomTab />
-    </View>
-
-    }
+      )}
     </>
-  );
-};
-
-const ContentBox = ({
-  title,
-  onPress,
-}: {
-  title: string;
-  onPress?: () => void;
-}) => {
-  const { t } = useTranslation();
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 8,
-      }}
-    >
-      <Text style={styles.boldTitle}>{title}</Text>
-      <TouchableOpacity
-        style={{
-          justifyContent: 'center',
-          gap: 4,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-        onPress={onPress}
-      >
-        <Text style={{ color: colors.primary }}>{t('see-all', 'See all')}</Text>
-        <Image
-          source={require('@assets/icons/right.png')}
-          style={styles.arrowIcon}
-        />
-      </TouchableOpacity>
-    </View>
   );
 };
 
@@ -181,11 +158,6 @@ const styles = StyleSheet.create({
     color: colors.whiteText,
     fontWeight: '700',
     fontSize: 26,
-  },
-  arrowIcon: {
-    width: 16,
-    height: 16,
-    tintColor: colors.primary,
   },
 });
 

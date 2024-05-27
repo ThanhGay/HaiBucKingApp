@@ -15,33 +15,31 @@ interface MyModalProps {
 }
 
 interface LanguageItem {
-  key: string,
+  key: string;
   name: string;
 }
-
-
 
 const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
   const { t, i18n } = useTranslation();
   const modalRef = useRef<Modal>(null);
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(i18n.language);
 
-  const mapLng:{[key: string]:LanguageItem} = useMemo(() => {
+  const mapLng: { [key: string]: LanguageItem } = useMemo(() => {
     return {
-      'en': {
+      en: {
         key: 'en',
-        name: t("language.en", 'English'),
+        name: t('language.en', 'English'),
       },
-      'vi': {
+      vi: {
         key: 'vi',
         name: t('language.vi', 'Vietnamese'),
-      }
-    }
-  }, [])
+      },
+    };
+  }, [language]);
 
   const handleSubmit = () => {
     console.log(language);
-    i18n.changeLanguage(language)
+    i18n.changeLanguage(language);
     onClose();
   };
 
@@ -83,7 +81,7 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
             </View>
             {Object.values(mapLng).map((item) => (
               <TouchableOpacity
-              key={item.key}
+                key={item.key}
                 style={{
                   paddingTop: 32,
                   flexDirection: 'row',
@@ -114,7 +112,7 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
                 />
               </TouchableOpacity>
             ))}
-            
+
             <TouchableOpacity
               style={{ alignItems: 'center', marginTop: 80 }}
               onPress={handleSubmit}

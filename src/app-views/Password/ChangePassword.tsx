@@ -140,10 +140,7 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
       </View>
 
       <View style={styles.footer}>
-        <Button
-          title={t('buttons.save', 'Save')}
-          onPress={handleSubmit}
-        />
+        <Button title={t('buttons.save', 'Save')} onPress={handleSubmit} />
         <View style={{ paddingTop: 30 }} />
       </View>
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />

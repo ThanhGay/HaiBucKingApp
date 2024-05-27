@@ -14,7 +14,7 @@ const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { listTicket } = useAppSelector((state) => state.userState);
+  const { listTicket } = useAppSelector((state) => state.ticketState);
 
   return (
     <View style={styles.container}>

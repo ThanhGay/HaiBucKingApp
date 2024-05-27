@@ -14,4 +14,4 @@ export default () => `
         fill="#292D32"
       />
     </svg>
-`
+`;

@@ -15,9 +15,8 @@ import ModalLanguage from '@/app-modals/ModalLanguage';
 const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showModal, setshowModal] = useState(false);
-  const [language, setLanguage] = useState('Language');
 
   const toSignin = () => {
     navigation.navigate('Signin');
@@ -49,7 +48,7 @@ const FirstScreen: React.FC<{ navigation: NavigationProp<any> }> = ({
             source={require('@/assets/icons/translate.png')}
           />
           <Text style={{ fontSize: 16, fontWeight: '400', color: '#E6E6E6' }}>
-            {language}
+            {t('language.title', 'Language')}
           </Text>
         </TouchableOpacity>
       </View>

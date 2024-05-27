@@ -12,7 +12,6 @@ interface TicketItemProps {
 const TicketItem: React.FC<
   TicketItemProps & { navigation: NavigationProp<any> }
 > = ({ ticket, navigation }) => {
-
   return (
     <TouchableOpacity
       style={styles.container}

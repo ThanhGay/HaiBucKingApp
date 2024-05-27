@@ -59,7 +59,10 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
             ))
           ) : (
             <Text style={{ color: colors.whiteText }}>
-              {t('movie.no-movie')}
+              {t(
+                'movie.no-movie.playing',
+                'There are currently no playing movies',
+              )}
             </Text>
           )}
         </View>

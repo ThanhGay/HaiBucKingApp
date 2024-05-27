@@ -6,6 +6,7 @@ import { NavigationProp } from '@react-navigation/native';
 import NowPlaying from './NowPlaying';
 import ComingSoon from './ComingSoon';
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
+import { useLanguage } from '@/utils/hooks';
 import colors from '@/utils/colors';
 
 interface MovieProps {
@@ -50,6 +51,7 @@ const Movie: React.FC<MovieProps & { navigation: NavigationProp<any> }> = ({
             <View
               style={{
                 ...styles.button,
+                // paddingHorizontal: useLanguage() === 'en' ? 46 : 23,
                 backgroundColor:
                   item.key === active ? colors.primary : colors.blackOpacity,
               }}

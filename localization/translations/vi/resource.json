@@ -40,7 +40,6 @@
   "home.title.part-2": "Sắp công chiếu",
   "home.title.part-3": "Tin tức",
   "movie": {
-    "no-movie": "Hiện không có phim nào sắp chiếu",
     "detail": {
       "genre": "Thể loại phim",
       "censorship": "Độ tuổi",
@@ -56,9 +55,12 @@
     },
     "now-playing": "Đang công chiếu",
     "coming-soon": "Sắp công chiếu",
-    "no-show": "Tạm không có suất chiếu của phim này"
+    "no-show": "Tạm không có suất chiếu của phim này",
+    "no-movie": {
+      "coming": "Hiện không có phim nào sắp công chiếu",
+      "playing": "Hiện không có phim nào đang công chiếu"
+    }
   },
-  "movie.no-movie": "Hiện không có phim nào sắp chiếu",
   "movie.detail.genre": "Thể loại phim",
   "movie.detail.censorship": "Độ tuổi",
   "movie.detail.language": "Ngôn ngữ",
@@ -117,75 +119,75 @@
   "reset-password.new-password": "Mật khẩu mới",
   "reset-password.confirm-password": "Xác nhận mật khẩu",
   "notice": {
-    "warning": "Warning",
-    "choose-payment": "Please choose your payment method",
-    "notice": "Notice"
+    "warning": "Chú ý",
+    "choose-payment": "Hãy chọn phương thức thanh toán",
+    "notice": "Thông báo"
   },
   "payment": {
-    "title": "Payment",
-    "seat": "Seat",
-    "total": "Total",
-    "method": "Payment Method",
-    "countdown": "Complete your payment in"
+    "title": "Thanh toán",
+    "seat": "Ghế",
+    "total": "Tổng tiền",
+    "method": "Phương thức thanh toán",
+    "countdown": "Hoàn thành thanh toán sau:"
   },
-  "notice.warning": "Warning",
-  "notice.choose-payment": "Please choose your payment method",
-  "payment.title": "Payment",
-  "payment.seat": "Seat",
-  "payment.total": "Total",
-  "payment.method": "Payment Method",
-  "payment.countdown": "Complete your payment in",
+  "notice.warning": "Chú ý",
+  "notice.choose-payment": "Hãy chọn phương thức thanh toán",
+  "payment.title": "Thanh toán",
+  "payment.seat": "Ghế",
+  "payment.total": "Tổng tiền",
+  "payment.method": "Phương thức thanh toán",
+  "payment.countdown": "Hoàn thành thanh toán sau:",
   "profile": {
     "edit": {
       "title": {
-        "edit": "Edit profile",
-        "detail": "Detail profile"
+        "edit": "Chỉnh sửa thông tin",
+        "detail": "Thông tin chi tiết"
       },
       "input": {
-        "name": "Your name",
-        "phone": "Your phone number",
-        "email": "Your email",
-        "birthday": "Your birthday (YYYY/MM/DD)"
+        "name": "Tên",
+        "phone": "Số điện thoại",
+        "email": "E-mail",
+        "birthday": "Ngày sinh (YYYY/MM/DD)"
       }
     },
-    "change-language": "Change language",
-    "change-password": "Change password",
-    "to-admin": "To Admin Management",
-    "sign-out": "Sign out"
+    "change-language": "Ngôn ngữ",
+    "change-password": "Đổi mật khẩu",
+    "to-admin": "Chuyển sang giao diện Admin",
+    "sign-out": "Đăng xuất"
   },
-  "notice.notice": "Notice",
+  "notice.notice": "Thông báo",
   "messages.success.update.information": "Thông tin của bạn đã được cập nhật!",
-  "profile.edit.title.edit": "Edit profile",
-  "profile.edit.title.detail": "Detail profile",
-  "profile.edit.input.name": "Your name",
-  "profile.edit.input.phone": "Your phone number",
-  "profile.edit.input.email": "Your email",
-  "profile.edit.input.birthday": "Your birthday (YYYY/MM/DD)",
-  "profile.change-language": "Change language",
-  "profile.change-password": "Change password",
-  "profile.to-admin": "To Admin Management",
-  "profile.sign-out": "Sign out",
+  "profile.edit.title.edit": "Chỉnh sửa thông tin",
+  "profile.edit.title.detail": "Thông tin chi tiết",
+  "profile.edit.input.name": "Tên",
+  "profile.edit.input.phone": "Số điện thoại",
+  "profile.edit.input.email": "E-mail",
+  "profile.edit.input.birthday": "Ngày sinh (YYYY/MM/DD)",
+  "profile.change-language": "Ngôn ngữ",
+  "profile.change-password": "Đổi mật khẩu",
+  "profile.to-admin": "Chuyển sang giao diện Admin",
+  "profile.sign-out": "Đăng xuất",
   "select-seat": {
-    "title": "Select Seat",
-    "choose-date": "Select Date & Time"
+    "title": "Chọn ghế ngồi",
+    "choose-date": "Chọn ngày và giờ"
   },
-  "select-seat.title": "Select Seat",
+  "select-seat.title": "Chọn ghế ngồi",
   "messages.error.not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
   "movie.no-show": "Tạm không có suất chiếu của phim này",
-  "select-seat.choose-date": "Select Date & Time",
+  "select-seat.choose-date": "Chọn ngày và giờ",
   "buttons.confirm-selection": "Xác nhận đặt",
   "sign-in": {
     "title": "Đăng nhập",
     "phone": "Số điện thoại",
-    "password": "Password",
-    "remember": "Remember me",
-    "forgot": "Forgot Password?"
+    "password": "Mật khẩu",
+    "remember": "Ghi nhớ đăng nhập",
+    "forgot": "Quên mật khẩu?"
   },
   "sign-in.title": "Đăng nhập",
   "sign-in.phone": "Số điện thoại",
-  "sign-in.password": "Password",
-  "sign-in.remember": "Remember me",
-  "sign-in.forgot": "Forgot Password?",
+  "sign-in.password": "Mật khẩu",
+  "sign-in.remember": "Ghi nhớ đăng nhập",
+  "sign-in.forgot": "Quên mật khẩu?",
   "buttons.login": "Đăng nhập",
   "sign-up": {
     "title": "Đăng ký"
@@ -195,37 +197,51 @@
   "messages.error.birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD",
   "sign-up.title": "Đăng ký",
   "success": {
-    "title": "Success"
+    "title": "Thành công"
   },
-  "success.title": "Success",
+  "success.title": "Thành công",
   "ticket": {
-    "title": "My ticket",
+    "title": "Vé của tôi",
     "detail": {
-      "show-note": "Show this QR code to the ticket counter to receive your ticket"
+      "show-note": "Đưa mã QR này cho nhân viên bán vé để nhận vé của bạn"
     },
     "no-ticket": "Hiện chưa có vé nào được đặt"
   },
-  "ticket.title": "My ticket",
-  "ticket.detail.show-note": "Show this QR code to the ticket counter to receive your ticket",
+  "ticket.title": "Vé của tôi",
+  "ticket.detail.show-note": "Đưa mã QR này cho nhân viên bán vé để nhận vé của bạn",
   "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
   "enter-username": {
-    "title": "Enter Username",
-    "note": "Latin characters, no emoji/symbols"
+    "title": "Nhập tên",
+    "note": "Là chữ cái latin, không emojy/symbol"
   },
-  "enter-username.title": "Enter Username",
-  "enter-username.note": "Latin characters, no emoji/symbols",
+  "enter-username.title": "Nhập tên",
+  "enter-username.note": "Là chữ cái latin, không emojy/symbol",
   "buttons.done": "Hoàn tất",
   "language": {
-    "en": "English",
-    "vi": "Vietnamese"
+    "title": "Ngôn ngữ",
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt"
   },
   "modal-language": {
-    "title": "Choose language",
-    "subtitle": "Which language do you want to use?"
+    "title": "Chọn ngôn ngữ",
+    "subtitle": "Bạn muốn sử dụng ngôn ngữ nào?"
   },
-  "use": "Use",
-  "language.en": "English",
-  "language.vi": "Vietnamese",
-  "modal-language.title": "Choose language",
-  "modal-language.subtitle": "Which language do you want to use?"
+  "use": "Dùng",
+  "language.title": "Ngôn ngữ",
+  "language.en": "Tiếng Anh",
+  "language.vi": "Tiếng Việt",
+  "modal-language.title": "Chọn ngôn ngữ",
+  "modal-language.subtitle": "Bạn muốn sử dụng ngôn ngữ nào?",
+  "movie.no-movie.coming": "Hiện không có phim nào sắp công chiếu",
+  "movie.no-movie.playing": "Hiện không có phim nào đang công chiếu",
+  "bottom-tab": {
+    "home": "Trang chủ",
+    "ticket": "Vé",
+    "movie": "Phim",
+    "profile": "Tài khoản"
+  },
+  "bottom-tab.home": "Trang chủ",
+  "bottom-tab.ticket": "Vé",
+  "bottom-tab.movie": "Phim",
+  "bottom-tab.profile": "Tài khoản"
 }

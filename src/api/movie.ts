@@ -57,7 +57,7 @@ export const apiDetailMovie = async (args: {
     })
     .catch((error) => {
       console.log('error in fetch data detail movie: :', error);
-    });    
+    });
   return data;
 };
 

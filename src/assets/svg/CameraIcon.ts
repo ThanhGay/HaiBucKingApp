@@ -27,4 +27,4 @@ export default () => `
         stroke-linejoin="round"
       />
     </svg>
-`
+`;

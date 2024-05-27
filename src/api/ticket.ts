@@ -5,10 +5,12 @@ import { getWithToken, postWithToken } from '@/utils';
 const Ticket_URL = `http://${LOCALHOST}:${PORT}/ticket`;
 
 // Tất cả vé của tôi
-export const apiGetListTicket = (args: { token: string }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-    const { token } = args;
-    const url = `${Ticket_URL}/my-tickets`;
-    return getWithToken({ url, token });
+export const apiGetListTicket = (args: {
+  token: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token } = args;
+  const url = `${Ticket_URL}/my-tickets`;
+  return getWithToken({ url, token });
 };
 
 // tạo id hóa đơn
@@ -60,10 +62,13 @@ export const apiGetListTicket = (args: { token: string }): Promise<{ status: boo
 // };
 
 // lấy giá tiền của vé
-export const apiGetInvoiceMoney = (args: { token: string; invoiceId: number }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-    const { token, invoiceId } = args;
-    const url = `${Ticket_URL}/detail-ticket=${invoiceId}`;
-    return getWithToken({ url, token });
+export const apiGetInvoiceMoney = (args: {
+  token: string;
+  invoiceId: number;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token, invoiceId } = args;
+  const url = `${Ticket_URL}/detail-ticket=${invoiceId}`;
+  return getWithToken({ url, token });
 };
 
 // hoàn tất đặt vé (lưu vào database)
@@ -98,50 +103,59 @@ export const apiGetInvoiceMoney = (args: { token: string; invoiceId: number }): 
 // };
 
 // lấy danh sách ghế đã đặt theo thời gian lịch chiếu
-export const apiGetReservedSeat = async (args: { startTime: string }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-    const url = `${Ticket_URL}/seats`;
-    const form = JSON.stringify({
-        StartTime: args.startTime,
+export const apiGetReservedSeat = async (args: {
+  startTime: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const url = `${Ticket_URL}/seats`;
+  const form = JSON.stringify({
+    StartTime: args.startTime,
+  });
+  const data = axiosClient
+    .post(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in fetch api get reserved seat', error);
     });
-    const data = axiosClient
-        .post(url, form)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log('error in fetch api get reserved seat', error);
-        });
 
-    return data ?? {};
+  return data ?? {};
 };
 
-export const apiCreateTransaction = async (args: { token: string; startTime: string; seatId: Array<any>; roomId: string }): Promise<{ status: boolean; data: any; msg: string }> => {
-    const { startTime, seatId, roomId, token } = args;
-    const url = `${Ticket_URL}/transaction-invoice`;
-    const form = JSON.stringify({
-        StartTime: startTime,
-        Seat_Id: seatId,
-        Room_Id: roomId,
-    });
-    return postWithToken({ url, data: form, token });
+export const apiCreateTransaction = async (args: {
+  token: string;
+  startTime: string;
+  seatId: Array<any>;
+  roomId: string;
+}): Promise<{ status: boolean; data: any; msg: string }> => {
+  const { startTime, seatId, roomId, token } = args;
+  const url = `${Ticket_URL}/transaction-invoice`;
+  const form = JSON.stringify({
+    StartTime: startTime,
+    Seat_Id: seatId,
+    Room_Id: roomId,
+  });
+  return postWithToken({ url, data: form, token });
 };
 
 // decision
 // 0 - rollback , 1 - commit
-export const apiActiveTransaction = async (args: { decision: number }): Promise<{ status: boolean; data: string; msg: string }> => {
-    const url = `${Ticket_URL}/active-transaction`;
-    const form = JSON.stringify({
-        decision: args.decision,
+export const apiActiveTransaction = async (args: {
+  decision: number;
+}): Promise<{ status: boolean; data: string; msg: string }> => {
+  const url = `${Ticket_URL}/active-transaction`;
+  const form = JSON.stringify({
+    decision: args.decision,
+  });
+
+  const data = axiosClient
+    .post(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log('error in fetch api active transaction', error);
     });
 
-    const data = axiosClient
-        .post(url, form)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log('error in fetch api active transaction', error);
-        });
-
-    return data ?? {};
+  return data ?? {};
 };

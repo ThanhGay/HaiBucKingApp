@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 export const convert_Time = (duration: number) => {
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
@@ -32,11 +35,8 @@ interface MovieData {
   Person_Name: string;
   character: string;
   image: string | null;
-  Actor:any;
+  Actor: any;
   Director: any;
-
-
-
 }
 
 interface FormattedMovieData {
@@ -51,7 +51,7 @@ interface FormattedMovieData {
   Description: string;
   Director: any;
   imageDirector: (string | null)[];
-  Actor:any;
+  Actor: any;
   imageActor: (string | null)[];
 }
 
@@ -84,3 +84,16 @@ export function transformDataMovie(data: MovieData[]): FormattedMovieData {
 
   return formattedData;
 }
+
+export const useLanguage: () => string = () => {
+  const [language, setLanguage] = useState('');
+  const { i18n } = useTranslation();
+
+  const _lng = i18n.language;
+
+  useEffect(() => {
+    setLanguage(_lng);
+  }, [_lng]);
+
+  return language;
+};

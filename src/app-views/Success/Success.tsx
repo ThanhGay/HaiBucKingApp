@@ -8,7 +8,7 @@ import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { addTicket } from '@/redux/features/userSlice';
+import { addTicket } from '@/redux/features/ticketSlice';
 
 interface SuccessProps {
   route: any;
@@ -20,9 +20,7 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
 }) => {
   const { t } = useTranslation();
   // const ticket = route.params;
-  const {
-    bookingTicket
-  } = useAppSelector((state) => state.ticketState);
+  const { bookingTicket } = useAppSelector((state) => state.ticketState);
   const ticket = {
     StartTime: bookingTicket.showtime,
     Movie_Name: bookingTicket.movieName,

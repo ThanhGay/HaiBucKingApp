@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
-  getListNotification,
-  getListTicket,
-} from '@/redux/features/userSlice';
-import {
-  getComingSoon,
-  getNowPlaying,
-} from '@/redux/features/movieSlice';
-import {
   getTokenInStorage,
   getUserInStorage,
 } from '@/redux/features/authSlice';
+import { getListTicket } from '@/redux/features/ticketSlice';
+import { getListNotification } from '@/redux/features/userSlice';
+import { getComingSoon, getNowPlaying } from '@/redux/features/movieSlice';
 
 interface LayoutStateProps {
   children: React.ReactNode;

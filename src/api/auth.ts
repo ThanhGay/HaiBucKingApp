@@ -6,131 +6,131 @@ const Account_URL = `http://${LOCALHOST}:${PORT}/account`;
 
 // đăng nhập
 export const apiSignIn = async (args: {
-    phoneNumber: string;
-    password: string;
+  phoneNumber: string;
+  password: string;
 }): Promise<{
-    status: boolean;
-    data: Array<any>;
-    msg: string;
+  status: boolean;
+  data: Array<any>;
+  msg: string;
 }> => {
-    const form = JSON.stringify({
-        PhoneNumber: args.phoneNumber,
-        Password: args.password,
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+  });
+
+  const url = `${Account_URL}/sign-in`;
+
+  const data = await axiosClient
+    .post(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    const url = `${Account_URL}/sign-in`;
-
-    const data = await axiosClient
-        .post(url, form)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-    return data ?? {};
+  return data ?? {};
 };
 
 // đăng ký
 export const apiSignUp = async (args: {
-    phoneNumber: string;
-    password: string;
-    fullname: string;
-    email: string;
-    dob: Date;
+  phoneNumber: string;
+  password: string;
+  fullname: string;
+  email: string;
+  dob: Date;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-    const form = JSON.stringify({
-        PhoneNumber: args.phoneNumber,
-        Password: args.password,
-        FullName: args.fullname,
-        Email: args.email,
-        DateOfBirth: args.dob,
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+    FullName: args.fullname,
+    Email: args.email,
+    DateOfBirth: args.dob,
+  });
+
+  const url = `${Account_URL}/sign-up`;
+
+  const data = await axiosClient
+    .post(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    const url = `${Account_URL}/sign-up`;
-
-    const data = await axiosClient
-        .post(url, form)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-    return data ?? {};
+  return data ?? {};
 };
 
 // đăng xuất
 export const apiSignOut = async (): Promise<{
-    status: boolean;
-    data: Array<any>;
-    msg: string;
+  status: boolean;
+  data: Array<any>;
+  msg: string;
 }> => {
-    const url = `${Account_URL}/sign-out`;
-    const data = axiosClient
-        .post(url)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    return data ?? {};
+  const url = `${Account_URL}/sign-out`;
+  const data = axiosClient
+    .post(url)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return data ?? {};
 };
 
 // đổi mật khẩu
 export const apiChangePassword = async (args: {
-    password: string;
-    newPassword: string;
-    token: string;
+  password: string;
+  newPassword: string;
+  token: string;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-    const { token } = args;
-    const url = `${Account_URL}/change-password`;
-    const form = JSON.stringify({
-        Password: args.password,
-        NewPassword: args.newPassword,
-    });
-    return putWithToken({ url, data: form, token });
+  const { token } = args;
+  const url = `${Account_URL}/change-password`;
+  const form = JSON.stringify({
+    Password: args.password,
+    NewPassword: args.newPassword,
+  });
+  return putWithToken({ url, data: form, token });
 };
 
 // đặt lại mật khẩu
 export const apiResetPassword = async (args: {
-    phoneNumber: string;
-    password: string;
-    confirmPassword: string;
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
 }) => {
-    const url = `${Account_URL}/forgot-password`;
-    const form = JSON.stringify({
-        PhoneNumber: args.phoneNumber,
-        Password: args.password,
-        ConfirmPassword: args.confirmPassword,
+  const url = `${Account_URL}/forgot-password`;
+  const form = JSON.stringify({
+    PhoneNumber: args.phoneNumber,
+    Password: args.password,
+    ConfirmPassword: args.confirmPassword,
+  });
+
+  const data = axiosClient
+    .put(url, form)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 
-    const data = axiosClient
-        .put(url, form)
-        .then((response) => {
-            return response.data;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-    return data ?? {};
+  return data ?? {};
 };
 
 // xóa tài khoản
 
 // Chỉnh sửa thông tin tài khoản
 export const apiEditProfile = (args: {
-    token: string;
-    data: any
+  token: string;
+  data: any;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-    const { token, data } = args;
-    const url = `${Account_URL}/edit-profile`;
+  const { token, data } = args;
+  const url = `${Account_URL}/edit-profile`;
 
-    return putWithToken({ url, data, token });
+  return putWithToken({ url, data, token });
 };
 
 // Danh sách thông báo

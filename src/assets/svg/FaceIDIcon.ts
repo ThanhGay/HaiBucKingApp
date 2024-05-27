@@ -48,4 +48,4 @@ export default () => `
         fill="#F2F2F2"
       />
     </svg>
-`
+`;

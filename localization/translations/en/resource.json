@@ -28,7 +28,6 @@
   },
   "see-all": "See all",
   "movie": {
-    "no-movie": "Hiện không có phim nào sắp chiếu",
     "detail": {
       "genre": "Movie genre",
       "censorship": "Censorship",
@@ -44,7 +43,11 @@
     },
     "now-playing": "Now playing",
     "coming-soon": "Coming soon",
-    "no-show": "Tạm không có suất chiếu của phim này"
+    "no-show": "Tạm không có suất chiếu của phim này",
+    "no-movie": {
+      "coming": "There are currently no upcoming movies",
+      "playing": "There are currently no playing movies"
+    }
   },
   "messages": {
     "error": {
@@ -148,7 +151,6 @@
   "home.title.part-1": "Now playing",
   "home.title.part-2": "Coming soon",
   "home.title.part-3": "Movie News",
-  "movie.no-movie": "Hiện không có phim nào sắp chiếu",
   "movie.detail.genre": "Movie genre",
   "movie.detail.censorship": "Censorship",
   "movie.detail.language": "Language",
@@ -217,7 +219,8 @@
   "buttons.done": "Done",
   "language": {
     "en": "English",
-    "vi": "Vietnamese"
+    "vi": "Vietnamese",
+    "title": "Language"
   },
   "modal-language": {
     "title": "Choose language",
@@ -227,5 +230,18 @@
   "language.en": "English",
   "language.vi": "Vietnamese",
   "modal-language.title": "Choose language",
-  "modal-language.subtitle": "Which language do you want to use?"
+  "modal-language.subtitle": "Which language do you want to use?",
+  "language.title": "Language",
+  "movie.no-movie.coming": "There are currently no upcoming movies",
+  "movie.no-movie.playing": "There are currently no playing movies",
+  "bottom-tab": {
+    "home": "Home",
+    "ticket": "Ticket",
+    "movie": "Movie",
+    "profile": "Profile"
+  },
+  "bottom-tab.home": "Home",
+  "bottom-tab.ticket": "Ticket",
+  "bottom-tab.movie": "Movie",
+  "bottom-tab.profile": "Profile"
 }

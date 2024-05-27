@@ -14,7 +14,7 @@ const LoginScreen = {
   ConfirmOTP: {
     name: 'ConfirmOTP',
     component: require('@app-views/ConfirmOTP/ConfirmOTP').default,
-  }
+  },
 };
 
 const MainScreen = {
@@ -33,7 +33,7 @@ const MainScreen = {
   Profile: {
     name: 'Profile',
     component: require('@app-views/Profile/Profile').default,
-  }
+  },
 };
 
 const AppScreens: Record<any, any> = {

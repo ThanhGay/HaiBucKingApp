@@ -98,8 +98,6 @@ export const movieSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getNowPlaying.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log(action.payload);
-        
         state.listNowPlaying = action.payload;
         state.isLoading = false;
       })
@@ -116,14 +114,14 @@ export const movieSlice = createSlice({
       .addCase(
         getShowTimesMovie.fulfilled,
         (state, action: PayloadAction<any>) => {
-            const cleanData = action.payload.map((item: any) => {
-                const startTime = new Date(item.StartTime);
-                const date = startTime.toISOString().split('T')[0];
-                const time = startTime.toISOString().split('T')[1].substring(0, 5);
-                return { date, time };
-            });            
-            state.listShowTimesMovie = cleanData;
-            state.isLoading = false;
+          const cleanData = action.payload.map((item: any) => {
+            const startTime = new Date(item.StartTime);
+            const date = startTime.toISOString().split('T')[0];
+            const time = startTime.toISOString().split('T')[1].substring(0, 5);
+            return { date, time };
+          });
+          state.listShowTimesMovie = cleanData;
+          state.isLoading = false;
         },
       )
       .addCase(

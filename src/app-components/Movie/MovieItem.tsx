@@ -14,8 +14,8 @@ interface MovieItemProps {
 
 const MovieItem: React.FC<
   MovieItemProps & { navigation: NavigationProp<any> }
-> = ({ navigation, film, direction }) => { 
-  const dispatch = useAppDispatch(); 
+> = ({ navigation, film, direction }) => {
+  const dispatch = useAppDispatch();
   const seeDetail = () => {
     dispatch(getDetailMovie({ movieId: film?.Movie_Id }));
     navigation.navigate('DetailMovie', { movieId: film?.Movie_Id });

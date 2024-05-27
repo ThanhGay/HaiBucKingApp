@@ -5,9 +5,6 @@ import { getWithToken, postWithToken, putWithToken } from '@/utils';
 const MovieAdmin_URL = `http://${LOCALHOST}:${PORT}/movie`;
 const ReportAdmin_URL = `http://${LOCALHOST}:${PORT}/report`;
 
-
-
-
 // --------------------------------- REPORT ---------------------------------
 
 // báo cáo theo khoảng thời gian
@@ -59,9 +56,6 @@ export const apiGetReportByCustomer = async (args: {
   });
   return postWithToken({ url, data: form, token });
 };
-
-
-
 
 // --------------------------------- CATEGORY ---------------------------------
 
@@ -124,9 +118,6 @@ export const apiDeleteCategory = async (args: {
 
   return postWithToken({ url, data: form, token });
 };
-
-
-
 
 // --------------------------------- MOVIE ---------------------------------
 

@@ -28,7 +28,10 @@ const ComingSoon: React.FC<{ navigation: NavigationProp<any> }> = ({
             ))
           ) : (
             <Text style={{ color: colors.whiteText }}>
-              {t('movie.no-movie', 'Hiện không có phim nào sắp chiếu')}
+              {t(
+                'movie.no-movie.coming',
+                'There are currently no upcoming movies',
+              )}
             </Text>
           )}
         </View>

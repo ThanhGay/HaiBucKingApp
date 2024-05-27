@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-} from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
 import colors from '@/utils/colors';
 
 import { apiDeleteCategory } from '@/api/admin';
@@ -47,7 +41,7 @@ const Category = ({ data, onPress }: { data: any; onPress: () => void }) => {
   );
 };
 export default function DeleteCategory() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.authState);
   const { listCategory } = useAppSelector((state) => state.adminState);
 
@@ -84,10 +78,9 @@ export default function DeleteCategory() {
           } else {
             Alert.alert('Notice', dataRes.msg);
           }
-
         })();
       });
-      
+
       dispatch(getListCategory());
       console.log('Selected Categories:', sortedSelectedCategories);
     } else {

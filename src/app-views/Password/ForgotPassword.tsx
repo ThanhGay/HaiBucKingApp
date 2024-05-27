@@ -88,10 +88,7 @@ const ForgotPassword: React.FC<{ navigation: NavigationProp<any> }> = ({
           <Text style={{ color: 'red' }}>{errorMessage}</Text>
         </View>
       </View>
-      <Button
-        title={t('buttons.continue')}
-        onPress={handleSummit}
-      />
+      <Button title={t('buttons.continue')} onPress={handleSummit} />
       <StatusBar backgroundColor="black" barStyle="light-content" />
       <View style={{ paddingTop: 20 }} />
     </View>
