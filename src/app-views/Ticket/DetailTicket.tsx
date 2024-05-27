@@ -1,10 +1,11 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import QRCode from 'react-native-qrcode-svg';
 
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 import { convert_Time, formatDate } from '@/utils/hooks';
-import QRCode from 'react-native-qrcode-svg';
 
 // test qr
 const BarcodeComponent = (orderId: any) => {
@@ -22,6 +23,7 @@ const BarcodeComponent = (orderId: any) => {
 };
 
 const DetailTicket = ({ route }: { route?: any }) => {
+  const { t } = useTranslation();
   const ticket = route.params;
 
   const navigation = useNavigation();
@@ -29,7 +31,7 @@ const DetailTicket = ({ route }: { route?: any }) => {
     <View style={{ paddingHorizontal: 16, backgroundColor: 'black', flex: 1 }}>
       <Title
         leftIcon
-        title="My ticket"
+        title={t('ticket.title', 'My ticket')}
         onPressLeft={() => navigation.goBack()}
       />
       <View style={styles.container}>
@@ -168,7 +170,10 @@ const DetailTicket = ({ route }: { route?: any }) => {
             />
             <View style={{ width: '95%' }}>
               <Text style={styles.text}>
-                Show this QR code to the ticket counter to receive your ticket
+                {t(
+                  'ticket.detail.show-note',
+                  'Show this QR code to the ticket counter to receive your ticket',
+                )}
               </Text>
             </View>
           </View>

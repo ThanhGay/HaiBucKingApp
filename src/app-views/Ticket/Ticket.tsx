@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
@@ -12,11 +13,12 @@ import { useAppSelector } from '@/redux/hooks';
 const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { listTicket } = useAppSelector((state) => state.userState);
-  
+
   return (
     <View style={styles.container}>
-      <Title title="My ticket" />
+      <Title title={t('ticket.title')} />
 
       <View style={{ flex: 9, gap: 16 }}>
         {listTicket.length > 0 ? (
@@ -33,7 +35,7 @@ const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
           )
         ) : (
           <Text style={{ color: colors.whiteText, textAlign: 'center' }}>
-            Hiện chưa có vé nào được đặt
+            {t('ticket.no-ticket', 'Hiện chưa có vé nào được đặt')}
           </Text>
         )}
       </View>

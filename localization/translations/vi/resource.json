@@ -1,0 +1,231 @@
+{
+  "confirm-otp": {
+    "title": "Xác nhận OTP",
+    "message": "Bạn phải nhập mã OTP được gửi đến số điện thoại đã đăng ký "
+  },
+  "buttons": {
+    "continue": "Tiếp tục",
+    "save": "Lưu",
+    "confirm-selection": "Xác nhận đặt",
+    "login": "Đăng nhập",
+    "done": "Hoàn tất"
+  },
+  "confirm-otp.title": "Xác nhận OTP",
+  "confirm-otp.message": "Bạn phải nhập mã OTP được gửi đến số điện thoại đã đăng ký ",
+  "buttons.continue": "Tiếp tục",
+  "first": {
+    "hello": "HaiBucKing xin chào!",
+    "hi": "Tận hưởng bộ phim ưa thích của bạn",
+    "signin": "Đăng nhập",
+    "signup": "Đăng ký"
+  },
+  "rule": "Bằng việc đăng nhập hoặc đăng ký, bạn đã chấp nhận các Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
+  "first.hello": "HaiBucKing xin chào!",
+  "first.hi": "Tận hưởng bộ phim ưa thích của bạn",
+  "first.signin": "Đăng nhập",
+  "first.signup": "Đăng ký",
+  "home": {
+    "hi": "Xin chào",
+    "welcome": "Chào mừng quay lại",
+    "title": {
+      "part-1": "Đang công chiếu",
+      "part-2": "Sắp công chiếu",
+      "part-3": "Tin tức"
+    }
+  },
+  "see-all": "Xem tất cả",
+  "home.hi": "Xin chào",
+  "home.welcome": "Chào mừng quay lại",
+  "home.title.part-1": "Đang công chiếu",
+  "home.title.part-2": "Sắp công chiếu",
+  "home.title.part-3": "Tin tức",
+  "movie": {
+    "no-movie": "Hiện không có phim nào sắp chiếu",
+    "detail": {
+      "genre": "Thể loại phim",
+      "censorship": "Độ tuổi",
+      "language": "Ngôn ngữ",
+      "submit-btn": "Đặt vé",
+      "review": "Đánh giá",
+      "watch-traler": "Xem trailer",
+      "storyline": "Cốt truyện",
+      "see": "Xem thêm",
+      "hide": "Ẩn bớt",
+      "director": "Đạo diễn",
+      "actor": "Diễn viên"
+    },
+    "now-playing": "Đang công chiếu",
+    "coming-soon": "Sắp công chiếu",
+    "no-show": "Tạm không có suất chiếu của phim này"
+  },
+  "movie.no-movie": "Hiện không có phim nào sắp chiếu",
+  "movie.detail.genre": "Thể loại phim",
+  "movie.detail.censorship": "Độ tuổi",
+  "movie.detail.language": "Ngôn ngữ",
+  "movie.detail.submit-btn": "Đặt vé",
+  "movie.detail.review": "Đánh giá",
+  "movie.detail.watch-traler": "Xem trailer",
+  "movie.detail.storyline": "Cốt truyện",
+  "movie.detail.see": "Xem thêm",
+  "movie.detail.hide": "Ẩn bớt",
+  "movie.detail.director": "Đạo diễn",
+  "movie.detail.actor": "Diễn viên",
+  "movie.now-playing": "Đang công chiếu",
+  "movie.coming-soon": "Sắp công chiếu",
+  "messages": {
+    "error": {
+      "password": "Mật khẩu mới bắt buộc dài 6 ký tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự số",
+      "confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
+      "duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
+      "wrong-password": "Sai mật khẩu",
+      "not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
+      "email": "Email không đúng định dạng",
+      "phone": "Số điện thoại phải có 10 chữ số",
+      "birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD"
+    },
+    "success": {
+      "update": {
+        "password": "Mật khẩu của bạn đã được cập nhật!",
+        "information": "Thông tin của bạn đã được cập nhật!"
+      }
+    }
+  },
+  "change-password": {
+    "title": "Đổi mật khẩu",
+    "your-password": "Mật khẩu hiện tại",
+    "new-password": "Mật khẩu mới",
+    "confirm-password": "Xác nhận mật khẩu"
+  },
+  "messages.error.password": "Mật khẩu mới bắt buộc dài 6 ký tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự số",
+  "messages.error.confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
+  "messages.success.update.password": "Mật khẩu của bạn đã được cập nhật!",
+  "messages.error.duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
+  "messages.error.wrong-password": "Sai mật khẩu",
+  "change-password.title": "Đổi mật khẩu",
+  "change-password.your-password": "Mật khẩu hiện tại",
+  "change-password.new-password": "Mật khẩu mới",
+  "change-password.confirm-password": "Xác nhận mật khẩu",
+  "buttons.save": "Lưu",
+  "reset-password": {
+    "title": "Đặt lại mật khẩu",
+    "phone": "Số điện thoại",
+    "new-password": "Mật khẩu mới",
+    "confirm-password": "Xác nhận mật khẩu"
+  },
+  "reset-password.title": "Đặt lại mật khẩu",
+  "reset-password.phone": "Số điện thoại",
+  "reset-password.new-password": "Mật khẩu mới",
+  "reset-password.confirm-password": "Xác nhận mật khẩu",
+  "notice": {
+    "warning": "Warning",
+    "choose-payment": "Please choose your payment method",
+    "notice": "Notice"
+  },
+  "payment": {
+    "title": "Payment",
+    "seat": "Seat",
+    "total": "Total",
+    "method": "Payment Method",
+    "countdown": "Complete your payment in"
+  },
+  "notice.warning": "Warning",
+  "notice.choose-payment": "Please choose your payment method",
+  "payment.title": "Payment",
+  "payment.seat": "Seat",
+  "payment.total": "Total",
+  "payment.method": "Payment Method",
+  "payment.countdown": "Complete your payment in",
+  "profile": {
+    "edit": {
+      "title": {
+        "edit": "Edit profile",
+        "detail": "Detail profile"
+      },
+      "input": {
+        "name": "Your name",
+        "phone": "Your phone number",
+        "email": "Your email",
+        "birthday": "Your birthday (YYYY/MM/DD)"
+      }
+    },
+    "change-language": "Change language",
+    "change-password": "Change password",
+    "to-admin": "To Admin Management",
+    "sign-out": "Sign out"
+  },
+  "notice.notice": "Notice",
+  "messages.success.update.information": "Thông tin của bạn đã được cập nhật!",
+  "profile.edit.title.edit": "Edit profile",
+  "profile.edit.title.detail": "Detail profile",
+  "profile.edit.input.name": "Your name",
+  "profile.edit.input.phone": "Your phone number",
+  "profile.edit.input.email": "Your email",
+  "profile.edit.input.birthday": "Your birthday (YYYY/MM/DD)",
+  "profile.change-language": "Change language",
+  "profile.change-password": "Change password",
+  "profile.to-admin": "To Admin Management",
+  "profile.sign-out": "Sign out",
+  "select-seat": {
+    "title": "Select Seat",
+    "choose-date": "Select Date & Time"
+  },
+  "select-seat.title": "Select Seat",
+  "messages.error.not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
+  "movie.no-show": "Tạm không có suất chiếu của phim này",
+  "select-seat.choose-date": "Select Date & Time",
+  "buttons.confirm-selection": "Xác nhận đặt",
+  "sign-in": {
+    "title": "Đăng nhập",
+    "phone": "Số điện thoại",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot Password?"
+  },
+  "sign-in.title": "Đăng nhập",
+  "sign-in.phone": "Số điện thoại",
+  "sign-in.password": "Password",
+  "sign-in.remember": "Remember me",
+  "sign-in.forgot": "Forgot Password?",
+  "buttons.login": "Đăng nhập",
+  "sign-up": {
+    "title": "Đăng ký"
+  },
+  "messages.error.email": "Email không đúng định dạng",
+  "messages.error.phone": "Số điện thoại phải có 10 chữ số",
+  "messages.error.birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD",
+  "sign-up.title": "Đăng ký",
+  "success": {
+    "title": "Success"
+  },
+  "success.title": "Success",
+  "ticket": {
+    "title": "My ticket",
+    "detail": {
+      "show-note": "Show this QR code to the ticket counter to receive your ticket"
+    },
+    "no-ticket": "Hiện chưa có vé nào được đặt"
+  },
+  "ticket.title": "My ticket",
+  "ticket.detail.show-note": "Show this QR code to the ticket counter to receive your ticket",
+  "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
+  "enter-username": {
+    "title": "Enter Username",
+    "note": "Latin characters, no emoji/symbols"
+  },
+  "enter-username.title": "Enter Username",
+  "enter-username.note": "Latin characters, no emoji/symbols",
+  "buttons.done": "Hoàn tất",
+  "language": {
+    "en": "English",
+    "vi": "Vietnamese"
+  },
+  "modal-language": {
+    "title": "Choose language",
+    "subtitle": "Which language do you want to use?"
+  },
+  "use": "Use",
+  "language.en": "English",
+  "language.vi": "Vietnamese",
+  "modal-language.title": "Choose language",
+  "modal-language.subtitle": "Which language do you want to use?"
+}

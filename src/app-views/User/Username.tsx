@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { styles } from '@/component/styles';
@@ -15,10 +16,13 @@ interface EnterUsernameProps {
 const EnterUsername: React.FC<
   EnterUsernameProps & { navigation: NavigationProp<any> }
 > = ({ route, navigation }) => {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
   const { isLoading, error, message, loginCode } = useAppSelector(
     (state) => state.authState,
   );
+
   const { birthday, email, password, phoneNumber } = route.params;
   const [username, setUsername] = useState('');
 
@@ -56,9 +60,11 @@ const EnterUsername: React.FC<
     <View style={styles.container}>
       <Title leftIcon title="" onPressLeft={() => navigation.goBack()} />
       <View style={styles.body}>
-        <Text style={{ fontSize: 30, color: '#FCC435' }}>Enter Username</Text>
+        <Text style={{ fontSize: 30, color: '#FCC435' }}>
+          {t('enter-username.title', 'Enter Username')}
+        </Text>
         <Text style={{ fontSize: 15, color: '#FFFFFF' }}>
-          Latin characters, no emoji/symbols
+          {t('enter-username.note', 'Latin characters, no emoji/symbols')}
         </Text>
         <Box
           icon={require('@assets/icons/user.png')}
@@ -68,7 +74,7 @@ const EnterUsername: React.FC<
           }}
         />
       </View>
-      <Button title="Done" onPress={handleSubmit} />
+      <Button title={t('buttons.done', 'Done')} onPress={handleSubmit} />
       <View style={{ paddingTop: 20 }} />
     </View>
   );

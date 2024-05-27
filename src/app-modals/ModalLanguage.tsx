@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   View,
   Text,
@@ -13,52 +14,39 @@ interface MyModalProps {
   visible: boolean;
 }
 
+interface LanguageItem {
+  key: string,
+  name: string;
+}
+
+
+
 const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
-  // const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const { t, i18n } = useTranslation();
   const modalRef = useRef<Modal>(null);
+  const [language, setLanguage] = useState('en');
 
-  const [selectEnglish, setColorEnglish] = useState(true);
-  const [selectVietNam, setColorVietNam] = useState(!selectEnglish);
+  const mapLng:{[key: string]:LanguageItem} = useMemo(() => {
+    return {
+      'en': {
+        key: 'en',
+        name: t("language.en", 'English'),
+      },
+      'vi': {
+        key: 'vi',
+        name: t('language.vi', 'Vietnamese'),
+      }
+    }
+  }, [])
 
-  const handelLanguageE = () => {
-    setColorEnglish(true);
-    setColorVietNam(false);
-  };
-  const handelLanguageV = () => {
-    setColorEnglish(false);
-    setColorVietNam(true);
-  };
   const handleSubmit = () => {
-    console.log(selectEnglish);
-
+    console.log(language);
+    i18n.changeLanguage(language)
     onClose();
   };
 
   return (
     <View style={{ backgroundColor: 'black' }}>
-      {/* <TouchableOpacity
-        style={{
-          borderRadius: 20,
-          borderColor: 'white',
-          backgroundColor: 'black',
-          height: 35,
-          borderWidth: 1,
-          width: 100,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-        }}
-        onPress={onOpen?.bind(this) || handleOpenModal}
-      >
-        <Image
-          style={{ height: 20, width: 20 }}
-          source={require('@/assets/icons/translate.png')}
-        />
-        <Text style={{ fontSize: 16, fontWeight: '400', color: '#E6E6E6' }}>
-          {selectEnglish ? 'English' : 'Việt Nam'}
-        </Text>
-      </TouchableOpacity> */}
-
       <Modal
         ref={modalRef}
         visible={visible}
@@ -77,7 +65,7 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
                   paddingTop: 32,
                 }}
               >
-                Choose language
+                {t('modal-language.title', 'Choose language')}
               </Text>
               <Text
                 style={{
@@ -87,75 +75,46 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
                   fontWeight: '400',
                 }}
               >
-                Which language do you want to use?
+                {t(
+                  'modal-language.subtitle',
+                  'Which language do you want to use?',
+                )}
               </Text>
             </View>
-            <TouchableOpacity
-              style={{
-                paddingTop: 32,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-              onPress={handelLanguageE}
-            >
-              <Text
+            {Object.values(mapLng).map((item) => (
+              <TouchableOpacity
+              key={item.key}
                 style={{
-                  fontSize: 20,
-                  fontWeight: '700',
-                  color: selectEnglish ? '#FCC434' : '#F2F2F2',
+                  paddingTop: 32,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}
+                onPress={() => setLanguage(item.key)}
               >
-                English
-              </Text>
-              <Image
-                source={
-                  selectEnglish
-                    ? require('@/assets/icons/select.png')
-                    : require('@/assets/icons/noselect.png')
-                }
-                style={{
-                  tintColor: selectEnglish ? '#FCC434' : '#F2F2F2',
-                  height: 32,
-                  width: 32,
-                }}
-              ></Image>
-            </TouchableOpacity>
-            <View
-              style={{
-                height: 1,
-                backgroundColor: '#333333',
-                marginVertical: 20,
-              }}
-            />
-            <TouchableOpacity
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
-              onPress={handelLanguageV}
-            >
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontWeight: '700',
-                  color: selectVietNam ? '#FCC434' : '#F2F2F2',
-                }}
-              >
-                Vietnamese
-              </Text>
-              <Image
-                source={
-                  selectVietNam
-                    ? require('@/assets/icons/select.png')
-                    : require('@/assets/icons/noselect.png')
-                }
-                style={{
-                  tintColor: selectVietNam ? '#FCC434' : '#F2F2F2',
-                  height: 32,
-                  width: 32,
-                }}
-              ></Image>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: '700',
+                    color: item.key === language ? '#FCC434' : '#F2F2F2',
+                  }}
+                >
+                  {item.name}
+                </Text>
+                <Image
+                  source={
+                    item.key === language
+                      ? require('@/assets/icons/select.png')
+                      : require('@/assets/icons/noselect.png')
+                  }
+                  style={{
+                    tintColor: item.key === language ? '#FCC434' : '#F2F2F2',
+                    height: 32,
+                    width: 32,
+                  }}
+                />
+              </TouchableOpacity>
+            ))}
+            
             <TouchableOpacity
               style={{ alignItems: 'center', marginTop: 80 }}
               onPress={handleSubmit}
@@ -173,7 +132,7 @@ const ModalLanguage: React.FC<MyModalProps> = ({ onClose, visible }) => {
                 <Text
                   style={{ fontSize: 20, fontWeight: '600', color: '#000' }}
                 >
-                  Use {selectVietNam ? 'Vietnamese' : 'English'}
+                  {t('use', 'Use')}
                 </Text>
               </View>
             </TouchableOpacity>

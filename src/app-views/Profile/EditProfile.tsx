@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Image, TextInput, StatusBar, Text, Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, Title } from '@/component/Component';
@@ -11,13 +12,13 @@ const emailRegex = new RegExp(
   /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
   'gm',
 );
-  
+
 const EditProfile = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const { token, user } = useAppSelector((state) => state.authState);
   const dispatch = useAppDispatch();
 
-  
   const [edit, setEdit] = useState(false);
 
   const [username, setUsername] = useState(user.FullName);
@@ -26,13 +27,9 @@ const EditProfile = () => {
   const [dob, setDob] = useState(user.DateOfBirth.slice(0, 10));
 
   const [errMes, setErrMes] = useState('');
-  
 
   const handleSubmit = async () => {
-    if (
-      emailRegex.test(email) &&
-      phoneNumber.length === 10
-    ) {
+    if (emailRegex.test(email) && phoneNumber.length === 10) {
       setEdit(false);
       const form = JSON.stringify({
         FullName: username.trim(),
@@ -43,7 +40,14 @@ const EditProfile = () => {
 
       const dataRes = await apiEditProfile({ token, data: form });
       if (dataRes.status) {
-        (() => Alert.alert('Notice', 'Your information is updated!'))();
+        (() =>
+          Alert.alert(
+            t('notice.notice', 'Notice'),
+            t(
+              'messages.success.update.information',
+              'Your information is updated!',
+            ),
+          ))();
         dispatch(
           setDataUser({
             ...user,
@@ -66,7 +70,11 @@ const EditProfile = () => {
     <View style={{ backgroundColor: 'black', flex: 1, paddingHorizontal: 16 }}>
       <Title
         leftIcon
-        title={edit ? 'Edit profile' : 'Detail profile'}
+        title={
+          edit
+            ? t('profile.edit.title.edit', 'Edit profile')
+            : t('profile.edit.title.detail', 'Detail profile')
+        }
         rightIcon={
           <Image
             style={{ height: 32, width: 32 }}
@@ -90,34 +98,37 @@ const EditProfile = () => {
           link={require('@/assets/icons/avata.png')}
           value={username}
           onChangeText={(newValue) => setUsername(newValue)}
-          placeholder="Your name"
+          placeholder={t('profile.edit.input.name', 'Your name')}
           edit={edit}
         />
         <BoxEditProfile
           link={require('@/assets/icons/phone.png')}
           value={phoneNumber}
           onChangeText={(newValue) => setPhoneNumber(newValue)}
-          placeholder="Your phone number"
+          placeholder={t('profile.edit.input.phone', 'Your phone number')}
           edit={edit}
         />
         <BoxEditProfile
           link={require('@/assets/icons/email.png')}
           value={email}
           onChangeText={(newValue) => setEmail(newValue)}
-          placeholder="Your email"
+          placeholder={t('profile.edit.input.email', 'Your email')}
           edit={edit}
         />
         <BoxEditProfile
           link={require('@/assets/icons/cake.png')}
           value={dob}
           onChangeText={(newValue) => setDob(newValue)}
-          placeholder="Your birthday (YYYY/MM/DD)"
+          placeholder={t(
+            'profile.edit.input.birthday',
+            'Your birthday (YYYY/MM/DD)',
+          )}
           edit={edit}
         />
         {edit && (
           <View>
             <Text style={{ color: 'red' }}>{errMes}</Text>
-            <Button title={'Save'} onPress={handleSubmit} />
+            <Button title={t('buttons.save')} onPress={handleSubmit} />
           </View>
         )}
       </View>

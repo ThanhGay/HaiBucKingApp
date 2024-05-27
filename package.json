@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "translate": "i18next-scanner --config i18next-scanner.config.js"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.17",
@@ -16,7 +17,10 @@
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.8",
     "axios": "^1.6.8",
+    "i18next": "^23.11.5",
+    "i18next-browser-languagedetector": "^8.0.0",
     "react": "18.2.0",
+    "react-i18next": "^14.1.2",
     "react-native": "0.73.6",
     "react-native-encrypted-storage": "^4.0.3",
     "react-native-modal": "^13.0.1",
@@ -43,6 +47,7 @@
     "babel-jest": "^29.6.3",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.19.0",
+    "i18next-scanner": "^4.4.0",
     "jest": "^29.6.3",
     "metro-react-native-babel-preset": "^0.77.0",
     "prettier": "2.8.8",

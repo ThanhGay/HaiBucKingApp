@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, StatusBar, Alert, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Title, Box, Button } from '@/component/Component';
 import { styles } from '@/component/styles';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { apiChangePassword } from '@/api/auth';
 import { setDataUser } from '@/redux/features/authSlice';
+import { apiChangePassword } from '@/api/auth';
 
 const passwordRegex = new RegExp(
   /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
@@ -16,6 +17,7 @@ const passwordRegex = new RegExp(
 const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { user, token } = useAppSelector((state) => state.authState);
   const dispatch = useAppDispatch();
 
@@ -27,13 +29,21 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
   const handleSubmit = async () => {
     if (!passwordRegex.test(newPassword)) {
       setErrorMessage(
-        'Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+        t(
+          'messages.error.password',
+          'Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+        ),
       );
       return;
     }
 
     if (newPassword !== confirm) {
-      setErrorMessage('Your password and confirm password do not match');
+      setErrorMessage(
+        t(
+          'messages.error.confirm-password',
+          'Your password and confirm password do not match',
+        ),
+      );
       return;
     }
 
@@ -45,14 +55,25 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
       });
 
       if (dataRes.status) {
-        (() => Alert.alert('Notice', 'Your password is updated!'))();
+        (() =>
+          Alert.alert(
+            'Notice',
+            t('messages.success.update.password', 'Your password is updated!'),
+          ))();
         dispatch(setDataUser({ ...user, PassWord: newPassword }));
         navigation.goBack();
       } else {
-        setErrorMessage('The new password and current password match');
+        setErrorMessage(
+          t(
+            'messages.error.duplicate-password',
+            'The new password and current password match',
+          ),
+        );
       }
     } else {
-      setErrorMessage('Your password is incorrect.');
+      setErrorMessage(
+        t('messages.error.wrong-password', 'Your password is incorrect'),
+      );
     }
   };
 
@@ -79,13 +100,13 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
     <View style={styles.container}>
       <Title
         leftIcon
-        title={'Change Password'}
+        title={t('change-password.title', 'Change Password')}
         onPressLeft={() => navigation.goBack()}
       />
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/key-password.png')}
-          title={'Your password'}
+          title={t('change-password.your-password', 'Your password')}
           onChangeText={(text: string) => {
             setPassword(text);
             setErrorMessage('');
@@ -95,7 +116,7 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
         />
         <Box
           icon={require('@assets/icons/key-password.png')}
-          title={'New password'}
+          title={t('change-password.new-password', 'New password')}
           onChangeText={(text: string) => {
             setNewPassword(text);
             setErrorMessage('');
@@ -105,7 +126,7 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
         />
         <Box
           icon={require('@assets/icons/key-password.png')}
-          title={'Confirm new password'}
+          title={t('change-password.confirm-password', 'Confirm new password')}
           onChangeText={(text: string) => {
             setConfirm(text);
             setErrorMessage('');
@@ -119,7 +140,10 @@ const ChangePassword: React.FC<{ navigation: NavigationProp<any> }> = ({
       </View>
 
       <View style={styles.footer}>
-        <Button title={'Save'} onPress={handleSubmit} />
+        <Button
+          title={t('buttons.save', 'Save')}
+          onPress={handleSubmit}
+        />
         <View style={{ paddingTop: 30 }} />
       </View>
       <StatusBar backgroundColor={'black'} barStyle={'light-content'} />

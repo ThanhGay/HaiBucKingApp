@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StatusBar,
-  View,
-  Keyboard,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import { StatusBar, View, Keyboard } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
 import { Box, Button, Footer, Title } from '@/component/Component';
@@ -28,6 +23,7 @@ const passwordRegex = new RegExp(
 const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -42,26 +38,37 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   const validateEmail = (str: string) => {
     setValidEmail(emailRegex.test(str));
-    setErrorMessage('Your email is not in the correct format');
+    setErrorMessage(
+      t('messages.error.email', 'Your email is not in the correct format'),
+    );
   };
 
   const validatePhone = (str: string) => {
     setValidPhone(str.length === 10);
-    setErrorMessage('Your phone number must be 10 digits');
+    setErrorMessage(
+      t('messages.error.phone', 'Your phone number must be 10 digits'),
+    );
   };
 
   const validateBirthday = (str: string) => {
     setValidBirthday(dateRegex.test(str));
-    setErrorMessage('Your birthday is not in the format YYYY/MM/DD');
+    setErrorMessage(
+      t(
+        'messages.error.birthday',
+        'Your birthday is not in the format YYYY/MM/DD',
+      ),
+    );
   };
 
   const validatePassword = (str: string) => {
     setValidPassword(passwordRegex.test(password));
     setErrorMessage(
-      'Your password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+      t(
+        'messages.error.password',
+        'Your password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+      ),
     );
   };
-
 
   const handleSubmit = () => {
     validateEmail(email);
@@ -69,7 +76,13 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
     validateBirthday(birthday);
     validatePassword(password);
 
-    if (validPhone && validEmail && validBirthday && validPassword && password === confirm) {
+    if (
+      validPhone &&
+      validEmail &&
+      validBirthday &&
+      validPassword &&
+      password === confirm
+    ) {
       navigation.navigate('ConfirmOTP', {
         email,
         phoneNumber,
@@ -78,9 +91,13 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
         continue: 'EnterUsername',
       });
     } else {
-      setErrorMessage("Your password and confirm password are not match.")
+      setErrorMessage(
+        t(
+          'messages.error.confirm-password',
+          'Your password and confirm password are not match',
+        ),
+      );
     }
-
   };
 
   // bật tắt footer
@@ -108,27 +125,31 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   }, []);
   return (
     <View style={styles.container}>
-      <Title leftIcon title="Sign up" onPressLeft={() => navigation.goBack()} />
+      <Title
+        leftIcon
+        title={t('sign-up.title', 'Sign up')}
+        onPressLeft={() => navigation.goBack()}
+      />
       <View style={styles.body}>
         <Box
           icon={require('@assets/icons/email.png')}
           title="Email"
           onChangeText={(text: string) => {
             setEmail(text);
-            validateEmail(text)
+            validateEmail(text);
           }}
           valid={validEmail}
-          errText="Your email is not in the correct format"
+          errText={t('messages.error.email')}
         />
         <Box
           icon={require('@assets/icons/phone.png')}
           title="Phone Number"
           onChangeText={(text: string) => {
             setPhoneNumber(text);
-            validatePhone(text)
+            validatePhone(text);
           }}
           valid={validPhone}
-          errText="Your phone number must be 10 digits"
+          errText={t('messages.error.phone')}
         />
 
         <Box
@@ -136,10 +157,10 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
           title="Your birthday (yyyy/mm/dd)"
           onChangeText={(text: string) => {
             setBirthday(text);
-            validateBirthday(text)
+            validateBirthday(text);
           }}
           valid={validBirthday}
-          errText="Your birthday is not in the format YYYY/MM/DD"
+          errText={t('messages.error.birthday')}
         />
 
         <Box
@@ -147,11 +168,11 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
           title="Password"
           onChangeText={(text: string) => {
             setPassword(text);
-            validatePassword(text)
+            validatePassword(text);
           }}
           secureTextEntry
           valid={validPassword}
-          errText="Your password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+          errText={t('messages.error.password')}
         />
         <Box
           icon={require('@assets/icons/key-password.png')}
@@ -161,13 +182,11 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
           }}
           secureTextEntry
           valid={password === confirm}
-          errText="Your password and confirm password are not match"
+          errText={t('messages.error.confirm-password')}
         />
-        <Button title="Continue" onPress={handleSubmit} />
+        <Button title={t('buttons.continue')} onPress={handleSubmit} />
       </View>
-      {!isKeyboardVisible && (
-        <Footer title="By sign in or sign up, you argee to our Terms of Service and Privacy Policy"></Footer>
-      )}
+      {!isKeyboardVisible && <Footer title={t('rule')} />}
       <StatusBar backgroundColor="black" barStyle="light-content" />
     </View>
   );

@@ -1,5 +1,5 @@
 import { NavigationProp } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   AppState,
   BackHandler,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import MovieItem from '../../app-components/Movie/MovieItem';
 import { Button, Title } from '@/component/Component';
@@ -17,11 +18,7 @@ import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  apiActiveTransaction,
-  apiCancelBooking,
-  apiSaveInvoice,
-} from '@/api/ticket';
+import { apiActiveTransaction } from '@/api/ticket';
 import { CountdownTimer } from '@app-components';
 import { current } from '@reduxjs/toolkit';
 
@@ -56,6 +53,7 @@ const paymentMethod = [
 const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const { t } = useTranslation();
   const { token } = useAppSelector((state) => state.authState);
   const {
     movieName,
@@ -93,7 +91,11 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
         navigation.navigate('Success');
       }
     } else {
-      (() => Alert.alert('Warning', 'Please choose your payment method'))();
+      (() =>
+        Alert.alert(
+          t('notice.warning', 'Warning'),
+          t('notice.choose-payment', 'Please choose your payment method'),
+        ))();
     }
   };
 
@@ -139,7 +141,11 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   return (
     <View style={styles.container}>
-      <Title leftIcon title="Payment" onPressLeft={rollbackTransaction} />
+      <Title
+        leftIcon
+        title={t('payment.title', 'Payment')}
+        onPressLeft={rollbackTransaction}
+      />
       <View style={{ flex: 8 }}>
         <ScrollView>
           <View style={{}}>
@@ -186,7 +192,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.whiteText,
                 }}
               >
-                Seat
+                {t('payment.seat', 'Seat')}
               </Text>
               <Text
                 style={{
@@ -219,7 +225,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                   color: colors.whiteText,
                 }}
               >
-                Total
+                {t('payment.total', 'Total')}
               </Text>
               <Text
                 style={{
@@ -240,7 +246,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                 marginTop: 32,
               }}
             >
-              Payment Method
+              {t('payment.method', 'Payment Method')}
             </Text>
             {/* Pay */}
             <View style={{ marginTop: 24 }}>
@@ -281,7 +287,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
                 color: colors.whiteText,
               }}
             >
-              Complete your payment in
+              {t('payment.countdown', 'Complete your payment in')}
             </Text>
 
             <CountdownTimer
@@ -292,7 +298,10 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
         </ScrollView>
       </View>
 
-      <Button title="Continue" onPress={commitTransaction} />
+      <Button
+        title={t('buttons.continue')}
+        onPress={commitTransaction}
+      />
     </View>
   );
 };
