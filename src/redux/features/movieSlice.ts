@@ -13,6 +13,7 @@ export interface MovieState {
   listNowPlaying: Array<any> | Array<null>;
   listShowTimesMovie: Array<any> | Array<null>;
   isLoading: boolean;
+  isLoadSchedule: boolean;
 }
 
 const initialState: MovieState = {
@@ -21,6 +22,7 @@ const initialState: MovieState = {
   listNowPlaying: [],
   listShowTimesMovie: [],
   isLoading: true,
+  isLoadSchedule: true,
 };
 
 export const getDetailMovie = createAsyncThunk(
@@ -108,7 +110,7 @@ export const movieSlice = createSlice({
       .addCase(
         getShowTimesMovie.pending,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = true;
+          state.isLoadSchedule = true;
         },
       )
       .addCase(
@@ -121,13 +123,13 @@ export const movieSlice = createSlice({
             return { date, time };
           });
           state.listShowTimesMovie = cleanData;
-          state.isLoading = false;
+          state.isLoadSchedule = false;
         },
       )
       .addCase(
         getShowTimesMovie.rejected,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
+          state.isLoadSchedule = false;
         },
       );
   },

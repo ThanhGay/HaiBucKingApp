@@ -123,12 +123,14 @@ export const Box = ({
 export const Button = ({
   title,
   onPress,
+  disable
 }: {
   title: string;
   onPress?: () => void;
+  disable?: boolean
 }) => {
   return (
-    <TouchableOpacity style={styles.box} onPress={onPress}>
+    <TouchableOpacity style={styles.box} onPress={onPress} disabled ={disable}>
       <Text
         style={{
           textAlign: 'center',

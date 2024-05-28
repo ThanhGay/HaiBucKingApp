@@ -6,6 +6,8 @@ import { NavigationProp } from '@react-navigation/native';
 import { Button, CountdownTimer, Title } from '@/component/Component';
 import { styles } from '@/component/styles';
 import { apiResetPassword } from '@/api/auth';
+import { resetPassword } from '@/redux/features/authSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
 interface ConfirmOtpProps {
   route: any;
@@ -18,6 +20,11 @@ const ConfirmOTP: React.FC<
   const phoneNumber = route.params.phoneNumber;
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
+
+   const { isResetPassWord } = useAppSelector(
+     (state) => state.authState,
+   );
+  const dispatch = useAppDispatch()
 
   const handleChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
@@ -63,7 +70,14 @@ const ConfirmOTP: React.FC<
 
   const submit = async (values: any) => {
     const dataRes = await apiResetPassword(values);
-    if (dataRes.status) {
+    dispatch(
+      resetPassword({
+        phoneNumber: values.phoneNumber,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+      }),
+    );
+    if (!isResetPassWord) {
       console.log('Success');
       navigation.navigate(route.params.continue);
     } else {
@@ -131,6 +145,7 @@ const ConfirmOTP: React.FC<
         <Button
           title={t('buttons.continue', 'Continue')}
           onPress={handleSubmit}
+          disable={isResetPassWord}
         />
         <View style={{ marginTop: 16 }} />
       </View>

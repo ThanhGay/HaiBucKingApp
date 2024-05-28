@@ -6,7 +6,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Title } from '@/component/Component';
 import { apiEditProfile } from '@/api/auth';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setDataUser } from '@/redux/features/authSlice';
+import { editProfile, setDataUser } from '@/redux/features/authSlice';
+import { setUser } from '@/security/user';
 
 const emailRegex = new RegExp(
   /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
@@ -16,7 +17,7 @@ const emailRegex = new RegExp(
 const EditProfile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { token, user } = useAppSelector((state) => state.authState);
+  const { token, user, isEditingProfile } = useAppSelector((state) => state.authState);
   const dispatch = useAppDispatch();
 
   const [edit, setEdit] = useState(false);
@@ -38,8 +39,9 @@ const EditProfile = () => {
         DateOfBirth: dob.trim(),
       });
 
-      const dataRes = await apiEditProfile({ token, data: form });
-      if (dataRes.status) {
+      // const dataRes = await apiEditProfile({ token, data: form });
+      dispatch(editProfile({ token, data: form }));
+      if (!isEditingProfile) {
         (() =>
           Alert.alert(
             t('notice.notice', 'Notice'),
@@ -57,6 +59,7 @@ const EditProfile = () => {
             DateOfBirth: dob,
           }),
         );
+        await setUser(user);
       } else {
         console.log('cancel fetch api edit profile');
       }

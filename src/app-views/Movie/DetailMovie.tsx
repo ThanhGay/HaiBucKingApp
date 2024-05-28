@@ -34,7 +34,7 @@ const DetailMovie: React.FC<
 > = ({ navigation, route }) => {
   const { t } = useTranslation();
   const movieId = route.params.movieId;
-  const { detailMovie, isLoading } = useAppSelector(
+  const { detailMovie, isLoading, listShowTimesMovie, isLoadSchedule } = useAppSelector(
     (state) => state.movieState,
   );
   const dispatch = useAppDispatch();
@@ -66,7 +66,7 @@ const DetailMovie: React.FC<
   };
   return (
     <>
-      {isLoading ? (
+      {(isLoading || isLoadSchedule) ? (
         <ActivityIndicator
           style={{ height: '100%' }}
           size={'large'}
@@ -128,13 +128,13 @@ const DetailMovie: React.FC<
 
             <Storyline description={detailMovie?.Description} />
 
-            <Directors listDirector={detailMovie.directors} />
-            <Actors listActor={detailMovie.actors} />
+            <Directors listDirector={detailMovie?.directors} />
+            <Actors listActor={detailMovie?.actors} />
 
             <Button
               title={t('movie.detail.submit-btn', 'Booking')}
               onPress={handleBooking}
-              disabled={false}
+              disabled={listShowTimesMovie.length < 1}
             />
           </View>
         </ScrollView>

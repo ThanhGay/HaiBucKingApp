@@ -20,6 +20,7 @@ import { getNowPlaying } from '@/redux/features/movieSlice';
 const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
+  const [searchText, setSearchText] = useState('');
   const { t } = useTranslation();
   const { listNowPlaying } = useAppSelector((state) => state.movieState);
   const [refreshing, setRefreshing] = useState(false);
@@ -76,10 +77,21 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
         onScroll={handleScroll}
         scrollEventThrottle={16}
       >
-        {listNowPlaying.length > 0 && <SearchBox type="movie" />}
+        {listNowPlaying.length > 0 && (
+          <SearchBox
+            text={searchText}
+            onChangeText={(newText) => {
+              setSearchText(newText);
+              console.log(searchText);
+            }}
+            type="movie"
+          />
+        )}
         <View style={styles.container}>
           {listNowPlaying.length > 0 ? (
-            listNowPlaying.map((movie) => (
+            
+            listNowPlaying.filter(_ => _.Movie_Name.toLowerCase().includes(searchText.toLowerCase()))
+            .map((movie) => (
               <MovieItem
                 key={movie.Movie_Id}
                 film={movie}

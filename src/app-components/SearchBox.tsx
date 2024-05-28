@@ -8,24 +8,26 @@ import {
   View,
 } from 'react-native';
 
-function SearchBox({ type }: { type: 'category' | 'movie' | 'all' }) {
-  const [textValue, setTextValue] = useState<string>('');
-
-  const onSubmit = () => {
-    // Call API search global in here
-
-    console.log(textValue);
-  };
-
+function SearchBox({
+  type,
+  text,
+  onChangeText,
+  onSubmit,
+}: {
+  type: 'category' | 'movie' | 'all';
+  text: string;
+  onChangeText: (str: string) => void;
+  onSubmit?: () => void;
+}) {
   return (
     <View style={styles.searchbox}>
       <TextInput
         autoComplete="off"
         placeholder="Search..."
         placeholderTextColor="#8C8C8C"
-        defaultValue={textValue}
+        defaultValue={text}
         style={styles.textInput}
-        onChangeText={(newText) => setTextValue(newText)}
+        onChangeText={onChangeText}
         onSubmitEditing={onSubmit}
       />
       <TouchableOpacity onPress={onSubmit}>

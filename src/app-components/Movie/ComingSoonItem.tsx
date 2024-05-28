@@ -3,6 +3,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 
 import colors from '@/utils/colors';
+import { getDetailMovie, getShowTimesMovie } from '@/redux/features/movieSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 interface ComingSoonItemProps {
   film?: any;
@@ -11,9 +13,14 @@ interface ComingSoonItemProps {
 const ComingSoonItem: React.FC<
   ComingSoonItemProps & { navigation: NavigationProp<any> }
 > = ({ navigation, film }) => {
+  const dispatch = useAppDispatch();
+
   const seeDetail = () => {
+    dispatch(getDetailMovie({ movieId: film?.Movie_Id }));
+    dispatch(getShowTimesMovie({ movieId: film?.Movie_Id }));
     navigation.navigate('DetailMovie', { movieId: film.Movie_Id });
   };
+  
   const basicInfo = [
     {
       key: 1,

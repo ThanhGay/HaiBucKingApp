@@ -61,7 +61,7 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   };
 
   const validatePassword = (str: string) => {
-    setValidPassword(passwordRegex.test(password));
+    setValidPassword(passwordRegex.test(str));
     setErrorMessage(
       t(
         'messages.error.password',

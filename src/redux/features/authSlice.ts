@@ -20,6 +20,9 @@ export interface AuthState {
   user: any;
   token: any;
   isLoading: boolean;
+  isChangingPassWord: boolean;
+  isResetPassWord: boolean;
+  isEditingProfile: boolean;
   error: boolean;
   loginCode: boolean | null; // 0 - failed, 1 - success
   message: string;
@@ -56,6 +59,8 @@ export const authLogout = createAsyncThunk('auth/logout', async () => {
   const response = await apiSignOut();
   await deleteToken();
   await deleteUser();
+  console.log(await getToken());
+  console.log(await getUser());
   return response;
 });
 
@@ -109,6 +114,9 @@ const initialState: AuthState = {
   user: null,
   token: '',
   isLoading: true,
+  isChangingPassWord: false,
+  isResetPassWord: false,
+  isEditingProfile: false,
   error: false,
   loginCode: false,
   message: '',
@@ -177,11 +185,35 @@ export const authSlice = createSlice({
       .addCase(getTokenInStorage.fulfilled, (state, action) => {
         state.token = action.payload;
       })
-      .addCase(authChangePassword.fulfilled, (state, action) => {
-        console.log('api change password', action.payload);
+      .addCase(authChangePassword.pending, (state, action) => {
+        state.isChangingPassWord = true;
       })
-      .addCase(authChangePassword.rejected, (state, action) => {
-        console.log('rejected API', action.payload);
+      .addCase(authChangePassword.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isChangingPassWord = false;
+        state.message = action.payload.msg;
+      })
+      .addCase(authChangePassword.rejected, (state, action: PayloadAction<any>) => {
+        state.isChangingPassWord = false;
+        state.message = action.payload.msg;
+      })
+      .addCase(resetPassword.pending, (state, action) => {
+        state.isResetPassWord = true;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.isResetPassWord = false;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isResetPassWord = false;
+      })
+
+      .addCase(editProfile.pending, (state, action) => {
+        state.isEditingProfile = true;
+      })
+      .addCase(editProfile.fulfilled, (state, action) => {
+        state.isEditingProfile = false;
+      })
+      .addCase(editProfile.rejected, (state, action) => {
+        state.isEditingProfile = false;
       })
       .addMatcher(
         isAnyOf(authLogout.fulfilled, authLogout.rejected),

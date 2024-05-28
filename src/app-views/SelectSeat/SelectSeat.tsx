@@ -151,6 +151,14 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
           style={{ width: '110%', marginTop: -30, alignSelf: 'center' }}
           resizeMode="contain"
         />
+        <View>
+          <Text style={{ color: '#eee', marginTop: -30 }}>
+            {t(
+              'select-seat.guide',
+              'Please choose date, choose time and choose your seat',
+            )}
+          </Text>
+        </View>
         {listShowTimesMovie.length > 0 ? (
           <>
             <View style={styles.seatContainer}>

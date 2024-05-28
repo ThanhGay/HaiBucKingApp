@@ -5,7 +5,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { convert_Time } from '@/utils/hooks';
 import colors from '@/utils/colors';
 import { useAppDispatch } from '@/redux/hooks';
-import { getDetailMovie } from '@/redux/features/movieSlice';
+import { getDetailMovie, getShowTimesMovie } from '@/redux/features/movieSlice';
 
 interface MovieItemProps {
   film?: any;
@@ -16,8 +16,9 @@ const MovieItem: React.FC<
   MovieItemProps & { navigation: NavigationProp<any> }
 > = ({ navigation, film, direction }) => {
   const dispatch = useAppDispatch();
-  const seeDetail = () => {
+  const seeDetail = async () => {
     dispatch(getDetailMovie({ movieId: film?.Movie_Id }));
+    dispatch(getShowTimesMovie({movieId: film?.Movie_Id}));
     navigation.navigate('DetailMovie', { movieId: film?.Movie_Id });
   };
   const basicInfo = [
