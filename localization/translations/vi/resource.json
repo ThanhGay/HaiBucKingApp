@@ -169,7 +169,8 @@
   "profile.sign-out": "Đăng xuất",
   "select-seat": {
     "title": "Chọn ghế ngồi",
-    "choose-date": "Chọn ngày và giờ"
+    "choose-date": "Chọn ngày và giờ",
+    "guide": "Hãy chọn ngày, chọn giờ, và chọn ghế để tận hưởng bộ phim"
   },
   "select-seat.title": "Chọn ghế ngồi",
   "messages.error.not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
@@ -243,5 +244,6 @@
   "bottom-tab.home": "Trang chủ",
   "bottom-tab.ticket": "Vé",
   "bottom-tab.movie": "Phim",
-  "bottom-tab.profile": "Tài khoản"
+  "bottom-tab.profile": "Tài khoản",
+  "select-seat.guide": "Hãy chọn ngày, chọn giờ, và chọn ghế để tận hưởng bộ phim"
 }
