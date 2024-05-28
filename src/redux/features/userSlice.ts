@@ -1,4 +1,5 @@
 //  import { apiGetListNotification } from '@/api/auth';
+import { apiGetNotification } from '@/api/ticket';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface UserState {
@@ -8,7 +9,7 @@ export interface UserState {
 export const getListNotification = createAsyncThunk(
   'user/getListNotification',
   async (args: { token: string }) => {
-    const res = await apiGetListNotification(args);
+    const res = await apiGetNotification(args);
     if (res.status) {
       return res.data;
     }
@@ -24,13 +25,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder;
-    // .addCase(
-    //     getListNotification.fulfilled,
-    //     (state, action: PayloadAction<any>) => {
-    //         state.listNotification = action.payload;
-    //     },
-    // )
+    builder
+    .addCase(
+        getListNotification.fulfilled,
+        (state, action: PayloadAction<any>) => {
+            state.listNotification = action.payload;
+        },
+    )
   },
 });
 

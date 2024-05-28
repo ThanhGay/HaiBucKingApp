@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
+  Modal,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +21,11 @@ import NewsItem from './components/NewsItem';
 import SlideShow from './components/SlideShow';
 import ContentBox from './components/ContentBox';
 import colors from '@/utils/colors';
+import { apiGetNotification } from '@/api/ticket';
+import NotificationItem from './components/NotificationItem';
+import  ModalNotification  from '@/app-modals/ModalNotification';
+//
+
 
 const listNews = [
   {
@@ -41,6 +48,12 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
   const { listNowPlaying, listComingSoon, isLoading } = useAppSelector(
     (state) => state.movieState,
   );
+
+  const {listNotification} = useAppSelector((state) => state.userState);
+
+  const [showModal, setShowModal] = useState(false);
+
+
 
   return (
     <>
@@ -69,10 +82,24 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                       {t('home.welcome', 'Welcome back')}
                     </Text>
                   </View>
-                  <Image
-                    source={require('@assets/icons/notification.png')}
-                    style={{ width: 36, height: 36 }}
-                  />
+                  <TouchableOpacity
+                    onPress={() => setShowModal(true)}
+                    // style={styles.container}
+                  >
+                    <View style={styles.notificationContainer}>
+                      <Image
+                        source={require('@assets/icons/notification.png')}
+                        style={styles.notificationIcon}
+                      />
+                      {listNotification.length > 0 && (
+                        <View style={styles.badgeContainer}>
+                          <Text style={styles.badgeText}>
+                            {listNotification.length}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  </TouchableOpacity>
                   {/* <Badge /> */}
                 </View>
                 <ScrollView>
@@ -116,6 +143,7 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
             </View>
           </ScrollView>
           <BottomTab />
+        <ModalNotification open = {showModal} onClose={() => setShowModal(false)} data = {listNotification} />
         </View>
       )}
     </>
@@ -138,6 +166,54 @@ const styles = StyleSheet.create({
     color: colors.whiteText,
     fontWeight: '700',
     fontSize: 26,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: colors.black,
+    borderRadius: 10,
+    padding: 20,
+    maxHeight: '100%',
+    width: '100%',
+  },
+  notificationText: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: colors.whiteText,
+  },
+
+  closeButtonText: {
+    color: colors.white,
+    fontWeight: '700',
+  },
+  notificationIcon: {
+    width: '100%',
+    height: '100%',
+  },
+  notificationContainer: {
+    position: 'relative',
+    width: 36,
+    height: 36,
+  },
+  badgeContainer: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    backgroundColor: 'red',
+    borderRadius: 10,
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  badgeText: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 
