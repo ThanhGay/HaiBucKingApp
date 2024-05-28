@@ -20,6 +20,7 @@ import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { activeTransaction } from '@/redux/features/ticketSlice';
+import { apiActiveTransaction } from '@/api/ticket';
 
 const paymentMethod = [
   {
@@ -53,6 +54,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
+  const [loadTracsaction, setLoadTransaction] = useState(true)
   const { token } = useAppSelector((state) => state.authState);
   const { bookingTicket, statusTransaction } = useAppSelector(
     (state) => state.ticketState,
@@ -60,7 +62,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   const dispatch = useAppDispatch();
 
   const [activeMethod, setActiveMethod] = useState<number>(-1);
-  const seat_Ids = bookingTicket.seats.toString();
+  const seat_Ids = bookingTicket.seats.toString().replace(',', ', ');
 
   console.log('Transaction in invoiceId', bookingTicket.invoiceId);
 
@@ -75,23 +77,19 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
 
   const commitTransaction = async () => {
     if (activeMethod > 0) {
-      dispatch(activeTransaction({ decision: 1 }));
-      if (statusTransaction) {
+      const dataRes = await apiActiveTransaction({ decision: 1 });
+      if (dataRes.status) {
         console.log('commit success', bookingTicket.invoiceId);
         navigation.navigate('Success');
       }
     } else {
-      (() =>
-        Alert.alert(
-          t('notice.warning', 'Warning'),
-          t('notice.choose-payment', 'Please choose your payment method'),
-        ))();
+      (() => Alert.alert('Warning', 'Please choose your payment method'))();
     }
   };
 
   const rollbackTransaction = async () => {
-    dispatch(activeTransaction({ decision: 0 }));
-    if (statusTransaction) {
+    const dataRes = await apiActiveTransaction({ decision: 0 });
+    if (dataRes.status) {
       console.log('rollback success', bookingTicket.invoiceId);
       navigation.goBack();
     }
@@ -107,17 +105,17 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       appStateSubscription.remove();
     };
   }, []);
+
   const handleAppStateChange = async (nextAppState: any) => {
     if (nextAppState === 'background' || nextAppState === 'inactive') {
       await rollbackTransaction();
-      console.log(nextAppState);
     }
   };
   useEffect(() => {
     const backAction = () => {
       (async () => {
         await rollbackTransaction();
-        console.log('123');
+        navigation.goBack();
       })();
       return true;
     };
