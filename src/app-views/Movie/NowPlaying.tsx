@@ -89,16 +89,18 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
         )}
         <View style={styles.container}>
           {listNowPlaying.length > 0 ? (
-            
-            listNowPlaying.filter(_ => _.Movie_Name.toLowerCase().includes(searchText.toLowerCase()))
-            .map((movie) => (
-              <MovieItem
-                key={movie.Movie_Id}
-                film={movie}
-                direction="column"
-                navigation={navigation}
-              />
-            ))
+            listNowPlaying
+              .filter((_) =>
+                _.Movie_Name.toLowerCase().includes(searchText.toLowerCase()),
+              )
+              .map((movie) => (
+                <MovieItem
+                  key={movie.Movie_Id}
+                  film={movie}
+                  direction="column"
+                  navigation={navigation}
+                />
+              ))
           ) : (
             <Text style={{ color: colors.whiteText }}>
               {t(
@@ -131,7 +133,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     backgroundColor: 'black',
-    paddingBottom: 75,
   },
 });
 

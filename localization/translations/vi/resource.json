@@ -76,7 +76,7 @@
   "movie.coming-soon": "Sắp công chiếu",
   "messages": {
     "error": {
-      "password": "Mật khẩu mới bắt buộc dài 6 ký tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự số",
+      "password": "Mật khẩu tối thiểu 6 ký tự",
       "confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
       "duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
       "wrong-password": "Sai mật khẩu",
@@ -98,7 +98,7 @@
     "new-password": "Mật khẩu mới",
     "confirm-password": "Xác nhận mật khẩu"
   },
-  "messages.error.password": "Mật khẩu mới bắt buộc dài 6 ký tự, chứa ít nhất 1 chữ hoa, 1 chữ thường và 1 ký tự số",
+  "messages.error.password": "Mật khẩu mới tối thiểu 6 ký tự",
   "messages.error.confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
   "messages.success.update.password": "Mật khẩu của bạn đã được cập nhật!",
   "messages.error.duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",

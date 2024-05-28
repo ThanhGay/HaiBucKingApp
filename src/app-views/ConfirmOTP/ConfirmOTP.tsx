@@ -21,10 +21,8 @@ const ConfirmOTP: React.FC<
   const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const inputs = useRef<TextInput[]>(Array(6).fill(null));
 
-   const { isResetPassWord } = useAppSelector(
-     (state) => state.authState,
-   );
-  const dispatch = useAppDispatch()
+  const { isResetPassWord } = useAppSelector((state) => state.authState);
+  const dispatch = useAppDispatch();
 
   const handleChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;

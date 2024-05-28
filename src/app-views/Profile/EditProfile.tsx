@@ -17,7 +17,9 @@ const emailRegex = new RegExp(
 const EditProfile = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
-  const { token, user, isEditingProfile } = useAppSelector((state) => state.authState);
+  const { token, user, isEditingProfile } = useAppSelector(
+    (state) => state.authState,
+  );
   const dispatch = useAppDispatch();
 
   const [edit, setEdit] = useState(false);

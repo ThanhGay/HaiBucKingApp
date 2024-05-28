@@ -75,7 +75,6 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                   />
                   {/* <Badge /> */}
                 </View>
-                <SearchBox type="all" />
                 <ScrollView>
                   <View style={{ gap: 16 }}>
                     <View>
@@ -107,25 +106,6 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
                               film={movie}
                               navigation={navigation}
                             />
-                          </View>
-                        ))}
-                      </ScrollView>
-                    </View>
-
-                    <View>
-                      <ContentBox
-                        title={t('home.title.part-3', 'Movie News')}
-                      />
-                      <ScrollView horizontal>
-                        {listNews.map((item) => (
-                          <View
-                            key={item.key}
-                            style={{
-                              paddingHorizontal: 8,
-                              marginVertical: 24,
-                            }}
-                          >
-                            <NewsItem post={item} />
                           </View>
                         ))}
                       </ScrollView>

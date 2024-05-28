@@ -16,7 +16,8 @@ const dateRegex = new RegExp(
   'g',
 );
 const passwordRegex = new RegExp(
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+  // /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+  /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,}$/,
   'gm',
 );
 
@@ -61,11 +62,11 @@ const Signup: React.FC<{ navigation: NavigationProp<any> }> = ({
   };
 
   const validatePassword = (str: string) => {
-    setValidPassword(passwordRegex.test(str));
+    setValidPassword(str.length > 5);
     setErrorMessage(
       t(
         'messages.error.password',
-        'Your password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number',
+        'Your password must be at least 6 characters long',
       ),
     );
   };

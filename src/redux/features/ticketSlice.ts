@@ -4,6 +4,7 @@ import {
   apiCreateTransaction,
   apiGetListTicket,
   apiGetReservedSeat,
+  apiSaveInvoice,
 } from '@/api/ticket';
 
 export interface TicketState {
@@ -28,6 +29,26 @@ export const getListTicket = createAsyncThunk(
   'ticker/getListTicket',
   async (args: { token: string }) => {
     const res = await apiGetListTicket(args);
+    return res.data;
+  },
+);
+
+export const saveInvoice = createAsyncThunk(
+  'ticker/saveInvoice',
+  async (args: {
+    token: string;
+    invoiceId: number;
+    invoiceDate: string;
+    movieName: string;
+    duration: number;
+    category: string;
+    poster: string;
+    startTime: string;
+    roomId: string;
+    seatId: string;
+    price: number;
+  }) => {
+    const res = await apiSaveInvoice(args);
     return res.data;
   },
 );
@@ -72,7 +93,11 @@ export const ticketSlice = createSlice({
       state.bookingTicket.invoiceId = action.payload;
     },
     setInvoiceDate: (state, action: PayloadAction<string>) => {
-      state.bookingTicket.invoiceDate = action.payload;
+      const _date = action.payload
+        .replaceAll('-', '/')
+        .replace('T', ' ')
+        .replace('Z', '');
+      state.bookingTicket.invoiceDate = _date;
     },
     setMovieId: (state, action: PayloadAction<string>) => {
       state.bookingTicket.movieId = action.payload;
@@ -128,6 +153,17 @@ export const ticketSlice = createSlice({
         state.isLoading = false;
       })
 
+      .addCase(saveInvoice.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(saveInvoice.fulfilled, (state) => {
+        console.log('save to db');
+        state.isLoading = false;
+      })
+      .addCase(saveInvoice.rejected, (state) => {
+        state.isLoading = false;
+      })
+
       .addCase(getReservedSeat.pending, (state, action: PayloadAction<any>) => {
         state.isLoading = true;
       })
@@ -155,8 +191,11 @@ export const ticketSlice = createSlice({
       .addCase(
         createTransaction.fulfilled,
         (state, action: PayloadAction<any>) => {
+          const _date = action.payload.InvoiceDate.replaceAll('-', '/')
+            .replace('T', ' ')
+            .replace('Z', '');
           state.bookingTicket.invoiceId = action.payload.Invoice_Id;
-          state.bookingTicket.invoiceDate = action.payload.InvoiceDate;
+          state.bookingTicket.invoiceDate = _date;
           state.bookingTicket.amount = action.payload.TotalAmount;
           state.detailTransaction = action.payload;
           state.isLoading = false;

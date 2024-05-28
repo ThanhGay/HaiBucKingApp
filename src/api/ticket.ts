@@ -72,35 +72,35 @@ export const apiGetInvoiceMoney = (args: {
 };
 
 // hoàn tất đặt vé (lưu vào database)
-// export const apiSaveInvoice = (args: {
-//   token: string;
-//   invoiceId: number;
-//   invoiceDate: string;
-//   movieName: string;
-//   duration: number;
-//   category: string;
-//   poster: string;
-//   startTime: string;
-//   roomId: string;
-//   seatId: string;
-//   price: number;
-// }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
-//   const { token } = args;
-//   const form = JSON.stringify({
-//     Invoice_Id: args.invoiceId,
-//     InvoiceDate: args.invoiceDate,
-//     Movie_Name: args.movieName,
-//     Duration: args.duration,
-//     CategoryList: args.category,
-//     Poster: args.poster,
-//     StartTime: args.startTime,
-//     Room_Id: args.roomId,
-//     Seat_Id: args.seatId,
-//     Price: args.price,
-//   });
-//   const url = `${Ticket_URL}/save-invoice`;
-//   return postWithToken({ url, data: form, token });
-// };
+export const apiSaveInvoice = (args: {
+  token: string;
+  invoiceId: number;
+  invoiceDate: string;
+  movieName: string;
+  duration: number;
+  category: string;
+  poster: string;
+  startTime: string;
+  roomId: string;
+  seatId: string;
+  price: number;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token } = args;
+  const form = JSON.stringify({
+    Invoice_Id: args.invoiceId,
+    InvoiceDate: args.invoiceDate,
+    Movie_Name: args.movieName,
+    Duration: args.duration,
+    CategoryList: args.category,
+    Poster: args.poster,
+    StartTime: args.startTime,
+    Room_Id: args.roomId,
+    Seat_Id: args.seatId,
+    Price: args.price,
+  });
+  const url = `${Ticket_URL}/save-invoice`;
+  return postWithToken({ url, data: form, token });
+};
 
 // lấy danh sách ghế đã đặt theo thời gian lịch chiếu
 export const apiGetReservedSeat = async (args: {

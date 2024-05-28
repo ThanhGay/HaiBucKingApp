@@ -51,7 +51,7 @@
   },
   "messages": {
     "error": {
-      "password": "Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number",
+      "password": "Your password must be at least 6 characters long",
       "confirm-password": "Your password and confirm password do not match",
       "duplicate-password": "The new password and current password match",
       "wrong-password": "Your password is incorrect",
@@ -165,7 +165,7 @@
   "movie.detail.actor": "Actor",
   "movie.now-playing": "Now playing",
   "movie.coming-soon": "Coming soon",
-  "messages.error.password": "Your new password must be at least 6 characters long and contain at least 1 uppercase letter, 1 lowercase letter, and 1 number",
+  "messages.error.password": "Your new password must be at least 6 characters long",
   "messages.error.confirm-password": "Your password and confirm password do not match",
   "messages.success.update.password": "Your password is updated!",
   "messages.error.duplicate-password": "The new password and current password match",

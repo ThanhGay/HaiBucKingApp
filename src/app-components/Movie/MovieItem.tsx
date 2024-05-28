@@ -18,7 +18,7 @@ const MovieItem: React.FC<
   const dispatch = useAppDispatch();
   const seeDetail = async () => {
     dispatch(getDetailMovie({ movieId: film?.Movie_Id }));
-    dispatch(getShowTimesMovie({movieId: film?.Movie_Id}));
+    dispatch(getShowTimesMovie({ movieId: film?.Movie_Id }));
     navigation.navigate('DetailMovie', { movieId: film?.Movie_Id });
   };
   const basicInfo = [

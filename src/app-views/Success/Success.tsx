@@ -7,8 +7,8 @@ import DetailTicket from '@app-components/DetailTicket';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
-import { useAppDispatch } from '@/redux/hooks';
-import { addTicket } from '@/redux/features/ticketSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { addTicket, saveInvoice } from '@/redux/features/ticketSlice';
 
 interface SuccessProps {
   route: any;
@@ -19,12 +19,45 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
   route,
 }) => {
   const { t } = useTranslation();
+  const { token } = useAppSelector((state) => state.authState);
+  const { bookingTicket, isLoading } = useAppSelector(
+    (state) => state.ticketState,
+  );
   const ticket = route.params?.ticket;
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(addTicket(ticket));
   }, [dispatch, ticket]);
+
+  const handleTick = async ({
+    invoice,
+    token,
+  }: {
+    invoice: any;
+    token: string;
+  }) => {
+    dispatch(
+      saveInvoice({
+        token,
+        invoiceId: invoice.invoiceId,
+        invoiceDate: invoice.invoiceDate,
+        movieName: invoice.movieName,
+        duration: invoice.duration,
+        category: invoice.categories,
+        poster: invoice.poster,
+        startTime: invoice.showtime,
+        roomId: invoice.room,
+        seatId: invoice.seats.toString().replaceAll(',', ', '),
+        price: invoice.amount,
+      }),
+    );
+
+    if (!isLoading) {
+      navigation.navigate('Ticket');
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.black }}>
@@ -32,9 +65,12 @@ const Success: React.FC<SuccessProps & { navigation: NavigationProp<any> }> = ({
         <Title
           title={t('success.title', 'Success')}
           rightIcon={
-            <Image style={{ width: 40, height: 40 }} source={require('@assets/icons/tick.png')} />
+            <Image
+              style={{ width: 40, height: 40 }}
+              source={require('@assets/icons/tick.png')}
+            />
           }
-          onPressRight={() => navigation.navigate('Ticket')}
+          onPressRight={() => handleTick({ invoice: bookingTicket, token })}
         />
       </View>
       <View style={{ flex: 1 }}>

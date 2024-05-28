@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
+  Alert,
 } from 'react-native';
 import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
 import colors from '@/utils/colors';
 
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { apiGetCategory, apiPostMovie } from '@/api/admin';
+import { getComingSoon, getNowPlaying } from '@/redux/features/movieSlice';
 
 const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   const [choose, setChoose] = useState(false);
@@ -48,6 +50,7 @@ const Categori = ({ data, onPress }: { data: any; onPress: () => void }) => {
   );
 };
 function AddMovie() {
+  const dispatch = useAppDispatch();
   const { token } = useAppSelector((state) => state.authState);
   // put
   const [movieId, setMovieId] = useState('');
@@ -130,9 +133,23 @@ function AddMovie() {
     console.log(dataRes);
 
     if (dataRes.status) {
-      console.log('1', dataRes.msg);
+      setMovieId('');
+      setMovieName('');
+      setDuration(0);
+      setCensorship(0);
+      setLanguage('');
+      setPoster('');
+      setDescription('');
+      setRelease('');
+      setExpiration('');
+      Category_Id = [];
+      Alert.alert('Notice', dataRes.msg);
+
+      // load lại list
+      dispatch(getNowPlaying());
+      dispatch(getComingSoon());
     } else {
-      console.log('0', dataRes.error);
+      Alert.alert('Notice', dataRes.msg);
     }
   };
 
@@ -175,6 +192,7 @@ function AddMovie() {
           <TextInput
             style={{ fontSize: 18, color: colors.whiteText }}
             placeholder="Movie Id"
+            value={movieId}
             placeholderTextColor={colors.grayText}
             onChangeText={(text) => {
               setMovieId(text);
@@ -192,6 +210,7 @@ function AddMovie() {
           <TextInput
             style={{ fontSize: 18, color: colors.whiteText }}
             placeholder="Movie Name"
+            value={movieName}
             placeholderTextColor={colors.grayText}
             onChangeText={(text) => {
               setMovieName(text);
@@ -249,6 +268,7 @@ function AddMovie() {
             <TextInput
               style={{ color: colors.whiteText, fontSize: 18 }}
               placeholder="Language"
+              value={language}
               placeholderTextColor={colors.grayText}
               onChangeText={(text) => {
                 setLanguage(text);
@@ -306,13 +326,13 @@ function AddMovie() {
           min={getFormatedDate(new Date(), 'YYYY/MM/DD')}
           handleChange={handleChangeRelease}
           handleComfirn={handleConfirmRelease}
-        ></ModalDate>
+        />
         <ModalDate
           open={openExpiration}
           min={release}
           handleChange={handleChangeExpiration}
           handleComfirn={handleConfirmExpiration}
-        ></ModalDate>
+        />
       </View>
       {/* Poster */}
       <View
@@ -321,11 +341,12 @@ function AddMovie() {
         <TextInput
           style={{ color: colors.whiteText, fontSize: 18 }}
           placeholder="Poster"
+          value={poster}
           placeholderTextColor={colors.grayText}
           onChangeText={(text) => {
             setPoster(text);
           }}
-        ></TextInput>
+        />
       </View>
       <View
         style={{ borderWidth: 1, borderColor: colors.whiteText, marginTop: 20 }}
@@ -337,13 +358,14 @@ function AddMovie() {
             textAlignVertical: 'top',
           }}
           placeholder="Description"
+          value={description}
           placeholderTextColor={colors.grayText}
           multiline={true}
           numberOfLines={6}
           onChangeText={(text) => {
             setDescription(text);
           }}
-        ></TextInput>
+        />
       </View>
       {/* Flatlist */}
       <FlatList
@@ -354,7 +376,7 @@ function AddMovie() {
         )}
         keyExtractor={(item, index) => index.toString()}
         numColumns={3}
-      ></FlatList>
+      />
       <StatusBar backgroundColor={colors.black} barStyle="light-content" />
       <View
         style={{

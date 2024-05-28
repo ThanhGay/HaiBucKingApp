@@ -53,12 +53,10 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { token } = useAppSelector((state) => state.authState);
   const { bookingTicket } = useAppSelector((state) => state.ticketState);
-  const dispatch = useAppDispatch();
 
   const [activeMethod, setActiveMethod] = useState<number>(-1);
-  const seat_Ids = bookingTicket.seats.toString().replace(',', ', ');
+  const seat_Ids = bookingTicket.seats.toString().replaceAll(',', ', ');
 
   console.log('Transaction in invoiceId', bookingTicket.invoiceId);
 
@@ -70,8 +68,10 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     Categories: bookingTicket.categories,
     Poster: bookingTicket.poster,
   };
+
   const mapTicket = {
-    StartTime: bookingTicket.showtime.replaceAll('/', '-').replaceAll(' ', 'T'),
+    Date: bookingTicket.showtime.split(' ')[0].replaceAll('/', '-'),
+    Time: bookingTicket.showtime.split(' ')[1],
     Movie_Name: bookingTicket.movieName,
     Movie_Id: bookingTicket.movieId,
     Poster: bookingTicket.poster,
@@ -100,6 +100,8 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     if (dataRes.status) {
       console.log('rollback success', bookingTicket.invoiceId);
       navigation.goBack();
+    } else {
+      console.log('not found transaction');
     }
   };
 

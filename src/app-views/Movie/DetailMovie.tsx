@@ -34,9 +34,8 @@ const DetailMovie: React.FC<
 > = ({ navigation, route }) => {
   const { t } = useTranslation();
   const movieId = route.params.movieId;
-  const { detailMovie, isLoading, listShowTimesMovie, isLoadSchedule } = useAppSelector(
-    (state) => state.movieState,
-  );
+  const { detailMovie, isLoading, listShowTimesMovie, isLoadSchedule } =
+    useAppSelector((state) => state.movieState);
   const dispatch = useAppDispatch();
 
   const infomationData = [
@@ -66,7 +65,7 @@ const DetailMovie: React.FC<
   };
   return (
     <>
-      {(isLoading || isLoadSchedule) ? (
+      {isLoading || isLoadSchedule ? (
         <ActivityIndicator
           style={{ height: '100%' }}
           size={'large'}

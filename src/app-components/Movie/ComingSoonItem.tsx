@@ -20,7 +20,7 @@ const ComingSoonItem: React.FC<
     dispatch(getShowTimesMovie({ movieId: film?.Movie_Id }));
     navigation.navigate('DetailMovie', { movieId: film.Movie_Id });
   };
-  
+
   const basicInfo = [
     {
       key: 1,

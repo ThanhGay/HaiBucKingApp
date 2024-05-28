@@ -9,28 +9,21 @@ interface DetailTicketProps {
 }
 
 const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
-  const splitIndex = ticket.StartTime.indexOf('T');
-  const mapTicket = {
-    ...ticket,
-    Date: ticket.StartTime.slice(0, splitIndex),
-    Time: ticket.StartTime.slice(splitIndex + 1, splitIndex + 6),
-  };
-
   return (
     <View style={styles.container}>
       {/* Description Movie */}
       <View style={{ flexDirection: 'row' }}>
         <Image
           source={
-            mapTicket?.Poster
-              ? { uri: mapTicket.Poster }
+            ticket?.Poster
+              ? { uri: ticket.Poster }
               : require('@assets/images/movie-4.png')
           }
           alt="poster"
           style={styles.poster}
         />
         <View style={styles.rightContainer}>
-          <Text style={styles.title}>{mapTicket?.Movie_Name}</Text>
+          <Text style={styles.title}>{ticket?.Movie_Name}</Text>
           <View style={{ flexDirection: 'column', gap: 4 }}>
             <View style={styles.row}>
               <Image
@@ -40,9 +33,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
                 width={16}
                 style={styles.icon_S}
               />
-              <Text style={styles.text}>
-                {convert_Time(mapTicket?.Duration)}
-              </Text>
+              <Text style={styles.text}>{convert_Time(ticket?.Duration)}</Text>
             </View>
             <View style={styles.row}>
               <Image
@@ -52,7 +43,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
                 width={16}
                 style={styles.icon_S}
               />
-              <Text style={styles.text}>{mapTicket?.CategoryList}</Text>
+              <Text style={styles.text}>{ticket?.CategoryList}</Text>
             </View>
           </View>
         </View>
@@ -79,9 +70,9 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
           />
           <View>
             <Text style={[styles.text, { marginBottom: 8 }]}>
-              {mapTicket?.Time}
+              {ticket?.Time}
             </Text>
-            <Text style={styles.text}>{formatDate(mapTicket?.Date)}</Text>
+            <Text style={styles.text}>{formatDate(ticket?.Date)}</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
@@ -92,9 +83,9 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
           />
           <View>
             <Text style={[styles.text, { marginBottom: 8 }]}>
-              Section {mapTicket?.Room_Id}
+              Section {ticket?.Room_Id}
             </Text>
-            <Text style={styles.text}>Seat {mapTicket?.Seat_Id}</Text>
+            <Text style={styles.text}>Seat {ticket?.Seat_Id}</Text>
           </View>
         </View>
       </View>
@@ -118,7 +109,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
           />
           <View>
             <Text style={{ ...styles.text, fontSize: 16, fontWeight: '700' }}>
-              {mapTicket?.Price}d
+              {ticket?.Price}d
             </Text>
           </View>
         </View>
@@ -166,7 +157,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
             height: 100,
           }}
         />
-        <Text style={styles.text}>Oder ID: {mapTicket?.Invoice_Id}</Text>
+        <Text style={styles.text}>Oder ID: {ticket?.Invoice_Id}</Text>
       </View>
     </View>
   );

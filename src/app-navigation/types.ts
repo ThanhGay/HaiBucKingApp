@@ -1,4 +1,4 @@
-import  Success from '@/app-views/Success/Success';
+import Success from '@/app-views/Success/Success';
 import FirstScreen from '@app-views/FirstScreen/FirstScreen';
 import Splash from '@app-views/Splash/Splash';
 import Home from '@app-views/Home/Home';

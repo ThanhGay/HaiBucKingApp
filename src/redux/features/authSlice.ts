@@ -188,14 +188,20 @@ export const authSlice = createSlice({
       .addCase(authChangePassword.pending, (state, action) => {
         state.isChangingPassWord = true;
       })
-      .addCase(authChangePassword.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isChangingPassWord = false;
-        state.message = action.payload.msg;
-      })
-      .addCase(authChangePassword.rejected, (state, action: PayloadAction<any>) => {
-        state.isChangingPassWord = false;
-        state.message = action.payload.msg;
-      })
+      .addCase(
+        authChangePassword.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isChangingPassWord = false;
+          state.message = action.payload.msg;
+        },
+      )
+      .addCase(
+        authChangePassword.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isChangingPassWord = false;
+          state.message = action.payload.msg;
+        },
+      )
       .addCase(resetPassword.pending, (state, action) => {
         state.isResetPassWord = true;
       })
