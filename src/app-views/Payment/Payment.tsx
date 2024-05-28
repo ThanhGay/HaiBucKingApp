@@ -19,7 +19,6 @@ import { styles } from '@/component/styles';
 import colors from '@/utils/colors';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { activeTransaction } from '@/redux/features/ticketSlice';
 import { apiActiveTransaction } from '@/api/ticket';
 
 const paymentMethod = [
@@ -54,11 +53,8 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const [loadTracsaction, setLoadTransaction] = useState(true)
   const { token } = useAppSelector((state) => state.authState);
-  const { bookingTicket, statusTransaction } = useAppSelector(
-    (state) => state.ticketState,
-  );
+  const { bookingTicket } = useAppSelector((state) => state.ticketState);
   const dispatch = useAppDispatch();
 
   const [activeMethod, setActiveMethod] = useState<number>(-1);
@@ -92,7 +88,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       const dataRes = await apiActiveTransaction({ decision: 1 });
       if (dataRes.status) {
         console.log('commit success', bookingTicket.invoiceId);
-        navigation.navigate('Success',{ ticket: mapTicket });
+        navigation.navigate('Success', { ticket: mapTicket });
       }
     } else {
       (() => Alert.alert('Warning', 'Please choose your payment method'))();
@@ -123,6 +119,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
       await rollbackTransaction();
     }
   };
+
   useEffect(() => {
     const backAction = () => {
       (async () => {

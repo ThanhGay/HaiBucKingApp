@@ -43,7 +43,7 @@
     },
     "now-playing": "Now playing",
     "coming-soon": "Coming soon",
-    "no-show": "Tạm không có suất chiếu của phim này",
+    "no-show": "There are currently no screenings of this movie",
     "no-movie": {
       "coming": "There are currently no upcoming movies",
       "playing": "There are currently no playing movies"
@@ -55,7 +55,7 @@
       "confirm-password": "Your password and confirm password do not match",
       "duplicate-password": "The new password and current password match",
       "wrong-password": "Your password is incorrect",
-      "not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
+      "not-choose-seat": "Please select seat",
       "email": "Your email is not in the correct format",
       "phone": "Your phone number must be 10 digits",
       "birthday": "Your birthday is not in the format YYYY/MM/DD"
@@ -111,7 +111,8 @@
   },
   "select-seat": {
     "title": "Select Seat",
-    "choose-date": "Select Date & Time"
+    "choose-date": "Select Date & Time",
+    "guide": "Please choose date, choose time and choose your seat"
   },
   "sign-in": {
     "title": "Sign in",
@@ -133,7 +134,7 @@
     "detail": {
       "show-note": "Show this QR code to the ticket counter to receive your ticket"
     },
-    "no-ticket": "Hiện chưa có vé nào được đặt"
+    "no-ticket": "You don't book any ticket yet"
   },
   "enter-username": {
     "title": "Enter Username",
@@ -198,8 +199,8 @@
   "profile.to-admin": "To Admin Management",
   "profile.sign-out": "Sign out",
   "select-seat.title": "Select Seat",
-  "messages.error.not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
-  "movie.no-show": "Tạm không có suất chiếu của phim này",
+  "messages.error.not-choose-seat": "Please select seat",
+  "movie.no-show": "There are currently no screenings of this movie",
   "select-seat.choose-date": "Select Date & Time",
   "buttons.confirm-selection": "Confirm Selection",
   "sign-in.title": "Sign in",
@@ -213,7 +214,7 @@
   "messages.error.birthday": "Your birthday is not in the format YYYY/MM/DD",
   "ticket.title": "My ticket",
   "ticket.detail.show-note": "Show this QR code to the ticket counter to receive your ticket",
-  "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
+  "ticket.no-ticket": "You don't book any tickets yet",
   "enter-username.title": "Enter Username",
   "enter-username.note": "Latin characters, no emoji/symbols",
   "buttons.done": "Done",
@@ -243,5 +244,6 @@
   "bottom-tab.home": "Home",
   "bottom-tab.ticket": "Ticket",
   "bottom-tab.movie": "Movie",
-  "bottom-tab.profile": "Profile"
+  "bottom-tab.profile": "Profile",
+  "select-seat.guide": "Please choose date, choose time and choose your seat"
 }
