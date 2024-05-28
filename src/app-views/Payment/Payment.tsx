@@ -110,13 +110,14 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
   const handleAppStateChange = async (nextAppState: any) => {
     if (nextAppState === 'background' || nextAppState === 'inactive') {
       await rollbackTransaction();
+      console.log(nextAppState);
     }
   };
   useEffect(() => {
     const backAction = () => {
       (async () => {
         await rollbackTransaction();
-        navigation.goBack();
+        console.log('123');
       })();
       return true;
     };

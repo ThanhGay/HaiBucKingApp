@@ -54,7 +54,7 @@ const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
     navigation.navigate('Splash');
   };
   const onPressNavigateToAdminStack = () => {
-    navigation.navigate('NavigationAdmin');
+    navigation.navigate('MovieAdmin');
   };
   return (
     <View style={styles.container}>

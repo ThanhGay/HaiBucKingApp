@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
+  Image,
   RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
@@ -34,9 +36,35 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
     // console.log(getListNowPlaying());
   }, []);
 
+  //
+
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+
+  const handleScroll = useCallback(
+    (event: { nativeEvent: { contentOffset: { y: any } } }) => {
+      if (event.nativeEvent) {
+        const yOffset = event.nativeEvent.contentOffset.y;
+        if (yOffset > 200) {
+          // Change 200 to the desired threshold
+          setShowScrollToTop(true);
+        } else {
+          setShowScrollToTop(false);
+        }
+      }
+    },
+    [],
+  );
+  const scrollToTop = () => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ x: 0, y: 0, animated: true });
+    }
+  };
+
   return (
     <View>
       <ScrollView
+        ref={scrollViewRef}
         contentContainerStyle={{
           flexGrow: 1,
           justifyContent: 'center',
@@ -45,6 +73,8 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       >
         {listNowPlaying.length > 0 && <SearchBox type="movie" />}
         <View style={styles.container}>
@@ -67,6 +97,17 @@ const NowPlaying: React.FC<{ navigation: NavigationProp<any> }> = ({
           )}
         </View>
       </ScrollView>
+      {showScrollToTop && (
+        <TouchableOpacity
+          onPress={scrollToTop}
+          style={{ position: 'absolute', bottom: 10, right: 20 }}
+        >
+          <Image
+            style={{ height: 64, width: 64, tintColor: 'green' }}
+            source={require('@assets/icons/backtop.png')}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

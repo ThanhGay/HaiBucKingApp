@@ -19,6 +19,12 @@ import {
   Payment,
   Forgotpassword,
   ChangePassword,
+
+  //Admin
+  CategoryAdmin,
+  MovieAdmin,
+  MovieShowAdmin,
+  ReportAdmin,
 } from './types';
 import Success from '@/app-views/Success/Success';
 import NavigationAdmin from './NavigationAdmin';
@@ -73,7 +79,13 @@ const NavigationContainer = () => {
         <MainStack.Screen name="ForgotPassword" component={Forgotpassword} />
         <MainStack.Screen name="ChangePassword" component={ChangePassword} />
         <MainStack.Screen name="Success" component={Success} />
-        <MainStack.Screen name="NavigationAdmin" component={NavigationAdmin} />
+
+        {/* Admin */}
+        <MainStack.Screen name="MovieAdmin" component={MovieAdmin} />
+        <MainStack.Screen name="MovieShowAdmin" component={MovieShowAdmin} />
+        <MainStack.Screen name="ReportAdmin" component={ReportAdmin} />
+        <MainStack.Screen name="CategoryAdmin" component={CategoryAdmin} />
+        {/* <MainStack.Screen name="NavigationAdmin" component={NavigationAdmin} /> */}
       </MainStack.Navigator>
     </ReactNavigationContainer>
   );
