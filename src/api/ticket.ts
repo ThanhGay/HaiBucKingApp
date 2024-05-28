@@ -122,6 +122,16 @@ export const apiGetReservedSeat = async (args: {
   return data ?? {};
 };
 
+//
+export const apiGetNotification = async (args: {
+  token: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const url = `${Ticket_URL}/notification`;
+  return getWithToken({url, token: args.token})
+  
+
+};
+
 export const apiCreateTransaction = async (args: {
   token: string;
   startTime: string;
