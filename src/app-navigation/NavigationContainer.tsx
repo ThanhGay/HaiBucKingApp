@@ -19,6 +19,7 @@ import {
   Payment,
   Forgotpassword,
   ChangePassword,
+  Success,
 
   //Admin
   CategoryAdmin,
@@ -26,7 +27,6 @@ import {
   MovieShowAdmin,
   ReportAdmin,
 } from './types';
-import Success from '@/app-views/Success/Success';
 import NavigationAdmin from './NavigationAdmin';
 
 const MainStack = createNativeStackNavigator();

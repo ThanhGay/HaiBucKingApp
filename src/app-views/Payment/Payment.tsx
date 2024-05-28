@@ -74,13 +74,25 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     Categories: bookingTicket.categories,
     Poster: bookingTicket.poster,
   };
+  const mapTicket = {
+    StartTime: bookingTicket.showtime.replaceAll('/', '-').replaceAll(' ', 'T'),
+    Movie_Name: bookingTicket.movieName,
+    Movie_Id: bookingTicket.movieId,
+    Poster: bookingTicket.poster,
+    Duration: bookingTicket.duration,
+    CategoryList: bookingTicket.categories,
+    Room_Id: bookingTicket.room,
+    Seat_Id: bookingTicket.seats.toString(),
+    Price: bookingTicket.amount,
+    Invoice_Id: bookingTicket.invoiceId,
+  };
 
   const commitTransaction = async () => {
     if (activeMethod > 0) {
       const dataRes = await apiActiveTransaction({ decision: 1 });
       if (dataRes.status) {
         console.log('commit success', bookingTicket.invoiceId);
-        navigation.navigate('Success');
+        navigation.navigate('Success',{ ticket: mapTicket });
       }
     } else {
       (() => Alert.alert('Warning', 'Please choose your payment method'))();
@@ -115,7 +127,7 @@ const Payment: React.FC<{ navigation: NavigationProp<any> }> = ({
     const backAction = () => {
       (async () => {
         await rollbackTransaction();
-        navigation.goBack();
+        // navigation.goBack();
       })();
       return true;
     };
