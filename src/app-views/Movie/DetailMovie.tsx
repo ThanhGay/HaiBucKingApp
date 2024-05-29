@@ -24,6 +24,7 @@ import { Button, Avatar_Name } from '@app-components';
 import colors from '@/utils/colors';
 import { convertTime } from '@/utils/hooks';
 import { ActivityIndicator } from 'react-native';
+import YoutubePlayer from '@app-components/YoutubePlayer';
 
 interface DetailMovieProps {
   route: any;
@@ -32,6 +33,7 @@ interface DetailMovieProps {
 const DetailMovie: React.FC<
   DetailMovieProps & { navigation: NavigationProp<any> }
 > = ({ navigation, route }) => {
+
   const { t } = useTranslation();
   const movieId = route.params.movieId;
   const { detailMovie, isLoading, listShowTimesMovie, isLoadSchedule } =
@@ -151,6 +153,8 @@ const BubbleBox = ({
   duration: any;
   release: any;
 }) => {
+  
+  const [ytb, setYtb] = useState(false);
   const { t } = useTranslation();
   return (
     <View style={styles.box}>
@@ -244,7 +248,7 @@ const BubbleBox = ({
               />
             </View>
 
-            <View
+            <TouchableOpacity
               style={{
                 paddingVertical: 8,
                 paddingHorizontal: 12,
@@ -256,6 +260,7 @@ const BubbleBox = ({
                 flexDirection: 'row',
                 gap: 8,
               }}
+              onPress={() => setYtb(true)}
             >
               <Image
                 source={require('@assets/icons/play.png')}
@@ -265,6 +270,9 @@ const BubbleBox = ({
               <Text style={{ color: colors.grayText }}>
                 {t('movie.detail.watch-traler', 'Watch trailer')}
               </Text>
+            </TouchableOpacity>
+            <View>
+              {ytb && <YoutubePlayer />}
             </View>
           </View>
         </View>
