@@ -91,6 +91,11 @@ const Profile: React.FC<{ navigation: NavigationProp<any> }> = ({
           title={t('profile.change-password', 'Change password')}
           onPress={() => navigation.navigate('ChangePassword')}
         />
+        <BoxProfile
+          link={require('@/assets/icons/cart.png')}
+          title={t('profile.history', 'History booking')}
+          onPress={() => navigation.navigate('History')}
+        />
         {user.Role_Id && (
           <BoxProfile
             link={require('@/assets/icons/admin-settings.png')}

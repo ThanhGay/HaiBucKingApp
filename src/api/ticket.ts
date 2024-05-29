@@ -13,6 +13,14 @@ export const apiGetListTicket = (args: {
   return getWithToken({ url, token });
 };
 
+export const apiGetTicketNotUse = (args: {
+  token: string;
+}): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
+  const { token } = args;
+  const url = `${Ticket_URL}/my-tickets-not-use`;
+  return getWithToken({ url, token });
+};
+
 // tạo id hóa đơn
 // export const apiCreateInvoice = (args: {
 //   token: string;
@@ -127,9 +135,7 @@ export const apiGetNotification = async (args: {
   token: string;
 }): Promise<{ status: boolean; data: Array<any>; msg: string }> => {
   const url = `${Ticket_URL}/notification`;
-  return getWithToken({url, token: args.token})
-  
-
+  return getWithToken({ url, token: args.token });
 };
 
 export const apiCreateTransaction = async (args: {

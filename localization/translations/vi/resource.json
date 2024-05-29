@@ -1,47 +1,86 @@
 {
+  "language": {
+    "en": "Tiếng Anh",
+    "vi": "Tiếng Việt",
+    "title": "Ngôn ngữ"
+  },
+  "modal-language": {
+    "title": "Chọn ngôn ngữ",
+    "subtitle": "Bạn muốn sử dụng ngôn ngữ nào?"
+  },
+  "use": "Dùng",
+  "language.en": "Tiếng Anh",
+  "language.vi": "Tiếng Việt",
+  "modal-language.title": "Chọn ngôn ngữ",
+  "modal-language.subtitle": "Bạn muốn sử dụng ngôn ngữ nào?",
+  "bottom-tab": {
+    "home": "Trang chủ",
+    "ticket": "Vé",
+    "movie": "Phim",
+    "profile": "Tài khoản"
+  },
+  "bottom-tab.home": "Trang chủ",
+  "bottom-tab.ticket": "Vé",
+  "bottom-tab.movie": "Phim",
+  "bottom-tab.profile": "Tài khoản",
   "confirm-otp": {
-    "title": "Xác nhận OTP",
-    "message": "Bạn phải nhập mã OTP được gửi đến số điện thoại đã đăng ký "
+    "title": "Xác thực OTP",
+    "message": "Vui lòng nhập mã OTP đã được gửi đến máy của bạn"
   },
   "buttons": {
     "continue": "Tiếp tục",
     "save": "Lưu",
-    "confirm-selection": "Xác nhận đặt",
+    "confirm-selection": "Xác nhận",
     "login": "Đăng nhập",
-    "done": "Hoàn tất"
+    "done": "Hoàn thành"
   },
-  "confirm-otp.title": "Xác nhận OTP",
-  "confirm-otp.message": "Bạn phải nhập mã OTP được gửi đến số điện thoại đã đăng ký ",
+  "confirm-otp.title": "Xác thực OTP",
+  "confirm-otp.message": "Vui lòng nhập mã OTP đã được gửi đến máy của bạn",
   "buttons.continue": "Tiếp tục",
   "first": {
     "hello": "HaiBucKing xin chào!",
-    "hi": "Tận hưởng bộ phim ưa thích của bạn",
+    "hi": "Tận hưởng bộ phim yêu thích của bạn",
     "signin": "Đăng nhập",
     "signup": "Đăng ký"
   },
-  "rule": "Bằng việc đăng nhập hoặc đăng ký, bạn đã chấp nhận các Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
+  "rule": "Bằng việc đăng nhập hoặc đăng ký, bạn đã đồng ý với các Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi",
+  "language.title": "Ngôn ngữ",
   "first.hello": "HaiBucKing xin chào!",
-  "first.hi": "Tận hưởng bộ phim ưa thích của bạn",
+  "first.hi": "Tận hưởng bộ phim yêu thích của bạn",
   "first.signin": "Đăng nhập",
   "first.signup": "Đăng ký",
+  "history": {
+    "title": "Lịch sử giao dịch"
+  },
+  "ticket": {
+    "no-ticket": "Hiện chưa có vé nào được đặt",
+    "title": "Vé của tôi",
+    "detail": {
+      "show-note": "Đưa mã QR này cho nhân viên để nhận vé"
+    }
+  },
+  "history.title": "Lịch sử giao dịch",
+  "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
+  "see-all": "Xem tất cả",
   "home": {
     "hi": "Xin chào",
     "welcome": "Chào mừng quay lại",
     "title": {
       "part-1": "Đang công chiếu",
-      "part-2": "Sắp công chiếu",
-      "part-3": "Tin tức"
+      "part-2": "Sắp công chiếu"
     }
   },
-  "see-all": "Xem tất cả",
   "home.hi": "Xin chào",
   "home.welcome": "Chào mừng quay lại",
   "home.title.part-1": "Đang công chiếu",
   "home.title.part-2": "Sắp công chiếu",
-  "home.title.part-3": "Tin tức",
   "movie": {
+    "no-movie": {
+      "coming": "Hiện không có phim nào sắp công chiếu",
+      "playing": "Hiện không có phim nào đang công chiếu"
+    },
     "detail": {
-      "genre": "Thể loại phim",
+      "genre": "Thể loại",
       "censorship": "Độ tuổi",
       "language": "Ngôn ngữ",
       "submit-btn": "Đặt vé",
@@ -53,15 +92,13 @@
       "director": "Đạo diễn",
       "actor": "Diễn viên"
     },
-    "now-playing": "Đang công chiếu",
-    "coming-soon": "Sắp công chiếu",
-    "no-show": "Tạm không có suất chiếu của phim này",
-    "no-movie": {
-      "coming": "Hiện không có phim nào sắp công chiếu",
-      "playing": "Hiện không có phim nào đang công chiếu"
-    }
+    "now-playing": "Đang chiếu",
+    "coming-soon": "Sắp chiếu",
+    "no-show": "Tạm không có suất chiếu của phim này"
   },
-  "movie.detail.genre": "Thể loại phim",
+  "movie.no-movie.coming": "Hiện không có phim nào sắp công chiếu",
+  "update": "Updating...",
+  "movie.detail.genre": "Thể loại",
   "movie.detail.censorship": "Độ tuổi",
   "movie.detail.language": "Ngôn ngữ",
   "movie.detail.submit-btn": "Đặt vé",
@@ -72,39 +109,38 @@
   "movie.detail.hide": "Ẩn bớt",
   "movie.detail.director": "Đạo diễn",
   "movie.detail.actor": "Diễn viên",
-  "movie.now-playing": "Đang công chiếu",
-  "movie.coming-soon": "Sắp công chiếu",
+  "movie.now-playing": "Đang chiếu",
+  "movie.coming-soon": "Sắp chiếu",
+  "movie.no-movie.playing": "Hiện không có phim nào đang công chiếu",
   "messages": {
     "error": {
       "password": "Mật khẩu tối thiểu 6 ký tự",
-      "confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
       "duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
-      "wrong-password": "Sai mật khẩu",
+      "confirm-password": "Mật khẩu và xác nhận mật khẩu không trùng nhau",
       "not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
       "email": "Email không đúng định dạng",
-      "phone": "Số điện thoại phải có 10 chữ số",
-      "birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD"
+      "phone": "Điện thoại phải có 10 số",
+      "birthday": "Ngày sinh không đúng định dạng YYYY/MM/DD"
     },
     "success": {
       "update": {
-        "password": "Mật khẩu của bạn đã được cập nhật!",
+        "password": "Mật khẩu đã được cập nhật!",
         "information": "Thông tin của bạn đã được cập nhật!"
       }
     }
   },
   "change-password": {
     "title": "Đổi mật khẩu",
-    "your-password": "Mật khẩu hiện tại",
+    "your-password": "Mật khẩu",
     "new-password": "Mật khẩu mới",
     "confirm-password": "Xác nhận mật khẩu"
   },
-  "messages.error.password": "Mật khẩu mới tối thiểu 6 ký tự",
-  "messages.error.confirm-password": "Mật khẩu và xác nhận mật khẩu không khớp",
-  "messages.success.update.password": "Mật khẩu của bạn đã được cập nhật!",
+  "messages.error.password": "Mật khẩu tối thiểu 6 ký tự",
+  "messages.success.update.password": "Mật khẩu đã được cập nhật!",
   "messages.error.duplicate-password": "Mật khẩu mới trùng với mật khẩu hiện tại",
-  "messages.error.wrong-password": "Sai mật khẩu",
+  "messages.error.confirm-password": "Mật khẩu và xác nhận mật khẩu không trùng nhau",
   "change-password.title": "Đổi mật khẩu",
-  "change-password.your-password": "Mật khẩu hiện tại",
+  "change-password.your-password": "Mật khẩu",
   "change-password.new-password": "Mật khẩu mới",
   "change-password.confirm-password": "Xác nhận mật khẩu",
   "buttons.save": "Lưu",
@@ -118,11 +154,6 @@
   "reset-password.phone": "Số điện thoại",
   "reset-password.new-password": "Mật khẩu mới",
   "reset-password.confirm-password": "Xác nhận mật khẩu",
-  "notice": {
-    "warning": "Chú ý",
-    "choose-payment": "Hãy chọn phương thức thanh toán",
-    "notice": "Thông báo"
-  },
   "payment": {
     "title": "Thanh toán",
     "seat": "Ghế",
@@ -130,13 +161,14 @@
     "method": "Phương thức thanh toán",
     "countdown": "Hoàn thành thanh toán sau:"
   },
-  "notice.warning": "Chú ý",
-  "notice.choose-payment": "Hãy chọn phương thức thanh toán",
   "payment.title": "Thanh toán",
   "payment.seat": "Ghế",
   "payment.total": "Tổng tiền",
   "payment.method": "Phương thức thanh toán",
   "payment.countdown": "Hoàn thành thanh toán sau:",
+  "notice": {
+    "notice": "Thông báo"
+  },
   "profile": {
     "edit": {
       "title": {
@@ -144,7 +176,7 @@
         "detail": "Thông tin chi tiết"
       },
       "input": {
-        "name": "Tên",
+        "name": "Họ tên",
         "phone": "Số điện thoại",
         "email": "E-mail",
         "birthday": "Ngày sinh (YYYY/MM/DD)"
@@ -152,31 +184,34 @@
     },
     "change-language": "Ngôn ngữ",
     "change-password": "Đổi mật khẩu",
-    "to-admin": "Chuyển sang giao diện Admin",
+    "history": "Lịch sử giao dịch",
+    "to-admin": "Sang giao diện Admin",
     "sign-out": "Đăng xuất"
   },
   "notice.notice": "Thông báo",
   "messages.success.update.information": "Thông tin của bạn đã được cập nhật!",
   "profile.edit.title.edit": "Chỉnh sửa thông tin",
   "profile.edit.title.detail": "Thông tin chi tiết",
-  "profile.edit.input.name": "Tên",
+  "profile.edit.input.name": "Họ tên",
   "profile.edit.input.phone": "Số điện thoại",
   "profile.edit.input.email": "E-mail",
   "profile.edit.input.birthday": "Ngày sinh (YYYY/MM/DD)",
   "profile.change-language": "Ngôn ngữ",
   "profile.change-password": "Đổi mật khẩu",
-  "profile.to-admin": "Chuyển sang giao diện Admin",
+  "profile.history": "Lịch sử giao dịch",
+  "profile.to-admin": "Sang giao diện Admin",
   "profile.sign-out": "Đăng xuất",
   "select-seat": {
-    "title": "Chọn ghế ngồi",
-    "choose-date": "Chọn ngày và giờ",
-    "guide": "Hãy chọn ngày, chọn giờ, và chọn ghế để tận hưởng bộ phim"
+    "title": "Chọn ghế",
+    "guide": "Vui lòng chọn ngày -> chọn giờ -> chọn ghế để tận hưởng phim",
+    "choose-date": "Chọn ngày và giờ"
   },
-  "select-seat.title": "Chọn ghế ngồi",
+  "select-seat.title": "Chọn ghế",
+  "select-seat.guide": "Vui lòng chọn ngày -> chọn giờ -> chọn ghế để tận hưởng phim",
   "messages.error.not-choose-seat": "Xin vui lòng chọn ghế mà bạn mong muốn",
   "movie.no-show": "Tạm không có suất chiếu của phim này",
   "select-seat.choose-date": "Chọn ngày và giờ",
-  "buttons.confirm-selection": "Xác nhận đặt",
+  "buttons.confirm-selection": "Xác nhận",
   "sign-in": {
     "title": "Đăng nhập",
     "phone": "Số điện thoại",
@@ -194,56 +229,25 @@
     "title": "Đăng ký"
   },
   "messages.error.email": "Email không đúng định dạng",
-  "messages.error.phone": "Số điện thoại phải có 10 chữ số",
-  "messages.error.birthday": "Ngày sinh phải theo định dạng YYYY/MM/DD",
+  "messages.error.phone": "Điện thoại phải có 10 số",
+  "messages.error.birthday": "Ngày sinh không đúng định dạng YYYY/MM/DD",
   "sign-up.title": "Đăng ký",
   "success": {
     "title": "Thành công"
   },
   "success.title": "Thành công",
-  "ticket": {
-    "title": "Vé của tôi",
-    "detail": {
-      "show-note": "Đưa mã QR này cho nhân viên bán vé để nhận vé của bạn"
-    },
-    "no-ticket": "Hiện chưa có vé nào được đặt"
-  },
   "ticket.title": "Vé của tôi",
-  "ticket.detail.show-note": "Đưa mã QR này cho nhân viên bán vé để nhận vé của bạn",
-  "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
+  "ticket.detail.show-note": "Đưa mã QR này cho nhân viên để nhận vé",
   "enter-username": {
-    "title": "Nhập tên",
-    "note": "Là chữ cái latin, không emojy/symbol"
+    "title": "Nhập tên người dùng",
+    "note": "Latin characters, no emoji/symbols"
   },
-  "enter-username.title": "Nhập tên",
-  "enter-username.note": "Là chữ cái latin, không emojy/symbol",
-  "buttons.done": "Hoàn tất",
-  "language": {
-    "title": "Ngôn ngữ",
-    "en": "Tiếng Anh",
-    "vi": "Tiếng Việt"
-  },
-  "modal-language": {
-    "title": "Chọn ngôn ngữ",
-    "subtitle": "Bạn muốn sử dụng ngôn ngữ nào?"
-  },
-  "use": "Dùng",
-  "language.title": "Ngôn ngữ",
-  "language.en": "Tiếng Anh",
-  "language.vi": "Tiếng Việt",
-  "modal-language.title": "Chọn ngôn ngữ",
-  "modal-language.subtitle": "Bạn muốn sử dụng ngôn ngữ nào?",
-  "movie.no-movie.coming": "Hiện không có phim nào sắp công chiếu",
-  "movie.no-movie.playing": "Hiện không có phim nào đang công chiếu",
-  "bottom-tab": {
-    "home": "Trang chủ",
-    "ticket": "Vé",
-    "movie": "Phim",
-    "profile": "Tài khoản"
-  },
-  "bottom-tab.home": "Trang chủ",
-  "bottom-tab.ticket": "Vé",
-  "bottom-tab.movie": "Phim",
-  "bottom-tab.profile": "Tài khoản",
-  "select-seat.guide": "Hãy chọn ngày, chọn giờ, và chọn ghế để tận hưởng bộ phim"
+  "enter-username.title": "Nhập tên người dùng",
+  "enter-username.note": "Latin characters, no emoji/symbols",
+  "buttons.done": "Hoàn thành",
+  "notification": {
+    "part-1": "Đừng quên bạn có lịch xem ",
+    "part-2": " vào lúc ",
+    "part-3": " ngày "
+  }
 }

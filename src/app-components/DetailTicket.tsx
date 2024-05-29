@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
 import colors from '@/utils/colors';
@@ -9,6 +10,7 @@ interface DetailTicketProps {
 }
 
 const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       {/* Description Movie */}
@@ -140,7 +142,7 @@ const DetailTicket: React.FC<DetailTicketProps> = ({ ticket }) => {
           />
           <View style={{ marginRight: 30 }}>
             <Text numberOfLines={2} style={styles.text}>
-              Show this QR code to the ticket counter to receive your ticket
+              {t('ticket.detail.show-note')}
             </Text>
           </View>
         </View>

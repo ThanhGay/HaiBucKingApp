@@ -56,9 +56,9 @@ export const authRegister = createAsyncThunk(
 );
 
 export const authLogout = createAsyncThunk('auth/logout', async () => {
-  const response = await apiSignOut();
   await deleteToken();
   await deleteUser();
+  const response = await apiSignOut();
   console.log(await getToken());
   console.log(await getUser());
   return response;

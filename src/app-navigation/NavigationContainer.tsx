@@ -20,6 +20,7 @@ import {
   Forgotpassword,
   ChangePassword,
   Success,
+  History,
 
   //Admin
   CategoryAdmin,
@@ -30,29 +31,6 @@ import {
 import NavigationAdmin from './NavigationAdmin';
 
 const MainStack = createNativeStackNavigator();
-const Stack = createNativeStackNavigator();
-
-const StackContainer = (props: { route: any }) => {
-  const key_screen = props.route.params.keyScreen;
-  const stack_screen = AppScreens[key_screen];
-
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {stack_screen.screens.map((key: any) => {
-        const value = stack_screen.screens[key];
-
-        return (
-          <Stack.Screen
-            key={value.name}
-            name={value.name}
-            component={value.component}
-            options={value.options}
-          />
-        );
-      })}
-    </Stack.Navigator>
-  );
-};
 
 const NavigationContainer = () => {
   return (
@@ -79,6 +57,7 @@ const NavigationContainer = () => {
         <MainStack.Screen name="ForgotPassword" component={Forgotpassword} />
         <MainStack.Screen name="ChangePassword" component={ChangePassword} />
         <MainStack.Screen name="Success" component={Success} />
+        <MainStack.Screen name="History" component={History} />
 
         {/* Admin */}
         <MainStack.Screen name="MovieAdmin" component={MovieAdmin} />

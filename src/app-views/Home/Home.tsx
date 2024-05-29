@@ -23,9 +23,8 @@ import ContentBox from './components/ContentBox';
 import colors from '@/utils/colors';
 import { apiGetNotification } from '@/api/ticket';
 import NotificationItem from './components/NotificationItem';
-import  ModalNotification  from '@/app-modals/ModalNotification';
+import ModalNotification from '@/app-modals/ModalNotification';
 //
-
 
 const listNews = [
   {
@@ -49,11 +48,9 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
     (state) => state.movieState,
   );
 
-  const {listNotification} = useAppSelector((state) => state.userState);
+  const { listNotification } = useAppSelector((state) => state.userState);
 
   const [showModal, setShowModal] = useState(false);
-
-
 
   return (
     <>
@@ -143,7 +140,11 @@ const Home: React.FC<{ navigation: NavigationProp<any> }> = ({
             </View>
           </ScrollView>
           <BottomTab />
-        <ModalNotification open = {showModal} onClose={() => setShowModal(false)} data = {listNotification} />
+          <ModalNotification
+            open={showModal}
+            onClose={() => setShowModal(false)}
+            data={listNotification}
+          />
         </View>
       )}
     </>

@@ -3,33 +3,36 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { NavigationProp } from '@react-navigation/native';
 
-import BottomTab from '@/app-navigation/BottomTabs/BottomTab';
-import TicketItem from './TicketItem';
+import TicketItem from '@app-views/Ticket/TicketItem';
 import { Title } from '@/component/Component';
 import colors from '@/utils/colors';
 
 import { useAppSelector } from '@/redux/hooks';
 
-const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
+const History: React.FC<{ navigation: NavigationProp<any> }> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { listTicketNotUse } = useAppSelector((state) => state.ticketState);
+  const { listTicket } = useAppSelector((state) => state.ticketState);
 
   return (
     <View style={styles.container}>
-      <Title title={t('ticket.title')} />
+      <Title
+        title={t('history.title', 'History')}
+        leftIcon
+        onPressLeft={() => navigation.goBack()}
+      />
 
       <View style={{ flex: 9, gap: 16 }}>
-        {listTicketNotUse.length > 0 ? (
-          listTicketNotUse.length > 4 ? (
+        {listTicket.length > 0 ? (
+          listTicket.length > 4 ? (
             <ScrollView>
-              {listTicketNotUse.map((item, idx) => (
+              {listTicket.map((item, idx) => (
                 <TicketItem key={idx} ticket={item} navigation={navigation} />
               ))}
             </ScrollView>
           ) : (
-            listTicketNotUse.map((item, idx) => (
+            listTicket.map((item, idx) => (
               <TicketItem key={idx} ticket={item} navigation={navigation} />
             ))
           )
@@ -39,8 +42,6 @@ const Ticket: React.FC<{ navigation: NavigationProp<any> }> = ({
           </Text>
         )}
       </View>
-
-      <BottomTab />
     </View>
   );
 };
@@ -59,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Ticket;
+export default History;

@@ -25,13 +25,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-    .addCase(
-        getListNotification.fulfilled,
-        (state, action: PayloadAction<any>) => {
-            state.listNotification = action.payload;
-        },
-    )
+    builder.addCase(
+      getListNotification.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.listNotification = action.payload;
+      },
+    );
   },
 });
 

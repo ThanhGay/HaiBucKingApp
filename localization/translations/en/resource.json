@@ -1,4 +1,28 @@
 {
+  "language": {
+    "en": "English",
+    "vi": "Vietnamese",
+    "title": "Language"
+  },
+  "modal-language": {
+    "title": "Choose language",
+    "subtitle": "Which language do you want to use?"
+  },
+  "use": "Use",
+  "language.en": "English",
+  "language.vi": "Vietnamese",
+  "modal-language.title": "Choose language",
+  "modal-language.subtitle": "Which language do you want to use?",
+  "bottom-tab": {
+    "home": "Home",
+    "ticket": "Ticket",
+    "movie": "Movie",
+    "profile": "Profile"
+  },
+  "bottom-tab.home": "Home",
+  "bottom-tab.ticket": "Ticket",
+  "bottom-tab.movie": "Movie",
+  "bottom-tab.profile": "Profile",
   "confirm-otp": {
     "title": "Confirm OTP code",
     "message": "You just need to enter the OTP sent to the registered phone number "
@@ -10,6 +34,9 @@
     "login": "Login",
     "done": "Done"
   },
+  "confirm-otp.title": "Confirm OTP code",
+  "confirm-otp.message": "You just need to enter the OTP sent to the registered phone number ",
+  "buttons.continue": "Continue",
   "first": {
     "hello": "HaiBucKing hello!",
     "hi": "Enjoy your favorite movies",
@@ -17,17 +44,41 @@
     "signup": "Sign up"
   },
   "rule": "By sign in or sign up, you argee to our Terms of Service and Privacy Policy",
+  "language.title": "Language",
+  "first.hello": "HaiBucKing hello!",
+  "first.hi": "Enjoy your favorite movies",
+  "first.signin": "Sign in",
+  "first.signup": "Sign up",
+  "history": {
+    "title": "History"
+  },
+  "ticket": {
+    "no-ticket": "Hiện chưa có vé nào được đặt",
+    "title": "My ticket",
+    "detail": {
+      "show-note": "Show this QR code to the ticket counter to receive your ticket"
+    }
+  },
+  "history.title": "History",
+  "ticket.no-ticket": "Hiện chưa có vé nào được đặt",
+  "see-all": "See all",
   "home": {
     "hi": "Hi",
     "welcome": "Welcome back",
     "title": {
       "part-1": "Now playing",
-      "part-2": "Coming soon",
-      "part-3": "Movie News"
+      "part-2": "Coming soon"
     }
   },
-  "see-all": "See all",
+  "home.hi": "Hi",
+  "home.welcome": "Welcome back",
+  "home.title.part-1": "Now playing",
+  "home.title.part-2": "Coming soon",
   "movie": {
+    "no-movie": {
+      "coming": "There are currently no upcoming movies",
+      "playing": "There are currently no playing movies"
+    },
     "detail": {
       "genre": "Movie genre",
       "censorship": "Censorship",
@@ -43,19 +94,30 @@
     },
     "now-playing": "Now playing",
     "coming-soon": "Coming soon",
-    "no-show": "There are currently no screenings of this movie",
-    "no-movie": {
-      "coming": "There are currently no upcoming movies",
-      "playing": "There are currently no playing movies"
-    }
+    "no-show": "Don't have any show yet"
   },
+  "movie.no-movie.coming": "There are currently no upcoming movies",
+  "update": "Updating...",
+  "movie.detail.genre": "Movie genre",
+  "movie.detail.censorship": "Censorship",
+  "movie.detail.language": "Language",
+  "movie.detail.submit-btn": "Booking",
+  "movie.detail.review": "Review",
+  "movie.detail.watch-traler": "Watch trailer",
+  "movie.detail.storyline": "Storyline",
+  "movie.detail.see": "See more",
+  "movie.detail.hide": "Hide less",
+  "movie.detail.director": "Director",
+  "movie.detail.actor": "Actor",
+  "movie.now-playing": "Now playing",
+  "movie.coming-soon": "Coming soon",
+  "movie.no-movie.playing": "There are currently no playing movies",
   "messages": {
     "error": {
       "password": "Your password must be at least 6 characters long",
-      "confirm-password": "Your password and confirm password do not match",
       "duplicate-password": "The new password and current password match",
-      "wrong-password": "Your password is incorrect",
-      "not-choose-seat": "Please select seat",
+      "confirm-password": "Your password and confirm password do not match",
+      "not-choose-seat": "Please choose seat",
       "email": "Your email is not in the correct format",
       "phone": "Your phone number must be 10 digits",
       "birthday": "Your birthday is not in the format YYYY/MM/DD"
@@ -73,23 +135,39 @@
     "new-password": "New password",
     "confirm-password": "Confirm new password"
   },
+  "messages.error.password": "Your password must be at least 6 characters long",
+  "messages.success.update.password": "Your password is updated!",
+  "messages.error.duplicate-password": "The new password and current password match",
+  "messages.error.confirm-password": "Your password and confirm password do not match",
+  "change-password.title": "Change Password",
+  "change-password.your-password": "Your password",
+  "change-password.new-password": "New password",
+  "change-password.confirm-password": "Confirm new password",
+  "buttons.save": "Save",
   "reset-password": {
     "title": "Reset password",
     "phone": "Phone number",
     "new-password": "New password",
     "confirm-password": "Confirm new password"
   },
-  "notice": {
-    "warning": "Warning",
-    "choose-payment": "Please choose your payment method",
-    "notice": "Notice"
-  },
+  "reset-password.title": "Reset password",
+  "reset-password.phone": "Phone number",
+  "reset-password.new-password": "New password",
+  "reset-password.confirm-password": "Confirm new password",
   "payment": {
     "title": "Payment",
     "seat": "Seat",
     "total": "Total",
     "method": "Payment Method",
     "countdown": "Complete your payment in"
+  },
+  "payment.title": "Payment",
+  "payment.seat": "Seat",
+  "payment.total": "Total",
+  "payment.method": "Payment Method",
+  "payment.countdown": "Complete your payment in",
+  "notice": {
+    "notice": "Notice"
   },
   "profile": {
     "edit": {
@@ -106,86 +184,10 @@
     },
     "change-language": "Change language",
     "change-password": "Change password",
+    "history": "History booking",
     "to-admin": "To Admin Management",
     "sign-out": "Sign out"
   },
-  "select-seat": {
-    "title": "Select Seat",
-    "choose-date": "Select Date & Time",
-    "guide": "Please choose date, choose time and choose your seat"
-  },
-  "sign-in": {
-    "title": "Sign in",
-    "phone": "Phone number",
-    "password": "Password",
-    "remember": "Remember me",
-    "forgot": "Forgot Password?"
-  },
-  "sign-up": {
-    "title": "Sign up"
-  },
-  "sign-up.title": "Sign up",
-  "success": {
-    "title": "Success"
-  },
-  "success.title": "Success",
-  "ticket": {
-    "title": "My ticket",
-    "detail": {
-      "show-note": "Show this QR code to the ticket counter to receive your ticket"
-    },
-    "no-ticket": "You don't book any ticket yet"
-  },
-  "enter-username": {
-    "title": "Enter Username",
-    "note": "Latin characters, no emoji/symbols"
-  },
-  "confirm-otp.title": "Confirm OTP code",
-  "confirm-otp.message": "You just need to enter the OTP sent to the registered phone number ",
-  "buttons.continue": "Continue",
-  "first.hello": "HaiBucKing hello!",
-  "first.hi": "Enjoy your favorite movies",
-  "first.signin": "Sign in",
-  "first.signup": "Sign up",
-  "home.hi": "Hi",
-  "home.welcome": "Welcome back",
-  "home.title.part-1": "Now playing",
-  "home.title.part-2": "Coming soon",
-  "home.title.part-3": "Movie News",
-  "movie.detail.genre": "Movie genre",
-  "movie.detail.censorship": "Censorship",
-  "movie.detail.language": "Language",
-  "movie.detail.submit-btn": "Booking",
-  "movie.detail.review": "Review",
-  "movie.detail.watch-traler": "Watch trailer",
-  "movie.detail.storyline": "Storyline",
-  "movie.detail.see": "See more",
-  "movie.detail.hide": "Hide less",
-  "movie.detail.director": "Director",
-  "movie.detail.actor": "Actor",
-  "movie.now-playing": "Now playing",
-  "movie.coming-soon": "Coming soon",
-  "messages.error.password": "Your new password must be at least 6 characters long",
-  "messages.error.confirm-password": "Your password and confirm password do not match",
-  "messages.success.update.password": "Your password is updated!",
-  "messages.error.duplicate-password": "The new password and current password match",
-  "messages.error.wrong-password": "Your password is incorrect",
-  "change-password.title": "Change Password",
-  "change-password.your-password": "Your password",
-  "change-password.new-password": "New password",
-  "change-password.confirm-password": "Confirm new password",
-  "buttons.save": "Save",
-  "reset-password.title": "Reset password",
-  "reset-password.phone": "Phone number",
-  "reset-password.new-password": "New password",
-  "reset-password.confirm-password": "Confirm new password",
-  "notice.warning": "Warning",
-  "notice.choose-payment": "Please choose your payment method",
-  "payment.title": "Payment",
-  "payment.seat": "Seat",
-  "payment.total": "Total",
-  "payment.method": "Payment Method",
-  "payment.countdown": "Complete your payment in",
   "notice.notice": "Notice",
   "messages.success.update.information": "Your information is updated!",
   "profile.edit.title.edit": "Edit profile",
@@ -196,54 +198,56 @@
   "profile.edit.input.birthday": "Your birthday (YYYY/MM/DD)",
   "profile.change-language": "Change language",
   "profile.change-password": "Change password",
+  "profile.history": "History booking",
   "profile.to-admin": "To Admin Management",
   "profile.sign-out": "Sign out",
+  "select-seat": {
+    "title": "Select Seat",
+    "guide": "Please choose date, choose time and choose your seat",
+    "choose-date": "Select Date & Time"
+  },
   "select-seat.title": "Select Seat",
-  "messages.error.not-choose-seat": "Please select seat",
-  "movie.no-show": "There are currently no screenings of this movie",
+  "select-seat.guide": "Please choose date, choose time and choose your seat",
+  "messages.error.not-choose-seat": "Please choose seat",
+  "movie.no-show": "Don't have any show yet",
   "select-seat.choose-date": "Select Date & Time",
   "buttons.confirm-selection": "Confirm Selection",
+  "sign-in": {
+    "title": "Sign in",
+    "phone": "Phone number",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot Password?"
+  },
   "sign-in.title": "Sign in",
   "sign-in.phone": "Phone number",
   "sign-in.password": "Password",
   "sign-in.remember": "Remember me",
   "sign-in.forgot": "Forgot Password?",
   "buttons.login": "Login",
+  "sign-up": {
+    "title": "Sign up"
+  },
   "messages.error.email": "Your email is not in the correct format",
   "messages.error.phone": "Your phone number must be 10 digits",
   "messages.error.birthday": "Your birthday is not in the format YYYY/MM/DD",
+  "sign-up.title": "Sign up",
+  "success": {
+    "title": "Success"
+  },
+  "success.title": "Success",
   "ticket.title": "My ticket",
   "ticket.detail.show-note": "Show this QR code to the ticket counter to receive your ticket",
-  "ticket.no-ticket": "You don't book any tickets yet",
+  "enter-username": {
+    "title": "Enter Username",
+    "note": "Latin characters, no emoji/symbols"
+  },
   "enter-username.title": "Enter Username",
   "enter-username.note": "Latin characters, no emoji/symbols",
   "buttons.done": "Done",
-  "language": {
-    "en": "English",
-    "vi": "Vietnamese",
-    "title": "Language"
-  },
-  "modal-language": {
-    "title": "Choose language",
-    "subtitle": "Which language do you want to use?"
-  },
-  "use": "Use",
-  "language.en": "English",
-  "language.vi": "Vietnamese",
-  "modal-language.title": "Choose language",
-  "modal-language.subtitle": "Which language do you want to use?",
-  "language.title": "Language",
-  "movie.no-movie.coming": "There are currently no upcoming movies",
-  "movie.no-movie.playing": "There are currently no playing movies",
-  "bottom-tab": {
-    "home": "Home",
-    "ticket": "Ticket",
-    "movie": "Movie",
-    "profile": "Profile"
-  },
-  "bottom-tab.home": "Home",
-  "bottom-tab.ticket": "Ticket",
-  "bottom-tab.movie": "Movie",
-  "bottom-tab.profile": "Profile",
-  "select-seat.guide": "Please choose date, choose time and choose your seat"
+  "notification": {
+    "part-1": "Don't forget you are scheduled to watch ",
+    "part-2": " at ",
+    "part-3": " on "
+  }
 }

@@ -6,7 +6,10 @@ import {
   getTokenInStorage,
   getUserInStorage,
 } from '@/redux/features/authSlice';
-import { getListTicket } from '@/redux/features/ticketSlice';
+import {
+  getListTicket,
+  getListTicketNotUse,
+} from '@/redux/features/ticketSlice';
 import { getListNotification } from '@/redux/features/userSlice';
 import { getComingSoon, getNowPlaying } from '@/redux/features/movieSlice';
 
@@ -24,6 +27,7 @@ const LayoutState: React.FC<LayoutStateProps> = ({ children }) => {
       dispatch(getComingSoon());
       dispatch(getListNotification({ token }));
       dispatch(getListTicket({ token }));
+      dispatch(getListTicketNotUse({ token }));
     } else {
       dispatch(getUserInStorage());
       dispatch(getTokenInStorage());

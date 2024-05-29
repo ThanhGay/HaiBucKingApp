@@ -4,31 +4,31 @@ import {
   apiCreateTransaction,
   apiGetListTicket,
   apiGetReservedSeat,
+  apiGetTicketNotUse,
   apiSaveInvoice,
 } from '@/api/ticket';
 
 export interface TicketState {
   bookingTicket: TicketModel | any;
   listTicket: Array<any> | Array<null>;
+  listTicketNotUse: Array<any>;
   listReservedSeat: Array<any>;
   detailTransaction: any;
   statusTransaction: boolean;
   isLoading: boolean;
 }
 
-const initialState: TicketState = {
-  bookingTicket: {},
-  listTicket: [],
-  listReservedSeat: [],
-  detailTransaction: {},
-  statusTransaction: false,
-  isLoading: true,
-};
-
 export const getListTicket = createAsyncThunk(
   'ticker/getListTicket',
   async (args: { token: string }) => {
     const res = await apiGetListTicket(args);
+    return res.data;
+  },
+);
+export const getListTicketNotUse = createAsyncThunk(
+  'ticker/getListTicketNotUse',
+  async (args: { token: string }) => {
+    const res = await apiGetTicketNotUse(args);
     return res.data;
   },
 );
@@ -81,6 +81,16 @@ export const activeTransaction = createAsyncThunk(
     return res.data;
   },
 );
+
+const initialState: TicketState = {
+  bookingTicket: {},
+  listTicket: [],
+  listTicketNotUse: [],
+  listReservedSeat: [],
+  detailTransaction: {},
+  statusTransaction: false,
+  isLoading: true,
+};
 
 export const ticketSlice = createSlice({
   name: 'ticket',
@@ -152,6 +162,39 @@ export const ticketSlice = createSlice({
       .addCase(getListTicket.rejected, (state, action: PayloadAction<any>) => {
         state.isLoading = false;
       })
+
+      .addCase(
+        getListTicketNotUse.pending,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = true;
+        },
+      )
+      .addCase(
+        getListTicketNotUse.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          const formatListTicket: any[] = [];
+
+          const rtnData = action.payload;
+          rtnData.forEach((element: any) => {
+            const splitIndex = element.StartTime.indexOf('T');
+            const formatTicket = {
+              ...element,
+              Date: element.StartTime.slice(0, splitIndex),
+              Time: element.StartTime.slice(splitIndex + 1, splitIndex + 6),
+            };
+            formatListTicket.push(formatTicket);
+          });
+
+          state.listTicketNotUse = formatListTicket;
+          state.isLoading = false;
+        },
+      )
+      .addCase(
+        getListTicketNotUse.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+        },
+      )
 
       .addCase(saveInvoice.pending, (state) => {
         state.isLoading = true;

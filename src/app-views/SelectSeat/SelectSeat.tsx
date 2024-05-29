@@ -214,10 +214,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
               {
                 <Text style={{ color: 'red' }}>
                   {!reserved
-                    ? t(
-                        'messages.error.not-choose-seat',
-                        'Xin vui lòng chọn ghế mà bạn mong muốn',
-                      )
+                    ? t('messages.error.not-choose-seat', 'Please choose seat')
                     : ''}
                 </Text>
               }
@@ -251,7 +248,7 @@ const SelectSeat: React.FC<{ navigation: NavigationProp<any> }> = ({
           </>
         ) : (
           <Text style={{ color: colors.whiteText, textAlign: 'center' }}>
-            {t('movie.no-show', 'Tạm không có suất chiếu của phim này')}
+            {t('movie.no-show', "Don't have any show yet")}
           </Text>
         )}
       </View>

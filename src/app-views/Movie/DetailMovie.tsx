@@ -315,9 +315,13 @@ const Directors = ({ listDirector }: { listDirector: any }) => {
     <View>
       <Text style={styles.title}>{t('movie.detail.director', 'Director')}</Text>
       <View style={{ flexDirection: 'row', gap: 16 }}>
-        {data.map((item: any) => (
-          <Avatar_Name key={item.key} name={item.name} image={item.image} />
-        ))}
+        {data.length > 0 ? (
+          data.map((item: any) => (
+            <Avatar_Name key={item.key} name={item.name} image={item.image} />
+          ))
+        ) : (
+          <Text style={{ color: 'white' }}>{t('update', 'Updating...')}</Text>
+        )}
       </View>
     </View>
   );
@@ -340,9 +344,13 @@ const Actors = ({ listActor }: { listActor: any }) => {
       <Text style={styles.title}>{t('movie.detail.actor', 'Actor')}</Text>
       <ScrollView horizontal>
         <View style={{ flexDirection: 'row', gap: 16 }}>
-          {data.map((item: any) => (
-            <Avatar_Name key={item.key} name={item.name} image={item.image} />
-          ))}
+          {data.length > 0 ? (
+            data.map((item: any) => (
+              <Avatar_Name key={item.key} name={item.name} image={item.image} />
+            ))
+          ) : (
+            <Text style={{ color: 'white' }}>{t('update', 'Updating...')}</Text>
+          )}
         </View>
       </ScrollView>
     </View>
